@@ -1,14 +1,13 @@
 'use client';
 
-import React, { useState } from 'react';
-import { Box, TextField, Button, Typography, Checkbox, FormControlLabel, InputAdornment, IconButton } from '@mui/material';
+import LoginImg from '@/public/login-img/login.jpg';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { Alert, Box, Button, Checkbox, FormControlLabel, IconButton, InputAdornment, Snackbar, TextField, Typography } from '@mui/material';
+import { useFormik } from 'formik';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import LoginImg from '@/public/login-img/login.jpg'
-import { Snackbar, Alert } from '@mui/material';
+import { useState } from 'react';
 import * as yup from 'yup';
-import { useFormik } from 'formik';
 
 
 const users = [
@@ -90,7 +89,7 @@ const loginSchema = yup.object({
       });
 
       setTimeout(() => {
-        router.replace('/dashboard');
+        router.replace('/');
       }, 1000);
     } else {
       setToast({

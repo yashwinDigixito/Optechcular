@@ -4,6 +4,7 @@ import Navbar from "@/component/navbar/Navbar";
 import Sidebar from "@/component/sidebar/Sidebar";
 import AuthProvider from "@/providers/AuthProvider";
 import Providers from "@/providers/Providers";
+import "./globals.css";
 
 import { usePathname } from "next/navigation";
 
