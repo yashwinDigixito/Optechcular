@@ -1,39 +1,34 @@
 'use client';
 
-import React, { useState } from 'react';
 import Link from 'next/link';
+import React, { useState } from 'react';
 
 import {
+  Box,
+  Collapse,
+  Drawer,
   List,
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  Collapse,
-  Typography,
-  Box,
-  IconButton,
-  Drawer,
   Tooltip,
+  Typography
 } from '@mui/material';
 
 import {
+  MenuBook as BookOpen,
+  CreditCard,
   ExpandLess,
   ExpandMore,
-  ChevronLeft,
-  ChevronRight,
-  Add,
-  Visibility,
-  People as Users,
-  AdminPanelSettings as ShieldCheck,
-  AccountCircle as UserCircle,
-  ShoppingCart,
   Description as FileText,
-  Inventory as Package,
-  AdsClick as Target,
-  CreditCard,
-  MenuBook as BookOpen,
   Layers,
   AdsClick as MousePointer2,
+  Inventory as Package,
+  AdminPanelSettings as ShieldCheck,
+  ShoppingCart,
+  AdsClick as Target,
+  AccountCircle as UserCircle,
+  People as Users
 } from '@mui/icons-material';
 
 
@@ -734,7 +729,7 @@ const SidebarMenu = ({
           );
         })}
       </List>
-    </Box>
+    </Drawer>
   );
 };
 
