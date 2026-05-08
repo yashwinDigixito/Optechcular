@@ -1,172 +1,177 @@
+// components/dashboard/Sidebar.tsx
+
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-
 import {
-    Box,
-    Collapse,
-    Typography,
+  Box,
+  Drawer,
+  List,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Toolbar,
+  Typography,
 } from "@mui/material";
 
-import {
-    ExpandLess,
-    ExpandMore,
-} from "@mui/icons-material";
+import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import AssignmentIcon from "@mui/icons-material/Assignment";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import Inventory2Icon from "@mui/icons-material/Inventory2";
+import LogoutIcon from "@mui/icons-material/Logout";
+import MoneyOffIcon from "@mui/icons-material/MoneyOff";
+import PeopleIcon from "@mui/icons-material/People";
+import PersonIcon from "@mui/icons-material/Person";
+import ReceiptIcon from "@mui/icons-material/Receipt";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import TrackChangesIcon from "@mui/icons-material/TrackChanges";
 
-import { useState } from "react";
+const drawerWidth = 280;
 
-import { COLORS, sidebarMenus } from "@/assets/constants";
+const menuItems = [
+  {
+    name: "Dashboard",
+    icon: <DashboardIcon />,
+  },
+  {
+    name: "Customer Management",
+    icon: <PeopleIcon />,
+  },
+  {
+    name: "Invoice Management",
+    icon: <ReceiptIcon />,
+  },
+  {
+    name: "Purchase Orders",
+    icon: <ShoppingCartIcon />,
+  },
+  {
+    name: "Expense Tracking",
+    icon: <MoneyOffIcon />,
+  },
+  {
+    name: "Ledger Management",
+    icon: <AccountBalanceWalletIcon />,
+  },
+  {
+    name: "Product Management",
+    icon: <Inventory2Icon />,
+  },
+  {
+    name: "Sales Person Target",
+    icon: <TrackChangesIcon />,
+  },
+  {
+    name: "Order Management",
+    icon: <AssignmentIcon />,
+  },
+  {
+    name: "Role Management",
+    icon: <AdminPanelSettingsIcon />,
+  },
+  {
+    name: "User Management",
+    icon: <PersonIcon />,
+  },
+];
 
 export default function Sidebar() {
-  const pathname = usePathname();
-
-  const [openProducts, setOpenProducts] =
-    useState(true);
-
   return (
-    <Box
+    <Drawer
+      variant="permanent"
       sx={{
-        width: 280,
-        minHeight: "100vh",
-        background: COLORS.SECONDARY,
-        color: COLORS.WHITE,
-        p: 3,
+        width: drawerWidth,
+        flexShrink: 0,
+
+        "& .MuiDrawer-paper": {
+          width: drawerWidth,
+          boxSizing: "border-box",
+          background:
+            "linear-gradient(180deg, #071B34 0%, #0B2447 100%)",
+          color: "#fff",
+          border: "none",
+        },
       }}
     >
       {/* Logo */}
+      <Toolbar>
+        <Typography
+          sx={{
+            fontSize: "28px",
+            fontWeight: 700,
+            letterSpacing: 1,
+          }}
+        >
+          OPTECHCULAR
+        </Typography>
+      </Toolbar>
 
-      <Typography
-        variant="h5"
-        sx={{
-          fontWeight: 700,
-          mb: 5,
-        }}
-      >
-        OPTECHULAR
-      </Typography>
-
-      {/* Menus */}
-
-      {sidebarMenus.map((menu) => {
-        const isActive =
-          pathname === menu.path;
-
-        // Normal Menu
-
-        if (menu.path) {
-          return (
-            <Link
-              href={menu.path}
-              key={menu.title}
-            >
-              <Box
-                sx={{
-                  p: 1.5,
-                  mb: 1,
-                  borderRadius: 2,
-                  cursor: "pointer",
-
-                  background: isActive
-                    ? COLORS.PRIMARY
-                    : "transparent",
-
-                  "&:hover": {
-                    background:
-                      COLORS.PRIMARY,
-                  },
-                }}
-              >
-                <Typography>
-                  {menu.title}
-                </Typography>
-              </Box>
-            </Link>
-          );
-        }
-
-        // Product Menu
-
-        return (
-          <Box key={menu.title}>
-            <Box
-              onClick={() =>
-                setOpenProducts(
-                  !openProducts,
-                )
-              }
+      {/* Menu */}
+      <Box sx={{ px: 2, mt: 2, flex: 1 }}>
+        <List>
+          {menuItems.map((item, index) => (
+            <ListItemButton
+              key={index}
               sx={{
-                p: 1.5,
-                borderRadius: 2,
-                cursor: "pointer",
-
-                display: "flex",
-                alignItems: "center",
-                justifyContent:
-                  "space-between",
+                borderRadius: "14px",
+                mb: 1,
+                py: 1.5,
 
                 "&:hover": {
-                  background:
-                    COLORS.PRIMARY,
+                  background: "#2563EB",
                 },
               }}
             >
-              <Typography>
-                {menu.title}
-              </Typography>
+              <ListItemIcon
+                sx={{
+                  color: "#fff",
+                  minWidth: "40px",
+                }}
+              >
+                {item.icon}
+              </ListItemIcon>
 
-              {openProducts ? (
-                <ExpandLess />
-              ) : (
-                <ExpandMore />
-              )}
-            </Box>
+              <ListItemText
+                primary={item.name}
+                sx={{
+                  fontSize: "15px",
+                  fontWeight: 500,
+                }}
+              />
+            </ListItemButton>
+          ))}
+        </List>
+      </Box>
 
-            <Collapse in={openProducts}>
-              {menu.children?.map(
-                (child) => {
-                  const isChildActive =
-                    pathname ===
-                    child.path;
+      {/* Logout */}
+      <Box sx={{ p: 2 }}>
+        <ListItemButton
+          sx={{
+            borderRadius: "14px",
 
-                  return (
-                    <Link
-                      href={child.path}
-                      key={child.title}
-                    >
-                      <Box
-                        sx={{
-                          p: 1.2,
-                          pl: 4,
-                          mt: 1,
-                          borderRadius: 2,
-                          cursor: "pointer",
+            "&:hover": {
+              background: "#EF4444",
+            },
+          }}
+        >
+          <ListItemIcon
+            sx={{
+              color: "#fff",
+              minWidth: "40px",
+            }}
+          >
+            <LogoutIcon />
+          </ListItemIcon>
 
-                          background:
-                            isChildActive
-                              ? COLORS.PRIMARY
-                              : "transparent",
-
-                          "&:hover": {
-                            background:
-                              COLORS.PRIMARY,
-                          },
-                        }}
-                      >
-                        <Typography
-                          variant="body2"
-                        >
-                          {child.title}
-                        </Typography>
-                      </Box>
-                    </Link>
-                  );
-                },
-              )}
-            </Collapse>
-          </Box>
-        );
-      })}
-    </Box>
+          <ListItemText
+            primary="Logout"
+            sx={{
+              fontSize: "15px",
+              fontWeight: 500,
+            }}
+          />
+        </ListItemButton>
+      </Box>
+    </Drawer>
   );
 }

@@ -61,13 +61,25 @@ export interface Category {
   status: string;
 }
 
+export interface OrderItem {
+  id: string;
+  productName: string;
+  qty: number;
+  price: number;
+  tax: number;
+  total: number;
+}
+
 export interface Order {
   id: string;
   orderNo: string;
-  customer: string;
+  customerName: string;
+  email: string;
   salesPerson: string;
-  amount: number;
+  productType: string;
   status: string;
+  orderDate: string;
+  totalAmount: number;
 }
 
 export interface PurchaseOrder {
@@ -110,6 +122,7 @@ export interface RoleData {
 export interface DashboardStat {
   title: string;
   value: string | number;
+  growth:string
 }
 
 export interface ContactLens {
@@ -121,4 +134,16 @@ export interface ContactLens {
   diameter: number;
   material: string;
   mrp: number;
+}
+
+export interface ReportChartData {
+  day: string;
+  value: number;
+}
+
+export interface ReportChartProps {
+  title: string;
+  data: ReportChartData[];
+  color?: string;
+  label:string;
 }

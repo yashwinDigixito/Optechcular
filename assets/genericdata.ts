@@ -1,3 +1,8 @@
+import {
+  DashboardStat,
+  ReportChartData,
+} from "@/assets/types";
+
 export const customers = [
   {
     id: "1",
@@ -128,26 +133,6 @@ export const categories = [
   },
 ];
 
-export const orders = [
-  {
-    id: "1",
-    orderNo: "ORD-1001",
-    customer: "John Doe",
-    salesPerson: "Admin User",
-    amount: 5000,
-    status: "Completed",
-  },
-
-  {
-    id: "2",
-    orderNo: "ORD-1002",
-    customer: "Sarah Smith",
-    salesPerson: "Sales User",
-    amount: 2500,
-    status: "Pending",
-  },
-];
-
 export const purchaseOrders = [
   {
     id: "1",
@@ -239,24 +224,230 @@ export const rolesData = [
   },
 ];
 
-export const dashboardStats = [
+export const dashboardStats: DashboardStat[] = [
   {
     title: "Total Orders",
-    value: 1200,
+    value: "12,486",
+    growth:"+10%",
   },
 
   {
     title: "Total Purchases",
-    value: 500,
+    value: "8,245",
+    growth:"+12%",
   },
 
   {
     title: "Total Sales",
-    value: "₹2,40,000",
+    value: "₹18,75,430",
+    growth:"+12.5%",
+  },
+];
+
+export const orderReportData: ReportChartData[] = [
+  { day: "Mon", value: 1200 },
+  { day: "Tue", value: 1900 },
+  { day: "Wed", value: 1600 },
+  { day: "Thu", value: 2400 },
+  { day: "Fri", value: 2800 },
+  { day: "Sat", value: 2200 },
+  { day: "Sun", value: 1700 },
+];
+
+export const purchaseReportData: ReportChartData[] = [
+  { day: "Mon", value: 900 },
+  { day: "Tue", value: 1500 },
+  { day: "Wed", value: 1300 },
+  { day: "Thu", value: 1800 },
+  { day: "Fri", value: 2100 },
+  { day: "Sat", value: 1900 },
+  { day: "Sun", value: 1400 },
+];
+
+export const salesReturnData = [
+  {
+    month: "Jan",
+    sales: 45000,
+    returns: 4000,
   },
 
   {
-    title: "Total Customers",
-    value: 320,
+    month: "Feb",
+    sales: 52000,
+    returns: 3500,
+  },
+
+  {
+    month: "Mar",
+    sales: 61000,
+    returns: 5000,
+  },
+
+  {
+    month: "Apr",
+    sales: 70000,
+    returns: 4200,
+  },
+
+  {
+    month: "May",
+    sales: 85000,
+    returns: 6000,
+  },
+
+  {
+    month: "Jun",
+    sales: 92000,
+    returns: 5500,
+  },
+];
+
+
+export const orders = [
+  {
+    id: "1",
+    orderNo: "ORD-1001",
+    customerName: "Rahul Sharma",
+    email: "rahul@gmail.com",
+    salesPerson: "Amit",
+    productType: "Frame",
+    status: "Completed",
+    orderDate: "2026-05-08",
+    totalAmount: 24500,
+  },
+
+  {
+    id: "2",
+    orderNo: "ORD-1002",
+    customerName: "Riya Patel",
+    email: "riya@gmail.com",
+    salesPerson: "Suresh",
+    productType: "Contact Lens",
+    status: "Pending",
+    orderDate: "2026-05-07",
+    totalAmount: 12800,
+  },
+
+  {
+    id: "3",
+    orderNo: "ORD-1003",
+    customerName: "Arjun Verma",
+    email: "arjun@gmail.com",
+    salesPerson: "Rohit",
+    productType: "Accessories",
+    status: "Cancelled",
+    orderDate: "2026-05-06",
+    totalAmount: 7200,
+  },
+
+  {
+    id: "4",
+    orderNo: "ORD-1004",
+    customerName: "Sneha Kapoor",
+    email: "sneha@gmail.com",
+    salesPerson: "Vikas",
+    productType: "Frame",
+    status: "Completed",
+    orderDate: "2026-05-05",
+    totalAmount: 31800,
+  },
+
+  {
+    id: "5",
+    orderNo: "ORD-1005",
+    customerName: "Karan Mehta",
+    email: "karan@gmail.com",
+    salesPerson: "Anjali",
+    productType: "Sunglasses",
+    status: "Pending",
+    orderDate: "2026-05-05",
+    totalAmount: 15400,
+  },
+
+  {
+    id: "6",
+    orderNo: "ORD-1006",
+    customerName: "Priya Nair",
+    email: "priya@gmail.com",
+    salesPerson: "Deepak",
+    productType: "Optical Lens",
+    status: "Completed",
+    orderDate: "2026-05-04",
+    totalAmount: 22600,
+  },
+
+  {
+    id: "7",
+    orderNo: "ORD-1007",
+    customerName: "Aditya Singh",
+    email: "aditya@gmail.com",
+    salesPerson: "Rahul",
+    productType: "Accessories",
+    status: "Refunded",
+    orderDate: "2026-05-03",
+    totalAmount: 5400,
+  },
+
+  {
+    id: "8",
+    orderNo: "ORD-1008",
+    customerName: "Neha Joshi",
+    email: "neha@gmail.com",
+    salesPerson: "Sonia",
+    productType: "Contact Lens",
+    status: "Completed",
+    orderDate: "2026-05-03",
+    totalAmount: 19600,
+  },
+
+  {
+    id: "9",
+    orderNo: "ORD-1009",
+    customerName: "Vivek Malhotra",
+    email: "vivek@gmail.com",
+    salesPerson: "Rakesh",
+    productType: "Frame",
+    status: "Pending",
+    orderDate: "2026-05-02",
+    totalAmount: 26700,
+  },
+
+  {
+    id: "10",
+    orderNo: "ORD-1010",
+    customerName: "Aisha Khan",
+    email: "aisha@gmail.com",
+    salesPerson: "Kunal",
+    productType: "Sunglasses",
+    status: "Completed",
+    orderDate: "2026-05-01",
+    totalAmount: 14300,
+  },
+];
+
+export const orderTabs = [
+  {
+    label: "All",
+    color: "#1E293B",
+  },
+
+  {
+    label: "Pending",
+    color: "#D97706",
+  },
+
+  {
+    label: "Completed",
+    color: "#16A34A",
+  },
+
+  {
+    label: "Cancelled",
+    color: "#DC2626",
+  },
+
+  {
+    label: "Refunded",
+    color: "#475569",
   },
 ];
