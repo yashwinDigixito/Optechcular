@@ -1,4 +1,10 @@
+// <<<<<<< HEAD
 "use client";
+import { theme } from "@/theme/theme";
+import { ThemeProvider } from "@mui/material/styles";
+import "./globals.css";
+// =======
+
 
 import Navbar from "@/component/navbar/Navbar";
 import Sidebar from "@/component/sidebar/Sidebar";
@@ -7,6 +13,9 @@ import Providers from "@/providers/Providers";
 import "./globals.css";
 
 import { usePathname } from "next/navigation";
+import SidebarMenu from "@/component/sidebar/Sidebar";
+import { useState } from "react";
+// >>>>>>> e3b8dbbb44b139742569e8d09466f24203900a3d
 
 export default function RootLayout({
   children,
@@ -16,6 +25,12 @@ export default function RootLayout({
   const pathname = usePathname();
 
   const isLoginPage = pathname === "/login";
+  const [collapsed, setCollapsed] =
+    useState(false);
+
+
+
+
 
   return (
     <html lang="en">
@@ -26,7 +41,13 @@ export default function RootLayout({
               children
             ) : (
               <div style={{ display: "flex" }}>
-                <Sidebar />
+                 <SidebarMenu
+                 
+                collapsed={collapsed}
+        setCollapsed={setCollapsed} 
+                 
+                 
+                 />
 
                 <div
                   style={{
@@ -37,7 +58,13 @@ export default function RootLayout({
                     flexDirection: "column",
                   }}
                 >
-                  <Navbar />
+                  <Navbar
+                  
+                  collapsed={collapsed}
+              setCollapsed={setCollapsed}
+                  
+                  
+                  />
 
                   <main
                     style={{

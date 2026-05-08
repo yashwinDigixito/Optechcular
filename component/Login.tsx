@@ -1,3 +1,7 @@
+// <<<<<<< HEAD
+// =======
+// 'use client';
+// >>>>>>> e3b8dbbb44b139742569e8d09466f24203900a3d
 'use client';
 
 import LoginImg from '@/public/login-img/login.jpg';

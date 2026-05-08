@@ -15,8 +15,17 @@ import {
 } from "@mui/icons-material";
 
 import { COLORS } from "@/assets/constants";
+type Props = {
+  collapsed: boolean;
+  setCollapsed: React.Dispatch<
+    React.SetStateAction<boolean>
+  >;
+};
 
-export default function Navbar() {
+const Navbar = ({
+  collapsed,
+  setCollapsed,
+}: Props) => {
   return (
     <Box
       sx={{
@@ -43,7 +52,11 @@ export default function Navbar() {
           gap: 2,
         }}
       >
-        <IconButton>
+        <IconButton
+          onClick={() =>
+            setCollapsed(!collapsed)
+          }
+        >
           <Menu />
         </IconButton>
 
@@ -138,3 +151,5 @@ export default function Navbar() {
     </Box>
   );
 }
+
+export default Navbar;
