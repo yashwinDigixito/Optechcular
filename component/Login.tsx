@@ -156,10 +156,11 @@ const loginSchema = yup.object({
       <Box sx={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <Box sx={{ width: '80%', maxWidth: 400 }}>
           <Typography 
-                variant="h4" 
+                variant="h4"
                 sx={{ 
                     fontWeight: "bold", 
-                    marginBottom: "24px"
+                    marginBottom: "24px",
+                    color: "black",
                     }}
            >Login
            </Typography>
