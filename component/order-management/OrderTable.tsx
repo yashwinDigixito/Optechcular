@@ -160,7 +160,7 @@ export default function OrderTable({
                   <Typography
                     onClick={() =>
                       router.push(
-                        `/orders/${order.id}`
+                        `/orders/view/${order.id}`
                       )
                     }
                     sx={{

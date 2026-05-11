@@ -28,12 +28,12 @@ export default async function OrderViewPage({
     <Box
       sx={{
         width: "100%",
-        height: "100vh",
+        height: "calc(100vh - 70px)",
         overflow: "hidden",
+
         display: "flex",
         justifyContent: "center",
-        alignItems: "flex-start",
-        pt: 3,
+        alignItems: "center",
         px: 2,
       }}
     >

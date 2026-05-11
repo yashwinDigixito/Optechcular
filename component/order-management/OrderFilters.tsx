@@ -5,12 +5,37 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import {
   Box,
   InputAdornment,
-  TextField
+  TextField,
 } from "@mui/material";
 
 import SearchField from "@/component/common/SearchField";
 
-export default function OrderFilters() {
+interface OrderFiltersProps {
+  startDate: string;
+  endDate: string;
+  search: string;
+
+  setStartDate: (
+    value: string
+  ) => void;
+
+  setEndDate: (
+    value: string
+  ) => void;
+
+  setSearch: (
+    value: string
+  ) => void;
+}
+
+export default function OrderFilters({
+  startDate,
+  endDate,
+  search,
+  setStartDate,
+  setEndDate,
+  setSearch,
+}: OrderFiltersProps) {
 
   return (
     <Box
@@ -22,112 +47,134 @@ export default function OrderFilters() {
       }}
     >
       {/* Start Date */}
-              <TextField
-  type="date"
-  label="Start Date"
-  size="small"
-  fullWidth
-  slotProps={{
-    inputLabel: {
-      shrink: true,
-    },
+      <TextField
+        type="date"
+        label="Start Date"
+        size="small"
+        fullWidth
+        value={startDate}
+        onChange={(e) =>
+          setStartDate(
+            e.target.value
+          )
+        }
+        slotProps={{
+          inputLabel: {
+            shrink: true,
+          },
 
-    htmlInput: {
-      sx: {
-        "&::-webkit-calendar-picker-indicator": {
-          opacity: 0,
-          display: "none",
-        },
-      },
-    },
+          htmlInput: {
+            sx: {
+              "&::-webkit-calendar-picker-indicator":
+                {
+                  opacity: 0,
+                  display: "none",
+                },
+            },
+          },
 
-    input: {
-      endAdornment: (
-        <InputAdornment position="end">
-          <CalendarMonthIcon
-            sx={{
-              cursor: "pointer",
-              color: "#64748B",
-            }}
-            onClick={(e) => {
+          input: {
+            endAdornment: (
+              <InputAdornment position="end">
+                <CalendarMonthIcon
+                  sx={{
+                    cursor: "pointer",
+                    color: "#64748B",
+                  }}
+                  onClick={(e) => {
 
-              const input =
-                (
-                  e.currentTarget.closest(
-                    ".MuiFormControl-root"
-                  ) as HTMLElement
-                )?.querySelector(
-                  "input"
-                ) as HTMLInputElement;
+                    const input =
+                      (
+                        e.currentTarget.closest(
+                          ".MuiFormControl-root"
+                        ) as HTMLElement
+                      )?.querySelector(
+                        "input"
+                      ) as HTMLInputElement;
 
-              input.showPicker();
-                }}
-              />
-            </InputAdornment>
-          ),
-        },
-      }}
+                    input.showPicker();
+                  }}
+                />
+              </InputAdornment>
+            ),
+          },
+        }}
         sx={{
           maxWidth: "250px",
 
-          "& .MuiOutlinedInput-root": {
-            borderRadius: "14px",
-            background: "#FFFFFF",
-            height: "54px",
-          },
+          "& .MuiOutlinedInput-root":
+            {
+              borderRadius: "14px",
+              background:
+                "#FFFFFF",
+              height: "54px",
+            },
         }}
       />
 
       {/* End Date */}
       <TextField
-          type="date"
-          label="End Date"
-          size="small"
-          fullWidth
-          slotProps={{
-            inputLabel: {
-              shrink: true,
-            },
-            htmlInput: {
-              sx: {
-                "&::-webkit-calendar-picker-indicator": {
+        type="date"
+        label="End Date"
+        size="small"
+        fullWidth
+        value={endDate}
+        onChange={(e) =>
+          setEndDate(
+            e.target.value
+          )
+        }
+        slotProps={{
+          inputLabel: {
+            shrink: true,
+          },
+
+          htmlInput: {
+            sx: {
+              "&::-webkit-calendar-picker-indicator":
+                {
                   opacity: 0,
                   display: "none",
                 },
-              },
             },
-            input: {
-              endAdornment: (
-                <InputAdornment position="end">
-                  <CalendarMonthIcon
-                    sx={{
-                      cursor: "pointer",
-                      color: "#64748B",
-                    }}
-                    onClick={(e) => {
-                      const input =
-                        (
-                          e.currentTarget.closest(
-                            ".MuiFormControl-root"
-                          ) as HTMLElement
-                        )?.querySelector(
-                          "input"
-                        ) as HTMLInputElement;
-                      input.showPicker();
-                    }}
-                  />
-                </InputAdornment>
-              ),
-            },
-          }}
+          },
+
+          input: {
+            endAdornment: (
+              <InputAdornment position="end">
+                <CalendarMonthIcon
+                  sx={{
+                    cursor: "pointer",
+                    color: "#64748B",
+                  }}
+                  onClick={(e) => {
+
+                    const input =
+                      (
+                        e.currentTarget.closest(
+                          ".MuiFormControl-root"
+                        ) as HTMLElement
+                      )?.querySelector(
+                        "input"
+                      ) as HTMLInputElement;
+
+                    input.showPicker();
+                  }}
+                />
+              </InputAdornment>
+            ),
+          },
+        }}
         sx={{
           maxWidth: "250px",
 
-          "& .MuiOutlinedInput-root": {
-            borderRadius: "14px",
-            background: "#FFFFFF",
-            height: "54px",
-          },
+          "& .MuiOutlinedInput-root":
+            {
+              borderRadius: "14px",
+              background:
+                "#FFFFFF",
+              height: "54px",
+            },
         }}
       />
 
@@ -135,6 +182,8 @@ export default function OrderFilters() {
       <Box sx={{ flex: 1 }}>
         <SearchField
           placeholder="Search customer or order number..."
+          value={search}
+          onChange={setSearch}
         />
       </Box>
     </Box>

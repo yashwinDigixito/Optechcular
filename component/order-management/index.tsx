@@ -27,26 +27,39 @@ export default function OrderManagementPage() {
 
   const router = useRouter();
 
-  const [activeTab, setActiveTab] =
-    useState("All");
+  const [activeTab, setActiveTab] =useState("All");
+
+  const [startDate, setStartDate] =useState("");
+  const [endDate, setEndDate] =useState("");
+
+  const [search, setSearch] =useState("");
 
   const filteredOrders =
-    activeTab === "All"
-      ? orders
-      : orders.filter(
-          (order) =>
-            order.status === activeTab
-        );
+  orders.filter((order) => {
+
+    const matchesTab =activeTab === "All"? true: order.status === activeTab;
+    const orderDate =new Date(order.orderDate);
+    const matchesStart = startDate ? orderDate >=new Date(startDate): true;
+    const matchesEnd = endDate ? orderDate <= new Date(endDate) : true;
+
+    const matchesSearch = search ? order.customerName.toLowerCase().includes( search.toLowerCase())
+          ||
+          order.orderNo.toLowerCase().includes(search.toLowerCase()): true;
+    return (
+      matchesTab &&
+      matchesStart &&
+      matchesEnd &&
+      matchesSearch
+    );
+  });
 
   return (
     <Box
       sx={{
         p: 3,
-        background: "#F1F5F9",
         minHeight: "100vh",
       }}
     >
-      {/* Header */}
       <Box
         sx={{
           display: "flex",
@@ -84,21 +97,21 @@ export default function OrderManagementPage() {
         </Button>
       </Box>
 
-      {/* Main Card */}
       <TableContainerCard>
 
         <Box sx={{ p: 3 }}>
-
-          {/* Tabs */}
           <FilterTabs
             activeTab={activeTab}
             setActiveTab={setActiveTab}
           />
-
-          {/* Filters */}
-          <OrderFilters />
-
-          {/* Results */}
+          <OrderFilters
+          startDate={startDate}
+          endDate={endDate}
+          setStartDate={setStartDate}
+          setEndDate={setEndDate}
+          search={search}
+          setSearch={setSearch}
+          />
           <Typography
             sx={{
               mt: 3,
@@ -110,8 +123,6 @@ export default function OrderManagementPage() {
           </Typography>
 
         </Box>
-
-        {/* Table */}
         <OrderTable
           orders={filteredOrders}
         />

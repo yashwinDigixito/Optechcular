@@ -1,5 +1,3 @@
-// components/dashboard/ReportChart.tsx
-
 "use client";
 
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
@@ -12,13 +10,13 @@ import {
 } from "@mui/material";
 
 import {
-  Area,
-  AreaChart,
   CartesianGrid,
+  Line,
+  LineChart,
   ResponsiveContainer,
   Tooltip,
   XAxis,
-  YAxis,
+  YAxis
 } from "recharts";
 
 import { ReportChartProps } from "@/assets/types";
@@ -30,11 +28,10 @@ export default function ReportChart({
   label,
 }: ReportChartProps) {
 
-
   return (
     <Card
       sx={{
-        mt:2,
+        mt: 2,
         p: 2,
         borderRadius: "22px",
         background: "#FFFFFF",
@@ -124,17 +121,17 @@ export default function ReportChart({
 
       {/* Chart */}
       <Box
-  sx={{
-    width: "100%",
-    height: 220,
-    minWidth: 0,
-  }}
->
+        sx={{
+          width: "100%",
+          height: 220,
+          minWidth: 0,
+        }}
+      >
         <ResponsiveContainer
           width="99%"
           height={220}
         >
-          <AreaChart
+          <LineChart
             data={data}
             margin={{
               top: 10,
@@ -143,37 +140,6 @@ export default function ReportChart({
               bottom: 0,
             }}
           >
-            {/* Gradient */}
-            <defs>
-              <defs>
-              <linearGradient
-                id={`gradient-${title}`}
-                x1="0"
-                y1="0"
-                x2="0"
-                y2="1"
-              >
-                <stop
-                  offset="0%"
-                  stopColor={color}
-                  stopOpacity={0.15}
-                />
-            
-                <stop
-                  offset="50%"
-                  stopColor={color}
-                  stopOpacity={0.06}
-                />
-            
-                <stop
-                  offset="100%"
-                  stopColor={color}
-                  stopOpacity={0.01}
-                />
-              </linearGradient>
-            </defs>
-            </defs>
-
             {/* Grid */}
             <CartesianGrid
               strokeDasharray="3 3"
@@ -212,22 +178,28 @@ export default function ReportChart({
               }}
             />
 
-            {/* Area */}
-            <Area
+            
+
+            {/* Line */}
+            <Line
               type="monotone"
               dataKey="value"
               stroke={color}
               strokeWidth={3}
-              fill={`url(#gradient-${title})`}
-              dot={false}
+              dot={{
+                r: 4,
+                fill: color,
+                strokeWidth: 2,
+                stroke: "#fff",
+              }}
               activeDot={{
-                r: 5,
+                r: 6,
                 stroke: color,
                 strokeWidth: 2,
                 fill: "#fff",
               }}
             />
-          </AreaChart>
+          </LineChart>
         </ResponsiveContainer>
       </Box>
     </Card>

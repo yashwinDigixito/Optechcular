@@ -312,7 +312,7 @@ export const orders = [
     salesPerson: "Amit",
     productType: "Frame",
     status: "Completed",
-    orderDate: "2026-05-08",
+    orderDate: "08-05-2026",
     totalAmount: 24500,
   },
 
@@ -324,7 +324,7 @@ export const orders = [
     salesPerson: "Suresh",
     productType: "Contact Lens",
     status: "Pending",
-    orderDate: "2026-05-07",
+    orderDate: "07-05-2026",
     totalAmount: 12800,
   },
 
@@ -336,7 +336,7 @@ export const orders = [
     salesPerson: "Rohit",
     productType: "Accessories",
     status: "Cancelled",
-    orderDate: "2026-05-06",
+    orderDate: "06-05-2026",
     totalAmount: 7200,
   },
 
@@ -348,7 +348,7 @@ export const orders = [
     salesPerson: "Vikas",
     productType: "Frame",
     status: "Completed",
-    orderDate: "2026-05-05",
+    orderDate: "05-05-2026",
     totalAmount: 31800,
   },
 
@@ -360,7 +360,7 @@ export const orders = [
     salesPerson: "Anjali",
     productType: "Sunglasses",
     status: "Pending",
-    orderDate: "2026-05-05",
+    orderDate: "05-05-2026",
     totalAmount: 15400,
   },
 
@@ -372,7 +372,7 @@ export const orders = [
     salesPerson: "Deepak",
     productType: "Optical Lens",
     status: "Completed",
-    orderDate: "2026-05-04",
+    orderDate: "04-05-2026",
     totalAmount: 22600,
   },
 
@@ -384,7 +384,7 @@ export const orders = [
     salesPerson: "Rahul",
     productType: "Accessories",
     status: "Refunded",
-    orderDate: "2026-05-03",
+    orderDate: "04-05-2026",
     totalAmount: 5400,
   },
 
@@ -396,7 +396,7 @@ export const orders = [
     salesPerson: "Sonia",
     productType: "Contact Lens",
     status: "Completed",
-    orderDate: "2026-05-03",
+    orderDate: "03-05-2026",
     totalAmount: 19600,
   },
 
@@ -408,7 +408,7 @@ export const orders = [
     salesPerson: "Rakesh",
     productType: "Frame",
     status: "Pending",
-    orderDate: "2026-05-02",
+    orderDate: "02-05-2026",
     totalAmount: 26700,
   },
 
@@ -420,7 +420,7 @@ export const orders = [
     salesPerson: "Kunal",
     productType: "Sunglasses",
     status: "Completed",
-    orderDate: "2026-05-01",
+    orderDate: "01-05-2026",
     totalAmount: 14300,
   },
 ];

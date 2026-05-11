@@ -3,21 +3,34 @@
 import SearchIcon from "@mui/icons-material/Search";
 
 import {
-    InputAdornment,
-    TextField,
+  InputAdornment,
+  TextField,
 } from "@mui/material";
 
 interface SearchFieldProps {
   placeholder?: string;
+  value?: string;
+  onChange?: (
+    value: string
+  ) => void;
 }
 
 export default function SearchField({
   placeholder,
+  value,
+  onChange,
 }: SearchFieldProps) {
+
   return (
     <TextField
       fullWidth
       size="small"
+      value={value}
+      onChange={(e) =>
+        onChange?.(
+          e.target.value
+        )
+      }
       placeholder={
         placeholder ||
         "Search..."
@@ -36,11 +49,14 @@ export default function SearchField({
         },
       }}
       sx={{
-        "& .MuiOutlinedInput-root": {
-          borderRadius: "14px",
-          background: "#FFFFFF",
-          height: "52px",
-        },
+        "& .MuiOutlinedInput-root":
+          {
+            borderRadius:
+              "14px",
+            background:
+              "#FFFFFF",
+            height: "52px",
+          },
       }}
     />
   );

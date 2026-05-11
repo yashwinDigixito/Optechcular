@@ -63,8 +63,10 @@ export default function OrderSummary({
       sx={{
         p: 1.5,
         width: "100%",
-        maxWidth: "600px",
+        maxWidth: "500px",
+        maxHeight: "calc(100vh - 120px)",
         overflow: "hidden",
+        flexShrink: 0,
         borderRadius: "22px",
         background: "#FFFFFF",
         boxShadow:"0px 8px 24px rgba(15,23,42,0.06)",
