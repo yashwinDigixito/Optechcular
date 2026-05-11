@@ -842,92 +842,227 @@ export const rimShapes = [
 export const frames = [
   {
     id: "1",
-
-    productName:
-      "RayBan Classic Round",
-
-    sku: "RB-1001",
-
     brand: "RayBan",
-
-    category: "Frame",
-
-    material: "Metal",
-
-    rimShape: "Round",
-
-    color: "Black",
-
-    size: "Medium",
-
-    price: 4999,
-
-    stock: 25,
-
+    modelNo: "RB-3025",
+    rimType: "Full Rim",
+    rimShape: "Aviator",
+    templeMaterial: "Metal",
+    category: "Sunglasses",
+    hsnCode: "90041000",
+    tax: 18,
+    colourCode: "GOLD-BLACK",
+    size: "58",
+    dbl: "14",
+    templeLength: "135",
+    launchSeason: "Summer 2026",
+    lensColor: "Green",
+    frameFrontColor: "Gold",
+    templeColor: "Black",
+    skuCode: "RB-SG-1001",
+    barcode: "8901452365478",
+    srp: 7999,
+    locationPricing:
+      "Mumbai - 7999, Delhi - 8099",
+    stock: 15,
     status: "Active",
-
     createdOn: "2026-05-11",
   },
 
   {
     id: "2",
-
-    productName:
-      "Oakley Square Pro",
-
-    sku: "OK-2201",
-
     brand: "Oakley",
-
-    category: "Frame",
-
-    material: "Titanium",
-
-    rimShape: "Square",
-
-    color: "Silver",
-
-    size: "Large",
-
-    price: 6999,
-
-    stock: 10,
-
+    modelNo: "OK-1102",
+    rimType: "Half Rim",
+    rimShape: "Rectangle",
+    templeMaterial: "Titanium",
+    category: "Optical Frame",
+    hsnCode: "90049090",
+    tax: 18,
+    colourCode: "MATTE-BLUE",
+    size: "54",
+    dbl: "17",
+    templeLength: "140",
+    launchSeason: "Winter 2026",
+    lensColor: "Transparent",
+    frameFrontColor: "Blue",
+    templeColor: "Black",
+    skuCode: "OK-OF-1002",
+    barcode: "8901452365490",
+    srp: 6499,
+    locationPricing:
+      "Ahmedabad - 6499",
+    stock: 4,
     status: "Active",
-
     createdOn: "2026-05-10",
   },
 
   {
     id: "3",
-
-    productName:
-      "Vogue Cat Eye",
-
-    sku: "VG-3101",
-
     brand: "Vogue",
-
-    category: "Frame",
-
-    material: "Plastic",
-
-    rimShape: "Cat Eye",
-
-    color: "Pink",
-
-    size: "Small",
-
-    price: 3999,
-
+    modelNo: "VG-908",
+    rimType: "Rim Less",
+    rimShape: "Round",
+    templeMaterial: "Acetate",
+    category: "RX-able",
+    hsnCode: "90049090",
+    tax: 12,
+    colourCode: "ROSE-GOLD",
+    size: "52",
+    dbl: "18",
+    templeLength: "138",
+    launchSeason: "Spring 2026",
+    lensColor: "Brown",
+    frameFrontColor: "Rose Gold",
+    templeColor: "Brown",
+    skuCode: "VG-RX-1003",
+    barcode: "8901452365502",
+    srp: 5599,
+    locationPricing: "Pune - 5599",
     stock: 0,
-
     status: "Inactive",
-
     createdOn: "2026-05-09",
   },
-];
 
+  {
+    id: "4",
+    brand: "Gucci",
+    modelNo: "GC-778",
+    rimType: "Full Rim",
+    rimShape: "Cat Eye",
+    templeMaterial: "Acetate",
+    category: "Sunglasses",
+    hsnCode: "90041000",
+    tax: 18,
+    colourCode: "BLACK-GOLD",
+    size: "56",
+    dbl: "16",
+    templeLength: "142",
+    launchSeason: "Autumn 2026",
+    lensColor: "Grey",
+    frameFrontColor: "Black",
+    templeColor: "Gold",
+    skuCode: "GC-SG-1004",
+    barcode: "8901452365514",
+    srp: 9999,
+    locationPricing:
+      "Mumbai - 9999",
+    stock: 9,
+    status: "Active",
+    createdOn: "2026-05-08",
+  },
+
+  {
+    id: "5",
+    brand: "Prada",
+    modelNo: "PR-556",
+    rimType: "Half Rim",
+    rimShape: "Square",
+    templeMaterial: "Steel",
+    category: "Optical Frame",
+    hsnCode: "90049090",
+    tax: 18,
+    colourCode: "SILVER-BLUE",
+    size: "55",
+    dbl: "17",
+    templeLength: "140",
+    launchSeason: "Summer 2026",
+    lensColor: "Transparent",
+    frameFrontColor: "Silver",
+    templeColor: "Blue",
+    skuCode: "PR-OF-1005",
+    barcode: "8901452365526",
+    srp: 7499,
+    locationPricing:
+      "Delhi - 7499",
+    stock: 3,
+    status: "Active",
+    createdOn: "2026-05-07",
+  },
+
+  {
+    id: "6",
+    brand: "Titan Eye+",
+    modelNo: "TE-210",
+    rimType: "Full Rim",
+    rimShape: "Rectangle",
+    templeMaterial: "Plastic",
+    category: "Optical Frame",
+    hsnCode: "90049090",
+    tax: 12,
+    colourCode: "BLACK-RED",
+    size: "53",
+    dbl: "18",
+    templeLength: "136",
+    launchSeason: "Winter 2025",
+    lensColor: "Transparent",
+    frameFrontColor: "Black",
+    templeColor: "Red",
+    skuCode: "TE-OF-1006",
+    barcode: "8901452365538",
+    srp: 3499,
+    locationPricing:
+      "Surat - 3499",
+    stock: 22,
+    status: "Active",
+    createdOn: "2026-05-06",
+  },
+
+  {
+    id: "7",
+    brand: "Police",
+    modelNo: "PL-900",
+    rimType: "Rim Less",
+    rimShape: "Oval",
+    templeMaterial: "Titanium",
+    category: "RX-able",
+    hsnCode: "90049090",
+    tax: 18,
+    colourCode: "GUNMETAL",
+    size: "51",
+    dbl: "17",
+    templeLength: "138",
+    launchSeason: "Spring 2026",
+    lensColor: "Brown",
+    frameFrontColor: "Gunmetal",
+    templeColor: "Grey",
+    skuCode: "PL-RX-1007",
+    barcode: "8901452365540",
+    srp: 5899,
+    locationPricing:
+      "Bangalore - 5899",
+    stock: 0,
+    status: "Inactive",
+    createdOn: "2026-05-05",
+  },
+
+  {
+    id: "8",
+    brand: "Tom Ford",
+    modelNo: "TF-889",
+    rimType: "Full Rim",
+    rimShape: "Wayfarer",
+    templeMaterial: "Acetate",
+    category: "Sunglasses",
+    hsnCode: "90041000",
+    tax: 18,
+    colourCode: "DARK-BROWN",
+    size: "57",
+    dbl: "15",
+    templeLength: "145",
+    launchSeason: "Summer 2026",
+    lensColor: "Black",
+    frameFrontColor: "Brown",
+    templeColor: "Brown",
+    skuCode: "TF-SG-1008",
+    barcode: "8901452365552",
+    srp: 11999,
+    locationPricing:
+      "Hyderabad - 11999",
+    stock: 6,
+    status: "Active",
+    createdOn: "2026-05-04",
+  },
+];
 
 export const contactLenses = [
   {
@@ -1051,5 +1186,223 @@ export const contactLenses = [
 
     createdOn:
       "2026-05-09",
+  },
+];
+
+export const frameVariants = [
+  {
+    id: "1",
+    frameId: "1",
+    color: "Black",
+    size: "52",
+    sku: "RB-BLK-52",
+    barcode: "8901452366001",
+    stock: 12,
+    price: 7999,
+    status: "Active",
+  },
+
+  {
+    id: "2",
+    frameId: "1",
+    color: "Gold",
+    size: "54",
+    sku: "RB-GLD-54",
+    barcode: "8901452366002",
+    stock: 4,
+    price: 8299,
+    status: "Active",
+  },
+
+  {
+    id: "3",
+    frameId: "1",
+    color: "Silver",
+    size: "56",
+    sku: "RB-SLV-56",
+    barcode: "8901452366003",
+    stock: 0,
+    price: 8499,
+    status: "Inactive",
+  },
+
+  {
+    id: "4",
+    frameId: "2",
+    color: "Blue",
+    size: "54",
+    sku: "OK-BLU-54",
+    barcode: "8901452366004",
+    stock: 8,
+    price: 6499,
+    status: "Active",
+  },
+
+  {
+    id: "5",
+    frameId: "2",
+    color: "Matte Black",
+    size: "56",
+    sku: "OK-MBLK-56",
+    barcode: "8901452366005",
+    stock: 3,
+    price: 6799,
+    status: "Active",
+  },
+
+  {
+    id: "6",
+    frameId: "2",
+    color: "Grey",
+    size: "58",
+    sku: "OK-GRY-58",
+    barcode: "8901452366006",
+    stock: 0,
+    price: 6999,
+    status: "Inactive",
+  },
+
+  {
+    id: "7",
+    frameId: "3",
+    color: "Rose Gold",
+    size: "52",
+    sku: "VG-RG-52",
+    barcode: "8901452366007",
+    stock: 10,
+    price: 5599,
+    status: "Active",
+  },
+
+  {
+    id: "8",
+    frameId: "3",
+    color: "Brown",
+    size: "54",
+    sku: "VG-BRW-54",
+    barcode: "8901452366008",
+    stock: 2,
+    price: 5899,
+    status: "Active",
+  },
+
+  {
+    id: "9",
+    frameId: "4",
+    color: "Black Gold",
+    size: "56",
+    sku: "GC-BG-56",
+    barcode: "8901452366009",
+    stock: 6,
+    price: 9999,
+    status: "Active",
+  },
+
+  {
+    id: "10",
+    frameId: "4",
+    color: "Dark Brown",
+    size: "58",
+    sku: "GC-DBR-58",
+    barcode: "8901452366010",
+    stock: 1,
+    price: 10499,
+    status: "Active",
+  },
+
+  {
+    id: "11",
+    frameId: "5",
+    color: "Silver Blue",
+    size: "55",
+    sku: "PR-SB-55",
+    barcode: "8901452366011",
+    stock: 7,
+    price: 7499,
+    status: "Active",
+  },
+
+  {
+    id: "12",
+    frameId: "5",
+    color: "Matte Grey",
+    size: "57",
+    sku: "PR-MG-57",
+    barcode: "8901452366012",
+    stock: 0,
+    price: 7699,
+    status: "Inactive",
+  },
+
+  {
+    id: "13",
+    frameId: "6",
+    color: "Black Red",
+    size: "53",
+    sku: "TE-BR-53",
+    barcode: "8901452366013",
+    stock: 18,
+    price: 3499,
+    status: "Active",
+  },
+
+  {
+    id: "14",
+    frameId: "6",
+    color: "Blue Black",
+    size: "55",
+    sku: "TE-BB-55",
+    barcode: "8901452366014",
+    stock: 11,
+    price: 3699,
+    status: "Active",
+  },
+
+  {
+    id: "15",
+    frameId: "7",
+    color: "Gunmetal",
+    size: "51",
+    sku: "PL-GM-51",
+    barcode: "8901452366015",
+    stock: 0,
+    price: 5899,
+    status: "Inactive",
+  },
+
+  {
+    id: "16",
+    frameId: "7",
+    color: "Grey Silver",
+    size: "53",
+    sku: "PL-GS-53",
+    barcode: "8901452366016",
+    stock: 4,
+    price: 6099,
+    status: "Active",
+  },
+
+  {
+    id: "17",
+    frameId: "8",
+    color: "Dark Brown",
+    size: "57",
+    sku: "TF-DBR-57",
+    barcode: "8901452366017",
+    stock: 5,
+    price: 11999,
+    status: "Active",
+  },
+
+  {
+    id: "18",
+    frameId: "8",
+    color: "Glossy Black",
+    size: "59",
+    sku: "TF-GBLK-59",
+    barcode: "8901452366018",
+    stock: 2,
+    price: 12499,
+    status: "Active",
   },
 ];

@@ -7,17 +7,17 @@ import EditIcon from "@mui/icons-material/Edit";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 
 import {
-    Box,
-    Chip,
-    IconButton,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
-    Tooltip,
-    Typography,
+  Box,
+  Chip,
+  IconButton,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Tooltip,
+  Typography,
 } from "@mui/material";
 
 import { useRouter } from "next/navigation";
@@ -27,17 +27,25 @@ import StatusChip from "@/component/common/StatusChip";
 interface Props {
   frames: {
     id: string;
-    productName: string;
-    sku: string;
+
     brand: string;
-    category: string;
-    material: string;
+
+    modelNo: string;
+
+    rimType: string;
+
     rimShape: string;
-    color: string;
-    size: string;
-    price: number;
+
+    category: string;
+
+    skuCode: string;
+
+    srp: number;
+
     stock: number;
+
     status: string;
+
     createdOn: string;
   }[];
 }
@@ -78,6 +86,7 @@ export default function FrameTable({
 
       <Table>
 
+        {/* TABLE HEAD */}
         <TableHead>
 
           <TableRow
@@ -87,50 +96,110 @@ export default function FrameTable({
             }}
           >
             <TableCell>
-              <Typography sx={{ fontWeight: 700 }}>
-                Product
-              </Typography>
-            </TableCell>
-
-            <TableCell>
-              <Typography sx={{ fontWeight: 700 }}>
-                SKU
-              </Typography>
-            </TableCell>
-
-            <TableCell>
-              <Typography sx={{ fontWeight: 700 }}>
+              <Typography
+                sx={{
+                  fontWeight: 700,
+                }}
+              >
                 Brand
               </Typography>
             </TableCell>
 
             <TableCell>
-              <Typography sx={{ fontWeight: 700 }}>
-                Price
+              <Typography
+                sx={{
+                  fontWeight: 700,
+                }}
+              >
+                Model No
               </Typography>
             </TableCell>
 
             <TableCell>
-              <Typography sx={{ fontWeight: 700 }}>
+              <Typography
+                sx={{
+                  fontWeight: 700,
+                }}
+              >
+                Rim Type
+              </Typography>
+            </TableCell>
+
+            <TableCell>
+              <Typography
+                sx={{
+                  fontWeight: 700,
+                }}
+              >
+                Rim Shape
+              </Typography>
+            </TableCell>
+
+            <TableCell>
+              <Typography
+                sx={{
+                  fontWeight: 700,
+                }}
+              >
+                Category
+              </Typography>
+            </TableCell>
+
+            <TableCell>
+              <Typography
+                sx={{
+                  fontWeight: 700,
+                }}
+              >
+                SKU Code
+              </Typography>
+            </TableCell>
+
+            <TableCell>
+              <Typography
+                sx={{
+                  fontWeight: 700,
+                }}
+              >
+                SRP
+              </Typography>
+            </TableCell>
+
+            <TableCell>
+              <Typography
+                sx={{
+                  fontWeight: 700,
+                }}
+              >
                 Stock
               </Typography>
             </TableCell>
 
             <TableCell>
-              <Typography sx={{ fontWeight: 700 }}>
+              <Typography
+                sx={{
+                  fontWeight: 700,
+                }}
+              >
                 Status
               </Typography>
             </TableCell>
 
             <TableCell>
-              <Typography sx={{ fontWeight: 700 }}>
+              <Typography
+                sx={{
+                  fontWeight: 700,
+                }}
+              >
                 Actions
               </Typography>
             </TableCell>
+
           </TableRow>
 
         </TableHead>
 
+        {/* TABLE BODY */}
         <TableBody>
 
           {frameData.map((frame) => (
@@ -139,46 +208,64 @@ export default function FrameTable({
               key={frame.id}
               hover
             >
-              {/* PRODUCT */}
+              {/* BRAND */}
               <TableCell>
 
-                <Box>
-
-                  <Typography
-                    sx={{
-                      fontWeight: 700,
-                      color: "#2563EB",
-                    }}
-                  >
-                    {
-                      frame.productName
-                    }
-                  </Typography>
-
-                  <Typography
-                    sx={{
-                      color: "#64748B",
-                      fontSize: "14px",
-                    }}
-                  >
-                    {
-                      frame.rimShape
-                    }{" "}
-                    •{" "}
-                    {
-                      frame.material
-                    }
-                  </Typography>
-
-                </Box>
+                <Typography
+                  sx={{
+                    fontWeight: 700,
+                    color: "#2563EB",
+                  }}
+                >
+                  {frame.brand}
+                </Typography>
 
               </TableCell>
 
-              {/* SKU */}
+              {/* MODEL NO */}
+              <TableCell>
+
+                <Typography
+                  sx={{
+                    fontWeight: 600,
+                  }}
+                >
+                  {
+                    frame.modelNo
+                  }
+                </Typography>
+
+              </TableCell>
+
+              {/* RIM TYPE */}
+              <TableCell>
+
+                <Typography>
+                  {
+                    frame.rimType
+                  }
+                </Typography>
+
+              </TableCell>
+
+              {/* RIM SHAPE */}
+              <TableCell>
+
+                <Typography>
+                  {
+                    frame.rimShape
+                  }
+                </Typography>
+
+              </TableCell>
+
+              {/* CATEGORY */}
               <TableCell>
 
                 <Chip
-                  label={frame.sku}
+                  label={
+                    frame.category
+                  }
                   sx={{
                     background:
                       "#EFF6FF",
@@ -186,26 +273,43 @@ export default function FrameTable({
                     color:
                       "#2563EB",
 
+                    fontWeight: 600,
+                  }}
+                />
+
+              </TableCell>
+
+              {/* SKU */}
+              <TableCell>
+
+                <Chip
+                  label={
+                    frame.skuCode
+                  }
+                  sx={{
+                    background:
+                      "#F8FAFC",
+
+                    color:
+                      "#0F172A",
+
                     fontWeight: 700,
                   }}
                 />
 
               </TableCell>
 
-              {/* BRAND */}
-              <TableCell>
-                {frame.brand}
-              </TableCell>
-
-              {/* PRICE */}
+              {/* SRP */}
               <TableCell>
 
                 <Typography
                   sx={{
                     fontWeight: 700,
+                    color: "#16A34A",
                   }}
                 >
-                  ₹ {frame.price}
+                  ₹{" "}
+                  {frame.srp.toLocaleString()}
                 </Typography>
 
               </TableCell>
@@ -214,17 +318,30 @@ export default function FrameTable({
               <TableCell>
 
                 <Chip
-                  label={`${frame.stock} pcs`}
+                  label={
+                    frame.stock === 0
+                      ? "Out of Stock"
+                      : frame.stock <=
+                        5
+                      ? "Low Stock"
+                      : "In Stock"
+                  }
                   sx={{
                     background:
-                      frame.stock > 0
-                        ? "#DCFCE7"
-                        : "#FEE2E2",
+                      frame.stock === 0
+                        ? "#FEE2E2"
+                        : frame.stock <=
+                          5
+                        ? "#FEF3C7"
+                        : "#DCFCE7",
 
                     color:
-                      frame.stock > 0
-                        ? "#16A34A"
-                        : "#DC2626",
+                      frame.stock === 0
+                        ? "#DC2626"
+                        : frame.stock <=
+                          5
+                        ? "#D97706"
+                        : "#16A34A",
 
                     fontWeight: 700,
                   }}
@@ -319,6 +436,7 @@ export default function FrameTable({
                     </IconButton>
 
                   </Tooltip>
+
                 </Box>
 
               </TableCell>

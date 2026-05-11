@@ -1,22 +1,22 @@
 "use client";
 
 import {
-    useEffect,
-    useState,
+  useEffect,
+  useState,
 } from "react";
 
 import {
-    Box,
-    Button,
-    Card,
-    Grid,
-    MenuItem,
-    TextField,
-    Typography,
+  Box,
+  Button,
+  Card,
+  Grid,
+  MenuItem,
+  TextField,
+  Typography,
 } from "@mui/material";
 
 import {
-    frames,
+  frames,
 } from "@/assets/genericdata";
 
 export default function EditFramePage({
@@ -29,16 +29,27 @@ export default function EditFramePage({
 
   const [formData, setFormData] =
     useState({
-      productName: "",
-      sku: "",
       brand: "",
-      category: "",
-      material: "",
+      modelNo: "",
+      rimType: "",
       rimShape: "",
-      color: "",
+      templeMaterial: "",
+      category: "",
+      hsnCode: "",
+      tax: "",
+      colourCode: "",
       size: "",
+      dbl: "",
+      templeLength: "",
+      launchSeason: "",
+      lensColor: "",
+      frameFrontColor: "",
+      templeColor: "",
+      skuCode: "",
+      barcode: "",
+      srp: "",
+      locationPricing: "",
       stock: "",
-      price: "",
       status: "",
     });
 
@@ -56,38 +67,73 @@ export default function EditFramePage({
         if (frame) {
 
           setFormData({
-            productName:
-              frame.productName,
-
-            sku:
-              frame.sku,
-
             brand:
               frame.brand,
 
-            category:
-              frame.category,
+            modelNo:
+              frame.modelNo,
 
-            material:
-              frame.material,
+            rimType:
+              frame.rimType,
 
             rimShape:
               frame.rimShape,
 
-            color:
-              frame.color,
+            templeMaterial:
+              frame.templeMaterial,
+
+            category:
+              frame.category,
+
+            hsnCode:
+              frame.hsnCode,
+
+            tax:
+              String(
+                frame.tax
+              ),
+
+            colourCode:
+              frame.colourCode,
 
             size:
               frame.size,
 
+            dbl:
+              frame.dbl,
+
+            templeLength:
+              frame.templeLength,
+
+            launchSeason:
+              frame.launchSeason,
+
+            lensColor:
+              frame.lensColor,
+
+            frameFrontColor:
+              frame.frameFrontColor,
+
+            templeColor:
+              frame.templeColor,
+
+            skuCode:
+              frame.skuCode,
+
+            barcode:
+              frame.barcode,
+
+            srp:
+              String(
+                frame.srp
+              ),
+
+            locationPricing:
+              frame.locationPricing,
+
             stock:
               String(
                 frame.stock
-              ),
-
-            price:
-              String(
-                frame.price
               ),
 
             status:
@@ -132,40 +178,6 @@ export default function EditFramePage({
           container
           spacing={3}
         >
-          {/* PRODUCT NAME */}
-          <Grid size={{ xs: 12, md: 6 }}>
-            <TextField
-              fullWidth
-              label="Product Name"
-              value={
-                formData.productName
-              }
-              onChange={(e) =>
-                handleChange(
-                  "productName",
-                  e.target.value
-                )
-              }
-            />
-          </Grid>
-
-          {/* SKU */}
-          <Grid size={{ xs: 12, md: 6 }}>
-            <TextField
-              fullWidth
-              label="SKU"
-              value={
-                formData.sku
-              }
-              onChange={(e) =>
-                handleChange(
-                  "sku",
-                  e.target.value
-                )
-              }
-            />
-          </Grid>
-
           {/* BRAND */}
           <Grid size={{ xs: 12, md: 6 }}>
             <TextField
@@ -183,42 +195,55 @@ export default function EditFramePage({
             />
           </Grid>
 
-          {/* CATEGORY */}
+          {/* MODEL NO */}
           <Grid size={{ xs: 12, md: 6 }}>
             <TextField
               fullWidth
-              label="Category"
+              label="Model No"
               value={
-                formData.category
+                formData.modelNo
               }
               onChange={(e) =>
                 handleChange(
-                  "category",
+                  "modelNo",
                   e.target.value
                 )
               }
             />
           </Grid>
 
-          {/* MATERIAL */}
-          <Grid size={{ xs: 12, md: 6 }}>
+          {/* RIM TYPE */}
+          <Grid size={{ xs: 12, md: 4 }}>
             <TextField
+              select
               fullWidth
-              label="Material"
+              label="Rim Type"
               value={
-                formData.material
+                formData.rimType
               }
               onChange={(e) =>
                 handleChange(
-                  "material",
+                  "rimType",
                   e.target.value
                 )
               }
-            />
+            >
+              <MenuItem value="Full Rim">
+                Full Rim
+              </MenuItem>
+
+              <MenuItem value="Half Rim">
+                Half Rim
+              </MenuItem>
+
+              <MenuItem value="Rim Less">
+                Rim Less
+              </MenuItem>
+            </TextField>
           </Grid>
 
           {/* RIM SHAPE */}
-          <Grid size={{ xs: 12, md: 6 }}>
+          <Grid size={{ xs: 12, md: 4 }}>
             <TextField
               fullWidth
               label="Rim Shape"
@@ -234,34 +259,69 @@ export default function EditFramePage({
             />
           </Grid>
 
-          {/* COLOR */}
+          {/* CATEGORY */}
           <Grid size={{ xs: 12, md: 4 }}>
             <TextField
               fullWidth
-              label="Color"
+              label="Category"
               value={
-                formData.color
+                formData.category
               }
               onChange={(e) =>
                 handleChange(
-                  "color",
+                  "category",
                   e.target.value
                 )
               }
             />
           </Grid>
 
-          {/* SIZE */}
+          {/* SKU */}
           <Grid size={{ xs: 12, md: 4 }}>
             <TextField
               fullWidth
-              label="Size"
+              label="SKU Code"
               value={
-                formData.size
+                formData.skuCode
               }
               onChange={(e) =>
                 handleChange(
-                  "size",
+                  "skuCode",
+                  e.target.value
+                )
+              }
+            />
+          </Grid>
+
+          {/* BARCODE */}
+          <Grid size={{ xs: 12, md: 4 }}>
+            <TextField
+              fullWidth
+              label="Barcode"
+              value={
+                formData.barcode
+              }
+              onChange={(e) =>
+                handleChange(
+                  "barcode",
+                  e.target.value
+                )
+              }
+            />
+          </Grid>
+
+          {/* SRP */}
+          <Grid size={{ xs: 12, md: 4 }}>
+            <TextField
+              fullWidth
+              type="number"
+              label="SRP"
+              value={
+                formData.srp
+              }
+              onChange={(e) =>
+                handleChange(
+                  "srp",
                   e.target.value
                 )
               }
@@ -272,8 +332,8 @@ export default function EditFramePage({
           <Grid size={{ xs: 12, md: 4 }}>
             <TextField
               fullWidth
-              label="Stock"
               type="number"
+              label="Stock"
               value={
                 formData.stock
               }
@@ -286,26 +346,8 @@ export default function EditFramePage({
             />
           </Grid>
 
-          {/* PRICE */}
-          <Grid size={{ xs: 12, md: 6 }}>
-            <TextField
-              fullWidth
-              label="Price"
-              type="number"
-              value={
-                formData.price
-              }
-              onChange={(e) =>
-                handleChange(
-                  "price",
-                  e.target.value
-                )
-              }
-            />
-          </Grid>
-
           {/* STATUS */}
-          <Grid size={{ xs: 12, md: 6 }}>
+          <Grid size={{ xs: 12, md: 4 }}>
             <TextField
               select
               fullWidth
@@ -344,7 +386,9 @@ export default function EditFramePage({
         >
           Update Frame
         </Button>
+
       </Card>
+
     </Box>
   );
 }

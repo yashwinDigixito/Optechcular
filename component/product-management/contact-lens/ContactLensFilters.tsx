@@ -81,6 +81,25 @@ export default function ContactLensFilters({
             e.target.value
           )
         }
+        slotProps={{
+                    select: {
+                      displayEmpty: true,
+                      renderValue: (
+                        selected
+                      ) => (
+                        <Box
+                          sx={{
+                            color: selected
+                              ? "#0F172A"
+                              : "#94A3B8",
+                          }}
+                        >
+                          {(selected as string) ||
+                            "Sort by Status"}
+                        </Box>
+                      ),
+                    },
+                  }}
         sx={{
           minWidth: "220px",
 

@@ -3,10 +3,10 @@
 import SearchIcon from "@mui/icons-material/Search";
 
 import {
-    Box,
-    InputAdornment,
-    MenuItem,
-    TextField,
+  Box,
+  InputAdornment,
+  MenuItem,
+  TextField,
 } from "@mui/material";
 
 interface BrandFiltersProps {
@@ -101,9 +101,27 @@ export default function BrandFilters({
             e.target.value
           )
         }
+        slotProps={{
+                  select: {
+                    displayEmpty: true,
+                    renderValue: (
+                      selected
+                    ) => (
+                      <Box
+                        sx={{
+                          color: selected
+                            ? "#0F172A"
+                            : "#94A3B8",
+                        }}
+                      >
+                        {(selected as string) ||
+                          "Sort by Category"}
+                      </Box>
+                    ),
+                  },
+                }}
         sx={{
           minWidth: "200px",
-
           "& .MuiOutlinedInput-root":
             {
               borderRadius:
@@ -143,9 +161,27 @@ export default function BrandFilters({
             e.target.value
           )
         }
+        slotProps={{
+                  select: {
+                    displayEmpty: true,
+                    renderValue: (
+                      selected
+                    ) => (
+                      <Box
+                        sx={{
+                          color: selected
+                            ? "#0F172A"
+                            : "#94A3B8",
+                        }}
+                      >
+                        {(selected as string) ||
+                          "Sort by Status"}
+                      </Box>
+                    ),
+                  },
+                }}
         sx={{
           minWidth: "180px",
-
           "& .MuiOutlinedInput-root":
             {
               borderRadius:
@@ -177,9 +213,27 @@ export default function BrandFilters({
             e.target.value
           )
         }
+        slotProps={{
+                  select: {
+                    displayEmpty: true,
+                    renderValue: (
+                      selected
+                    ) => (
+                      <Box
+                        sx={{
+                          color: selected
+                            ? "#0F172A"
+                            : "#94A3B8",
+                        }}
+                      >
+                        {(selected as string) ||
+                          "Sort by Brand Group"}
+                      </Box>
+                    ),
+                  },
+                }}
         sx={{
           minWidth: "220px",
-
           "& .MuiOutlinedInput-root":
             {
               borderRadius:

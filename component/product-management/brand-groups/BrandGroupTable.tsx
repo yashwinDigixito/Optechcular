@@ -1,7 +1,7 @@
 "use client";
 
 import {
-    useState,
+  useState,
 } from "react";
 
 import BlockIcon from "@mui/icons-material/Block";
@@ -9,16 +9,16 @@ import EditIcon from "@mui/icons-material/Edit";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 
 import {
-    Box,
-    IconButton,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
-    Tooltip,
-    Typography,
+  Box,
+  IconButton,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Tooltip,
+  Typography,
 } from "@mui/material";
 
 import { useRouter } from "next/navigation";

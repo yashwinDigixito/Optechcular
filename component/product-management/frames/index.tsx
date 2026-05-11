@@ -5,15 +5,15 @@ import { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 
 import {
-    Box,
-    Button,
-    Typography,
+  Box,
+  Button,
+  Typography,
 } from "@mui/material";
 
 import { useRouter } from "next/navigation";
 
 import {
-    frames,
+  frames,
 } from "@/assets/genericdata";
 
 import TableContainerCard from "@/component/common/TableContainerCard";
@@ -37,13 +37,20 @@ export default function FrameManagementPage() {
       (frame) => {
 
         const matchesSearch =
-          frame.productName
+
+          frame.brand
             .toLowerCase()
             .includes(
               search.toLowerCase()
             ) ||
 
-          frame.sku
+          frame.modelNo
+            .toLowerCase()
+            .includes(
+              search.toLowerCase()
+            ) ||
+
+          frame.skuCode
             .toLowerCase()
             .includes(
               search.toLowerCase()
@@ -69,6 +76,7 @@ export default function FrameManagementPage() {
       <Box
         sx={{
           display: "flex",
+
           justifyContent:
             "space-between",
 
@@ -96,13 +104,19 @@ export default function FrameManagementPage() {
           }
           sx={{
             height: "48px",
-            borderRadius: "12px",
-            textTransform: "none",
+
+            borderRadius:
+              "12px",
+
+            textTransform:
+              "none",
+
             px: 3,
           }}
         >
           Add Frame
         </Button>
+
       </Box>
 
       {/* FILTERS */}
@@ -121,7 +135,9 @@ export default function FrameManagementPage() {
           <Typography
             sx={{
               mb: 2,
+
               color: "#64748B",
+
               fontWeight: 600,
             }}
           >
@@ -140,6 +156,7 @@ export default function FrameManagementPage() {
         </Box>
 
       </TableContainerCard>
+
     </Box>
   );
 }

@@ -1,15 +1,13 @@
 import {
-    Box,
-    Card,
-    Chip,
-    Divider,
-    Grid,
-    Typography,
+  Box,
+  Card,
+  Chip,
+  Divider,
+  Grid,
+  Typography,
 } from "@mui/material";
 
-import {
-    frames,
-} from "@/assets/genericdata";
+import { frames, frameVariants } from "@/assets/genericdata";
 
 import StatusChip from "@/component/common/StatusChip";
 
@@ -29,7 +27,9 @@ export default async function FrameViewPage({
       (item) =>
         item.id === id
     );
-
+    const variants = frameVariants.filter(
+    (item) =>  item.frameId === id
+    );
   return (
     <Box
       sx={{
@@ -45,15 +45,18 @@ export default async function FrameViewPage({
       <Card
         sx={{
           width: "100%",
-          maxWidth: "950px",
-          borderRadius: "24px",
+          maxWidth: "1100px",
+
+          borderRadius:
+            "24px",
+
           p: 4,
 
           boxShadow:
             "0px 10px 30px rgba(15,23,42,0.08)",
         }}
       >
-        {/* TITLE */}
+        {/* PAGE TITLE */}
         <Typography
           sx={{
             fontSize: "34px",
@@ -64,65 +67,22 @@ export default async function FrameViewPage({
           Frame Details
         </Typography>
 
+        {/* BASIC INFO */}
+        <Typography
+          sx={{
+            fontSize: "22px",
+            fontWeight: 700,
+            mb: 3,
+            color: "#2563EB",
+          }}
+        >
+          Basic Information
+        </Typography>
+
         <Grid
           container
           spacing={4}
         >
-          {/* PRODUCT NAME */}
-          <Grid size={{ xs: 12, md: 6 }}>
-
-            <Typography
-              sx={{
-                color: "#64748B",
-                mb: 1,
-                fontWeight: 600,
-              }}
-            >
-              Product Name
-            </Typography>
-
-            <Typography
-              sx={{
-                fontSize: "24px",
-                fontWeight: 700,
-                color: "#2563EB",
-              }}
-            >
-              {
-                frame?.productName
-              }
-            </Typography>
-
-          </Grid>
-
-          {/* SKU */}
-          <Grid size={{ xs: 12, md: 6 }}>
-
-            <Typography
-              sx={{
-                color: "#64748B",
-                mb: 1,
-                fontWeight: 600,
-              }}
-            >
-              SKU
-            </Typography>
-
-            <Chip
-              label={frame?.sku}
-              sx={{
-                background:
-                  "#EFF6FF",
-
-                color:
-                  "#2563EB",
-
-                fontWeight: 700,
-              }}
-            />
-
-          </Grid>
-
           {/* BRAND */}
           <Grid size={{ xs: 12, md: 4 }}>
 
@@ -138,10 +98,34 @@ export default async function FrameViewPage({
 
             <Typography
               sx={{
-                fontWeight: 600,
+                fontWeight: 700,
+                fontSize: "20px",
               }}
             >
               {frame?.brand}
+            </Typography>
+
+          </Grid>
+
+          {/* MODEL NO */}
+          <Grid size={{ xs: 12, md: 4 }}>
+
+            <Typography
+              sx={{
+                color: "#64748B",
+                mb: 1,
+                fontWeight: 600,
+              }}
+            >
+              Model No
+            </Typography>
+
+            <Typography
+              sx={{
+                fontWeight: 600,
+              }}
+            >
+              {frame?.modelNo}
             </Typography>
 
           </Grid>
@@ -159,17 +143,24 @@ export default async function FrameViewPage({
               Category
             </Typography>
 
-            <Typography
+            <Chip
+              label={
+                frame?.category
+              }
               sx={{
-                fontWeight: 600,
+                background:
+                  "#EFF6FF",
+
+                color:
+                  "#2563EB",
+
+                fontWeight: 700,
               }}
-            >
-              {frame?.category}
-            </Typography>
+            />
 
           </Grid>
 
-          {/* MATERIAL */}
+          {/* RIM TYPE */}
           <Grid size={{ xs: 12, md: 4 }}>
 
             <Typography
@@ -179,7 +170,7 @@ export default async function FrameViewPage({
                 fontWeight: 600,
               }}
             >
-              Material
+              Rim Type
             </Typography>
 
             <Typography
@@ -187,22 +178,13 @@ export default async function FrameViewPage({
                 fontWeight: 600,
               }}
             >
-              {frame?.material}
+              {frame?.rimType}
             </Typography>
 
           </Grid>
 
-        </Grid>
-
-        <Divider sx={{ my: 4 }} />
-
-        {/* SECOND SECTION */}
-        <Grid
-          container
-          spacing={4}
-        >
           {/* RIM SHAPE */}
-          <Grid size={{ xs: 12, md: 3 }}>
+          <Grid size={{ xs: 12, md: 4 }}>
 
             <Typography
               sx={{
@@ -224,8 +206,8 @@ export default async function FrameViewPage({
 
           </Grid>
 
-          {/* COLOR */}
-          <Grid size={{ xs: 12, md: 3 }}>
+          {/* TEMPLE MATERIAL */}
+          <Grid size={{ xs: 12, md: 4 }}>
 
             <Typography
               sx={{
@@ -234,7 +216,7 @@ export default async function FrameViewPage({
                 fontWeight: 600,
               }}
             >
-              Color
+              Temple Material
             </Typography>
 
             <Typography
@@ -242,13 +224,35 @@ export default async function FrameViewPage({
                 fontWeight: 600,
               }}
             >
-              {frame?.color}
+              {
+                frame?.templeMaterial
+              }
             </Typography>
 
           </Grid>
 
+        </Grid>
+
+        <Divider sx={{ my: 5 }} />
+
+        {/* SIZE DETAILS */}
+        <Typography
+          sx={{
+            fontSize: "22px",
+            fontWeight: 700,
+            mb: 3,
+            color: "#2563EB",
+          }}
+        >
+          Size Details
+        </Typography>
+
+        <Grid
+          container
+          spacing={4}
+        >
           {/* SIZE */}
-          <Grid size={{ xs: 12, md: 3 }}>
+          <Grid size={{ xs: 12, md: 4 }}>
 
             <Typography
               sx={{
@@ -270,7 +274,168 @@ export default async function FrameViewPage({
 
           </Grid>
 
-          {/* PRICE */}
+          {/* DBL */}
+          <Grid size={{ xs: 12, md: 4 }}>
+
+            <Typography
+              sx={{
+                color: "#64748B",
+                mb: 1,
+                fontWeight: 600,
+              }}
+            >
+              DBL
+            </Typography>
+
+            <Typography
+              sx={{
+                fontWeight: 600,
+              }}
+            >
+              {frame?.dbl}
+            </Typography>
+
+          </Grid>
+
+          {/* TEMPLE LENGTH */}
+          <Grid size={{ xs: 12, md: 4 }}>
+
+            <Typography
+              sx={{
+                color: "#64748B",
+                mb: 1,
+                fontWeight: 600,
+              }}
+            >
+              Temple Length
+            </Typography>
+
+            <Typography
+              sx={{
+                fontWeight: 600,
+              }}
+            >
+              {
+                frame?.templeLength
+              }
+            </Typography>
+
+          </Grid>
+
+        </Grid>
+
+        <Divider sx={{ my: 5 }} />
+
+        {/* COLORS */}
+        <Typography
+          sx={{
+            fontSize: "22px",
+            fontWeight: 700,
+            mb: 3,
+            color: "#2563EB",
+          }}
+        >
+          Color Details
+        </Typography>
+
+        <Grid
+          container
+          spacing={4}
+        >
+          {/* FRAME FRONT COLOR */}
+          <Grid size={{ xs: 12, md: 4 }}>
+
+            <Typography
+              sx={{
+                color: "#64748B",
+                mb: 1,
+                fontWeight: 600,
+              }}
+            >
+              Frame Front Color
+            </Typography>
+
+            <Typography
+              sx={{
+                fontWeight: 600,
+              }}
+            >
+              {
+                frame?.frameFrontColor
+              }
+            </Typography>
+
+          </Grid>
+
+          {/* TEMPLE COLOR */}
+          <Grid size={{ xs: 12, md: 4 }}>
+
+            <Typography
+              sx={{
+                color: "#64748B",
+                mb: 1,
+                fontWeight: 600,
+              }}
+            >
+              Temple Color
+            </Typography>
+
+            <Typography
+              sx={{
+                fontWeight: 600,
+              }}
+            >
+              {
+                frame?.templeColor
+              }
+            </Typography>
+
+          </Grid>
+
+          {/* LENS COLOR */}
+          <Grid size={{ xs: 12, md: 4 }}>
+
+            <Typography
+              sx={{
+                color: "#64748B",
+                mb: 1,
+                fontWeight: 600,
+              }}
+            >
+              Lens Color
+            </Typography>
+
+            <Typography
+              sx={{
+                fontWeight: 600,
+              }}
+            >
+              {frame?.lensColor}
+            </Typography>
+
+          </Grid>
+
+        </Grid>
+
+        <Divider sx={{ my: 5 }} />
+
+        {/* PRICING */}
+        <Typography
+          sx={{
+            fontSize: "22px",
+            fontWeight: 700,
+            mb: 3,
+            color: "#2563EB",
+          }}
+        >
+          Pricing & Tax
+        </Typography>
+
+        <Grid
+          container
+          spacing={4}
+        >
+          {/* SRP */}
           <Grid size={{ xs: 12, md: 3 }}>
 
             <Typography
@@ -280,7 +445,7 @@ export default async function FrameViewPage({
                 fontWeight: 600,
               }}
             >
-              Price
+              SRP
             </Typography>
 
             <Typography
@@ -289,22 +454,162 @@ export default async function FrameViewPage({
                 color: "#16A34A",
               }}
             >
-              ₹ {frame?.price}
+              ₹{" "}
+              {frame?.srp.toLocaleString()}
+            </Typography>
+
+          </Grid>
+
+          {/* TAX */}
+          <Grid size={{ xs: 12, md: 3 }}>
+
+            <Typography
+              sx={{
+                color: "#64748B",
+                mb: 1,
+                fontWeight: 600,
+              }}
+            >
+              Tax %
+            </Typography>
+
+            <Typography
+              sx={{
+                fontWeight: 600,
+              }}
+            >
+              {frame?.tax}%
+            </Typography>
+
+          </Grid>
+
+          {/* HSN CODE */}
+          <Grid size={{ xs: 12, md: 3 }}>
+
+            <Typography
+              sx={{
+                color: "#64748B",
+                mb: 1,
+                fontWeight: 600,
+              }}
+            >
+              HSN Code
+            </Typography>
+
+            <Typography
+              sx={{
+                fontWeight: 600,
+              }}
+            >
+              {
+                frame?.hsnCode
+              }
+            </Typography>
+
+          </Grid>
+
+          {/* LOCATION PRICING */}
+          <Grid size={{ xs: 12, md: 3 }}>
+
+            <Typography
+              sx={{
+                color: "#64748B",
+                mb: 1,
+                fontWeight: 600,
+              }}
+            >
+              Location Pricing
+            </Typography>
+
+            <Typography
+              sx={{
+                fontWeight: 600,
+              }}
+            >
+              {
+                frame?.locationPricing
+              }
             </Typography>
 
           </Grid>
 
         </Grid>
 
-        <Divider sx={{ my: 4 }} />
+        <Divider sx={{ my: 5 }} />
 
-        {/* THIRD SECTION */}
+        {/* INVENTORY */}
+        <Typography
+          sx={{
+            fontSize: "22px",
+            fontWeight: 700,
+            mb: 3,
+            color: "#2563EB",
+          }}
+        >
+          Inventory Details
+        </Typography>
+
         <Grid
           container
           spacing={4}
         >
+          {/* SKU */}
+          <Grid size={{ xs: 12, md: 3 }}>
+
+            <Typography
+              sx={{
+                color: "#64748B",
+                mb: 1,
+                fontWeight: 600,
+              }}
+            >
+              SKU Code
+            </Typography>
+
+            <Chip
+              label={
+                frame?.skuCode
+              }
+              sx={{
+                background:
+                  "#EFF6FF",
+
+                color:
+                  "#2563EB",
+
+                fontWeight: 700,
+              }}
+            />
+
+          </Grid>
+
+          {/* BARCODE */}
+          <Grid size={{ xs: 12, md: 3 }}>
+
+            <Typography
+              sx={{
+                color: "#64748B",
+                mb: 1,
+                fontWeight: 600,
+              }}
+            >
+              Barcode
+            </Typography>
+
+            <Typography
+              sx={{
+                fontWeight: 600,
+              }}
+            >
+              {
+                frame?.barcode
+              }
+            </Typography>
+
+          </Grid>
+
           {/* STOCK */}
-          <Grid size={{ xs: 12, md: 4 }}>
+          <Grid size={{ xs: 12, md: 3 }}>
 
             <Typography
               sx={{
@@ -317,19 +622,30 @@ export default async function FrameViewPage({
             </Typography>
 
             <Chip
-              label={`${frame?.stock} pcs`}
+              label={
+                frame?.stock === 0
+                  ? "Out of Stock"
+                  : frame &&
+                    frame.stock <= 5
+                  ? "Low Stock"
+                  : "In Stock"
+              }
               sx={{
                 background:
-                  frame &&
-                  frame.stock > 0
-                    ? "#DCFCE7"
-                    : "#FEE2E2",
+                  frame?.stock === 0
+                    ? "#FEE2E2"
+                    : frame &&
+                      frame.stock <= 5
+                    ? "#FEF3C7"
+                    : "#DCFCE7",
 
                 color:
-                  frame &&
-                  frame.stock > 0
-                    ? "#16A34A"
-                    : "#DC2626",
+                  frame?.stock === 0
+                    ? "#DC2626"
+                    : frame &&
+                      frame.stock <= 5
+                    ? "#D97706"
+                    : "#16A34A",
 
                 fontWeight: 700,
               }}
@@ -338,7 +654,7 @@ export default async function FrameViewPage({
           </Grid>
 
           {/* STATUS */}
-          <Grid size={{ xs: 12, md: 4 }}>
+          <Grid size={{ xs: 12, md: 3 }}>
 
             <Typography
               sx={{
@@ -355,36 +671,157 @@ export default async function FrameViewPage({
                 frame?.status || ""
               }
             />
-
           </Grid>
-
-          {/* CREATED */}
-          <Grid size={{ xs: 12, md: 4 }}>
-
-            <Typography
-              sx={{
-                color: "#64748B",
-                mb: 1,
-                fontWeight: 600,
-              }}
-            >
-              Created On
-            </Typography>
-
-            <Typography
-              sx={{
-                fontWeight: 600,
-              }}
-            >
-              {
-                frame?.createdOn
-              }
-            </Typography>
-
-          </Grid>
-
         </Grid>
 
+        <Divider sx={{ my: 5 }} />
+
+        {/* VARIANTS */}
+        <Typography
+          sx={{
+            fontSize: "22px",
+            fontWeight: 700,
+            mb: 3,
+            color: "#2563EB",
+          }}
+        >
+          Product Variants
+        </Typography>
+        
+        <Grid
+          container
+          spacing={3}
+        >
+        
+          {variants.map(
+            (variant) => (
+        
+              <Grid
+                key={variant.id}
+                size={{
+                  xs: 12,
+                  md: 4,
+                }}
+              >
+                <Card
+                  sx={{
+                    p: 3,
+                    borderRadius:
+                      "18px",
+        
+                    border:
+                      "1px solid #E2E8F0",
+        
+                    boxShadow:
+                      "none",
+                  }}
+                >
+                  {/* COLOR */}
+                  <Typography
+                    sx={{
+                      fontSize: "20px",
+                      fontWeight: 700,
+                      color: "#0F172A",
+                    }}
+                  >
+                    {variant.color}
+                  </Typography>
+        
+                  {/* SIZE */}
+                  <Typography
+                    sx={{
+                      mt: 1,
+                      color: "#64748B",
+                    }}
+                  >
+                    Size:{" "}
+                    {
+                      variant.size
+                    }
+                  </Typography>
+        
+                  {/* SKU */}
+                  <Chip
+                    label={
+                      variant.sku
+                    }
+                    sx={{
+                      mt: 2,
+        
+                      background:
+                        "#EFF6FF",
+        
+                      color:
+                        "#2563EB",
+        
+                      fontWeight: 700,
+                    }}
+                  />
+        
+                  {/* PRICE */}
+                  <Typography
+                    sx={{
+                      mt: 2,
+                      fontWeight: 700,
+                      color: "#16A34A",
+                    }}
+                  >
+                    ₹{" "}
+                    {variant.price.toLocaleString()}
+                  </Typography>
+        
+                  {/* STOCK */}
+                  <Chip
+                    label={`${variant.stock} pcs`}
+                    sx={{
+                      mt: 2,
+        
+                      background:
+                        variant.stock > 0
+                          ? "#DCFCE7"
+                          : "#FEE2E2",
+        
+                      color:
+                        variant.stock > 0
+                          ? "#16A34A"
+                          : "#DC2626",
+        
+                      fontWeight: 700,
+                    }}
+                  />
+        
+                </Card>
+        
+              </Grid>
+            )
+          )}
+        </Grid>
+
+        <Divider sx={{ my: 5 }} />
+
+        {/* CREATED DATE */}
+        <Box>
+
+          <Typography
+            sx={{
+              color: "#64748B",
+              mb: 1,
+              fontWeight: 600,
+            }}
+          >
+            Created On
+          </Typography>
+
+          <Typography
+            sx={{
+              fontWeight: 600,
+            }}
+          >
+            {
+              frame?.createdOn
+            }
+          </Typography>
+        </Box>
       </Card>
     </Box>
   );
