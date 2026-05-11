@@ -2,12 +2,14 @@
 
 import LoginImg from '@/public/login-img/login.jpg';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { Alert, Box, Button, Checkbox, FormControlLabel, IconButton, InputAdornment, Snackbar, TextField, Typography } from '@mui/material';
+import { Box, Button, Checkbox, FormControlLabel, IconButton, InputAdornment, TextField, Typography } from '@mui/material';
+import CircularProgress from "@mui/material/CircularProgress";
 import { useFormik } from 'formik';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import * as yup from 'yup';
+import { toast } from "react-toastify";
+import { LoginFormValues, loginSchema } from './common/validations';
 
 
 const users = [
@@ -26,98 +28,62 @@ const users = [
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [remember, setRemember] = useState(false);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const [toast, setToast] = useState<{
-          open: boolean;
-          message: string;
-          severity: 'success' | 'error';
-        }>({
-          open: false,
-          message: '',
-          severity: 'success',
-        });
 
 
 
-const loginSchema = yup.object({
-  identifier: yup
-    .string()
-    .required('Required')
-    .test(
-      'is-email-or-empid',
-      'Enter valid Email or Employee ID',
-      (value) => {
-        if (!value) return false;
-
-        const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        const isEmpId = /^EMP\d{3,}$/;
-
-        return isEmail.test(value) || isEmpId.test(value);
-      }
-    ),
-
-  password: yup
-    .string()
-    .required('Required')
-    .matches(
-      /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/,
-      'Min 8 chars, upper, lower, number & special char'
-    ),
-});
-
-  const formik = useFormik({
+  const formik = useFormik<LoginFormValues>({
   initialValues: {
     identifier: '',
     password: '',
   },
   validationSchema: loginSchema,
-  onSubmit: (values) => {
+  onSubmit: async (values) => {
+    setLoading(true);
 
-  const user = users.find(
-    (u) =>
-      (
-        u.email === values.identifier ||
-        u.employeeId === values.identifier
-      ) &&
-      u.password === values.password
-  );
+    await Promise.resolve();
 
-  if (user) {
-
-    localStorage.setItem(
-      "isLoggedIn",
-      "true"
+    const user = users.find(
+      (u) =>
+        (u.email === values.identifier ||
+          u.employeeId === values.identifier) &&
+        u.password === values.password
     );
+    if (user) {
+      localStorage.setItem('isLoggedIn', 'true');
+      toast.success("Login successful");
 
-    setToast({
-      open: true,
-      message: "Login successful",
-      severity: "success",
-    });
-
-    setTimeout(() => {
-      router.replace("/");
-    }, 1000);
-
-  } else {
-
-    localStorage.removeItem(
-      "isLoggedIn"
-    );
-
-    setToast({
-      open: true,
-      message:
-        "Invalid credentials",
-      severity: "error",
-    });
-  }
-},
+      setTimeout(() => {
+        router.replace('/');
+      }, 1000);
+    } else {
+      toast.error("Invalid credentials");
+    }
+    setLoading(false);
+  },
 });
 
   return (
-          <Box sx={{ display: 'flex', height: '100vh', justifyContent: "center", alignItems: "center" }}>
-              <Box sx={{display: "flex", bgcolor: "#f0f0f0", borderRadius: "25px", overflow: "hidden", width: "90vw", height: "90vh"}}>
+          <Box 
+            sx={{ 
+              display: 'flex', 
+              height: '100vh', 
+              justifyContent: "center", 
+              alignItems: "center",
+              }}
+          >
+              <Box 
+                sx={{
+                  display: "flex",
+                  flexDirection: { xs: "column", md: "row" }, 
+                  bgcolor: "#f0f0f0", 
+                  borderRadius: { xs: 0, md: "25px" }, 
+                  overflow: "hidden", 
+                  width: { xs: "100%", md: "90vw" },
+                  height: { xs: "100vh", md: "90vh" },
+                  }}
+              >
             {/* LEFT SIDE */}
                   <Box
         sx={{
@@ -125,17 +91,19 @@ const loginSchema = yup.object({
           bgcolor: '#0f172a',
           color: '#fff',
           p: 6,
-          display: 'flex',
+          display: "flex",
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'flex-start', 
         }}
       >
         <Typography
-          variant="h3"
-          sx={{ fontWeight: 'bold' }}
+          sx={{ 
+            fontWeight: 'bold',
+            fontSize: { xs: "1.5rem", md: "2.5rem" },
+          }}
         >
-          Optechular
+          Optechcular
         </Typography>
       
         <Typography variant="h6" sx={{ mt: 1 }}>
@@ -149,11 +117,13 @@ const loginSchema = yup.object({
             maxHeight: 300,
             borderRadius: 3,
             overflow: 'hidden',
+            display: { xs: "none", md: "block" },
           }}
         >
           <Image
             src={LoginImg}
             alt="ERP"
+            priority
             style={{
               width: '100%',
               height: '100%',
@@ -165,15 +135,28 @@ const loginSchema = yup.object({
     
       <Box sx={{ my: 2, borderBottom: '1px solid #e0e0e0' }} />
 
-      {/* RIGHT SIDEedfd */}
-      {/**? */}
-      <Box sx={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <Box sx={{ width: '80%', maxWidth: 400 }}>
+      {/* RIGHT SIDE */}
+      <Box 
+        sx={{ 
+          flex: 1, 
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'center', 
+          px: { xs: 2, sm: 4 },
+          }}
+      >
+        <Box 
+          sx={{ 
+            width: '100%', 
+            maxWidth: 400 
+            }}
+        >
           <Typography 
                 variant="h4"
                 sx={{ 
                     fontWeight: "bold", 
                     marginBottom: "24px",
+                    fontSize: { xs: "1.8rem", md: "2.2rem" }, 
                     color: "black",
                     }}
            >Login
@@ -188,12 +171,9 @@ const loginSchema = yup.object({
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             error={formik.touched.identifier && !!formik.errors.identifier}
-            helperText={formik.touched.identifier && formik.errors.identifier}
-            slotProps={{
-              inputLabel: {
-                shrink: true,
-              },
-            }}
+            helperText={
+              formik.touched.identifier ? formik.errors.identifier : undefined
+            }
           />
 
           <TextField
@@ -206,7 +186,9 @@ const loginSchema = yup.object({
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             error={formik.touched.password && !!formik.errors.password}
-            helperText={formik.touched.password && formik.errors.password}
+            helperText={
+              formik.touched.password ? formik.errors.password : undefined
+            }
             sx={{
               '& input::-ms-reveal': {
                 display: 'none',
@@ -216,9 +198,6 @@ const loginSchema = yup.object({
               },
             }}
             slotProps={{
-             inputLabel: {
-               shrink: true,
-             },
              input: {
                endAdornment: (
                  <InputAdornment position="end">
@@ -246,29 +225,14 @@ const loginSchema = yup.object({
             fullWidth
             variant="contained"
             sx={{ mt: 3, py: 1.5 }}
-            disabled={!formik.values.identifier || !formik.values.password}
+            disabled={!formik.values.identifier || !formik.values.password || loading}
           >
-            Login
+            {loading ? <CircularProgress size={24} color="inherit" /> : "Login"}
           </Button>
           </form>
         </Box>
       </Box>
       </Box>
-      <Snackbar
-        open={toast.open}
-        autoHideDuration={3000}
-        onClose={() => setToast({ ...toast, open: false })}
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-      >
-        <Alert
-          onClose={() => setToast({ ...toast, open: false })}
-          severity={toast.severity}
-          variant="filled"
-          sx={{ width: '100%' }}
-        >
-          {toast.message}
-        </Alert>
-      </Snackbar>
     </Box>
   );
 };

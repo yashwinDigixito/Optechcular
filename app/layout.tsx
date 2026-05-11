@@ -1,9 +1,9 @@
 "use client";
-
-import "./globals.css";
-
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "./globals.css";
 
 import Navbar from "@/component/navbar/Navbar";
 import SidebarMenu from "@/component/sidebar/Sidebar";
@@ -64,12 +64,9 @@ export default function RootLayout({
                   {/* PAGE CONTENT */}
                   <main
                     style={{
-                     
                       overflowY: "auto",
                       padding: "0px",
-                       marginTop: 0,
-                       
-                       
+                      marginTop: 0,
                     }}
                   >
                     {children}
@@ -79,6 +76,7 @@ export default function RootLayout({
             )}
           </AuthProvider>
         </Providers>
+        <ToastContainer position="top-right" autoClose={1500} />
       </body>
     </html>
   );
