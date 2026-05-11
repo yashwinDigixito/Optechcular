@@ -203,37 +203,78 @@ const SidebarMenu = ({
   collapsed,
   setCollapsed,
 }: Props) => {
-  const [openMenus, setOpenMenus] =
-    useState<Record<string, boolean>>(
-      {}
-    );
+  const [openMenus, setOpenMenus] = useState<Record<string, boolean>>({});
+const [openChildren, setOpenChildren] = useState<Record<string, boolean>>({});
+
+ 
     
 
+
+  // const handleToggle = (title: string) => {
+  //   setOpenMenus((prev) => ({
+  //     ...prev,
+  //   [title]: !prev[title],
+  //   }));
+  // };
+
+
   const handleToggle = (title: string) => {
-    setOpenMenus((prev) => ({
-      // ...prev,
-      [title]: !prev[title],
-    }));
-  };
+  setOpenMenus((prev) => {
+    const isOpen = prev[title];
+
+    // reset all deeper levels
+    setOpenChildren({});
+    
+
+    return isOpen ? {} : { [title]: true };
+  });
+};
+
+
+const handleChildToggle = (title: string) => {
+  setOpenChildren((prev) => {
+    const isOpen = prev[title];
+
+    // reset sub-children when child changes
+    
+
+    return {
+      [title]: !isOpen,
+    };
+  });
+};
+
+
+
+
+
+
 
   return (
-    <Drawer
+     <Drawer
       variant="permanent"
       sx={{
-        width: collapsed ? 90 : 300,
-        transition: '0.2s',
+    width: collapsed ? 90 : 300,
+    flexShrink: 0,
+
+    '& .MuiDrawer-paper': {
+      width: collapsed ? 90 : 300,
+        transition: '0.1s',
         height: '100vh',
         overflowY: 'auto',
+      overflowX: 'hidden',
         borderRight: '1px solid #e0e0e0',
-        p: 2,
-        position: 'relative',
-
+      p: 1,
+      boxSizing: 'border-box',
+        
+      /* HIDE SCROLLBAR */
         '&::-webkit-scrollbar': {
           display: 'none',
         },
 
         msOverflowStyle: 'none',
         scrollbarWidth: 'none',
+    },
       }}
     >
       {/* TOGGLE BUTTON */}
@@ -271,8 +312,8 @@ const SidebarMenu = ({
       ? 'column'
       : 'column',
 
-    mb: collapsed ? 3 : 4,
-    mt: 5,
+    mb: collapsed ? 3 : 2,
+    // mt: 5,
   }}
 >
   {/* COLLAPSED LOGO */}
@@ -331,9 +372,7 @@ const SidebarMenu = ({
             menu.children
           );
 
-          const isOpen = Boolean(
-            openMenus[menu.title]
-          );
+        const isOpen = Boolean(openMenus[menu.title]);
 
           return (
             <React.Fragment key={menu.title}>
@@ -350,7 +389,7 @@ const SidebarMenu = ({
                       sx={{
                         p: 1,
                        
-                        minWidth: 220,
+                        minWidth: 300,
                       }}
                     >
                       {/* TITLE */}
@@ -476,6 +515,7 @@ const SidebarMenu = ({
                       menu.title
                     )
                   }
+                  
                   sx={{
                     borderRadius: 2,
                     mb: 0.5,
@@ -602,12 +642,7 @@ const SidebarMenu = ({
                               child.children
                             );
 
-                          const childOpen =
-                            Boolean(
-                              openMenus[
-                                child.title
-                              ]
-                            );
+                          const childOpen = Boolean(openChildren[child.title]);
 
                           return (
                             <React.Fragment
@@ -627,12 +662,12 @@ const SidebarMenu = ({
                                     ? child.path
                                     : undefined
                                 }
-                                onClick={() =>
-                                  childHasChildren &&
-                                  handleToggle(
+                              onClick={() =>
+  childHasChildren &&
+                                  handleChildToggle(
                                     child.title
                                   )
-                                }
+}
                                 sx={{
                                   pl: 7,
                                   borderRadius: 2,
@@ -672,49 +707,40 @@ const SidebarMenu = ({
                                   timeout="auto"
                                   unmountOnExit
                                 >
+
+                               
                                   <List
                                     component="div"
                                     disablePadding
                                   >
-                                    {child.children.map(
-                                      (
-                                        subChild: any
-                                      ) => (
-                                        <ListItemButton
-                                          key={
-                                            subChild.title
-                                          }
-                                          component={
-                                            Link
-                                          }
-                                          href={
-                                            subChild.path
-                                          }
-                                          sx={{
-                                            pl: 7,
-                                            borderRadius: 2,
-                                          }}
-                                        >
-                                          <ListItemText
-                                            primary={
-                                              subChild.title
-                                            }
-                                            slotProps={{
-                                              primary:
-                                                {
-                                                  sx: {
-                                                    fontSize:
-                                          '0.8rem',
-                                        fontWeight: 600,
-                                        color:
-                                          'grey.700',
-                                                  },
-                                                },
-                                            }}
-                                          />
-                                        </ListItemButton>
-                                      )
-                                    )}
+                                 {child.children.map(
+  (subChild: any) => {
+    return (
+      <ListItemButton
+        key={subChild.title}
+        component={Link}
+        href={subChild.path}
+        sx={{
+          pl: 7,
+          borderRadius: 2,
+        }}
+      >
+        <ListItemText
+          primary={subChild.title}
+          slotProps={{
+            primary: {
+              sx: {
+                fontSize: '0.8rem',
+                fontWeight: 600,
+                color: 'grey.700',
+              },
+            },
+          }}
+        />
+      </ListItemButton>
+    );
+  }
+)}
                                   </List>
                                 </Collapse>
                               )}
