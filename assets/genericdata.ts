@@ -203,21 +203,125 @@ export const salesTargets = [
   },
 ];
 
-export const rolesData = [
+export const roles = [
   {
     id: "1",
     roleName: "Admin",
+    status: "Active",
     permissions: [
       "Create",
       "Edit",
       "View",
-      "Delete",
+      "Deactivate",
     ],
   },
 
   {
     id: "2",
+    roleName: "Manager",
+    status: "Active",
+    permissions: [
+      "View",
+      "Edit",
+    ],
+  },
+
+  {
+    id: "3",
     roleName: "Sales",
+    status: "Inactive",
+    permissions: [
+      "View",
+    ],
+  },
+
+  {
+    id: "4",
+    roleName: "HR Manager",
+    status: "Active",
+    permissions: [
+      "Create",
+      "View",
+      "Edit",
+    ],
+  },
+
+  {
+    id: "5",
+    roleName: "Inventory Manager",
+    status: "Active",
+    permissions: [
+      "Create",
+      "Edit",
+      "View",
+    ],
+  },
+
+  {
+    id: "6",
+    roleName: "Accountant",
+    status: "Inactive",
+    permissions: [
+      "View",
+      "Edit",
+    ],
+  },
+
+  {
+    id: "7",
+    roleName: "Support Executive",
+    status: "Active",
+    permissions: [
+      "View",
+    ],
+  },
+
+  {
+    id: "8",
+    roleName: "Store Manager",
+    status: "Active",
+    permissions: [
+      "Create",
+      "Edit",
+      "View",
+      "Deactivate",
+    ],
+  },
+
+  {
+    id: "9",
+    roleName: "Marketing Executive",
+    status: "Inactive",
+    permissions: [
+      "View",
+      "Edit",
+    ],
+  },
+
+  {
+    id: "10",
+    roleName: "Delivery Staff",
+    status: "Active",
+    permissions: [
+      "View",
+    ],
+  },
+
+  {
+    id: "11",
+    roleName: "Finance Manager",
+    status: "Active",
+    permissions: [
+      "Create",
+      "Edit",
+      "View",
+    ],
+  },
+
+  {
+    id: "12",
+    roleName: "Receptionist",
+    status: "Inactive",
     permissions: [
       "View",
     ],
@@ -449,5 +553,22 @@ export const orderTabs = [
   {
     label: "Refunded",
     color: "#475569",
+  },
+];
+
+export const roleTabs = [
+  {
+    label: "All",
+    color: "#1E293B",
+  },
+
+  {
+    label: "Active",
+    color: "#16A34A",
+  },
+
+  {
+    label: "Inactive",
+    color: "#DC2626",
   },
 ];

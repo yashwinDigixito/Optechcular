@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 
+import { orderTabs } from "@/assets/genericdata";
 import AddIcon from "@mui/icons-material/Add";
-
 import {
   Box,
   Button,
@@ -103,6 +103,8 @@ export default function OrderManagementPage() {
           <FilterTabs
             activeTab={activeTab}
             setActiveTab={setActiveTab}
+            tabs={orderTabs}
+            data={orders}
           />
           <OrderFilters
           startDate={startDate}

@@ -1,99 +1,110 @@
 "use client";
 
-import * as React from "react";
-
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import LogoutIcon from "@mui/icons-material/Logout";
+import MenuIcon from "@mui/icons-material/Menu";
+import PersonIcon from "@mui/icons-material/Person";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
-import MenuItem from "@mui/material/MenuItem";
-import Menu from "@mui/material/Menu";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-
-import MenuIcon from "@mui/icons-material/Menu";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import PersonIcon from "@mui/icons-material/Person";
-import LogoutIcon from "@mui/icons-material/Logout";
-
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Toolbar from "@mui/material/Toolbar";
+import {
+  useRouter,
+} from "next/navigation";
+import * as React from "react";
 type Props = {
   collapsed: boolean;
   setCollapsed: React.Dispatch<
     React.SetStateAction<boolean>
   >;
 };
-
 const Navbar = ({
   collapsed,
   setCollapsed,
 }: Props) => {
-  const [auth] = React.useState(true);
-
-  const [anchorEl, setAnchorEl] =
-    React.useState<null | HTMLElement>(null);
-
-  // Open Menu ONLY on Hover
+  const router =useRouter();
+  const [auth] =React.useState(true);
+  const [anchorEl, setAnchorEl] =React.useState<null | HTMLElement>(null);
   const handleMenu = (
     event: React.MouseEvent<HTMLElement>
   ) => {
-    setAnchorEl(event.currentTarget);
+    setAnchorEl(
+      event.currentTarget
+    );
   };
-
-  // Close Menu
   const handleClose = () => {
     setAnchorEl(null);
   };
 
+  const handleLogout = () => {
+  localStorage.removeItem(
+    "token"
+  );
+  localStorage.removeItem(
+    "user"
+  );
+  localStorage.removeItem(
+    "isLoggedIn"
+  );
+  handleClose();
+  router.replace("/login");
+};
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
         position="static"
         sx={{
-          backgroundColor: "white",
+          backgroundColor:
+            "white",
           mb: 0,
           zIndex: 1300,
           boxShadow: "none",
-          borderBottom: "1px solid #E5E7EB",
+          borderBottom:
+            "1px solid #E5E7EB",
         }}
       >
         <Toolbar>
-          {/* Sidebar Toggle Button */}
           <IconButton
             size="large"
             edge="start"
             aria-label="menu"
             onClick={() =>
-              setCollapsed(!collapsed)
+              setCollapsed(
+                !collapsed
+              )
             }
             sx={{
               mr: 2,
-              color: collapsed
-                ? "primary.main"
-                : "grey.500",
+              color:
+                collapsed
+                  ? "primary.main"
+                  : "grey.500",
             }}
           >
             <MenuIcon fontSize="large" />
           </IconButton>
 
           <Box sx={{ flexGrow: 1 }} />
-
-          {/* Profile Section */}
           {auth && (
             <Box
-              onMouseEnter={handleMenu}
+              onMouseEnter={
+                handleMenu
+              }
             >
-              {/* Profile Icon */}
               <IconButton
                 sx={{
-                  color: Boolean(anchorEl)
-                    ? "primary.main"
-                    : "grey.500",
+                  color:
+                    Boolean(anchorEl)
+                      ? "primary.main"
+                      : "grey.500",
                 }}
               >
                 <AccountCircle fontSize="large" />
               </IconButton>
-
-              {/* Dropdown Menu */}
               <Menu
                 id="menu-appbar"
                 anchorEl={anchorEl}
@@ -101,12 +112,16 @@ const Navbar = ({
                 onClose={handleClose}
                 disableAutoFocusItem
                 anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "right",
+                  vertical:
+                    "bottom",
+                  horizontal:
+                    "right",
                 }}
                 transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
+                  vertical:
+                    "top",
+                  horizontal:
+                    "right",
                 }}
                 slotProps={{
                   paper: {
@@ -122,9 +137,10 @@ const Navbar = ({
                   },
                 }}
               >
-                {/* Profile */}
                 <MenuItem
-                  onClick={handleClose}
+                  onClick={
+                    handleClose
+                  }
                   sx={{
                     "&:hover": {
                       backgroundColor:
@@ -140,18 +156,17 @@ const Navbar = ({
                   >
                     <PersonIcon fontSize="small" />
                   </ListItemIcon>
-
                   <ListItemText>
                     Profile
                   </ListItemText>
                 </MenuItem>
-
-                {/* Logout */}
                 <MenuItem
-                  onClick={handleClose}
+                  onClick={
+                    handleLogout
+                  }
                   sx={{
-                    color: "#D32F2F",
-
+                    color:
+                      "#D32F2F",
                     "&:hover": {
                       backgroundColor:
                         "rgba(211, 47, 47, 0.08)",
@@ -166,7 +181,6 @@ const Navbar = ({
                   >
                     <LogoutIcon fontSize="small" />
                   </ListItemIcon>
-
                   <ListItemText>
                     Logout
                   </ListItemText>

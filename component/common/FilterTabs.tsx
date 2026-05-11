@@ -1,15 +1,15 @@
 "use client";
 
 import {
-    Box,
-    Chip,
-    Typography,
+  Box,
+  Chip,
+  Typography,
 } from "@mui/material";
 
-import {
-    orders,
-    orderTabs,
-} from "@/assets/genericdata";
+interface TabItem {
+  label: string;
+  color: string;
+}
 
 interface FilterTabsProps {
   activeTab: string;
@@ -17,11 +17,19 @@ interface FilterTabsProps {
   setActiveTab: (
     value: string
   ) => void;
+
+  tabs: TabItem[];
+
+  data: {
+    status: string;
+  }[];
 }
 
 export default function FilterTabs({
   activeTab,
   setActiveTab,
+  tabs,
+  data,
 }: FilterTabsProps) {
 
   const getCount = (
@@ -29,12 +37,12 @@ export default function FilterTabs({
   ) => {
 
     if (label === "All") {
-      return orders.length;
+      return data.length;
     }
 
-    return orders.filter(
-      (order) =>
-        order.status === label
+    return data.filter(
+      (item) =>
+        item.status === label
     ).length;
   };
 
@@ -49,7 +57,7 @@ export default function FilterTabs({
         flexWrap: "wrap",
       }}
     >
-      {orderTabs.map((tab) => {
+      {tabs.map((tab) => {
 
         const isActive =
           activeTab === tab.label;

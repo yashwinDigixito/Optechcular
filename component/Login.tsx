@@ -1,7 +1,3 @@
-// <<<<<<< HEAD
-// =======
-// 'use client';
-// >>>>>>> e3b8dbbb44b139742569e8d09466f24203900a3d
 'use client';
 
 import LoginImg from '@/public/login-img/login.jpg';
@@ -76,33 +72,47 @@ const loginSchema = yup.object({
   },
   validationSchema: loginSchema,
   onSubmit: (values) => {
-    const user = users.find(
-      (u) =>
-        (u.email === values.identifier ||
-          u.employeeId === values.identifier) &&
-        u.password === values.password
+
+  const user = users.find(
+    (u) =>
+      (
+        u.email === values.identifier ||
+        u.employeeId === values.identifier
+      ) &&
+      u.password === values.password
+  );
+
+  if (user) {
+
+    localStorage.setItem(
+      "isLoggedIn",
+      "true"
     );
 
-    localStorage.setItem('isLoggedIn', 'true');
+    setToast({
+      open: true,
+      message: "Login successful",
+      severity: "success",
+    });
 
-    if (user) {
-      setToast({
-        open: true,
-        message: 'Login successful',
-        severity: 'success',
-      });
+    setTimeout(() => {
+      router.replace("/");
+    }, 1000);
 
-      setTimeout(() => {
-        router.replace('/');
-      }, 1000);
-    } else {
-      setToast({
-        open: true,
-        message: 'Invalid credentials',
-        severity: 'error',
-      });
-    }
-  },
+  } else {
+
+    localStorage.removeItem(
+      "isLoggedIn"
+    );
+
+    setToast({
+      open: true,
+      message:
+        "Invalid credentials",
+      severity: "error",
+    });
+  }
+},
 });
 
   return (
