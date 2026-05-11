@@ -79,60 +79,6 @@ export const products = [
   },
 ];
 
-export const frames = [
-  {
-    id: "1",
-    modelNo: "RB-2026",
-    brand: "Rayban",
-    rimType: "Full Rim",
-    rimShape: "Rectangle",
-    skuCode: "RBX001",
-    barcode: "123456789",
-    srp: 3500,
-  },
-
-  {
-    id: "2",
-    modelNo: "VC-2025",
-    brand: "Vincent Chase",
-    rimType: "Half Rim",
-    rimShape: "Round",
-    skuCode: "VCX002",
-    barcode: "987654321",
-    srp: 2800,
-  },
-];
-
-export const brands = [
-  {
-    id: "1",
-    brandName: "Rayban",
-    category: "Frame",
-    status: "Active",
-  },
-
-  {
-    id: "2",
-    brandName: "Bausch & Lomb",
-    category: "Contact Lens",
-    status: "Active",
-  },
-];
-
-export const categories = [
-  {
-    id: "1",
-    categoryName: "Optical Frame",
-    status: "Active",
-  },
-
-  {
-    id: "2",
-    categoryName: "Sunglasses",
-    status: "Active",
-  },
-];
-
 export const purchaseOrders = [
   {
     id: "1",
@@ -570,5 +516,540 @@ export const roleTabs = [
   {
     label: "Inactive",
     color: "#DC2626",
+  },
+];
+
+export const brands = [
+  {
+    id: "1",
+    brandName: "RayBan",
+    category: "Frame",
+    brandGroup: "Premium",
+    status: "Active",
+    createdOn: "2026-05-11",
+  },
+
+  {
+    id: "2",
+    brandName: "Titan Eye+",
+    category: "Frame",
+    brandGroup: "Budget",
+    status: "Active",
+    createdOn: "2026-05-10",
+  },
+
+  {
+    id: "3",
+    brandName: "Acuvue",
+    category: "Contact Lens",
+    brandGroup: "Imported",
+    status: "Inactive",
+    createdOn: "2026-05-09",
+  },
+
+  {
+    id: "4",
+    brandName: "Oakley",
+    category: "Frame",
+    brandGroup: "Premium",
+    status: "Active",
+    createdOn: "2026-05-08",
+  },
+
+  {
+    id: "5",
+    brandName: "Fastrack",
+    category: "Accessories",
+    brandGroup: "Budget",
+    status: "Active",
+    createdOn: "2026-05-07",
+  },
+
+  {
+    id: "6",
+    brandName: "Bausch + Lomb",
+    category: "Contact Lens",
+    brandGroup: "Imported",
+    status: "Active",
+    createdOn: "2026-05-06",
+  },
+
+  {
+    id: "7",
+    brandName: "Vogue Eyewear",
+    category: "Frame",
+    brandGroup: "Premium",
+    status: "Inactive",
+    createdOn: "2026-05-05",
+  },
+
+  {
+    id: "8",
+    brandName: "Police",
+    category: "Frame",
+    brandGroup: "Luxury",
+    status: "Active",
+    createdOn: "2026-05-04",
+  },
+
+  {
+    id: "9",
+    brandName: "John Jacobs",
+    category: "Frame",
+    brandGroup: "Premium",
+    status: "Active",
+    createdOn: "2026-05-03",
+  },
+
+  {
+    id: "10",
+    brandName: "FreshLook",
+    category: "Contact Lens",
+    brandGroup: "Imported",
+    status: "Inactive",
+    createdOn: "2026-05-02",
+  },
+
+  {
+    id: "11",
+    brandName: "Prada",
+    category: "Frame",
+    brandGroup: "Luxury",
+    status: "Active",
+    createdOn: "2026-05-01",
+  },
+
+  {
+    id: "12",
+    brandName: "Gucci",
+    category: "Accessories",
+    brandGroup: "Luxury",
+    status: "Active",
+    createdOn: "2026-04-30",
+  },
+
+  {
+    id: "13",
+    brandName: "Carrera",
+    category: "Frame",
+    brandGroup: "Premium",
+    status: "Active",
+    createdOn: "2026-04-29",
+  },
+
+  {
+    id: "14",
+    brandName: "Essilor",
+    category: "Optical Lens",
+    brandGroup: "Imported",
+    status: "Active",
+    createdOn: "2026-04-28",
+  },
+
+  {
+    id: "15",
+    brandName: "Zeiss",
+    category: "Optical Lens",
+    brandGroup: "Luxury",
+    status: "Inactive",
+    createdOn: "2026-04-27",
+  },
+];
+
+export const brandGroups = [
+  {
+    id: "1",
+    groupName: "Premium",
+    description:
+      "High quality premium eyewear brands",
+    status: "Active",
+    createdOn: "2026-05-11",
+  },
+
+  {
+    id: "2",
+    groupName: "Budget",
+    description:
+      "Affordable daily use brands",
+    status: "Active",
+    createdOn: "2026-05-10",
+  },
+
+  {
+    id: "3",
+    groupName: "Luxury",
+    description:
+      "Luxury designer eyewear brands",
+    status: "Inactive",
+    createdOn: "2026-05-09",
+  },
+
+  {
+    id: "4",
+    groupName: "Imported",
+    description:
+      "International imported products",
+    status: "Active",
+    createdOn: "2026-05-08",
+  },
+];
+
+export const categories = [
+  {
+    id: "1",
+    categoryName: "Frame",
+    description:
+      "Optical and sunglasses frames",
+    status: "Active",
+    createdOn: "2026-05-11",
+  },
+
+  {
+    id: "2",
+    categoryName: "Contact Lens",
+    description:
+      "Vision correction contact lenses",
+    status: "Active",
+    createdOn: "2026-05-10",
+  },
+
+  {
+    id: "3",
+    categoryName: "Accessories",
+    description:
+      "Eyewear accessories and cleaners",
+    status: "Inactive",
+    createdOn: "2026-05-09",
+  },
+
+  {
+    id: "4",
+    categoryName: "Optical Lens",
+    description:
+      "Prescription optical lenses",
+    status: "Active",
+    createdOn: "2026-05-08",
+  },
+];
+
+export const materials = [
+  {
+    id: "1",
+    materialName: "Metal",
+    applicableFor: "Frame",
+    status: "Active",
+    createdOn: "2026-05-11",
+  },
+
+  {
+    id: "2",
+    materialName: "Plastic",
+    applicableFor: "Frame",
+    status: "Active",
+    createdOn: "2026-05-10",
+  },
+
+  {
+    id: "3",
+    materialName:
+      "Silicone Hydrogel",
+
+    applicableFor:
+      "Contact Lens",
+
+    status: "Active",
+
+    createdOn:
+      "2026-05-09",
+  },
+
+  {
+    id: "4",
+    materialName:
+      "Polycarbonate",
+
+    applicableFor:
+      "Optical Lens",
+
+    status: "Inactive",
+
+    createdOn:
+      "2026-05-08",
+  },
+
+  {
+    id: "5",
+    materialName:
+      "Titanium",
+
+    applicableFor:
+      "Frame",
+
+    status: "Active",
+
+    createdOn:
+      "2026-05-07",
+  },
+];
+
+export const rimShapes = [
+  {
+    id: "1",
+    shapeName: "Round",
+    description:
+      "Classic circular frame shape",
+    status: "Active",
+    createdOn: "2026-05-11",
+  },
+
+  {
+    id: "2",
+    shapeName: "Square",
+    description:
+      "Sharp square frame design",
+    status: "Active",
+    createdOn: "2026-05-10",
+  },
+
+  {
+    id: "3",
+    shapeName: "Cat Eye",
+    description:
+      "Stylish cat eye frame shape",
+    status: "Inactive",
+    createdOn: "2026-05-09",
+  },
+
+  {
+    id: "4",
+    shapeName: "Aviator",
+    description:
+      "Pilot inspired aviator shape",
+    status: "Active",
+    createdOn: "2026-05-08",
+  },
+
+  {
+    id: "5",
+    shapeName: "Rectangle",
+    description:
+      "Modern rectangular frame",
+    status: "Active",
+    createdOn: "2026-05-07",
+  },
+];
+
+export const frames = [
+  {
+    id: "1",
+
+    productName:
+      "RayBan Classic Round",
+
+    sku: "RB-1001",
+
+    brand: "RayBan",
+
+    category: "Frame",
+
+    material: "Metal",
+
+    rimShape: "Round",
+
+    color: "Black",
+
+    size: "Medium",
+
+    price: 4999,
+
+    stock: 25,
+
+    status: "Active",
+
+    createdOn: "2026-05-11",
+  },
+
+  {
+    id: "2",
+
+    productName:
+      "Oakley Square Pro",
+
+    sku: "OK-2201",
+
+    brand: "Oakley",
+
+    category: "Frame",
+
+    material: "Titanium",
+
+    rimShape: "Square",
+
+    color: "Silver",
+
+    size: "Large",
+
+    price: 6999,
+
+    stock: 10,
+
+    status: "Active",
+
+    createdOn: "2026-05-10",
+  },
+
+  {
+    id: "3",
+
+    productName:
+      "Vogue Cat Eye",
+
+    sku: "VG-3101",
+
+    brand: "Vogue",
+
+    category: "Frame",
+
+    material: "Plastic",
+
+    rimShape: "Cat Eye",
+
+    color: "Pink",
+
+    size: "Small",
+
+    price: 3999,
+
+    stock: 0,
+
+    status: "Inactive",
+
+    createdOn: "2026-05-09",
+  },
+];
+
+
+export const contactLenses = [
+  {
+    id: "1",
+
+    productName:
+      "Acuvue Oasys",
+
+    productCode:
+      "CL-1001",
+
+    brand:
+      "Johnson & Johnson",
+
+    powerType:
+      "Spherical",
+
+    modality:
+      "Monthly",
+
+    material:
+      "Silicone Hydrogel",
+
+    productType:
+      "Rx",
+
+    baseCurve:
+      "8.4",
+
+    diameter:
+      "14.2",
+
+    stock: 120,
+
+    price: 2499,
+
+    status:
+      "Active",
+
+    createdOn:
+      "2026-05-11",
+  },
+
+  {
+    id: "2",
+
+    productName:
+      "Bausch Lomb Ultra",
+
+    productCode:
+      "CL-1002",
+
+    brand:
+      "Bausch & Lomb",
+
+    powerType:
+      "Astigmatism",
+
+    modality:
+      "Daily",
+
+    material:
+      "Hydrogel",
+
+    productType:
+      "Rx",
+
+    baseCurve:
+      "8.6",
+
+    diameter:
+      "14.0",
+
+    stock: 60,
+
+    price: 3299,
+
+    status:
+      "Active",
+
+    createdOn:
+      "2026-05-10",
+  },
+
+  {
+    id: "3",
+
+    productName:
+      "FreshLook Color",
+
+    productCode:
+      "CL-1003",
+
+    brand:
+      "Alcon",
+
+    powerType:
+      "Progressive",
+
+    modality:
+      "Quarterly",
+
+    material:
+      "Hydrogel",
+
+    productType:
+      "Cosmetic",
+
+    baseCurve:
+      "8.5",
+
+    diameter:
+      "14.1",
+
+    stock: 0,
+
+    price: 1899,
+
+    status:
+      "Inactive",
+
+    createdOn:
+      "2026-05-09",
   },
 ];

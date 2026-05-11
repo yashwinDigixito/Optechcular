@@ -104,6 +104,12 @@ const sidebarMenus = [
         path:
           "/products/brands",
       },
+      {
+      title:
+        "Brand Group Management",
+      path:
+        "/products/brand-groups",
+    },
 
       {
         title:

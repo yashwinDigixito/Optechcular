@@ -1,0 +1,349 @@
+"use client";
+
+import { useState } from "react";
+
+import BlockIcon from "@mui/icons-material/Block";
+import EditIcon from "@mui/icons-material/Edit";
+import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
+
+import {
+    Box,
+    Chip,
+    IconButton,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    Tooltip,
+    Typography,
+} from "@mui/material";
+
+import { useRouter } from "next/navigation";
+
+import StatusChip from "@/component/common/StatusChip";
+
+interface Props {
+  contactLenses: {
+    id: string;
+    productName: string;
+    productCode: string;
+    brand: string;
+    powerType: string;
+    modality: string;
+    material: string;
+    productType: string;
+    baseCurve: string;
+    diameter: string;
+    stock: number;
+    price: number;
+    status: string;
+    createdOn: string;
+  }[];
+}
+
+export default function ContactLensTable({
+  contactLenses,
+}: Props) {
+
+  const router =
+    useRouter();
+
+  const [lensData, setLensData] =
+    useState(contactLenses);
+
+  const handleToggleStatus = (
+    id: string
+  ) => {
+
+    setLensData((prev) =>
+      prev.map((lens) =>
+        lens.id === id
+          ? {
+              ...lens,
+
+              status:
+                lens.status ===
+                "Active"
+                  ? "Inactive"
+                  : "Active",
+            }
+          : lens
+      )
+    );
+  };
+
+  return (
+    <TableContainer>
+
+      <Table>
+
+        <TableHead>
+
+          <TableRow
+            sx={{
+              background:
+                "#F8FAFC",
+            }}
+          >
+            <TableCell>
+              <Typography sx={{ fontWeight: 700 }}>
+                Product
+              </Typography>
+            </TableCell>
+
+            <TableCell>
+              <Typography sx={{ fontWeight: 700 }}>
+                Product Code
+              </Typography>
+            </TableCell>
+
+            <TableCell>
+              <Typography sx={{ fontWeight: 700 }}>
+                Brand
+              </Typography>
+            </TableCell>
+
+            <TableCell>
+              <Typography sx={{ fontWeight: 700 }}>
+                Power Type
+              </Typography>
+            </TableCell>
+
+            <TableCell>
+              <Typography sx={{ fontWeight: 700 }}>
+                Price
+              </Typography>
+            </TableCell>
+
+            <TableCell>
+              <Typography sx={{ fontWeight: 700 }}>
+                Stock
+              </Typography>
+            </TableCell>
+
+            <TableCell>
+              <Typography sx={{ fontWeight: 700 }}>
+                Status
+              </Typography>
+            </TableCell>
+
+            <TableCell>
+              <Typography sx={{ fontWeight: 700 }}>
+                Actions
+              </Typography>
+            </TableCell>
+          </TableRow>
+
+        </TableHead>
+
+        <TableBody>
+
+          {lensData.map((lens) => (
+
+            <TableRow
+              key={lens.id}
+              hover
+            >
+              {/* PRODUCT */}
+              <TableCell>
+
+                <Box>
+
+                  <Typography
+                    sx={{
+                      fontWeight: 700,
+                      color: "#2563EB",
+                    }}
+                  >
+                    {
+                      lens.productName
+                    }
+                  </Typography>
+
+                  <Typography
+                    sx={{
+                      color: "#64748B",
+                      fontSize: "14px",
+                    }}
+                  >
+                    {
+                      lens.modality
+                    }{" "}
+                    •{" "}
+                    {
+                      lens.material
+                    }
+                  </Typography>
+
+                </Box>
+
+              </TableCell>
+
+              {/* PRODUCT CODE */}
+              <TableCell>
+
+                <Chip
+                  label={
+                    lens.productCode
+                  }
+                  sx={{
+                    background:
+                      "#EFF6FF",
+
+                    color:
+                      "#2563EB",
+
+                    fontWeight: 700,
+                  }}
+                />
+
+              </TableCell>
+
+              {/* BRAND */}
+              <TableCell>
+                {lens.brand}
+              </TableCell>
+
+              {/* POWER TYPE */}
+              <TableCell>
+                {lens.powerType}
+              </TableCell>
+
+              {/* PRICE */}
+              <TableCell>
+
+                <Typography
+                  sx={{
+                    fontWeight: 700,
+                  }}
+                >
+                  ₹ {lens.price}
+                </Typography>
+
+              </TableCell>
+
+              {/* STOCK */}
+              <TableCell>
+
+                <Chip
+                  label={`${lens.stock} pcs`}
+                  sx={{
+                    background:
+                      lens.stock > 0
+                        ? "#DCFCE7"
+                        : "#FEE2E2",
+
+                    color:
+                      lens.stock > 0
+                        ? "#16A34A"
+                        : "#DC2626",
+
+                    fontWeight: 700,
+                  }}
+                />
+
+              </TableCell>
+
+              {/* STATUS */}
+              <TableCell>
+
+                <StatusChip
+                  status={
+                    lens.status
+                  }
+                />
+
+              </TableCell>
+
+              {/* ACTIONS */}
+              <TableCell>
+
+                <Box
+                  sx={{
+                    display: "flex",
+                    gap: 1,
+                  }}
+                >
+                  {/* VIEW */}
+                  <Tooltip title="View">
+
+                    <IconButton
+                      sx={{
+                        background:
+                          "#EFF6FF",
+                      }}
+                      onClick={() =>
+                        router.push(
+                          `/products/contact-lens/view/${lens.id}`
+                        )
+                      }
+                    >
+                      <RemoveRedEyeOutlinedIcon />
+                    </IconButton>
+
+                  </Tooltip>
+
+                  {/* EDIT */}
+                  <Tooltip title="Edit">
+
+                    <IconButton
+                      sx={{
+                        background:
+                          "#F8FAFC",
+                      }}
+                      onClick={() =>
+                        router.push(
+                          `/products/contact-lens/edit/${lens.id}`
+                        )
+                      }
+                    >
+                      <EditIcon />
+                    </IconButton>
+
+                  </Tooltip>
+
+                  {/* DEACTIVATE */}
+                  <Tooltip
+                    title={
+                      lens.status ===
+                      "Active"
+                        ? "Deactivate"
+                        : "Activate"
+                    }
+                  >
+                    <IconButton
+                      sx={{
+                        background:
+                          "#FEF2F2",
+                      }}
+                      onClick={() =>
+                        handleToggleStatus(
+                          lens.id
+                        )
+                      }
+                    >
+                      <BlockIcon
+                        sx={{
+                          color:
+                            "#DC2626",
+                        }}
+                      />
+                    </IconButton>
+
+                  </Tooltip>
+                </Box>
+
+              </TableCell>
+
+            </TableRow>
+          ))}
+
+        </TableBody>
+
+      </Table>
+
+    </TableContainer>
+  );
+}
