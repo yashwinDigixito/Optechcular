@@ -1,5 +1,8 @@
 "use client";
 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import Navbar from "@/component/navbar/Navbar";
 import Sidebar from "@/component/sidebar/Sidebar";
 import AuthProvider from "@/providers/AuthProvider";
@@ -52,6 +55,7 @@ export default function RootLayout({
             )}
           </AuthProvider>
         </Providers>
+        <ToastContainer position="top-right" autoClose={1500} />
       </body>
     </html>
   );
