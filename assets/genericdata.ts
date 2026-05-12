@@ -359,11 +359,47 @@ export const orders = [
     orderNo: "ORD-1001",
     customerName: "Rahul Sharma",
     email: "rahul@gmail.com",
+    phone: "+91 9876543210",
+
     salesPerson: "Amit",
+    orderSource: "Online Store",
+
     productType: "Frame",
+    productName: "RayBan Classic Frame",
+    productSku: "RB-1001",
+    productVariant: "Black / Medium",
+
+    quantity: 2,
+    productPrice: 12250,
+
     status: "Completed",
+    paymentStatus: "Paid",
+    deliveryStatus: "Delivered",
+
     orderDate: "08-05-2026",
+
+    subtotal: 24500,
+    discount: 500,
+    tax: 1200,
+    shippingCharge: 0,
     totalAmount: 24500,
+
+    paymentMethod: "UPI",
+    transactionId: "TXN1001",
+    paidAmount: 24500,
+    paymentDue: 0,
+
+    shippingPartner: "BlueDart",
+    trackingNo: "BD123456789",
+    estimatedDeliveryDate: "10-05-2026",
+
+    shippingAddress:
+      "22 MG Road, Delhi, India",
+    billingAddress:
+      "22 MG Road, Delhi, India",
+
+    notes:
+      "Customer requested premium packaging.",
   },
 
   {
@@ -371,11 +407,48 @@ export const orders = [
     orderNo: "ORD-1002",
     customerName: "Riya Patel",
     email: "riya@gmail.com",
+    phone: "+91 9988776655",
+
     salesPerson: "Suresh",
+    orderSource: "POS",
+
     productType: "Contact Lens",
+    productName: "Bausch & Lomb Lens",
+    productSku: "CL-2002",
+    productVariant: "Monthly Pack",
+
+    quantity: 1,
+    productPrice: 12800,
+
     status: "Pending",
+    paymentStatus: "Pending",
+    deliveryStatus: "Processing",
+
     orderDate: "07-05-2026",
+
+    subtotal: 12800,
+    discount: 0,
+    tax: 640,
+    shippingCharge: 100,
     totalAmount: 12800,
+
+    paymentMethod: "Cash",
+    transactionId: "TXN1002",
+    paidAmount: 5000,
+    paymentDue: 7800,
+
+    shippingPartner: "DTDC",
+    trackingNo: "DT987654321",
+    estimatedDeliveryDate: "11-05-2026",
+
+    shippingAddress:
+      "Ahmedabad, Gujarat, India",
+
+    billingAddress:
+      "Ahmedabad, Gujarat, India",
+
+    notes:
+      "Urgent delivery requested.",
   },
 
   {
@@ -383,11 +456,48 @@ export const orders = [
     orderNo: "ORD-1003",
     customerName: "Arjun Verma",
     email: "arjun@gmail.com",
+    phone: "+91 9011223344",
+
     salesPerson: "Rohit",
+    orderSource: "Online Store",
+
     productType: "Accessories",
+    productName: "Eyewear Cleaning Kit",
+    productSku: "ACC-3001",
+    productVariant: "Standard",
+
+    quantity: 3,
+    productPrice: 2400,
+
     status: "Cancelled",
+    paymentStatus: "Refunded",
+    deliveryStatus: "Cancelled",
+
     orderDate: "06-05-2026",
+
+    subtotal: 7200,
+    discount: 200,
+    tax: 300,
+    shippingCharge: 0,
     totalAmount: 7200,
+
+    paymentMethod: "Card",
+    transactionId: "TXN1003",
+    paidAmount: 7200,
+    paymentDue: 0,
+
+    shippingPartner: "N/A",
+    trackingNo: "N/A",
+    estimatedDeliveryDate: "N/A",
+
+    shippingAddress:
+      "Noida, Uttar Pradesh, India",
+
+    billingAddress:
+      "Noida, Uttar Pradesh, India",
+
+    notes:
+      "Order cancelled by customer.",
   },
 
   {
@@ -395,11 +505,48 @@ export const orders = [
     orderNo: "ORD-1004",
     customerName: "Sneha Kapoor",
     email: "sneha@gmail.com",
+    phone: "+91 8877665544",
+
     salesPerson: "Vikas",
+    orderSource: "Store",
+
     productType: "Frame",
+    productName: "Titan Premium Frame",
+    productSku: "FR-4001",
+    productVariant: "Golden Large",
+
+    quantity: 2,
+    productPrice: 15900,
+
     status: "Completed",
+    paymentStatus: "Paid",
+    deliveryStatus: "Delivered",
+
     orderDate: "05-05-2026",
+
+    subtotal: 31800,
+    discount: 1000,
+    tax: 1500,
+    shippingCharge: 0,
     totalAmount: 31800,
+
+    paymentMethod: "UPI",
+    transactionId: "TXN1004",
+    paidAmount: 31800,
+    paymentDue: 0,
+
+    shippingPartner: "BlueDart",
+    trackingNo: "BD789456123",
+    estimatedDeliveryDate: "08-05-2026",
+
+    shippingAddress:
+      "Mumbai, Maharashtra, India",
+
+    billingAddress:
+      "Mumbai, Maharashtra, India",
+
+    notes:
+      "VIP customer.",
   },
 
   {
@@ -407,11 +554,48 @@ export const orders = [
     orderNo: "ORD-1005",
     customerName: "Karan Mehta",
     email: "karan@gmail.com",
+    phone: "+91 7766554433",
+
     salesPerson: "Anjali",
+    orderSource: "Website",
+
     productType: "Sunglasses",
+    productName: "Oakley Sunglasses",
+    productSku: "SG-5001",
+    productVariant: "Black",
+
+    quantity: 1,
+    productPrice: 15400,
+
     status: "Pending",
+    paymentStatus: "Pending",
+    deliveryStatus: "Not shipped",
+
     orderDate: "05-05-2026",
+
+    subtotal: 15400,
+    discount: 400,
+    tax: 700,
+    shippingCharge: 150,
     totalAmount: 15400,
+
+    paymentMethod: "Card",
+    transactionId: "TXN1005",
+    paidAmount: 5000,
+    paymentDue: 10400,
+
+    shippingPartner: "DTDC",
+    trackingNo: "DT445566778",
+    estimatedDeliveryDate: "12-05-2026",
+
+    shippingAddress:
+      "Pune, Maharashtra, India",
+
+    billingAddress:
+      "Pune, Maharashtra, India",
+
+    notes:
+      "Customer asked for gift wrap.",
   },
 
   {
@@ -419,11 +603,48 @@ export const orders = [
     orderNo: "ORD-1006",
     customerName: "Priya Nair",
     email: "priya@gmail.com",
+    phone: "+91 9988112233",
+
     salesPerson: "Deepak",
+    orderSource: "Store",
+
     productType: "Optical Lens",
+    productName: "Crizal Optical Lens",
+    productSku: "OL-6001",
+    productVariant: "Blue Cut",
+
+    quantity: 2,
+    productPrice: 11300,
+
     status: "Completed",
+    paymentStatus: "Paid",
+    deliveryStatus: "Delivered",
+
     orderDate: "04-05-2026",
+
+    subtotal: 22600,
+    discount: 600,
+    tax: 1000,
+    shippingCharge: 0,
     totalAmount: 22600,
+
+    paymentMethod: "Cash",
+    transactionId: "TXN1006",
+    paidAmount: 22600,
+    paymentDue: 0,
+
+    shippingPartner: "BlueDart",
+    trackingNo: "BD456789123",
+    estimatedDeliveryDate: "07-05-2026",
+
+    shippingAddress:
+      "Kochi, Kerala, India",
+
+    billingAddress:
+      "Kochi, Kerala, India",
+
+    notes:
+      "Lens coating added.",
   },
 
   {
@@ -431,11 +652,48 @@ export const orders = [
     orderNo: "ORD-1007",
     customerName: "Aditya Singh",
     email: "aditya@gmail.com",
+    phone: "+91 9090909090",
+
     salesPerson: "Rahul",
+    orderSource: "POS",
+
     productType: "Accessories",
+    productName: "Lens Cleaner",
+    productSku: "ACC-7001",
+    productVariant: "Pack of 3",
+
+    quantity: 2,
+    productPrice: 2700,
+
     status: "Refunded",
+    paymentStatus: "Refunded",
+    deliveryStatus: "Returned",
+
     orderDate: "04-05-2026",
+
+    subtotal: 5400,
+    discount: 100,
+    tax: 200,
+    shippingCharge: 0,
     totalAmount: 5400,
+
+    paymentMethod: "UPI",
+    transactionId: "TXN1007",
+    paidAmount: 5400,
+    paymentDue: 0,
+
+    shippingPartner: "N/A",
+    trackingNo: "N/A",
+    estimatedDeliveryDate: "N/A",
+
+    shippingAddress:
+      "Lucknow, Uttar Pradesh, India",
+
+    billingAddress:
+      "Lucknow, Uttar Pradesh, India",
+
+    notes:
+      "Refund processed successfully.",
   },
 
   {
@@ -443,38 +701,50 @@ export const orders = [
     orderNo: "ORD-1008",
     customerName: "Neha Joshi",
     email: "neha@gmail.com",
+    phone: "+91 8181818181",
+
     salesPerson: "Sonia",
+    orderSource: "Website",
+
     productType: "Contact Lens",
+    productName: "Acuvue Lens",
+    productSku: "CL-8001",
+    productVariant: "Yearly Pack",
+
+    quantity: 2,
+    productPrice: 9800,
+
     status: "Completed",
+    paymentStatus: "Paid",
+    deliveryStatus: "Delivered",
+
     orderDate: "03-05-2026",
+
+    subtotal: 19600,
+    discount: 500,
+    tax: 900,
+    shippingCharge: 0,
     totalAmount: 19600,
-  },
 
-  {
-    id: "9",
-    orderNo: "ORD-1009",
-    customerName: "Vivek Malhotra",
-    email: "vivek@gmail.com",
-    salesPerson: "Rakesh",
-    productType: "Frame",
-    status: "Pending",
-    orderDate: "02-05-2026",
-    totalAmount: 26700,
-  },
+    paymentMethod: "Card",
+    transactionId: "TXN1008",
+    paidAmount: 19600,
+    paymentDue: 0,
 
-  {
-    id: "10",
-    orderNo: "ORD-1010",
-    customerName: "Aisha Khan",
-    email: "aisha@gmail.com",
-    salesPerson: "Kunal",
-    productType: "Sunglasses",
-    status: "Completed",
-    orderDate: "01-05-2026",
-    totalAmount: 14300,
+    shippingPartner: "BlueDart",
+    trackingNo: "BD852741963",
+    estimatedDeliveryDate: "06-05-2026",
+
+    shippingAddress:
+      "Jaipur, Rajasthan, India",
+
+    billingAddress:
+      "Jaipur, Rajasthan, India",
+
+    notes:
+      "Delivered successfully.",
   },
 ];
-
 export const orderTabs = [
   {
     label: "All",

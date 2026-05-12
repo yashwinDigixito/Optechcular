@@ -1,494 +1,540 @@
 "use client";
 
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import React, { ReactNode } from "react";
+import Link from "next/link";
+
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
+import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
+import MailOutlineOutlinedIcon from "@mui/icons-material/MailOutlineOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import PhoneOutlinedIcon from "@mui/icons-material/PhoneOutlined";
 import ReceiptLongOutlinedIcon from "@mui/icons-material/ReceiptLongOutlined";
+import PaymentsOutlinedIcon from "@mui/icons-material/PaymentsOutlined";
+import BadgeOutlinedIcon from "@mui/icons-material/BadgeOutlined";
 
 import {
-  Avatar,
   Box,
+  Button,
   Card,
   Chip,
+  Container,
   Divider,
   Stack,
   Typography,
 } from "@mui/material";
 
-import {
-  Order,
-} from "@/assets/types";
+import { Order } from "@/assets/types";
 
-interface OrderSummaryProps {
+interface OrderViewProps {
   order: Order | null;
 }
 
-export default function OrderSummary({
-  order,
-}: OrderSummaryProps) {
-
+export default function OrderView({ order }: OrderViewProps) {
   if (!order) {
     return (
-      <Card
+      <Box
         sx={{
-          p: 2,
-          borderRadius: "22px",
-          textAlign: "center",
-          maxWidth: "520px",
-          mx: "auto",
-          boxShadow:
-            "0px 8px 24px rgba(15,23,42,0.06)",
+          minHeight: "100vh",
+          bgcolor: "#F8FAFC",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
-        <Typography
+        <Card
           sx={{
-            fontSize: "16px",
-            fontWeight: 600,
-            color: "#94A3B8",
+            p: 4,
+            borderRadius: "16px",
+            border: "1px solid #E2E8F0",
+            boxShadow: "none",
           }}
         >
-          No Order Selected
-        </Typography>
-      </Card>
+          <Typography sx={{ fontWeight: 700, color: "#64748B" }}>
+            No Order Selected
+          </Typography>
+        </Card>
+      </Box>
     );
   }
 
-  const subtotal =
-    order.totalAmount - 2000;
+  const subtotal = order.subtotal ?? order.totalAmount;
+  const discount = order.discount ?? 0;
+  const tax = order.tax ?? 0;
+  const shippingCharge = order.shippingCharge ?? 0;
+  const quantity = order.quantity ?? 1;
+  const productPrice = order.productPrice ?? order.totalAmount;
+  const total = order.totalAmount;
 
-  const tax = 2000;
+  return (
+    <Box sx={{ width: "100%", minHeight: "100vh", bgcolor: "#F8FAFC" }}>
+      <Box
+        sx={{
+          py: 2,
+          bgcolor: "#FFFFFF",
+          borderBottom: "1px solid #E2E8F0",
+        }}
+      >
+        <Container maxWidth="xl">
+          <Link href="/orders" passHref style={{ textDecoration: "none" }}>
+            <Button
+              startIcon={<ArrowBackIcon />}
+              sx={{
+                color: "#64748B",
+                textTransform: "none",
+                fontWeight: 600,
+              }}
+            >
+              Back to Orders
+            </Button>
+          </Link>
+        </Container>
+      </Box>
 
+      <Container maxWidth="xl" sx={{ py: 4 }}>
+        <Box sx={{ mb: 4 }}>
+          <Stack direction="row" spacing={1.5} sx={{alignItems:"center",flexWrap:"wrap"}}>
+            <Typography
+              sx={{
+                fontSize: { xs: "1.5rem", md: "1.9rem" },
+                fontWeight: 800,
+                color: "#3B82F6",
+              }}
+            >
+              Order ID: {order.orderNo}
+            </Typography>
+
+            <Chip
+              label={order.paymentStatus ?? "Payment pending"}
+              size="small"
+              sx={{
+                bgcolor: "#FEF3C7",
+                color: "#D97706",
+                fontWeight: 700,
+                borderRadius: "8px",
+              }}
+            />
+
+            <Chip
+              label={order.status ?? "Pending"}
+              size="small"
+              sx={{
+                bgcolor:
+                  order.status === "Completed" || order.status === "Active"
+                    ? "#DCFCE7"
+                    : "#FEE2E2",
+                color:
+                  order.status === "Completed" || order.status === "Active"
+                    ? "#15803D"
+                    : "#B91C1C",
+                fontWeight: 700,
+                borderRadius: "8px",
+              }}
+            />
+          </Stack>
+
+          <Typography sx={{ mt: 1, color: "#64748B", fontSize: 14 }}>
+            Order Date: {order.orderDate}
+          </Typography>
+        </Box>
+
+        <Box
+          sx={{
+            display: "flex",
+            gap: 3,
+            alignItems: "flex-start",
+            flexDirection: { xs: "column", lg: "row" },
+          }}
+        >
+          <Box sx={{ width: { xs: "100%", lg: "60%" } }}>
+            <Stack spacing={3}>
+              <Card
+                sx={{
+                  p: 2.5,
+                  borderRadius: "16px",
+                  boxShadow: "none",
+                  border: "1px solid #E2E8F0",
+                  bgcolor: "#FFFFFF",
+                }}
+              >
+                <SectionTitle title="Order Information" />
+
+                <Stack sx={{ mt: 1 }}>
+                  <InfoLine label="Order Number" value={order.orderNo} />
+                  <InfoLine label="Order Date" value={order.orderDate} />
+                  <InfoLine label="Order Status" value={order.status ?? "Pending"} />
+                  <InfoLine
+                    label="Payment Status"
+                    value={order.paymentStatus ?? "Payment pending"}
+                  />
+                  <InfoLine
+                    label="Delivery Status"
+                    value={order.deliveryStatus ?? "Not shipped"}
+                  />
+                  <InfoLine
+                    label="Order Source"
+                    value={order.orderSource ?? "Draft Orders"}
+                  />
+                </Stack>
+              </Card>
+
+              <Card
+                sx={{
+                  p: 2.5,
+                  borderRadius: "16px",
+                  boxShadow: "none",
+                  border: "1px solid #E2E8F0",
+                  bgcolor: "#FFFFFF",
+                }}
+              >
+                <SectionTitle title="Product Details" />
+
+                <Stack
+                  direction={{ xs: "column", md: "row" }}
+                
+                  spacing={2}
+                  sx={{justifyContent: "space-between", alignItems:"center"}}
+                >
+                  <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
+                    <Box
+                      sx={{
+                        width: 90,
+                        height: 70,
+                        borderRadius: "10px",
+                        bgcolor: "#F8FAFC",
+                        border: "1px solid #E2E8F0",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        flexShrink: 0,
+                      }}
+                    >
+                      <Inventory2OutlinedIcon sx={{ fontSize: 36, color: "#3B82F6" }} />
+                    </Box>
+
+                    <Box>
+                      <Typography sx={{ color: "#64748B", fontSize: 14 }}>
+                        Product Type: {order.productType}
+                      </Typography>
+
+                      <Typography
+                        sx={{
+                          fontSize: 20,
+                          fontWeight: 700,
+                          color: "#0F172A",
+                        }}
+                      >
+                        {order.productName ?? order.productType}
+                      </Typography>
+
+                      <Stack direction="row" spacing={1} sx={{ mt: 1, alignItems:"center" }}>
+                        <Typography sx={{ color: "#64748B", fontSize: 14 }}>
+                          SKU: {order.productSku ?? "N/A"}
+                        </Typography>
+
+                        <Typography sx={{ color: "#64748B", fontSize: 14 }}>
+                          Variant: {order.productVariant ?? "Default"}
+                        </Typography>
+                      </Stack>
+                    </Box>
+                  </Stack>
+
+                  <Stack direction="row" spacing={3} sx={{ alignItems: "center" }}>
+                    <Box
+                      sx={{
+                        px: 2,
+                        py: 1,
+                        border: "1px solid #E2E8F0",
+                        borderRadius: "10px",
+                        fontWeight: 600,
+                        fontSize: 14,
+                        color: "#0F172A",
+                      }}
+                    >
+                      {quantity} x ₹{productPrice}
+                    </Box>
+
+                    <Typography sx={{ fontWeight: 700, color: "#0F172A" }}>
+                      ₹{total}
+                    </Typography>
+                  </Stack>
+                </Stack>
+              </Card>
+
+              <Card
+                sx={{
+                  p: 2.5,
+                  borderRadius: "16px",
+                  boxShadow: "none",
+                  border: "1px solid #E2E8F0",
+                  bgcolor: "#FFFFFF",
+                }}
+              >
+                <SectionTitle title="Payment Summary" />
+
+                <Stack spacing={1.8}>
+                  <SummaryLine label="Subtotal" middle={`${quantity} item`} value={`₹${subtotal}`} />
+                  <SummaryLine label="Discount" middle="Applied discount" value={`-₹${discount}`} />
+                  <SummaryLine label="Tax" middle="Tax amount" value={`₹${tax}`} />
+                  <SummaryLine
+                    label="Shipping Charge"
+                    middle="Shipping"
+                    value={`₹${shippingCharge}`}
+                  />
+                  <SummaryLine label="Total Amount" value={`₹${total}`} bold />
+                </Stack>
+
+                <Divider sx={{ my: 3 }} />
+
+                <Stack spacing={1.8}>
+                  <SummaryLine
+                    label="Payment Method"
+                    value={order.paymentMethod ?? "N/A"}
+                  />
+                  <SummaryLine
+                    label="Transaction ID"
+                    value={order.transactionId ?? "N/A"}
+                  />
+                  <SummaryLine
+                    label="Paid by Customer"
+                    value={order.paidAmount ? `₹${order.paidAmount}` : "₹0.00"}
+                  />
+                  <SummaryLine
+                    label="Payment Due"
+                    value={order.paymentDue ? `₹${order.paymentDue}` : "Pending"}
+                  />
+                </Stack>
+              </Card>
+
+              <Card
+                sx={{
+                  p: 2.5,
+                  borderRadius: "16px",
+                  boxShadow: "none",
+                  border: "1px solid #E2E8F0",
+                  bgcolor: "#FFFFFF",
+                }}
+              >
+                <SectionTitle title="Shipping Information" />
+
+                <Stack sx={{ mt: 1 }}>
+                  <InfoLine
+                    label="Shipping Partner"
+                    value={order.shippingPartner ?? "N/A"}
+                  />
+                  <InfoLine
+                    label="Tracking Number"
+                    value={order.trackingNo ?? "N/A"}
+                  />
+                  <InfoLine
+                    label="Estimated Delivery"
+                    value={order.estimatedDeliveryDate ?? "N/A"}
+                  />
+                </Stack>
+              </Card>
+            </Stack>
+          </Box>
+
+          <Box sx={{ width: { xs: "100%", lg: "40%" } }}>
+            <Stack spacing={3}>
+              <SideCard title="Customer Details">
+                <IconLine icon={<PersonOutlineOutlinedIcon />} text={order.customerName} />
+                <IconLine icon={<MailOutlineOutlinedIcon />} text={order.email} />
+                <IconLine icon={<PhoneOutlinedIcon />} text={order.phone ?? "No phone number"} />
+              </SideCard>
+
+              <SideCard title="Sales Information">
+                <IconLine icon={<BadgeOutlinedIcon />} text={order.salesPerson ?? "N/A"} />
+                <IconLine
+                  icon={<ReceiptLongOutlinedIcon />}
+                  text={`Order Source: ${order.orderSource ?? "Draft Orders"}`}
+                />
+              </SideCard>
+
+              <SideCard title="Shipping Address">
+                <IconLine icon={<PersonOutlineOutlinedIcon />} text={order.customerName} />
+
+                <Typography sx={{ color: "#475569", fontSize: 14, lineHeight: 1.7, mt: 1 }}>
+                  {order.shippingAddress || "No Address Available"}
+                </Typography>
+
+                <Stack direction="row" spacing={1} sx={{ mt: 1, alignItems:"center" }}>
+                  <LocalShippingOutlinedIcon sx={{ color: "#3B82F6", fontSize: 18 }} />
+                  <Typography sx={{ color: "#3B82F6", fontWeight: 600 }}>
+                    View Map
+                  </Typography>
+                </Stack>
+              </SideCard>
+
+              <SideCard title="Billing Address">
+                <Typography sx={{ color: "#475569", fontSize: 14, lineHeight: 1.7 }}>
+                  {order.billingAddress || "Same as shipping address"}
+                </Typography>
+              </SideCard>
+
+              <SideCard title="Payment Information">
+                <IconLine
+                  icon={<PaymentsOutlinedIcon />}
+                  text={`Method: ${order.paymentMethod ?? "N/A"}`}
+                />
+
+                <Typography sx={{ color: "#475569", fontSize: 14, lineHeight: 1.7, mt: 1 }}>
+                  Transaction ID: {order.transactionId ?? "N/A"}
+                </Typography>
+              </SideCard>
+
+              <SideCard title="Notes">
+                <Typography sx={{ color: "#475569", fontSize: 14, lineHeight: 1.7 }}>
+                  {order.notes || "No notes available"}
+                </Typography>
+              </SideCard>
+            </Stack>
+          </Box>
+        </Box>
+      </Container>
+    </Box>
+  );
+}
+
+function SectionTitle({ title }: { title: string }) {
+  return (
+    <Typography
+      sx={{
+        fontSize: 18,
+        fontWeight: 700,
+        color: "#0F172A",
+        mb: 2,
+      }}
+    >
+      {title}
+    </Typography>
+  );
+}
+
+function SideCard({ title, children }: { title: string; children: ReactNode }) {
   return (
     <Card
       sx={{
-        p: 1.5,
-        width: "100%",
-        maxWidth: "500px",
-        maxHeight: "calc(100vh - 120px)",
-        overflow: "hidden",
-        flexShrink: 0,
-        borderRadius: "22px",
-        background: "#FFFFFF",
-        boxShadow:"0px 8px 24px rgba(15,23,42,0.06)",
-        position: "relative",
-        mx: "auto",
+        p: 2.5,
+        borderRadius: "16px",
+        boxShadow: "none",
+        border: "1px solid #E2E8F0",
+        bgcolor: "#FFFFFF",
       }}
     >
-      {/* Top Gradient */}
-      <Box
+      <Typography
         sx={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "5px",
-          background:"linear-gradient(90deg,#2563EB,#06B6D4)",
-        }}
-      />
-
-      {/* Header */}
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent:
-            "space-between",
-          alignItems: "center",
+          fontSize: 18,
+          fontWeight: 700,
+          color: "#0F172A",
+          mb: 2,
         }}
       >
-        <Box>
-          <Typography
-            sx={{
-              fontSize: "22px",
-              fontWeight: 700,
-              color: "#0F172A",
-            }}
-          >
-            Order Summary
-          </Typography>
+        {title}
+      </Typography>
 
-          <Typography
-            sx={{
-              color: "#94A3B8",
-              fontSize: "13px",
-              mt: 0.3,
-            }}
-          >
-            {order.orderNo}
-          </Typography>
-        </Box>
-
-        <Chip
-          label={order.status}
-          size="small"
-          sx={{
-            background:
-              order.status === "Completed"
-                ? "#DCFCE7"
-                : order.status === "Pending"
-                ? "#FEF3C7"
-                : "#FEE2E2",
-
-            color:
-              order.status === "Completed"
-                ? "#16A34A"
-                : order.status === "Pending"
-                ? "#D97706"
-                : "#DC2626",
-
-            fontWeight: 700,
-            borderRadius: "8px",
-          }}
-        />
-      </Box>
-
-      {/* Customer */}
-      <Box
-        sx={{
-          mt: 2,
-          p: 1.8,
-          borderRadius: "18px",
-          background:
-            "linear-gradient(135deg,#F8FAFC,#EFF6FF)",
-          border:
-            "1px solid #E2E8F0",
-        }}
-      >
-        <Stack
-          direction="row"
-          spacing={1.5}
-          sx={{
-            alignItems: "center",
-          }}
-        >
-          <Avatar
-            sx={{
-              width: 48,
-              height: 48,
-              background:
-                "linear-gradient(135deg,#2563EB,#3B82F6)",
-              fontSize: "18px",
-              fontWeight: 700,
-            }}
-          >
-            {order.customerName.charAt(0)}
-          </Avatar>
-
-          <Box>
-            <Typography
-              sx={{
-                fontWeight: 700,
-                fontSize: "17px",
-                color: "#0F172A",
-              }}
-            >
-              {order.customerName}
-            </Typography>
-
-            <Typography
-              sx={{
-                color: "#64748B",
-                fontSize: "13px",
-                mt: 0.2,
-              }}
-            >
-              {order.email}
-            </Typography>
-          </Box>
-        </Stack>
-      </Box>
-
-      {/* Details */}
-      <Box
-        sx={{
-          mt: 2,
-          display: "flex",
-          flexDirection: "column",
-          gap: 1.2,
-        }}
-      >
-
-        {/* Product */}
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent:
-              "space-between",
-            alignItems: "center",
-            p: 1.5,
-            borderRadius: "14px",
-            background: "#F8FAFC",
-          }}
-        >
-          <Stack
-            direction="row"
-            spacing={1}
-            sx={{
-              alignItems: "center",
-            }}
-          >
-            <Inventory2OutlinedIcon
-              sx={{
-                color: "#2563EB",
-                fontSize: 20,
-              }}
-            />
-
-            <Typography
-              sx={{
-                color: "#64748B",
-                fontWeight: 500,
-                fontSize: "14px",
-              }}
-            >
-              Product Type
-            </Typography>
-          </Stack>
-
-          <Typography
-            sx={{
-              fontWeight: 700,
-              color: "#0F172A",
-              fontSize: "14px",
-            }}
-          >
-            {order.productType}
-          </Typography>
-        </Box>
-
-        {/* Sales */}
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent:
-              "space-between",
-            alignItems: "center",
-            p: 1.5,
-            borderRadius: "14px",
-            background: "#F8FAFC",
-          }}
-        >
-          <Stack
-            direction="row"
-            spacing={1}
-            sx={{
-              alignItems: "center",
-            }}
-          >
-            <PersonOutlineOutlinedIcon
-              sx={{
-                color: "#2563EB",
-                fontSize: 20,
-              }}
-            />
-
-            <Typography
-              sx={{
-                color: "#64748B",
-                fontWeight: 500,
-                fontSize: "14px",
-              }}
-            >
-              Sales Person
-            </Typography>
-          </Stack>
-
-          <Typography
-            sx={{
-              fontWeight: 700,
-              color: "#0F172A",
-              fontSize: "14px",
-            }}
-          >
-            {order.salesPerson}
-          </Typography>
-        </Box>
-
-        {/* Date */}
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent:
-              "space-between",
-            alignItems: "center",
-            p: 1.5,
-            borderRadius: "14px",
-            background: "#F8FAFC",
-          }}
-        >
-          <Stack
-            direction="row"
-            spacing={1}
-            sx={{
-              alignItems: "center",
-            }}
-          >
-            <CalendarMonthIcon
-              sx={{
-                color: "#2563EB",
-                fontSize: 20,
-              }}
-            />
-
-            <Typography
-              sx={{
-                color: "#64748B",
-                fontWeight: 500,
-                fontSize: "14px",
-              }}
-            >
-              Order Date
-            </Typography>
-          </Stack>
-
-          <Typography
-            sx={{
-              fontWeight: 700,
-              color: "#0F172A",
-              fontSize: "14px",
-            }}
-          >
-            {order.orderDate}
-          </Typography>
-        </Box>
-
-      </Box>
-
-      {/* Billing */}
-      <Box
-        sx={{
-          mt: 2,
-          p: 1.8,
-          borderRadius: "18px",
-          background: "#F8FAFC",
-        }}
-      >
-        <Stack
-          direction="row"
-          spacing={1}
-          sx={{
-            alignItems: "center",
-            mb: 1.5,
-          }}
-        >
-          <ReceiptLongOutlinedIcon
-            sx={{
-              color: "#2563EB",
-              fontSize: 20,
-            }}
-          />
-
-          <Typography
-            sx={{
-              fontSize: "16px",
-              fontWeight: 700,
-              color: "#0F172A",
-            }}
-          >
-            Billing Summary
-          </Typography>
-        </Stack>
-
-        <Divider sx={{ mb: 1.5 }} />
-
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent:
-              "space-between",
-            mb: 1,
-          }}
-        >
-          <Typography
-            sx={{
-              color: "#64748B",
-              fontSize: "14px",
-            }}
-          >
-            Subtotal
-          </Typography>
-
-          <Typography
-            sx={{
-              fontWeight: 700,
-              fontSize: "14px",
-            }}
-          >
-            ₹{subtotal}
-          </Typography>
-        </Box>
-
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent:
-              "space-between",
-          }}
-        >
-          <Typography
-            sx={{
-              color: "#64748B",
-              fontSize: "14px",
-            }}
-          >
-            Tax
-          </Typography>
-
-          <Typography
-            sx={{
-              fontWeight: 700,
-              fontSize: "14px",
-            }}
-          >
-            ₹{tax}
-          </Typography>
-        </Box>
-      </Box>
-
-      {/* Total */}
-      <Box
-        sx={{
-          mt: 2,
-          p: 2,
-          borderRadius: "18px",
-          background:
-            "linear-gradient(135deg,#2563EB,#1D4ED8)",
-          color: "#FFFFFF",
-          position: "relative",
-          overflow: "hidden",
-        }}
-      >
-        <Box
-          sx={{
-            position: "absolute",
-            right: -25,
-            top: -25,
-            width: 90,
-            height: 90,
-            borderRadius: "50%",
-            background:
-              "rgba(255,255,255,0.08)",
-          }}
-        />
-
-        <Typography
-          sx={{
-            fontSize: "13px",
-            opacity: 0.8,
-          }}
-        >
-          Grand Total
-        </Typography>
-
-        <Typography
-          sx={{
-            fontSize: "24px",
-            fontWeight: 800,
-            mt: 0.5,
-          }}
-        >
-          ₹{order.totalAmount}
-        </Typography>
-      </Box>
+      {children}
     </Card>
+  );
+}
+
+function IconLine({ icon, text }: { icon: ReactNode; text?: string }) {
+  return (
+    <Stack direction="row" spacing={1}  sx={{ mb: 1, alignItems:"center"}}>
+      <Box sx={{ display: "flex", color: "#64748B" }}>{icon}</Box>
+      <Typography sx={{ color: "#334155", fontSize: 14 }}>{text}</Typography>
+    </Stack>
+  );
+}
+
+function InfoLine({
+  label,
+  value,
+}: {
+  label: string;
+  value?: string | number;
+}) {
+  return (
+    <Stack
+      direction="row"
+      sx={{
+        py: 1.5,
+       display: "flex",
+       
+        justifyContent: "space-around",
+      }}
+    >
+      <Typography
+        sx={{
+          width: "180px",
+          flexShrink: 0,
+          color: "#64748B",
+          fontSize: "14px",
+          fontWeight: 500,
+        }}
+      >
+        {label}
+      </Typography>
+
+      <Typography
+        sx={{
+          flex: 1,
+          textAlign: "left",
+          justifyContent: "space-between",
+          color: "#0F172A",
+          fontSize: "14px",
+          fontWeight: 700,
+        }}
+      >
+        {value || "N/A"}
+      </Typography>
+    </Stack>
+  );
+}
+
+function SummaryLine({
+  label,
+  middle,
+  value,
+  bold,
+}: {
+  label: string;
+  middle?: string;
+  value: string;
+  bold?: boolean;
+}) {
+  return (
+    <Stack direction="row"  spacing={2}
+    sx={{
+      justifyContent: "space-between",
+    }}
+    >
+      <Typography
+        sx={{
+          flex: 1,
+          color: "#334155",
+          fontWeight: bold ? 700 : 400,
+        }}
+      >
+        {label}
+      </Typography>
+
+      {middle && (
+        <Typography sx={{ flex: 1, color: "#64748B", textAlign: "left" }}>
+          {middle}
+        </Typography>
+      )}
+
+      <Typography
+        sx={{
+          minWidth: 90,
+          textAlign: "right",
+          color: "#0F172A",
+          fontWeight: bold ? 700 : 500,
+        }}
+      >
+        {value}
+      </Typography>
+    </Stack>
   );
 }

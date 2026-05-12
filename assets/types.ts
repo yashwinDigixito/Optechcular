@@ -75,11 +75,42 @@ export interface Order {
   orderNo: string;
   customerName: string;
   email: string;
-  salesPerson: string;
+  phone?: string;
+
+  salesPerson?: string;
+  orderSource?: string;
+
   productType: string;
-  status: string;
+  productName?: string;
+  productSku?: string;
+  productVariant?: string;
+  quantity?: number;
+  productPrice?: number;
+
+  status?: string;
+  paymentStatus?: string;
+  deliveryStatus?: string;
+
   orderDate: string;
+
+  subtotal?: number;
+  discount?: number;
+  tax?: number;
+  shippingCharge?: number;
   totalAmount: number;
+
+  paymentMethod?: string;
+  transactionId?: string;
+  paidAmount?: number;
+  paymentDue?: number;
+
+  shippingPartner?: string;
+  trackingNo?: string;
+  estimatedDeliveryDate?: string;
+
+  shippingAddress?: string;
+  billingAddress?: string;
+  notes?: string;
 }
 
 export interface PurchaseOrder {
