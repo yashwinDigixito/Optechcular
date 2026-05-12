@@ -1,7 +1,5 @@
 "use client";
-
 import SearchIcon from "@mui/icons-material/Search";
-
 import {
   Box,
   InputAdornment,
@@ -10,15 +8,11 @@ import {
 } from "@mui/material";
 
 interface Props {
-
   search: string;
-
   setSearch: (
     value: string
   ) => void;
-
   status: string;
-
   setStatus: (
     value: string
   ) => void;
@@ -40,7 +34,6 @@ export default function RimShapeFilters({
         flexWrap: "wrap",
       }}
     >
-      {/* SEARCH */}
       <TextField
         placeholder="Search rim shape..."
         value={search}
@@ -51,28 +44,26 @@ export default function RimShapeFilters({
         }
         sx={{
           minWidth: "260px",
-
           "& .MuiOutlinedInput-root":
             {
-              borderRadius:
-                "14px",
-
-              background:
-                "#FFFFFF",
+              borderRadius: "14px",
+              background: "#FFFFFF",
             },
         }}
         slotProps={{
           input: {
             startAdornment: (
               <InputAdornment position="start">
-                <SearchIcon />
+                <SearchIcon
+                  sx={{
+                    color: "#94A3B8",
+                  }}
+                />
               </InputAdornment>
             ),
           },
         }}
       />
-
-      {/* STATUS */}
       <TextField
         select
         value={status}
@@ -81,46 +72,42 @@ export default function RimShapeFilters({
             e.target.value
           )
         }
-        slotProps={{
-                    select: {
-                      displayEmpty: true,
-                      renderValue: (
-                        selected
-                      ) => (
-                        <Box
-                          sx={{
-                            color: selected
-                              ? "#0F172A"
-                              : "#94A3B8",
-                          }}
-                        >
-                          {(selected as string) ||
-                            "Sort by Status"}
-                        </Box>
-                      ),
-                    },
-                  }}
         sx={{
           minWidth: "220px",
-
           "& .MuiOutlinedInput-root":
             {
-              borderRadius:
-                "14px",
-
-              background:
-                "#FFFFFF",
+              borderRadius: "14px",
+              background: "#FFFFFF",
             },
+        }}
+        slotProps={{
+          select: {
+            displayEmpty: true,
+            renderValue: (
+              selected
+            ) => {
+              if (!selected) {
+                return (
+                  <Box
+                    sx={{
+                      color:"#94A3B8",
+                    }}
+                  >
+                    Sort by Status
+                  </Box>
+                );
+              }
+              return selected as string;
+            },
+          },
         }}
       >
         <MenuItem value="">
           All Status
         </MenuItem>
-
         <MenuItem value="Active">
           Active
         </MenuItem>
-
         <MenuItem value="Inactive">
           Inactive
         </MenuItem>

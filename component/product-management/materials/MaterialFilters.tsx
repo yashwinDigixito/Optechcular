@@ -1,7 +1,6 @@
 "use client";
 
 import SearchIcon from "@mui/icons-material/Search";
-
 import {
   Box,
   InputAdornment,
@@ -10,21 +9,15 @@ import {
 } from "@mui/material";
 
 interface MaterialFiltersProps {
-
   search: string;
-
   setSearch: (
     value: string
   ) => void;
-
   status: string;
-
   setStatus: (
     value: string
   ) => void;
-
   applicableFor: string;
-
   setApplicableFor: (
     value: string
   ) => void;
@@ -48,7 +41,6 @@ export default function MaterialFilters({
         flexWrap: "wrap",
       }}
     >
-      {/* SEARCH */}
       <TextField
         placeholder="Search material..."
         value={search}
@@ -59,12 +51,10 @@ export default function MaterialFilters({
         }
         sx={{
           minWidth: "260px",
-
           "& .MuiOutlinedInput-root":
             {
               borderRadius:
                 "14px",
-
               background:
                 "#FFFFFF",
             },
@@ -73,14 +63,17 @@ export default function MaterialFilters({
           input: {
             startAdornment: (
               <InputAdornment position="start">
-                <SearchIcon />
+                <SearchIcon
+                  sx={{
+                    color:
+                      "#94A3B8",
+                  }}
+                />
               </InputAdornment>
             ),
           },
         }}
       />
-
-      {/* APPLICABLE FOR */}
       <TextField
         select
         value={applicableFor}
@@ -89,56 +82,52 @@ export default function MaterialFilters({
             e.target.value
           )
         }
-        slotProps={{
-                  select: {
-                    displayEmpty: true,
-                    renderValue: (
-                      selected
-                    ) => (
-                      <Box
-                        sx={{
-                          color: selected
-                            ? "#0F172A"
-                            : "#94A3B8",
-                        }}
-                      >
-                        {(selected as string) ||
-                          "Sort by Type"}
-                      </Box>
-                    ),
-                  },
-                }}
         sx={{
           minWidth: "220px",
-
           "& .MuiOutlinedInput-root":
             {
               borderRadius:
                 "14px",
-
               background:
                 "#FFFFFF",
             },
+        }}
+        slotProps={{
+          select: {
+            displayEmpty: true,
+            renderValue: (
+              selected
+            ) => {
+              if (!selected) {
+                return (
+                  <Box
+                    sx={{
+                      color:
+                        "#94A3B8",
+                    }}
+                  >
+                    Sort by Type
+                  </Box>
+                );
+              }
+              return selected as string;
+            },
+          },
         }}
       >
         <MenuItem value="">
           All Types
         </MenuItem>
-
         <MenuItem value="Frame">
           Frame
         </MenuItem>
-
         <MenuItem value="Contact Lens">
           Contact Lens
         </MenuItem>
-
         <MenuItem value="Optical Lens">
           Optical Lens
         </MenuItem>
       </TextField>
-
-      {/* STATUS */}
       <TextField
         select
         value={status}
@@ -147,46 +136,42 @@ export default function MaterialFilters({
             e.target.value
           )
         }
-        slotProps={{
-                    select: {
-                      displayEmpty: true,
-                      renderValue: (
-                        selected
-                      ) => (
-                        <Box
-                          sx={{
-                            color: selected
-                              ? "#0F172A"
-                              : "#94A3B8",
-                          }}
-                        >
-                          {(selected as string) ||
-                            "Sort by Status"}
-                        </Box>
-                      ),
-                    },
-                  }}
         sx={{
           minWidth: "220px",
-
           "& .MuiOutlinedInput-root":
             {
-              borderRadius:
-                "14px",
-
-              background:
-                "#FFFFFF",
+              borderRadius: "14px",
+              background: "#FFFFFF",
             },
+        }}
+        slotProps={{
+          select: {
+            displayEmpty: true,
+            renderValue: (
+              selected
+            ) => {
+              if (!selected) {
+                return (
+                  <Box
+                    sx={{
+                      color: "#94A3B8",
+                    }}
+                  >
+                    Sort by Status
+                  </Box>
+                );
+              }
+              return selected as string;
+            },
+          },
         }}
       >
         <MenuItem value="">
           All Status
         </MenuItem>
-
         <MenuItem value="Active">
           Active
         </MenuItem>
-
         <MenuItem value="Inactive">
           Inactive
         </MenuItem>

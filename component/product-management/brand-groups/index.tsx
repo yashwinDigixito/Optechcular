@@ -5,15 +5,15 @@ import { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 
 import {
-    Box,
-    Button,
-    Typography,
+  Box,
+  Button,
+  Typography,
 } from "@mui/material";
 
 import { useRouter } from "next/navigation";
 
 import {
-    brandGroups,
+  brandGroups,
 } from "@/assets/genericdata";
 
 import TableContainerCard from "@/component/common/TableContainerCard";
@@ -64,8 +64,7 @@ export default function BrandGroupManagementPage() {
       <Box
         sx={{
           display: "flex",
-          justifyContent:
-            "space-between",
+          justifyContent:"space-between",
           alignItems: "center",
           mb: 3,
         }}

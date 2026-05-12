@@ -56,6 +56,7 @@ export default function BrandGroupFilters({
             {
               borderRadius:
                 "14px",
+
               background:
                 "#FFFFFF",
             },
@@ -64,7 +65,12 @@ export default function BrandGroupFilters({
           input: {
             startAdornment: (
               <InputAdornment position="start">
-                <SearchIcon />
+                <SearchIcon
+                  sx={{
+                    color:
+                      "#94A3B8",
+                  }}
+                />
               </InputAdornment>
             ),
           },
@@ -80,25 +86,6 @@ export default function BrandGroupFilters({
             e.target.value
           )
         }
-        slotProps={{
-              select: {
-                displayEmpty: true,
-                renderValue: (
-                  selected
-                ) => (
-                  <Box
-                    sx={{
-                      color: selected
-                        ? "#0F172A"
-                        : "#94A3B8",
-                    }}
-                  >
-                    {(selected as string) ||
-                      "Sort by Status"}
-                  </Box>
-                ),
-              },
-            }}
         sx={{
           minWidth: "220px",
 
@@ -106,9 +93,36 @@ export default function BrandGroupFilters({
             {
               borderRadius:
                 "14px",
+
               background:
                 "#FFFFFF",
             },
+        }}
+        slotProps={{
+          select: {
+            displayEmpty: true,
+
+            renderValue: (
+              selected
+            ) => {
+
+              if (!selected) {
+
+                return (
+                  <Box
+                    sx={{
+                      color:
+                        "#94A3B8",
+                    }}
+                  >
+                    Sort by Status
+                  </Box>
+                );
+              }
+
+              return selected as string;
+            },
+          },
         }}
       >
         <MenuItem value="">
@@ -122,7 +136,9 @@ export default function BrandGroupFilters({
         <MenuItem value="Inactive">
           Inactive
         </MenuItem>
+
       </TextField>
+
     </Box>
   );
 }

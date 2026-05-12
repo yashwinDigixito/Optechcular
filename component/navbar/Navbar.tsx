@@ -54,20 +54,23 @@ const Navbar = ({
   router.replace("/login");
 };
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box>
       <AppBar
         position="static"
         sx={{
-          backgroundColor:
-            "white",
-          mb: 0,
-          zIndex: 1300,
-          boxShadow: "none",
-          borderBottom:
-            "1px solid #E5E7EB",
-        }}
+            backgroundColor: "white",
+            zIndex: 1300,
+            boxShadow: "none",
+            borderBottom:"1px solid #E5E7EB",
+            height: "72px",
+            justifyContent: "center",
+            }}
       >
-        <Toolbar>
+        <Toolbar
+        sx={{
+          minHeight:
+            "72px !important",
+        }}>
           <IconButton
             size="large"
             edge="start"

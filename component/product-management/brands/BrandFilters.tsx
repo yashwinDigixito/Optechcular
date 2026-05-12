@@ -72,6 +72,7 @@ export default function BrandFilters({
             {
               borderRadius:
                 "14px",
+
               background:
                 "#FFFFFF",
             },
@@ -101,34 +102,43 @@ export default function BrandFilters({
             e.target.value
           )
         }
-        slotProps={{
-                  select: {
-                    displayEmpty: true,
-                    renderValue: (
-                      selected
-                    ) => (
-                      <Box
-                        sx={{
-                          color: selected
-                            ? "#0F172A"
-                            : "#94A3B8",
-                        }}
-                      >
-                        {(selected as string) ||
-                          "Sort by Category"}
-                      </Box>
-                    ),
-                  },
-                }}
         sx={{
-          minWidth: "200px",
+          minWidth: "220px",
+
           "& .MuiOutlinedInput-root":
             {
               borderRadius:
                 "14px",
+
               background:
                 "#FFFFFF",
             },
+        }}
+        slotProps={{
+          select: {
+            displayEmpty: true,
+
+            renderValue: (
+              selected
+            ) => {
+
+              if (!selected) {
+
+                return (
+                  <Box
+                    sx={{
+                      color:
+                        "#94A3B8",
+                    }}
+                  >
+                    Sort by Category
+                  </Box>
+                );
+              }
+
+              return selected as string;
+            },
+          },
         }}
       >
         <MenuItem value="">
@@ -150,6 +160,7 @@ export default function BrandFilters({
         <MenuItem value="Optical Lens">
           Optical Lens
         </MenuItem>
+
       </TextField>
 
       {/* STATUS */}
@@ -161,34 +172,43 @@ export default function BrandFilters({
             e.target.value
           )
         }
-        slotProps={{
-                  select: {
-                    displayEmpty: true,
-                    renderValue: (
-                      selected
-                    ) => (
-                      <Box
-                        sx={{
-                          color: selected
-                            ? "#0F172A"
-                            : "#94A3B8",
-                        }}
-                      >
-                        {(selected as string) ||
-                          "Sort by Status"}
-                      </Box>
-                    ),
-                  },
-                }}
         sx={{
-          minWidth: "180px",
+          minWidth: "220px",
+
           "& .MuiOutlinedInput-root":
             {
               borderRadius:
                 "14px",
+
               background:
                 "#FFFFFF",
             },
+        }}
+        slotProps={{
+          select: {
+            displayEmpty: true,
+
+            renderValue: (
+              selected
+            ) => {
+
+              if (!selected) {
+
+                return (
+                  <Box
+                    sx={{
+                      color:
+                        "#94A3B8",
+                    }}
+                  >
+                    Sort by Status
+                  </Box>
+                );
+              }
+
+              return selected as string;
+            },
+          },
         }}
       >
         <MenuItem value="">
@@ -202,6 +222,7 @@ export default function BrandFilters({
         <MenuItem value="Inactive">
           Inactive
         </MenuItem>
+
       </TextField>
 
       {/* BRAND GROUP */}
@@ -213,34 +234,43 @@ export default function BrandFilters({
             e.target.value
           )
         }
-        slotProps={{
-                  select: {
-                    displayEmpty: true,
-                    renderValue: (
-                      selected
-                    ) => (
-                      <Box
-                        sx={{
-                          color: selected
-                            ? "#0F172A"
-                            : "#94A3B8",
-                        }}
-                      >
-                        {(selected as string) ||
-                          "Sort by Brand Group"}
-                      </Box>
-                    ),
-                  },
-                }}
         sx={{
-          minWidth: "220px",
+          minWidth: "240px",
+
           "& .MuiOutlinedInput-root":
             {
               borderRadius:
                 "14px",
+
               background:
                 "#FFFFFF",
             },
+        }}
+        slotProps={{
+          select: {
+            displayEmpty: true,
+
+            renderValue: (
+              selected
+            ) => {
+
+              if (!selected) {
+
+                return (
+                  <Box
+                    sx={{
+                      color:
+                        "#94A3B8",
+                    }}
+                  >
+                    Sort by Brand Group
+                  </Box>
+                );
+              }
+
+              return selected as string;
+            },
+          },
         }}
       >
         <MenuItem value="">
@@ -262,7 +292,9 @@ export default function BrandFilters({
         <MenuItem value="Imported">
           Imported
         </MenuItem>
+
       </TextField>
+
     </Box>
   );
 }

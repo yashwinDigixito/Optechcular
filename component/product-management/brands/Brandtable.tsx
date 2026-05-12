@@ -1,12 +1,16 @@
 "use client";
 
+import {
+  useState,
+} from "react";
+
 import BlockIcon from "@mui/icons-material/Block";
 import EditIcon from "@mui/icons-material/Edit";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
-import { useState, } from "react";
 
 import {
   Box,
+  Chip,
   IconButton,
   Table,
   TableBody,
@@ -40,34 +44,68 @@ export default function BrandTable({
   const router =
     useRouter();
 
-  const [brandData, setBrandData] =
-    useState(brands);
+  const [statusMap, setStatusMap] =
+    useState<
+      Record<string, string>
+    >({});
 
   const handleToggleStatus = (
     id: string
   ) => {
 
-    setBrandData((prev) =>
-      prev.map((brand) =>
-        brand.id === id
-          ? {
-              ...brand,
+    setStatusMap((prev) => ({
 
-              status:
-                brand.status ===
-                "Active"
-                  ? "Inactive"
-                  : "Active",
-            }
-          : brand
-      )
-    );
+      ...prev,
+
+      [id]:
+        (
+          prev[id] ||
+
+          brands.find(
+            (brand) =>
+              brand.id === id
+          )?.status
+        ) === "Active"
+
+          ? "Inactive"
+
+          : "Active",
+    }));
   };
 
   return (
-    <TableContainer>
+    <TableContainer
+      sx={{
+        mt: 2,
 
-      <Table>
+        borderRadius:
+          "24px",
+
+        background:
+          "#FFFFFF",
+
+        border:
+          "1px solid #E2E8F0",
+
+        overflow: "hidden",
+
+        boxShadow:
+          "0px 4px 20px rgba(15,23,42,0.04)",
+      }}
+    >
+      <Table
+        sx={{
+          minWidth: 950,
+
+          "& .MuiTableCell-root":
+            {
+              py: 2.5,
+
+              borderColor:
+                "#F1F5F9",
+            },
+        }}
+      >
 
         {/* TABLE HEAD */}
         <TableHead>
@@ -76,43 +114,73 @@ export default function BrandTable({
             sx={{
               background:
                 "#F8FAFC",
+
+              "& .MuiTableCell-root":
+                {
+                  py: 2.2,
+                },
             }}
           >
             <TableCell>
-              <Typography sx={{ fontWeight: 700 }}>
+              <Typography
+                sx={{
+                  fontWeight: 700,
+                }}
+              >
                 Brand Name
               </Typography>
             </TableCell>
 
             <TableCell>
-              <Typography sx={{ fontWeight: 700 }}>
+              <Typography
+                sx={{
+                  fontWeight: 700,
+                }}
+              >
                 Category
               </Typography>
             </TableCell>
 
             <TableCell>
-              <Typography sx={{ fontWeight: 700 }}>
+              <Typography
+                sx={{
+                  fontWeight: 700,
+                }}
+              >
                 Brand Group
               </Typography>
             </TableCell>
 
             <TableCell>
-              <Typography sx={{ fontWeight: 700 }}>
+              <Typography
+                sx={{
+                  fontWeight: 700,
+                }}
+              >
                 Status
               </Typography>
             </TableCell>
 
             <TableCell>
-              <Typography sx={{ fontWeight: 700 }}>
+              <Typography
+                sx={{
+                  fontWeight: 700,
+                }}
+              >
                 Created On
               </Typography>
             </TableCell>
 
             <TableCell>
-              <Typography sx={{ fontWeight: 700 }}>
+              <Typography
+                sx={{
+                  fontWeight: 700,
+                }}
+              >
                 Actions
               </Typography>
             </TableCell>
+
           </TableRow>
 
         </TableHead>
@@ -120,187 +188,258 @@ export default function BrandTable({
         {/* TABLE BODY */}
         <TableBody>
 
-          {brandData.map((brand) => (
+          {brands.map(
+            (brand) => {
 
-            <TableRow
-              key={brand.id}
-              hover
-            >
-              {/* BRAND NAME */}
-              <TableCell>
+              const currentStatus =
 
-                <Typography
+                statusMap[
+                  brand.id
+                ] ||
+
+                brand.status;
+
+              return (
+
+                <TableRow
+                  key={brand.id}
+                  hover
                   sx={{
-                    fontWeight: 700,
-                    color: "#2563EB",
+                    transition:
+                      "0.2s",
+
+                    "&:hover": {
+                      background:
+                        "#F8FAFC",
+                    },
                   }}
                 >
-                  {brand.brandName}
-                </Typography>
+                  {/* BRAND NAME */}
+                  <TableCell>
 
-              </TableCell>
+                    <Typography
+                      sx={{
+                        fontWeight: 700,
 
-              {/* CATEGORY */}
-              <TableCell>
-                <Typography
-                  sx={{
-                    fontWeight: 500,
-                  }}
-                >
-                  {brand.category}
-                </Typography>
-              </TableCell>
+                        color:
+                          "#2563EB",
 
-              {/* BRAND GROUP */}
-              <TableCell>
-                <Typography
-                  sx={{
-                    fontWeight: 500,
-                  }}
-                >
-                  {brand.brandGroup}
-                </Typography>
-              </TableCell>
+                        fontSize:
+                          "16px",
+                      }}
+                    >
+                      {
+                        brand.brandName
+                      }
+                    </Typography>
 
-              {/* STATUS */}
-              <TableCell>
+                  </TableCell>
 
-                <StatusChip
-                  status={brand.status}
-                />
+                  {/* CATEGORY */}
+                  <TableCell>
 
-              </TableCell>
-
-              {/* CREATED DATE */}
-              <TableCell>
-
-                <Typography
-                  sx={{
-                    color: "#64748B",
-                    fontWeight: 500,
-                  }}
-                >
-                  {brand.createdOn}
-                </Typography>
-
-              </TableCell>
-
-              {/* ACTIONS */}
-              <TableCell>
-
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 1,
-                  }}
-                >
-                  {/* VIEW */}
-                  <Tooltip title="View">
-
-                    <IconButton
+                    <Chip
+                      label={
+                        brand.category
+                      }
                       sx={{
                         background:
                           "#EFF6FF",
 
-                        "&:hover": {
-                          background:
-                            "#DBEAFE",
-                        },
+                        color:
+                          "#2563EB",
+
+                        fontWeight: 600,
                       }}
-                      onClick={() =>
-                        router.push(
-                          `/products/brands/view/${brand.id}`
-                        )
-                      }
-                    >
-                      <RemoveRedEyeOutlinedIcon
-                        sx={{
-                          color:
-                            "#2563EB",
-                        }}
-                      />
-                    </IconButton>
+                    />
 
-                  </Tooltip>
+                  </TableCell>
 
-                  {/* EDIT */}
-                  <Tooltip title="Edit">
+                  {/* BRAND GROUP */}
+                  <TableCell>
 
-                    <IconButton
+                    <Typography
                       sx={{
-                        background:
-                          "#F8FAFC",
+                        fontWeight: 600,
 
-                        "&:hover": {
-                          background:
-                            "#E2E8F0",
-                        },
+                        color:
+                          "#475569",
                       }}
-                      onClick={() =>
-                        router.push(
-                          `/products/brands/edit/${brand.id}`
-                        )
-                      }
                     >
-                      <EditIcon
-                        sx={{
-                          color:
-                            "#0F172A",
-                        }}
-                      />
-                    </IconButton>
+                      {
+                        brand.brandGroup
+                      }
+                    </Typography>
 
-                  </Tooltip>
+                  </TableCell>
 
-                  {/* DEACTIVATE */}
-                  <Tooltip
-                    title={
-                      brand.status ===
-                      "Active"
-                        ? "Deactivate"
-                        : "Activate"
-                    }
-                  >
-                    <IconButton
+                  {/* STATUS */}
+                  <TableCell>
+
+                    <StatusChip
+                      status={
+                        currentStatus
+                      }
+                    />
+
+                  </TableCell>
+
+                  {/* CREATED DATE */}
+                  <TableCell>
+
+                    <Typography
                       sx={{
-                        background:
-                          brand.status ===
+                        color:
+                          "#64748B",
+
+                        fontWeight: 500,
+                      }}
+                    >
+                      {
+                        brand.createdOn
+                      }
+                    </Typography>
+
+                  </TableCell>
+
+                  {/* ACTIONS */}
+                  <TableCell>
+
+                    <Box
+                      sx={{
+                        display:
+                          "flex",
+
+                        alignItems:
+                          "center",
+
+                        gap: 1,
+                      }}
+                    >
+                      {/* VIEW */}
+                      <Tooltip title="View">
+
+                        <IconButton
+                          sx={{
+                            background:
+                              "#EFF6FF",
+
+                            "&:hover":
+                              {
+                                background:
+                                  "#DBEAFE",
+                              },
+                          }}
+                          onClick={() =>
+                            router.push(
+                              `/products/brands/view/${brand.id}`
+                            )
+                          }
+                        >
+                          <RemoveRedEyeOutlinedIcon
+                            sx={{
+                              color:
+                                "#2563EB",
+                            }}
+                          />
+                        </IconButton>
+
+                      </Tooltip>
+
+                      {/* EDIT */}
+                      <Tooltip title="Edit">
+
+                        <IconButton
+                          sx={{
+                            background:
+                              "#F8FAFC",
+
+                            "&:hover":
+                              {
+                                background:
+                                  "#E2E8F0",
+                              },
+                          }}
+                          onClick={() =>
+                            router.push(
+                              `/products/brands/edit/${brand.id}`
+                            )
+                          }
+                        >
+                          <EditIcon
+                            sx={{
+                              color:
+                                "#0F172A",
+                            }}
+                          />
+                        </IconButton>
+
+                      </Tooltip>
+
+                      {/* STATUS TOGGLE */}
+                      <Tooltip
+                        title={
+                          currentStatus ===
                           "Active"
-                            ? "#FEF2F2"
-                            : "#DCFCE7",
+                            ? "Deactivate"
+                            : "Activate"
+                        }
+                      >
+                        <IconButton
+                          sx={{
+                            background:
+                              currentStatus ===
+                              "Active"
 
-                        "&:hover": {
-                          background:
-                            brand.status ===
-                            "Active"
-                              ? "#FEE2E2"
-                              : "#BBF7D0",
-                        },
-                      }}
-                      onClick={() =>
-                        handleToggleStatus(
-                          brand.id
-                        )
-                      }
-                    >
-                      <BlockIcon
-                        sx={{
-                          color:
-                            brand.status ===
-                            "Active"
-                              ? "#DC2626"
-                              : "#16A34A",
-                        }}
-                      />
-                    </IconButton>
-                  </Tooltip>
-                </Box>
-              </TableCell>
-            </TableRow>
-          ))}
+                                ? "#FEF2F2"
+
+                                : "#DCFCE7",
+
+                            "&:hover":
+                              {
+                                background:
+                                  currentStatus ===
+                                  "Active"
+
+                                    ? "#FEE2E2"
+
+                                    : "#BBF7D0",
+                              },
+                          }}
+                          onClick={() =>
+                            handleToggleStatus(
+                              brand.id
+                            )
+                          }
+                        >
+                          <BlockIcon
+                            sx={{
+                              color:
+                                currentStatus ===
+                                "Active"
+
+                                  ? "#DC2626"
+
+                                  : "#16A34A",
+                            }}
+                          />
+                        </IconButton>
+
+                      </Tooltip>
+
+                    </Box>
+
+                  </TableCell>
+
+                </TableRow>
+              );
+            }
+          )}
+
         </TableBody>
+
       </Table>
+
     </TableContainer>
   );
 }

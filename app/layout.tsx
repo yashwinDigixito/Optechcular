@@ -17,11 +17,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const pathname = usePathname();
-
   const isLoginPage = pathname === "/login";
-
-  const [collapsed, setCollapsed] =
-    useState(false);
+  const [collapsed, setCollapsed] = useState(false);
 
   return (
     <html lang="en">
@@ -46,15 +43,26 @@ export default function RootLayout({
 
                 {/* RIGHT SECTION */}
                 <div
-                  style={{
-                    flex: 1,
-                    display: "flex",
-                    flexDirection: "column",
-                    overflow: "hidden",
-                    background: "#F4F7FE",
-                    
-                  }}
-                >
+  style={{
+    flex: 1,
+
+    display: "flex",
+
+    flexDirection:
+      "column",
+
+    overflow: "hidden",
+
+    background:
+      "#F4F7FE",
+
+    alignItems:
+      "stretch",
+
+    justifyContent:
+      "flex-start",
+  }}
+>
                   {/* NAVBAR */}
                   <Navbar
                     collapsed={collapsed}
@@ -63,14 +71,20 @@ export default function RootLayout({
 
                   {/* PAGE CONTENT */}
                   <main
-                    style={{
-                      overflowY: "auto",
-                      padding: "0px",
-                      marginTop: 0,
-                    }}
-                  >
-                    {children}
-                  </main>
+  style={{
+    flex: 1,
+
+    overflowY: "auto",
+
+    padding: "12px 0px 0px 0px",
+
+    display: "block",
+
+    minHeight: 0,
+  }}
+>
+  {children}
+</main>
                 </div>
               </div>
             )}

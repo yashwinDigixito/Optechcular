@@ -5,15 +5,15 @@ import { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 
 import {
-    Box,
-    Button,
-    Typography,
+  Box,
+  Button,
+  Typography,
 } from "@mui/material";
 
 import { useRouter } from "next/navigation";
 
 import {
-    contactLenses,
+  contactLenses,
 } from "@/assets/genericdata";
 
 import TableContainerCard from "@/component/common/TableContainerCard";
@@ -63,7 +63,7 @@ export default function ContactLensManagementPage() {
     );
 
   return (
-    <Box sx={{ p: 3 }}>
+    <Box sx={{ p: 3,pt:1.5 }}>
 
       {/* HEADER */}
       <Box
