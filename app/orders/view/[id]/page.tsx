@@ -25,21 +25,11 @@ export default async function OrderViewPage({
     ) || null;
 
   return (
-    <Box
-      sx={{
-        width: "100%",
-        height: "calc(100vh - 70px)",
-        overflow: "hidden",
-
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        px: 2,
-      }}
-    >
+  
+    
       <OrderSummary
         order={order}
       />
-    </Box>
+    
   );
 }
