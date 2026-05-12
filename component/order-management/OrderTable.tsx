@@ -1,8 +1,12 @@
 "use client";
-import LocalPrintshopOutlinedIcon from "@mui/icons-material/LocalPrintshopOutlined";
-import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+
+import BlockIcon from "@mui/icons-material/Block";
+import EditIcon from "@mui/icons-material/Edit";
+import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
+
 import {
   Box,
+  Chip,
   IconButton,
   Table,
   TableBody,
@@ -10,318 +14,498 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Tooltip,
   Typography,
 } from "@mui/material";
 
 import { useRouter } from "next/navigation";
 
-import {
-  Order,
-} from "@/assets/types";
+interface OrderType {
 
-import StatusChip from "@/component/common/StatusChip";
-import TableContainerCard from "@/component/common/TableContainerCard";
+  id: string;
 
-interface OrderTableProps {
-  orders: Order[];
+  orderNo: string;
+
+  customerName: string;
+
+  email: string;
+
+  phone: string;
+
+  salesPerson: string;
+
+  orderSource: string;
+
+  productType: string;
+
+  productName: string;
+
+  productSku: string;
+
+  productVariant: string;
+
+  quantity: number;
+
+  productPrice: number;
+
+  status: string;
+
+  paymentStatus: string;
+
+  deliveryStatus: string;
+
+  orderDate: string;
+
+  subtotal: number;
+
+  discount: number;
+
+  tax: number;
+
+  shippingCharge: number;
+
+  totalAmount: number;
+
+  paymentMethod: string;
+
+  transactionId: string;
+
+  paidAmount: number;
+
+  paymentDue: number;
+
+  shippingPartner: string;
+
+  trackingNo: string;
+
+  estimatedDeliveryDate: string;
+
+  shippingAddress: string;
+
+  billingAddress: string;
+
+  notes: string;
+}
+interface Props {
+
+  orders: OrderType[];
+
+  setOrderData:
+    React.Dispatch<
+      React.SetStateAction<
+        OrderType[]
+      >
+    >;
 }
 
 export default function OrderTable({
   orders,
-}: OrderTableProps) {
+  setOrderData,
+}: Props) {
 
-  const router = useRouter();
+  const router =
+    useRouter();
+
+  const handleToggleStatus = (
+    id: string
+  ) => {
+
+    setOrderData((prev) =>
+      prev.map((order) =>
+        order.id === id
+          ? {
+              ...order,
+
+              status:
+                order.status ===
+                "Completed"
+                  ? "Pending"
+                  : "Completed",
+            }
+          : order
+      )
+    );
+  };
 
   return (
-    <TableContainerCard>
+    <TableContainer
+      sx={{
+        borderRadius:
+          "24px",
 
-      <TableContainer sx={{ px: 3 }}>
+        border:
+          "1px solid #E2E8F0",
 
-        <Table>
+        overflow: "hidden",
 
-          {/* Header */}
-          <TableHead>
+        background:
+          "#FFFFFF",
+      }}
+    >
+      <Table
+        sx={{
+          "& .MuiTableCell-root":
+            {
+              py: 2,
 
-            <TableRow
-              sx={{
-                background: "#F8FAFC",
-              }}
-            >
-              <TableCell>
-                <Typography
-                  sx={{
-                    fontWeight: 700,
-                    color: "#0F172A",
-                  }}
-                >
-                  Order
-                </Typography>
-              </TableCell>
+              borderColor:
+                "#F1F5F9",
+            },
+        }}
+      >
+        {/* TABLE HEAD */}
+        <TableHead>
 
-              <TableCell>
-                <Typography
-                  sx={{
-                    fontWeight: 700,
-                    color: "#0F172A",
-                  }}
-                >
-                  Customer
-                </Typography>
-              </TableCell>
+          <TableRow
+            sx={{
+              background:
+                "#F8FAFC",
+            }}
+          >
+            <TableCell>
+              <Typography sx={{fontWeight:700}}>
+                Order No
+              </Typography>
+            </TableCell>
 
-              <TableCell>
-                <Typography
-                  sx={{
-                    fontWeight: 700,
-                    color: "#0F172A",
-                  }}
-                >
-                  Date
-                </Typography>
-              </TableCell>
+            <TableCell>
+              <Typography sx={{fontWeight:700}}>
+                Customer
+              </Typography>
+            </TableCell>
 
-              <TableCell>
-                <Typography
-                  sx={{
-                    fontWeight: 700,
-                    color: "#0F172A",
-                  }}
-                >
-                  Product Type
-                </Typography>
-              </TableCell>
+            <TableCell>
+              <Typography sx={{fontWeight:700}}>
+                Product
+              </Typography>
+            </TableCell>
 
-              <TableCell>
-                <Typography
-                  sx={{
-                    fontWeight: 700,
-                    color: "#0F172A",
-                  }}
-                >
-                  Price
-                </Typography>
-              </TableCell>
+            <TableCell>
+              <Typography sx={{fontWeight:700}}>
+                Amount
+              </Typography>
+            </TableCell>
 
-              <TableCell>
-                <Typography
-                  sx={{
-                    fontWeight: 700,
-                    color: "#0F172A",
-                  }}
-                >
-                  Status
-                </Typography>
-              </TableCell>
+            <TableCell>
+              <Typography sx={{fontWeight:700}}>
+                Payment
+              </Typography>
+            </TableCell>
 
-              <TableCell align="center">
-                <Typography
-                  sx={{
-                    fontWeight: 700,
-                    color: "#0F172A",
-                  }}
-                >
-                  Action
-                </Typography>
-              </TableCell>
+            <TableCell>
+              <Typography sx={{fontWeight:700}}>
+                Order Status
+              </Typography>
+            </TableCell>
 
-              <TableCell />
-            </TableRow>
+            <TableCell>
+              <Typography sx={{fontWeight:700}}>
+                Order Date
+              </Typography>
+            </TableCell>
 
-          </TableHead>
+            <TableCell>
+              <Typography sx={{fontWeight:700}}>
+                Actions
+              </Typography>
+            </TableCell>
 
-          {/* Body */}
-          <TableBody>
+          </TableRow>
 
-            {orders.map((order) => (
+        </TableHead>
+
+        {/* TABLE BODY */}
+        <TableBody>
+
+          {orders.map(
+            (order) => (
 
               <TableRow
                 key={order.id}
                 hover
                 sx={{
-                  cursor: "pointer",
-
-                  transition: "0.2s",
-
                   "&:hover": {
-                    background: "#F8FAFC",
-                  },
-
-                  "& .MuiTableCell-root": {
-                    borderBottom:
-                      "1px solid #F1F5F9",
-                    py: 2.5,
+                    background:
+                      "#F8FAFC",
                   },
                 }}
               >
-
-                {/* Order */}
+                {/* ORDER NO */}
                 <TableCell>
 
                   <Typography
-                    onClick={() =>
-                      router.push(
-                        `/orders/view/${order.id}`
-                      )
+                    sx={{
+                      fontWeight: 700,
+
+                      color:
+                        "#2563EB",
+                    }}
+                  >
+                    {
+                      order.orderNo
                     }
-                    sx={{
-                      fontWeight: 700,
-                      color: "#2563EB",
-                      cursor: "pointer",
-                      fontSize: "15px",
-
-                      "&:hover": {
-                        textDecoration:
-                          "underline",
-                      },
-                    }}
-                  >
-                    {order.orderNo}
                   </Typography>
 
                 </TableCell>
 
-                {/* Customer */}
-                <TableCell>
-
-                  <Box>
-                    <Typography
-                      sx={{
-                        fontWeight: 600,
-                        fontSize: "15px",
-                        color: "#0F172A",
-                      }}
-                    >
-                      {order.customerName}
-                    </Typography>
-
-                    <Typography
-                      sx={{
-                        fontSize: "13px",
-                        color: "#94A3B8",
-                        mt: 0.5,
-                      }}
-                    >
-                      {order.email}
-                    </Typography>
-                  </Box>
-
-                </TableCell>
-
-                {/* Date */}
+                {/* CUSTOMER */}
                 <TableCell>
 
                   <Typography
                     sx={{
-                      fontWeight: 500,
-                      color: "#334155",
+                      fontWeight: 600,
                     }}
                   >
-                    {order.orderDate}
+                    {
+                      order.customerName
+                    }
                   </Typography>
 
                 </TableCell>
 
-                {/* Product */}
+                {/* PRODUCT */}
                 <TableCell>
 
                   <Typography
                     sx={{
-                      fontWeight: 500,
-                      color: "#334155",
+                      color:
+                        "#475569",
                     }}
                   >
-                    {order.productType}
+                    {
+                      order.productName
+                    }
                   </Typography>
 
                 </TableCell>
 
-                {/* Amount */}
+                {/* AMOUNT */}
                 <TableCell>
 
                   <Typography
                     sx={{
                       fontWeight: 700,
-                      color: "#0F172A",
                     }}
                   >
-                    ₹{order.totalAmount}
+                    ₹
+                    {
+                      order.totalAmount
+                    }
                   </Typography>
 
                 </TableCell>
 
-                {/* Status */}
+                {/* PAYMENT STATUS */}
                 <TableCell>
 
-                  <StatusChip
-                    status={order.status}
+                  <Chip
+                    label={
+                      order.paymentStatus
+                    }
+                    size="small"
+                    sx={{
+                      background:
+                        order.paymentStatus ===
+                        "Paid"
+
+                          ? "#DCFCE7"
+
+                          : order.paymentStatus ===
+                            "Pending"
+
+                          ? "#FEF3C7"
+
+                          : "#FEE2E2",
+
+                      color:
+                        order.paymentStatus ===
+                        "Paid"
+
+                          ? "#15803D"
+
+                          : order.paymentStatus ===
+                            "Pending"
+
+                          ? "#B45309"
+
+                          : "#DC2626",
+
+                      fontWeight: 700,
+
+                      borderRadius:
+                        "8px",
+                    }}
                   />
 
                 </TableCell>
 
-                <TableCell
-                  align="center"
-                  sx={{
-                    minWidth: 140,
-                  }}
-                >
+                {/* ORDER STATUS */}
+                <TableCell>
+
+                  <Chip
+                    label={
+                      order.status
+                    }
+                    size="small"
+                    sx={{
+                      background:
+                        order.status ===
+                        "Completed"
+
+                          ? "#DCFCE7"
+
+                          : order.status ===
+                            "Pending"
+
+                          ? "#DBEAFE"
+
+                          : "#FEE2E2",
+
+                      color:
+                        order.status ===
+                        "Completed"
+
+                          ? "#15803D"
+
+                          : order.status ===
+                            "Pending"
+
+                          ? "#2563EB"
+
+                          : "#DC2626",
+
+                      fontWeight: 700,
+
+                      borderRadius:
+                        "8px",
+                    }}
+                  />
+
+                </TableCell>
+
+                {/* DATE */}
+                <TableCell>
+
+                  <Typography
+                    sx={{
+                      color:
+                        "#64748B",
+                    }}
+                  >
+                    {
+                      order.orderDate
+                    }
+                  </Typography>
+
+                </TableCell>
+
+                {/* ACTIONS */}
+                <TableCell>
+
                   <Box
                     sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
+                      display:
+                        "flex",
+
                       gap: 1,
                     }}
                   >
-                    {/* View */}
-                    <IconButton
-                      onClick={() =>
-                        router.push(
-                          `/orders/view/${order.id}`
-                        )
-                      }
-                      sx={{
-                        width: 38,
-                        height: 38,
-                        borderRadius: "12px",
-                        background: "#EFF6FF",
-                        "&:hover": {
-                          background: "#DBEAFE",
-                        },
-                      }}
-                    >
-                      <VisibilityOutlinedIcon
+                    {/* VIEW */}
+                    <Tooltip title="View">
+
+                      <IconButton
                         sx={{
-                          fontSize: 20,
-                          color: "#2563EB",
+                          background:
+                            "#EFF6FF",
+
+                          "&:hover":
+                            {
+                              background:
+                                "#DBEAFE",
+                            },
                         }}
-                      />
-                    </IconButton>
-                    {/* Print */}
-                    <IconButton
-                      sx={{
-                        width: 38,
-                        height: 38,
-                        borderRadius: "12px",
-                        background: "#F8FAFC",
-                        "&:hover": {
-                          background: "#E2E8F0",
-                        },
-                      }}
-                    >
-                      <LocalPrintshopOutlinedIcon
+                        onClick={() =>
+                          router.push(
+                            `/orders/view/${order.id}`
+                          )
+                        }
+                      >
+                        <RemoveRedEyeOutlinedIcon
+                          sx={{
+                            color:
+                              "#2563EB",
+                          }}
+                        />
+                      </IconButton>
+
+                    </Tooltip>
+
+                    {/* EDIT */}
+                    <Tooltip title="Edit">
+
+                      <IconButton
                         sx={{
-                          fontSize: 20,
-                          color: "#475569",
+                          background:
+                            "#F8FAFC",
+
+                          "&:hover":
+                            {
+                              background:
+                                "#E2E8F0",
+                            },
                         }}
-                      />
-                    </IconButton>
+                        onClick={() =>
+                          router.push(
+                            `/orders/edit/${order.id}`
+                          )
+                        }
+                      >
+                        <EditIcon
+                          sx={{
+                            color:
+                              "#0F172A",
+                          }}
+                        />
+                      </IconButton>
+
+                    </Tooltip>
+
+                    {/* STATUS */}
+                    <Tooltip title="Change Status">
+
+                      <IconButton
+                        sx={{
+                          background:
+                            "#FEF2F2",
+                        }}
+                        onClick={() =>
+                          handleToggleStatus(
+                            order.id
+                          )
+                        }
+                      >
+                        <BlockIcon
+                          sx={{
+                            color:
+                              "#DC2626",
+                          }}
+                        />
+                      </IconButton>
+
+                    </Tooltip>
+
                   </Box>
+
                 </TableCell>
-            </TableRow>
-          ))}
+
+              </TableRow>
+            )
+          )}
+
         </TableBody>
+
       </Table>
+
     </TableContainer>
-  </TableContainerCard>
-);
+  );
 }

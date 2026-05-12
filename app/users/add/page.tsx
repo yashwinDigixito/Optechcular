@@ -1,10 +1,9 @@
-import React from 'react'
-import AddUsers from "@/component/usersManagement/AddUsers";
+import AddUserForm from "@/component/user-management/AddUserForm";
 
 const page = () => {
   return (
     <>
-    <AddUsers/>
+    <AddUserForm/>
     </>
   )
 }

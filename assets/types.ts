@@ -17,16 +17,6 @@ export interface User {
   status: string;
   phoneNumber?: string;
 }
-
-export interface Invoice {
-  id: string;
-  invoiceNo: string;
-  customer: string;
-  amount: number;
-  status: string;
-  date?: string;
-}
-
 export interface Product {
   id: string;
   productName: string;
@@ -113,29 +103,6 @@ export interface Order {
   notes?: string;
 }
 
-export interface PurchaseOrder {
-  id: string;
-  poNo: string;
-  vendorName: string;
-  totalQty: number;
-  status: string;
-}
-
-export interface Expense {
-  id: string;
-  expenseName: string;
-  ledger: string;
-  amount: number;
-}
-
-export interface Ledger {
-  id: string;
-  ledgerName: string;
-  group: string;
-  openingAmount: number;
-  type: string;
-}
-
 export interface SalesTarget {
   id: string;
   salesPerson: string;
@@ -177,4 +144,84 @@ export interface ReportChartProps {
   data: ReportChartData[];
   color?: string;
   label:string;
+}
+
+export interface Invoice {
+  id: string;
+  invoiceNo: string;
+  orderNo: string;
+  customerName: string;
+  productName: string;
+  brand: string;
+  category: string;
+  invoiceDate: string;
+  dueDate: string;
+  subtotal: number;
+  tax: number;
+  discount: number;
+  totalAmount: number;
+  paidAmount: number;
+  dueAmount: number;
+  paymentStatus: string;
+  invoiceStatus: string;
+  paymentMethod: string;
+  createdBy: string;
+  notes: string;
+}
+
+export interface PurchaseOrder {
+  id: string;
+  poNumber: string;
+  vendorName: string;
+  vendorEmail: string;
+  vendorPhone: string;
+  productName: string;
+  productSku: string;
+  category: string;
+  quantity: number;
+  unitPrice: number;
+  tax: number;
+  discount: number;
+  totalAmount: number;
+  paymentStatus: string;
+  poStatus: string;
+  orderDate: string;
+  expectedDelivery: string;
+  createdBy: string;
+  notes: string;
+}
+
+export interface Expense {
+  id: string;
+  expenseName: string;
+  ledger: string;
+  amount: number;
+  paymentMethod: string;
+  expenseDate: string;
+  createdBy: string;
+  status: string;
+  notes: string;
+}
+
+export interface Ledger {
+
+  id: string;
+
+  ledgerName: string;
+
+  ledgerGroup: string;
+
+  openingBalance: number;
+
+  balanceType: string;
+
+  currentBalance: number;
+
+  createdOn: string;
+
+  createdBy: string;
+
+  status: string;
+
+  notes: string;
 }

@@ -1,4 +1,8 @@
+import CustomerManagementPage from "@/component/customer-management";
 
-export default function CustomersPage() {
-  return ;
+export default function Page() {
+
+  return (
+    <CustomerManagementPage />
+  );
 }

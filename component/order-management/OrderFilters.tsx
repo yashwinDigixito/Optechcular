@@ -1,191 +1,229 @@
 "use client";
 
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import SearchIcon from "@mui/icons-material/Search";
 
 import {
   Box,
   InputAdornment,
+  MenuItem,
   TextField,
 } from "@mui/material";
 
-import SearchField from "@/component/common/SearchField";
+interface Props {
 
-interface OrderFiltersProps {
-  startDate: string;
-  endDate: string;
   search: string;
 
-  setStartDate: (
-    value: string
-  ) => void;
-
-  setEndDate: (
-    value: string
-  ) => void;
-
   setSearch: (
+    value: string
+  ) => void;
+
+  paymentStatus: string;
+
+  setPaymentStatus: (
+    value: string
+  ) => void;
+
+  orderStatus: string;
+
+  setOrderStatus: (
     value: string
   ) => void;
 }
 
 export default function OrderFilters({
-  startDate,
-  endDate,
   search,
-  setStartDate,
-  setEndDate,
   setSearch,
-}: OrderFiltersProps) {
+  paymentStatus,
+  setPaymentStatus,
+  orderStatus,
+  setOrderStatus,
+}: Props) {
 
   return (
     <Box
       sx={{
         display: "flex",
+
         gap: 2,
-        mt: 3,
+
+        mb: 3,
+
         flexWrap: "wrap",
       }}
     >
-      {/* Start Date */}
+      {/* SEARCH */}
       <TextField
-        type="date"
-        label="Start Date"
-        size="small"
-        fullWidth
-        value={startDate}
+        placeholder="Search order or customer..."
+        value={search}
         onChange={(e) =>
-          setStartDate(
+          setSearch(
             e.target.value
           )
         }
-        slotProps={{
-          inputLabel: {
-            shrink: true,
-          },
+        sx={{
+          minWidth: "280px",
 
-          htmlInput: {
-            sx: {
-              "&::-webkit-calendar-picker-indicator":
-                {
-                  opacity: 0,
-                  display: "none",
-                },
+          "& .MuiOutlinedInput-root":
+            {
+              borderRadius:
+                "14px",
+
+              background:
+                "#FFFFFF",
             },
-          },
-
+        }}
+        slotProps={{
           input: {
-            endAdornment: (
-              <InputAdornment position="end">
-                <CalendarMonthIcon
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon
                   sx={{
-                    cursor: "pointer",
-                    color: "#64748B",
-                  }}
-                  onClick={(e) => {
-
-                    const input =
-                      (
-                        e.currentTarget.closest(
-                          ".MuiFormControl-root"
-                        ) as HTMLElement
-                      )?.querySelector(
-                        "input"
-                      ) as HTMLInputElement;
-
-                    input.showPicker();
+                    color:
+                      "#94A3B8",
                   }}
                 />
               </InputAdornment>
             ),
           },
         }}
-        sx={{
-          maxWidth: "250px",
-
-          "& .MuiOutlinedInput-root":
-            {
-              borderRadius: "14px",
-              background:
-                "#FFFFFF",
-              height: "54px",
-            },
-        }}
       />
 
-      {/* End Date */}
+      {/* PAYMENT STATUS */}
       <TextField
-        type="date"
-        label="End Date"
-        size="small"
-        fullWidth
-        value={endDate}
+        select
+        value={paymentStatus}
         onChange={(e) =>
-          setEndDate(
+          setPaymentStatus(
             e.target.value
           )
         }
-        slotProps={{
-          inputLabel: {
-            shrink: true,
-          },
-
-          htmlInput: {
-            sx: {
-              "&::-webkit-calendar-picker-indicator":
-                {
-                  opacity: 0,
-                  display: "none",
-                },
-            },
-          },
-
-          input: {
-            endAdornment: (
-              <InputAdornment position="end">
-                <CalendarMonthIcon
-                  sx={{
-                    cursor: "pointer",
-                    color: "#64748B",
-                  }}
-                  onClick={(e) => {
-
-                    const input =
-                      (
-                        e.currentTarget.closest(
-                          ".MuiFormControl-root"
-                        ) as HTMLElement
-                      )?.querySelector(
-                        "input"
-                      ) as HTMLInputElement;
-
-                    input.showPicker();
-                  }}
-                />
-              </InputAdornment>
-            ),
-          },
-        }}
         sx={{
-          maxWidth: "250px",
+          minWidth: "220px",
 
           "& .MuiOutlinedInput-root":
             {
-              borderRadius: "14px",
+              borderRadius:
+                "14px",
+
               background:
                 "#FFFFFF",
-              height: "54px",
             },
         }}
-      />
+        slotProps={{
+          select: {
+            displayEmpty: true,
 
-      {/* Search */}
-      <Box sx={{ flex: 1 }}>
-        <SearchField
-          placeholder="Search customer or order number..."
-          value={search}
-          onChange={setSearch}
-        />
-      </Box>
+            renderValue: (
+              selected
+            ) => {
+
+              if (!selected) {
+
+                return (
+                  <Box
+                    sx={{
+                      color:
+                        "#94A3B8",
+                    }}
+                  >
+                    Sort by Payment
+                  </Box>
+                );
+              }
+
+              return selected as string;
+            },
+          },
+        }}
+      >
+        <MenuItem value="">
+          All Payments
+        </MenuItem>
+
+        <MenuItem value="Paid">
+          Paid
+        </MenuItem>
+
+        <MenuItem value="Pending">
+          Pending
+        </MenuItem>
+
+        <MenuItem value="Refunded">
+          Refunded
+        </MenuItem>
+
+      </TextField>
+
+      {/* ORDER STATUS */}
+      <TextField
+        select
+        value={orderStatus}
+        onChange={(e) =>
+          setOrderStatus(
+            e.target.value
+          )
+        }
+        sx={{
+          minWidth: "220px",
+
+          "& .MuiOutlinedInput-root":
+            {
+              borderRadius:
+                "14px",
+
+              background:
+                "#FFFFFF",
+            },
+        }}
+        slotProps={{
+          select: {
+            displayEmpty: true,
+
+            renderValue: (
+              selected
+            ) => {
+
+              if (!selected) {
+
+                return (
+                  <Box
+                    sx={{
+                      color:
+                        "#94A3B8",
+                    }}
+                  >
+                    Sort by Order Status
+                  </Box>
+                );
+              }
+
+              return selected as string;
+            },
+          },
+        }}
+      >
+        <MenuItem value="">
+          All Orders
+        </MenuItem>
+
+        <MenuItem value="Completed">
+          Completed
+        </MenuItem>
+
+        <MenuItem value="Pending">
+          Pending
+        </MenuItem>
+
+        <MenuItem value="Cancelled">
+          Cancelled
+        </MenuItem>
+
+        <MenuItem value="Refunded">
+          Refunded
+        </MenuItem>
+
+      </TextField>
+
     </Box>
   );
 }

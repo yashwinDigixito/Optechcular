@@ -1,9 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import {
+  useState,
+} from "react";
 
-import { orderTabs } from "@/assets/genericdata";
+import {
+  orders,
+} from "@/assets/genericdata";
+
 import AddIcon from "@mui/icons-material/Add";
+
 import {
   Box,
   Button,
@@ -12,68 +18,102 @@ import {
 
 import { useRouter } from "next/navigation";
 
-import {
-  orders,
-} from "@/assets/genericdata";
-
-import FilterTabs from "@/component/common/FilterTabs";
+import TableContainerCard from "@/component/common/TableContainerCard";
 
 import OrderFilters from "./OrderFilters";
 import OrderTable from "./OrderTable";
 
-import TableContainerCard from "@/component/common/TableContainerCard";
-
 export default function OrderManagementPage() {
 
-  const router = useRouter();
+  const router =
+    useRouter();
 
-  const [activeTab, setActiveTab] =useState("All");
+  const [search, setSearch] =
+    useState("");
 
-  const [startDate, setStartDate] =useState("");
-  const [endDate, setEndDate] =useState("");
+  const [paymentStatus,
+    setPaymentStatus] =
+      useState("");
 
-  const [search, setSearch] =useState("");
+  const [orderStatus,
+    setOrderStatus] =
+      useState("");
+
+  const [orderData,
+    setOrderData] =
+      useState(orders);
 
   const filteredOrders =
-  orders.filter((order) => {
+    orderData.filter(
+      (order) => {
 
-    const matchesTab =activeTab === "All"? true: order.status === activeTab;
-    const orderDate =new Date(order.orderDate);
-    const matchesStart = startDate ? orderDate >=new Date(startDate): true;
-    const matchesEnd = endDate ? orderDate <= new Date(endDate) : true;
+        const matchesSearch =
+          search
+            ? order.orderNo
+                .toLowerCase()
+                .includes(
+                  search.toLowerCase()
+                ) ||
 
-    const matchesSearch = search ? order.customerName.toLowerCase().includes( search.toLowerCase())
-          ||
-          order.orderNo.toLowerCase().includes(search.toLowerCase()): true;
-    return (
-      matchesTab &&
-      matchesStart &&
-      matchesEnd &&
-      matchesSearch
+              order.customerName
+                .toLowerCase()
+                .includes(
+                  search.toLowerCase()
+                )
+            : true;
+
+        const matchesPayment =
+          paymentStatus
+            ? order.paymentStatus ===
+              paymentStatus
+            : true;
+
+        const matchesOrder =
+          orderStatus
+            ? order.status ===
+              orderStatus
+            : true;
+
+        return (
+          matchesSearch &&
+          matchesPayment &&
+          matchesOrder
+        );
+      }
     );
-  });
 
   return (
     <Box
       sx={{
         p: 3,
-        minHeight: "100vh",
+
+        minHeight:
+          "100vh",
       }}
     >
+      {/* HEADER */}
       <Box
         sx={{
           display: "flex",
+
           justifyContent:
             "space-between",
-          alignItems: "center",
+
+          alignItems:
+            "center",
+
           mb: 3,
         }}
       >
         <Typography
           sx={{
-            fontSize: "32px",
+            fontSize:
+              "32px",
+
             fontWeight: 700,
-            color: "#0F172A",
+
+            color:
+              "#0F172A",
           }}
         >
           Order Management
@@ -83,51 +123,73 @@ export default function OrderManagementPage() {
           variant="contained"
           startIcon={<AddIcon />}
           onClick={() =>
-            router.push("/orders/add")
+            router.push(
+              "/orders/add"
+            )
           }
           sx={{
-            borderRadius: "12px",
+            borderRadius:
+              "12px",
+
             px: 3,
-            height: "48px",
-            textTransform: "none",
+
+            height:
+              "48px",
+
+            textTransform:
+              "none",
+
             fontWeight: 600,
           }}
         >
           Add Order
         </Button>
+
       </Box>
 
+      {/* FILTERS */}
+      <OrderFilters
+        search={search}
+        setSearch={setSearch}
+        paymentStatus={paymentStatus}
+        setPaymentStatus={setPaymentStatus}
+        orderStatus={orderStatus}
+        setOrderStatus={setOrderStatus}
+      />
+
+      {/* TABLE CARD */}
       <TableContainerCard>
 
         <Box sx={{ p: 3 }}>
-          <FilterTabs
-            activeTab={activeTab}
-            setActiveTab={setActiveTab}
-            tabs={orderTabs}
-            data={orders}
-          />
-          <OrderFilters
-          startDate={startDate}
-          endDate={endDate}
-          setStartDate={setStartDate}
-          setEndDate={setEndDate}
-          search={search}
-          setSearch={setSearch}
-          />
+
+          {/* RESULTS */}
           <Typography
             sx={{
-              mt: 3,
-              color: "#475569",
+              color:
+                "#475569",
+
               fontWeight: 500,
+
+              mb: 2,
             }}
           >
-            {filteredOrders.length} results found
+            {
+              filteredOrders.length
+            }{" "}
+            results found
           </Typography>
 
+          {/* TABLE */}
+          <OrderTable
+            orders={
+              filteredOrders
+            }
+            setOrderData={
+              setOrderData
+            }
+          />
+
         </Box>
-        <OrderTable
-          orders={filteredOrders}
-        />
 
       </TableContainerCard>
 

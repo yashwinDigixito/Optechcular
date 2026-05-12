@@ -1,135 +1,12 @@
 import {
   DashboardStat,
-  ReportChartData,
+  Expense,
+  Invoice,
+  Ledger,
+  PurchaseOrder,
+  ReportChartData
 } from "@/assets/types";
 
-export const customers = [
-  {
-    id: "1",
-    fullName: "John Doe",
-    customerType: "B2B",
-    email: "john@example.com",
-    phoneNumber: "9876543210",
-    city: "New York",
-  },
-
-  {
-    id: "2",
-    fullName: "Sarah Smith",
-    customerType: "B2C",
-    email: "sarah@example.com",
-    phoneNumber: "9876543211",
-    city: "London",
-  },
-];
-
-export const users = [
-  {
-    id: "1",
-    fullName: "Admin User",
-    email: "admin@gmail.com",
-    role: "Admin",
-    status: "Active",
-  },
-
-  {
-    id: "2",
-    fullName: "Sales User",
-    email: "sales@gmail.com",
-    role: "Sales",
-    status: "Inactive",
-  },
-];
-
-export const invoices = [
-  {
-    id: "1",
-    invoiceNo: "INV-1001",
-    customer: "John Doe",
-    amount: 2500,
-    status: "Paid",
-  },
-
-  {
-    id: "2",
-    invoiceNo: "INV-1002",
-    customer: "Sarah Smith",
-    amount: 4000,
-    status: "Pending",
-  },
-];
-
-export const products = [
-  {
-    id: "1",
-    productName: "Rayban Frame",
-    brand: "Rayban",
-    sku: "RB1001",
-    barcode: "123456789",
-    price: 2500,
-  },
-
-  {
-    id: "2",
-    productName: "Contact Lens",
-    brand: "Bausch & Lomb",
-    sku: "CL1001",
-    barcode: "987654321",
-    price: 1500,
-  },
-];
-
-export const purchaseOrders = [
-  {
-    id: "1",
-    poNo: "PO-1001",
-    vendorName: "Lens Supplier",
-    totalQty: 20,
-    status: "Received",
-  },
-
-  {
-    id: "2",
-    poNo: "PO-1002",
-    vendorName: "Frame Supplier",
-    totalQty: 15,
-    status: "Pending",
-  },
-];
-
-export const expenses = [
-  {
-    id: "1",
-    expenseName: "Electricity Bill",
-    ledger: "Utilities",
-    amount: 5000,
-  },
-
-  {
-    id: "2",
-    expenseName: "Office Rent",
-    ledger: "Rent",
-    amount: 25000,
-  },
-];
-
-export const ledgers = [
-  {
-    id: "1",
-    ledgerName: "Utilities",
-    group: "Expense",
-    openingAmount: 1000,
-    type: "Debit",
-  },
-
-  {
-    id: "2",
-    ledgerName: "Sales Account",
-    group: "Income",
-    openingAmount: 5000,
-    type: "Credit",
-  },
-];
 
 export const salesTargets = [
   {
@@ -146,131 +23,6 @@ export const salesTargets = [
     targetAmount: 80000,
     achievedAmount: 30000,
     remainingAmount: 50000,
-  },
-];
-
-export const roles = [
-  {
-    id: "1",
-    roleName: "Admin",
-    status: "Active",
-    permissions: [
-      "Create",
-      "Edit",
-      "View",
-      "Deactivate",
-    ],
-  },
-
-  {
-    id: "2",
-    roleName: "Manager",
-    status: "Active",
-    permissions: [
-      "View",
-      "Edit",
-    ],
-  },
-
-  {
-    id: "3",
-    roleName: "Sales",
-    status: "Inactive",
-    permissions: [
-      "View",
-    ],
-  },
-
-  {
-    id: "4",
-    roleName: "HR Manager",
-    status: "Active",
-    permissions: [
-      "Create",
-      "View",
-      "Edit",
-    ],
-  },
-
-  {
-    id: "5",
-    roleName: "Inventory Manager",
-    status: "Active",
-    permissions: [
-      "Create",
-      "Edit",
-      "View",
-    ],
-  },
-
-  {
-    id: "6",
-    roleName: "Accountant",
-    status: "Inactive",
-    permissions: [
-      "View",
-      "Edit",
-    ],
-  },
-
-  {
-    id: "7",
-    roleName: "Support Executive",
-    status: "Active",
-    permissions: [
-      "View",
-    ],
-  },
-
-  {
-    id: "8",
-    roleName: "Store Manager",
-    status: "Active",
-    permissions: [
-      "Create",
-      "Edit",
-      "View",
-      "Deactivate",
-    ],
-  },
-
-  {
-    id: "9",
-    roleName: "Marketing Executive",
-    status: "Inactive",
-    permissions: [
-      "View",
-      "Edit",
-    ],
-  },
-
-  {
-    id: "10",
-    roleName: "Delivery Staff",
-    status: "Active",
-    permissions: [
-      "View",
-    ],
-  },
-
-  {
-    id: "11",
-    roleName: "Finance Manager",
-    status: "Active",
-    permissions: [
-      "Create",
-      "Edit",
-      "View",
-    ],
-  },
-
-  {
-    id: "12",
-    roleName: "Receptionist",
-    status: "Inactive",
-    permissions: [
-      "View",
-    ],
   },
 ];
 
@@ -359,13 +111,13 @@ export const orders = [
     orderNo: "ORD-1001",
     customerName: "Rahul Sharma",
     email: "rahul@gmail.com",
-    phone: "+91 9876543210",
+phone: "+91 9876543210",
 
     salesPerson: "Amit",
-    orderSource: "Online Store",
+orderSource: "Online Store",
 
     productType: "Frame",
-    productName: "RayBan Classic Frame",
+productName: "RayBan Classic Frame",
     productSku: "RB-1001",
     productVariant: "Black / Medium",
 
@@ -373,7 +125,7 @@ export const orders = [
     productPrice: 12250,
 
     status: "Completed",
-    paymentStatus: "Paid",
+paymentStatus: "Paid",
     deliveryStatus: "Delivered",
 
     orderDate: "08-05-2026",
@@ -407,13 +159,13 @@ export const orders = [
     orderNo: "ORD-1002",
     customerName: "Riya Patel",
     email: "riya@gmail.com",
-    phone: "+91 9988776655",
+phone: "+91 9988776655",
 
     salesPerson: "Suresh",
-    orderSource: "POS",
+orderSource: "POS",
 
     productType: "Contact Lens",
-    productName: "Bausch & Lomb Lens",
+productName: "Bausch & Lomb Lens",
     productSku: "CL-2002",
     productVariant: "Monthly Pack",
 
@@ -421,7 +173,7 @@ export const orders = [
     productPrice: 12800,
 
     status: "Pending",
-    paymentStatus: "Pending",
+paymentStatus: "Pending",
     deliveryStatus: "Processing",
 
     orderDate: "07-05-2026",
@@ -456,13 +208,13 @@ export const orders = [
     orderNo: "ORD-1003",
     customerName: "Arjun Verma",
     email: "arjun@gmail.com",
-    phone: "+91 9011223344",
+phone: "+91 9011223344",
 
     salesPerson: "Rohit",
-    orderSource: "Online Store",
+orderSource: "Online Store",
 
     productType: "Accessories",
-    productName: "Eyewear Cleaning Kit",
+productName: "Eyewear Cleaning Kit",
     productSku: "ACC-3001",
     productVariant: "Standard",
 
@@ -470,7 +222,7 @@ export const orders = [
     productPrice: 2400,
 
     status: "Cancelled",
-    paymentStatus: "Refunded",
+paymentStatus: "Refunded",
     deliveryStatus: "Cancelled",
 
     orderDate: "06-05-2026",
@@ -505,13 +257,13 @@ export const orders = [
     orderNo: "ORD-1004",
     customerName: "Sneha Kapoor",
     email: "sneha@gmail.com",
-    phone: "+91 8877665544",
+phone: "+91 8877665544",
 
     salesPerson: "Vikas",
-    orderSource: "Store",
+orderSource: "Store",
 
     productType: "Frame",
-    productName: "Titan Premium Frame",
+productName: "Titan Premium Frame",
     productSku: "FR-4001",
     productVariant: "Golden Large",
 
@@ -519,7 +271,7 @@ export const orders = [
     productPrice: 15900,
 
     status: "Completed",
-    paymentStatus: "Paid",
+paymentStatus: "Paid",
     deliveryStatus: "Delivered",
 
     orderDate: "05-05-2026",
@@ -554,13 +306,13 @@ export const orders = [
     orderNo: "ORD-1005",
     customerName: "Karan Mehta",
     email: "karan@gmail.com",
-    phone: "+91 7766554433",
+phone: "+91 7766554433",
 
     salesPerson: "Anjali",
-    orderSource: "Website",
+orderSource: "Website",
 
     productType: "Sunglasses",
-    productName: "Oakley Sunglasses",
+productName: "Oakley Sunglasses",
     productSku: "SG-5001",
     productVariant: "Black",
 
@@ -568,7 +320,7 @@ export const orders = [
     productPrice: 15400,
 
     status: "Pending",
-    paymentStatus: "Pending",
+paymentStatus: "Pending",
     deliveryStatus: "Not shipped",
 
     orderDate: "05-05-2026",
@@ -603,13 +355,13 @@ export const orders = [
     orderNo: "ORD-1006",
     customerName: "Priya Nair",
     email: "priya@gmail.com",
-    phone: "+91 9988112233",
+phone: "+91 9988112233",
 
     salesPerson: "Deepak",
-    orderSource: "Store",
+orderSource: "Store",
 
     productType: "Optical Lens",
-    productName: "Crizal Optical Lens",
+productName: "Crizal Optical Lens",
     productSku: "OL-6001",
     productVariant: "Blue Cut",
 
@@ -617,7 +369,7 @@ export const orders = [
     productPrice: 11300,
 
     status: "Completed",
-    paymentStatus: "Paid",
+paymentStatus: "Paid",
     deliveryStatus: "Delivered",
 
     orderDate: "04-05-2026",
@@ -652,13 +404,13 @@ export const orders = [
     orderNo: "ORD-1007",
     customerName: "Aditya Singh",
     email: "aditya@gmail.com",
-    phone: "+91 9090909090",
+phone: "+91 9090909090",
 
     salesPerson: "Rahul",
-    orderSource: "POS",
+orderSource: "POS",
 
     productType: "Accessories",
-    productName: "Lens Cleaner",
+productName: "Lens Cleaner",
     productSku: "ACC-7001",
     productVariant: "Pack of 3",
 
@@ -666,7 +418,7 @@ export const orders = [
     productPrice: 2700,
 
     status: "Refunded",
-    paymentStatus: "Refunded",
+paymentStatus: "Refunded",
     deliveryStatus: "Returned",
 
     orderDate: "04-05-2026",
@@ -701,13 +453,13 @@ export const orders = [
     orderNo: "ORD-1008",
     customerName: "Neha Joshi",
     email: "neha@gmail.com",
-    phone: "+91 8181818181",
+phone: "+91 8181818181",
 
     salesPerson: "Sonia",
-    orderSource: "Website",
+orderSource: "Website",
 
     productType: "Contact Lens",
-    productName: "Acuvue Lens",
+productName: "Acuvue Lens",
     productSku: "CL-8001",
     productVariant: "Yearly Pack",
 
@@ -715,7 +467,7 @@ export const orders = [
     productPrice: 9800,
 
     status: "Completed",
-    paymentStatus: "Paid",
+paymentStatus: "Paid",
     deliveryStatus: "Delivered",
 
     orderDate: "03-05-2026",
@@ -725,7 +477,7 @@ export const orders = [
     tax: 900,
     shippingCharge: 0,
     totalAmount: 19600,
-
+  
     paymentMethod: "Card",
     transactionId: "TXN1008",
     paidAmount: 19600,
@@ -745,6 +497,7 @@ export const orders = [
       "Delivered successfully.",
   },
 ];
+
 export const orderTabs = [
   {
     label: "All",
@@ -1675,4 +1428,916 @@ export const frameVariants = [
     price: 12499,
     status: "Active",
   },
+];
+
+export const users = [
+
+  {
+    id: "1",
+
+    fullName:
+      "Yash Sharma",
+
+    email:
+      "yash@gmail.com",
+
+    phone:
+      "9876543210",
+
+    role: "Admin",
+
+    status:
+      "Active",
+
+    createdOn:
+      "2026-05-12",
+  },
+
+  {
+    id: "2",
+
+    fullName:
+      "Rahul Verma",
+
+    email:
+      "rahul@gmail.com",
+
+    phone:
+      "9123456780",
+
+    role:
+      "Manager",
+
+    status:
+      "Inactive",
+
+    createdOn:
+      "2026-05-10",
+  },
+
+  {
+    id: "3",
+
+    fullName:
+      "Priya Shah",
+
+    email:
+      "priya@gmail.com",
+
+    phone:
+      "9988776655",
+
+    role: "Sales",
+
+    status:
+      "Active",
+
+    createdOn:
+      "2026-05-09",
+  },
+
+  {
+    id: "4",
+
+    fullName:
+      "Amit Patel",
+
+    email:
+      "amit@gmail.com",
+
+    phone:
+      "9012345678",
+
+    role:
+      "Sales",
+
+    status:
+      "Active",
+
+    createdOn:
+      "2026-05-08",
+  },
+
+  {
+    id: "5",
+
+    fullName:
+      "Sneha Mehta",
+
+    email:
+      "sneha@gmail.com",
+
+    phone:
+      "9871203456",
+
+    role:
+      "Manager",
+
+    status:
+      "Inactive",
+
+    createdOn:
+      "2026-05-07",
+  },
+
+];
+
+export const roles = [
+
+  {
+    id: "1",
+
+    roleName:
+      "Admin",
+
+    description:
+      "Full system access with all permissions",
+
+    permissions: [
+
+      "User Management",
+      "Product Management",
+      "Inventory Control",
+      "Billing Access",
+      "Reports",
+      "Settings",
+    ],
+
+    totalUsers: 2,
+
+    status:
+      "Active",
+
+    createdOn:
+      "2026-05-12",
+  },
+
+  {
+    id: "2",
+
+    roleName:
+      "Manager",
+
+    description:
+      "Manage products, inventory and operations",
+
+    permissions: [
+
+      "Product Management",
+      "Inventory Control",
+      "Sales Monitoring",
+      "Reports",
+    ],
+
+    totalUsers: 3,
+
+    status:
+      "Active",
+
+    createdOn:
+      "2026-05-10",
+  },
+
+  {
+    id: "3",
+
+    roleName:
+      "Sales",
+
+    description:
+      "Sales and customer billing access",
+
+    permissions: [
+
+      "Billing Access",
+      "Customer Management",
+      "Product View",
+    ],
+
+    totalUsers: 5,
+
+    status:
+      "Inactive",
+
+    createdOn:
+      "2026-05-09",
+  },
+
+  {
+    id: "4",
+
+    roleName:
+      "Inventory Staff",
+
+    description:
+      "Manage stock and warehouse operations",
+
+    permissions: [
+
+      "Inventory Control",
+      "Stock Updates",
+      "Product View",
+    ],
+
+    totalUsers: 2,
+
+    status:
+      "Active",
+
+    createdOn:
+      "2026-05-08",
+  },
+
+];
+
+export const customers = [
+
+  {
+    id: "1",
+
+    customerType:
+      "B2C",
+
+    fullName:
+      "Rahul Sharma",
+
+    phoneNumber:
+      "9876543210",
+
+    email:
+      "rahul@gmail.com",
+
+    addressLine1:
+      "MG Road",
+
+    addressLine2:
+      "Near Metro Station",
+
+    city:
+      "Mumbai",
+
+    state:
+      "Maharashtra",
+
+    country:
+      "India",
+
+    status:
+      "Active",
+
+    createdOn:
+      "2026-05-12",
+  },
+
+  {
+    id: "2",
+
+    customerType:
+      "B2B",
+
+    fullName:
+      "Vision Optics Pvt Ltd",
+
+    phoneNumber:
+      "9898989898",
+
+    email:
+      "visionoptics@gmail.com",
+
+    addressLine1:
+      "Ring Road",
+
+    addressLine2:
+      "Business Hub",
+
+    city:
+      "Ahmedabad",
+
+    state:
+      "Gujarat",
+
+    country:
+      "India",
+
+    status:
+      "Active",
+
+    createdOn:
+      "2026-05-11",
+  },
+
+  {
+    id: "3",
+
+    customerType:
+      "B2C",
+
+    fullName:
+      "Priya Patel",
+
+    phoneNumber:
+      "9123456780",
+
+    email:
+      "priya@gmail.com",
+
+    addressLine1:
+      "SG Highway",
+
+    addressLine2:
+      "Apartment 402",
+
+    city:
+      "Ahmedabad",
+
+    state:
+      "Gujarat",
+
+    country:
+      "India",
+
+    status:
+      "Inactive",
+
+    createdOn:
+      "2026-05-10",
+  },
+
+  {
+    id: "4",
+
+    customerType:
+      "B2B",
+
+    fullName:
+      "EyeCare Vision",
+
+    phoneNumber:
+      "9988776655",
+
+    email:
+      "eyecare@gmail.com",
+
+    addressLine1:
+      "Linking Road",
+
+    addressLine2:
+      "Corporate Plaza",
+
+    city:
+      "Delhi",
+
+    state:
+      "Delhi",
+
+    country:
+      "India",
+
+    status:
+      "Active",
+
+    createdOn:
+      "2026-05-09",
+  },
+
+];
+
+export const invoices:Invoice[]= [
+
+  {
+    id: "1",
+
+    invoiceNo:
+      "INV-1001",
+
+    orderNo:
+      "ORD-1001",
+
+    customerName:
+      "Rahul Sharma",
+
+    productName:
+      "RayBan Aviator Frame",
+
+    brand:
+      "RayBan",
+
+    category:
+      "Frame",
+
+    invoiceDate:
+      "2026-05-14",
+
+    dueDate:
+      "2026-05-20",
+
+    subtotal:
+      4200,
+
+    tax:
+      300,
+
+    discount:
+      0,
+
+    totalAmount:
+      4500,
+
+    paidAmount:
+      4500,
+
+    dueAmount:
+      0,
+
+    paymentStatus:
+      "Paid",
+
+    invoiceStatus:
+      "Completed",
+
+    paymentMethod:
+      "UPI",
+
+    createdBy:
+      "Admin",
+
+    notes:
+      "Customer paid full amount.",
+  },
+
+  {
+    id: "2",
+
+    invoiceNo:
+      "INV-1002",
+
+    orderNo:
+      "ORD-1002",
+
+    customerName:
+      "Vision Optics Pvt Ltd",
+
+    productName:
+      "Premium Optical Lens",
+
+    brand:
+      "Essilor",
+
+    category:
+      "Optical Lens",
+
+    invoiceDate:
+      "2026-05-13",
+
+    dueDate:
+      "2026-05-22",
+
+    subtotal:
+      12000,
+
+    tax:
+      800,
+
+    discount:
+      0,
+
+    totalAmount:
+      12800,
+
+    paidAmount:
+      0,
+
+    dueAmount:
+      12800,
+
+    paymentStatus:
+      "Pending",
+
+    invoiceStatus:
+      "Pending",
+
+    paymentMethod:
+      "Bank Transfer",
+
+    createdBy:
+      "Manager",
+
+    notes:
+      "Waiting for payment approval.",
+  },
+
+  {
+    id: "3",
+    invoiceNo:
+      "INV-1003",
+    orderNo:
+      "ORD-1003",
+    customerName:
+      "Priya Patel",
+    productName:
+      "Acuvue Contact Lens",
+    brand:
+      "Acuvue",
+    category:
+      "Contact Lens",
+    invoiceDate:
+      "2026-05-12",
+    dueDate:
+      "2026-05-18",
+    subtotal:
+      2000,
+    tax:
+      200,
+    discount:
+      0,
+    totalAmount:
+      2200,
+    paidAmount:
+      2200,
+    dueAmount:
+      0,
+    paymentStatus:
+      "Paid",
+    invoiceStatus:
+      "Completed",
+    paymentMethod:
+      "Cash",
+    createdBy:
+      "Sales",
+    notes:
+      "Cash payment received.",
+  },
+  {
+    id: "4",
+    invoiceNo:
+      "INV-1004",
+    orderNo:
+      "ORD-1004",
+    customerName:
+      "EyeCare Vision",
+    productName:
+      "Oakley Sports Frame",
+    brand:
+      "Oakley",
+    category:
+      "Frame",
+    invoiceDate:
+      "2026-05-11",
+    dueDate:
+      "2026-05-25",
+    subtotal:
+      8400,
+    tax:
+      500,
+    discount:
+      0,
+    totalAmount:
+      8900,
+    paidAmount:
+      3000,
+    dueAmount:
+      5900,
+    paymentStatus:
+      "Partial",
+    invoiceStatus:
+      "Processing",
+    paymentMethod:
+      "Card",
+    createdBy:
+      "Admin",
+    notes:
+      "Partial advance payment received.",
+  },
+];
+
+export const purchaseOrders:
+PurchaseOrder[] = [
+
+  {
+    id: "1",
+
+    poNumber:
+      "PO-1001",
+
+    vendorName:
+      "Vision Lens Supplier",
+
+    vendorEmail:
+      "vision@gmail.com",
+
+    vendorPhone:
+      "+91 9876543210",
+
+    productName:
+      "Premium Optical Lens",
+
+    productSku:
+      "SKU-OL-1001",
+
+    category:
+      "Optical Lens",
+
+    quantity:
+      50,
+
+    unitPrice:
+      1200,
+
+    tax:
+      3000,
+
+    discount:
+      1000,
+
+    totalAmount:
+      62000,
+
+    paymentStatus:
+      "Paid",
+
+    poStatus:
+      "Delivered",
+
+    orderDate:
+      "2026-05-10",
+
+    expectedDelivery:
+      "2026-05-20",
+
+    createdBy:
+      "Admin",
+
+    notes:
+      "Delivered successfully.",
+  },
+
+  {
+    id: "2",
+
+    poNumber:
+      "PO-1002",
+
+    vendorName:
+      "RayBan Distributor",
+
+    vendorEmail:
+      "rayban@gmail.com",
+
+    vendorPhone:
+      "+91 9988776655",
+
+    productName:
+      "RayBan Aviator Frame",
+
+    productSku:
+      "SKU-RB-2001",
+
+    category:
+      "Frame",
+
+    quantity:
+      30,
+
+    unitPrice:
+      2500,
+
+    tax:
+      4000,
+
+    discount:
+      0,
+
+    totalAmount:
+      79000,
+
+    paymentStatus:
+      "Pending",
+
+    poStatus:
+      "Processing",
+
+    orderDate:
+      "2026-05-12",
+
+    expectedDelivery:
+      "2026-05-24",
+
+    createdBy:
+      "Manager",
+
+    notes:
+      "Waiting for dispatch.",
+  },
+
+  {
+    id: "3",
+    poNumber:
+      "PO-1003",
+    vendorName:
+      "Acuvue Supplier",
+    vendorEmail:
+      "acuvue@gmail.com",
+    vendorPhone:
+      "+91 9123456780",
+    productName:
+      "Acuvue Contact Lens",
+    productSku:"SKU-CL-3001",
+    category:"Contact Lens",
+    quantity:100,
+    unitPrice:500,
+    tax:2500,
+    discount:500,
+    totalAmount:52000,
+    paymentStatus:"Partial",
+    poStatus:"Pending",
+    orderDate:"2026-05-14",
+    expectedDelivery:"2026-05-28",
+    createdBy:"Sales",
+    notes:"Advance payment done.",
+  },
+];
+
+export const expenses:
+Expense[] = [
+
+  {
+    id: "1",
+
+    expenseName:
+      "Office Rent",
+
+    ledger:
+      "Administrative Expense",
+
+    amount:
+      25000,
+
+    paymentMethod:
+      "Bank Transfer",
+
+    expenseDate:
+      "2026-05-10",
+
+    createdBy:
+      "Admin",
+
+    status:
+      "Paid",
+
+    notes:
+      "Monthly office rent payment.",
+  },
+
+  {
+    id: "2",
+
+    expenseName:
+      "Electricity Bill",
+
+    ledger:
+      "Utility Expense",
+
+    amount:
+      8200,
+
+    paymentMethod:
+      "UPI",
+
+    expenseDate:
+      "2026-05-12",
+
+    createdBy:
+      "Manager",
+
+    status:
+      "Pending",
+
+    notes:
+      "Awaiting approval.",
+  },
+
+  {
+    id: "3",
+
+    expenseName:
+      "Staff Salary",
+
+    ledger:
+      "Payroll",
+
+    amount:
+      120000,
+
+    paymentMethod:
+      "Bank Transfer",
+
+    expenseDate:
+      "2026-05-15",
+
+    createdBy:
+      "Admin",
+
+    status:
+      "Paid",
+
+    notes:
+      "Monthly salary payout.",
+  },
+];
+export const ledgers:
+Ledger[] = [
+
+  {
+    id: "1",
+
+    ledgerName:
+      "Office Expense Ledger",
+
+    ledgerGroup:
+      "Administrative",
+
+    openingBalance:
+      50000,
+
+    balanceType:
+      "Debit",
+
+    currentBalance:
+      32000,
+
+    createdOn:
+      "2026-05-10",
+
+    createdBy:
+      "Admin",
+
+    status:
+      "Active",
+
+    notes:
+      "Handles office related expenses.",
+  },
+
+  {
+    id: "2",
+
+    ledgerName:
+      "Utility Expense Ledger",
+
+    ledgerGroup:
+      "Utilities",
+
+    openingBalance:
+      25000,
+
+    balanceType:
+      "Debit",
+
+    currentBalance:
+      18500,
+
+    createdOn:
+      "2026-05-11",
+
+    createdBy:
+      "Manager",
+
+    status:
+      "Active",
+
+    notes:
+      "Electricity and utility payments.",
+  },
+
+  {
+    id: "3",
+
+    ledgerName:
+      "Sales Revenue Ledger",
+
+    ledgerGroup:
+      "Revenue",
+
+    openingBalance:
+      100000,
+
+    balanceType:
+      "Credit",
+
+    currentBalance:
+      175000,
+
+    createdOn:
+      "2026-05-12",
+
+    createdBy:
+      "Admin",
+
+    status:
+      "Active",
+
+    notes:
+      "Tracks company sales revenue.",
+  },
+
 ];

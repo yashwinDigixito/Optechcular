@@ -1,11 +1,12 @@
 "use client";
 
-import BlockOutlinedIcon from "@mui/icons-material/BlockOutlined";
+import BlockIcon from "@mui/icons-material/Block";
 import EditIcon from "@mui/icons-material/Edit";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 
 import {
   Box,
+  Chip,
   IconButton,
   Table,
   TableBody,
@@ -21,33 +22,113 @@ import { useRouter } from "next/navigation";
 
 import StatusChip from "@/component/common/StatusChip";
 
-interface RoleTableProps {
+interface Props {
+
   roles: {
     id: string;
+
     roleName: string;
-    status: string;
+
+    description: string;
+
     permissions: string[];
+
+    totalUsers: number;
+
+    status: string;
+
+    createdOn: string;
   }[];
+
+  setRoleData:
+    React.Dispatch<
+      React.SetStateAction<
+        {
+          id: string;
+
+          roleName: string;
+
+          description: string;
+
+          permissions: string[];
+
+          totalUsers: number;
+
+          status: string;
+
+          createdOn: string;
+        }[]
+      >
+    >;
 }
 
 export default function RoleTable({
   roles,
-}: RoleTableProps) {
+  setRoleData,
+}: Props) {
 
-  const router = useRouter();
+  const router =
+    useRouter();
+
+  const handleToggleStatus = (
+    id: string
+  ) => {
+
+    setRoleData((prev) =>
+      prev.map((role) =>
+        role.id === id
+          ? {
+              ...role,
+
+              status:
+                role.status ===
+                "Active"
+                  ? "Inactive"
+                  : "Active",
+            }
+          : role
+      )
+    );
+  };
 
   return (
-    <TableContainer sx={{ px: 4 }}>
+    <TableContainer
+      sx={{
+        mt: 2,
 
-      <Table>
+        borderRadius:
+          "24px",
 
+        background:
+          "#FFFFFF",
+
+        border:
+          "1px solid #E2E8F0",
+
+        overflow: "hidden",
+      }}
+    >
+      <Table
+        sx={{
+          "& .MuiTableCell-root":
+            {
+              py: 2,
+
+              borderColor:
+                "#F1F5F9",
+            },
+        }}
+      >
+        {/* TABLE HEAD */}
         <TableHead>
+
           <TableRow
             sx={{
-              background: "#F8FAFC",
+              background:
+                "#F8FAFC",
             }}
           >
-            <TableCell sx={{ width: "27%" }}>
+            <TableCell>
               <Typography
                 sx={{
                   fontWeight: 700,
@@ -57,17 +138,7 @@ export default function RoleTable({
               </Typography>
             </TableCell>
 
-            <TableCell sx={{ width: "27%" }}>
-              <Typography
-                sx={{
-                  fontWeight: 700,
-                }}
-              >
-                Status
-              </Typography>
-            </TableCell>
-
-            <TableCell sx={{ width: "27%" }}>
+            <TableCell>
               <Typography
                 sx={{
                   fontWeight: 700,
@@ -77,7 +148,37 @@ export default function RoleTable({
               </Typography>
             </TableCell>
 
-            <TableCell sx={{ width: "27%" }}>
+            <TableCell>
+              <Typography
+                sx={{
+                  fontWeight: 700,
+                }}
+              >
+                Users
+              </Typography>
+            </TableCell>
+
+            <TableCell>
+              <Typography
+                sx={{
+                  fontWeight: 700,
+                }}
+              >
+                Status
+              </Typography>
+            </TableCell>
+
+            <TableCell>
+              <Typography
+                sx={{
+                  fontWeight: 700,
+                }}
+              >
+                Created On
+              </Typography>
+            </TableCell>
+
+            <TableCell>
               <Typography
                 sx={{
                   fontWeight: 700,
@@ -86,158 +187,295 @@ export default function RoleTable({
                 Actions
               </Typography>
             </TableCell>
+
           </TableRow>
+
         </TableHead>
 
+        {/* TABLE BODY */}
         <TableBody>
 
-          {roles.map((role) => (
+          {roles.map(
+            (role) => (
 
-            <TableRow
-              key={role.id}
-              hover
-              sx={{
-                transition: "0.3s",
+              <TableRow
+                key={role.id}
+                hover
+                sx={{
+                  "&:hover": {
+                    background:
+                      "#F8FAFC",
+                  },
+                }}
+              >
+                {/* ROLE NAME */}
+                <TableCell>
 
-                "&:hover": {
-                  background:
-                    "#F8FAFC",
-                },
-              }}
-            >
-              {/* Role Name */}
-              <TableCell>
-                <Typography
-                  sx={{
-                    fontWeight: 700,
-                    color: "#2563EB",
-                    fontSize: "16px",
-                  }}
-                >
-                  {role.roleName}
-                </Typography>
-              </TableCell>
+                  <Typography
+                    sx={{
+                      fontWeight: 700,
 
-              {/* Status */}
-              <TableCell>
-                <StatusChip
-                  status={role.status}
-                />
-              </TableCell>
+                      color:
+                        "#2563EB",
 
-              {/* Permissions */}
-              <TableCell>
-                <Typography
-                  sx={{
-                    fontWeight: 700,
-                    color: "#0F172A",
-                    fontSize: "16px",
-                  }}
-                >
-                  {
-                    role.permissions
-                      .length
-                  }
-                </Typography>
-              </TableCell>
+                      fontSize:
+                        "16px",
+                    }}
+                  >
+                    {
+                      role.roleName
+                    }
+                  </Typography>
 
-              {/* Actions */}
-              <TableCell>
+                </TableCell>
 
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 1,
-                  }}
-                >
-                  {/* View */}
-                  <Tooltip title="View">
-                    <IconButton
-                      sx={{
-                        background:
-                          "#EFF6FF",
+                {/* PERMISSIONS */}
+                <TableCell>
 
-                        color:
-                          "#2563EB",
+                  <Box
+                    sx={{
+                      display:
+                        "flex",
 
-                        width: "42px",
-                        height: "42px",
+                      gap: 1,
 
-                        "&:hover": {
-                          background:
-                            "#DBEAFE",
-                        },
-                      }}
-                      onClick={() =>
-                        router.push(
-                          `/roles/view/${role.id}`
+                      flexWrap:
+                        "wrap",
+                    }}
+                  >
+                    {role.permissions
+                      .slice(0, 1)
+                      .map(
+                        (
+                          permission
+                        ) => (
+
+                          <Chip
+                            key={
+                              permission
+                            }
+                            label={
+                              permission
+                            }
+                            size="small"
+                            sx={{
+                              background:
+                                "#EFF6FF",
+
+                              color:
+                                "#2563EB",
+
+                              fontWeight: 600,
+
+                              borderRadius:
+                                "8px",
+                            }}
+                          />
                         )
+                      )}
+
+                    {role.permissions
+                      .length >
+                      1 && (
+
+                      <Chip
+                        label={`+${
+                          role
+                            .permissions
+                            .length -
+                          1
+                        }`}
+                        size="small"
+                        sx={{
+                          background:
+                            "#F1F5F9",
+
+                          color:
+                            "#475569",
+
+                          fontWeight: 700,
+
+                          borderRadius:
+                            "8px",
+                        }}
+                      />
+
+                    )}
+
+                  </Box>
+
+                </TableCell>
+
+                {/* USERS */}
+                <TableCell>
+
+                  <Typography
+                    sx={{
+                      fontWeight: 700,
+
+                      color:
+                        "#0F172A",
+                    }}
+                  >
+                    {
+                      role.totalUsers
+                    }
+                  </Typography>
+
+                </TableCell>
+
+                {/* STATUS */}
+                <TableCell>
+
+                  <StatusChip
+                    status={
+                      role.status
+                    }
+                  />
+
+                </TableCell>
+
+                {/* CREATED DATE */}
+                <TableCell>
+
+                  <Typography
+                    sx={{
+                      color:
+                        "#64748B",
+
+                      fontWeight: 500,
+                    }}
+                  >
+                    {
+                      role.createdOn
+                    }
+                  </Typography>
+
+                </TableCell>
+
+                {/* ACTIONS */}
+                <TableCell>
+
+                  <Box
+                    sx={{
+                      display:
+                        "flex",
+
+                      gap: 1,
+                    }}
+                  >
+                    {/* VIEW */}
+                    <Tooltip title="View">
+
+                      <IconButton
+                        sx={{
+                          background:
+                            "#EFF6FF",
+
+                          "&:hover":
+                            {
+                              background:
+                                "#DBEAFE",
+                            },
+                        }}
+                        onClick={() =>
+                          router.push(
+                            `/roles/view/${role.id}`
+                          )
+                        }
+                      >
+                        <RemoveRedEyeOutlinedIcon
+                          sx={{
+                            color:
+                              "#2563EB",
+                          }}
+                        />
+                      </IconButton>
+
+                    </Tooltip>
+
+                    {/* EDIT */}
+                    <Tooltip title="Edit">
+
+                      <IconButton
+                        sx={{
+                          background:
+                            "#F8FAFC",
+
+                          "&:hover":
+                            {
+                              background:
+                                "#E2E8F0",
+                            },
+                        }}
+                        onClick={() =>
+                          router.push(
+                            `/roles/edit/${role.id}`
+                          )
+                        }
+                      >
+                        <EditIcon
+                          sx={{
+                            color:
+                              "#0F172A",
+                          }}
+                        />
+                      </IconButton>
+
+                    </Tooltip>
+
+                    {/* STATUS */}
+                    <Tooltip
+                      title={
+                        role.status ===
+                        "Active"
+                          ? "Deactivate"
+                          : "Activate"
                       }
                     >
-                      <RemoveRedEyeOutlinedIcon />
-                    </IconButton>
-                  </Tooltip>
-
-                  {/* Edit */}
-                  <Tooltip title="Edit">
-                    <IconButton
-                      sx={{
-                        background:
-                          "#F8FAFC",
-
-                        color:
-                          "#475569",
-
-                        width: "42px",
-                        height: "42px",
-
-                        "&:hover": {
+                      <IconButton
+                        sx={{
                           background:
-                            "#E2E8F0",
-                        },
-                      }}
-                      onClick={() =>
-                        router.push(
-                          `/roles/edit/${role.id}`
-                        )
-                      }
-                    >
-                      <EditIcon />
-                    </IconButton>
-                  </Tooltip>
+                            role.status ===
+                            "Active"
 
-                  {/* Deactivate */}
-                  <Tooltip title="Deactivate">
-                    <IconButton
-                      sx={{
-                        background:
-                          "#FEF2F2",
+                              ? "#FEF2F2"
 
-                        color:
-                          "#DC2626",
+                              : "#DCFCE7",
+                        }}
+                        onClick={() =>
+                          handleToggleStatus(
+                            role.id
+                          )
+                        }
+                      >
+                        <BlockIcon
+                          sx={{
+                            color:
+                              role.status ===
+                              "Active"
 
-                        width: "42px",
-                        height: "42px",
+                                ? "#DC2626"
 
-                        "&:hover": {
-                          background:
-                            "#FEE2E2",
-                        },
-                      }}
-                    >
-                      <BlockOutlinedIcon />
-                    </IconButton>
-                  </Tooltip>
+                                : "#16A34A",
+                          }}
+                        />
+                      </IconButton>
 
-                </Box>
+                    </Tooltip>
 
-              </TableCell>
-            </TableRow>
-          ))}
+                  </Box>
+
+                </TableCell>
+
+              </TableRow>
+            )
+          )}
 
         </TableBody>
+
       </Table>
+
     </TableContainer>
   );
 }
