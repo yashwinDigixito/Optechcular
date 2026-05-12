@@ -24,34 +24,40 @@ export default function RoleViewContent({
 
   return (
     <Box
-      sx={{
-        p: 3,
-      }}
-    >
-      {/* BACK BUTTON */}
-      <Link
-        href="/roles"
-        style={{
-          textDecoration:
-            "none",
-        }}
-      >
-        <Button
-          startIcon={
-            <ArrowBackIcon />
-          }
-          sx={{
-            mb: 3,
+    sx={{
+    width: "100%",
+    height: "100vh",
+    background: "#F8FAFC",
+    overflow: "hidden",
+    display: "flex",
+    flexDirection: "column",
+    }}
+>
+      {/* TOP NAVIGATION */}
+    <Box>
+        <Container maxWidth="lg">
 
-            textTransform:
-              "none",
-
-            fontWeight: 600,
-          }}
+        <Link
+            href="/roles"
+            passHref
+            style={{
+            textDecoration: "none",
+            }}
         >
-          Back to Roles
-        </Button>
-      </Link>
+            <Button
+            startIcon={
+                <ArrowBackIcon />
+            }
+            sx={{
+                color: "#64748B",
+                textTransform:
+                "none",
+                fontWeight: 600,
+            }}
+            >
+            Back to Roles
+            </Button>
+        </Link>
 
       {/* CARD */}
       <Box

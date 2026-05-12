@@ -27,28 +27,105 @@ export interface Product {
   stock?: number;
 }
 
-export interface Frame {
-  id: string;
-  modelNo: string;
-  brand: string;
-  rimType: string;
-  rimShape: string;
-  skuCode: string;
-  barcode: string;
-  srp: number;
-}
 
 export interface Brand {
   id: string;
+  brandId: string;
+
   brandName: string;
-  category: string;
+  brandLogo?: string;
+  brandType?: string;
+
   status: string;
+
+  contactPerson: string;
+  email: string;
+  phone: string;
+  website?: string;
+
+  address?: string;
+  city?: string;
+  state?: string;
+  country?: string;
+  postalCode?: string;
+
+  gstNumber?: string;
+  panNumber?: string;
+
+  totalProducts?: number;
+  activeProducts?: number;
+  totalOrders?: number;
+  revenue?: number;
+
+  description?: string;
+  notes?: string;
+
+  createdDate: string;
+  updatedDate?: string;
+  createdBy?: string;
+}
+
+export interface BrandGroup {
+  id: string;
+
+  groupId: string;
+  groupName: string;
+  groupType: string;
+
+  status: string;
+
+  description: string;
+
+  parentCategory?: string;
+  priorityLevel?: string;
+  displayOrder?: number;
+
+  totalBrands?: number;
+  activeBrands?: number;
+  totalProducts?: number;
+  revenueContribution?: number;
+
+  managerName?: string;
+  managerEmail?: string;
+  managerPhone?: string;
+
+  notes?: string;
+
+  createdOn: string;
+  updatedDate?: string;
+  createdBy?: string;
 }
 
 export interface Category {
   id: string;
+
+  categoryId: string;
   categoryName: string;
+  categoryCode: string;
+
+  categoryType: string;
+  parentCategory?: string;
+
   status: string;
+
+  displayOrder?: number;
+  priorityLevel?: string;
+
+  totalProducts?: number;
+  activeProducts?: number;
+  totalBrands?: number;
+  revenueContribution?: number;
+
+  stockQuantity?: number;
+  lowStockProducts?: number;
+  warehouseLocation?: string;
+
+  description: string;
+  notes?: string;
+
+  createdOn: string;
+  updatedDate?: string;
+  createdBy?: string;
 }
 
 export interface OrderItem {
@@ -125,13 +202,52 @@ export interface DashboardStat {
 
 export interface ContactLens {
   id: string;
-  productName: string;
+
+  lensId: string;
+  productCode: string;
+
+  lensName: string;
+  brand: string;
+
+  productType: string;
   powerType: string;
   modality: string;
-  baseCurve: number;
-  diameter: number;
+
   material: string;
+
+  baseCurve: string;
+  diameter: string;
+
+  sphericalPower?: string;
+  cylindricalPower?: string;
+  axis?: string;
+  additionalPower?: string;
+
+  color?: string;
+
+  hsnCode: string;
+  tax: number;
+
   mrp: number;
+  sellingPrice: number;
+  discountPrice?: number;
+
+  skuCode: string;
+  barcode: string;
+
+  stock: number;
+  warehouseLocation?: string;
+
+  status: string;
+
+  description?: string;
+  notes?: string;
+
+  thumbnailImage?: string;
+
+  createdOn: string;
+  updatedDate?: string;
+  createdBy?: string;
 }
 
 export interface ReportChartData {
@@ -146,82 +262,143 @@ export interface ReportChartProps {
   label:string;
 }
 
-export interface Invoice {
+export interface Frame {
   id: string;
-  invoiceNo: string;
-  orderNo: string;
-  customerName: string;
-  productName: string;
-  brand: string;
-  category: string;
-  invoiceDate: string;
-  dueDate: string;
-  subtotal: number;
-  tax: number;
-  discount: number;
-  totalAmount: number;
-  paidAmount: number;
-  dueAmount: number;
-  paymentStatus: string;
-  invoiceStatus: string;
-  paymentMethod: string;
-  createdBy: string;
-  notes: string;
-}
 
-export interface PurchaseOrder {
-  id: string;
-  poNumber: string;
-  vendorName: string;
-  vendorEmail: string;
-  vendorPhone: string;
-  productName: string;
-  productSku: string;
-  category: string;
-  quantity: number;
-  unitPrice: number;
-  tax: number;
-  discount: number;
-  totalAmount: number;
-  paymentStatus: string;
-  poStatus: string;
-  orderDate: string;
-  expectedDelivery: string;
-  createdBy: string;
-  notes: string;
-}
+ 
+  frameId: string;
+  frameName: string;
+  sku: string;
+  barcode?: string;
 
-export interface Expense {
+ 
+  categoryId: string;
+  categoryName?: string;
+
+ 
+  brandName: string;
+  modelNumber?: string;
+
+ 
+  frameType:
+    | "Full Rim"
+    | "Half Rim"
+    | "Rimless";
+
+  frameShape:
+    | "Round"
+    | "Square"
+    | "Rectangle"
+    | "Aviator"
+    | "Cat Eye"
+    | "Oval"
+    | "Wayfarer";
+
+  gender:
+    | "Men"
+    | "Women"
+    | "Unisex"
+    | "Kids";
+
+  ageGroup?:
+    | "Adult"
+    | "Teen"
+    | "Kids";
+
+
+  frameSize?: string;
+  lensWidth?: number;
+  bridgeWidth?: number;
+  templeLength?: number;
+
+ 
+  frameMaterial?:
+    | "Metal"
+    | "Plastic"
+    | "Acetate"
+    | "Titanium"
+    | "TR90";
+
+  frameColor: string;
+  templeColor?: string;
+  weight?: number;
+
+ 
+  lensTypeSupported?: string[];
+
+ 
+  stockQuantity?: number;
+  lowStockLimit?: number;
+  warehouseLocation?: string;
+
+
+  purchasePrice?: number;
+  sellingPrice: number;
+  discountPrice?: number;
+  gstPercentage?: number;
+
+ 
+  status:
+    | "Active"
+    | "Inactive"
+    | "Out of Stock";
+
+  featuredProduct?: boolean;
+  trendingProduct?: boolean;
+
+  
+  thumbnailImage: string;
+  galleryImages?: string[];
+
+ 
+  description: string;
+  features?: string[];
+
+  
+  metaTitle?: string;
+  metaDescription?: string;
+  slug?: string;
+
+  
+  warrantyPeriod?: string;
+  supplierName?: string;
+  countryOfOrigin?: string;
+
+ 
+  createdOn: string;
+  updatedDate?: string;
+  createdBy?: string;
+}
+export interface Material {
   id: string;
-  expenseName: string;
-  ledger: string;
-  amount: number;
-  paymentMethod: string;
-  expenseDate: string;
-  createdBy: string;
+
+  materialId: string;
+  materialCode: string;
+
+  materialName: string;
+
+  applicableFor: string;
+
+  purchasePrice: number;
+  sellingPrice: number;
+
+  tax: number;
+  hsnCode: string;
+
+  stockQuantity: number;
+  minimumStockLevel: number;
+
+  warehouseLocation?: string;
+  supplierName?: string;
+
   status: string;
-  notes: string;
-}
 
-export interface Ledger {
-
-  id: string;
-
-  ledgerName: string;
-
-  ledgerGroup: string;
-
-  openingBalance: number;
-
-  balanceType: string;
-
-  currentBalance: number;
+  description?: string;
+  notes?: string;
 
   createdOn: string;
+  updatedDate?: string;
 
-  createdBy: string;
-
-  status: string;
-
-  notes: string;
+  createdBy?: string;
+  lastModifiedBy?: string;
 }

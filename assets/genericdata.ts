@@ -545,670 +545,1641 @@ export const roleTabs = [
 export const brands = [
   {
     id: "1",
+    brandId: "BR-1001",
     brandName: "RayBan",
+    brandLogo: "",
+    brandType: "Eyewear",
     category: "Frame",
     brandGroup: "Premium",
     status: "Active",
+
+    contactPerson: "Rahul Sharma",
+    email: "rayban@gmail.com",
+    phone: "+91 9876543210",
+    website: "www.rayban.com",
+
+    address: "22 MG Road",
+    city: "Delhi",
+    state: "Delhi",
+    country: "India",
+    postalCode: "110001",
+
+    gstNumber: "07ABCDE1234F1Z5",
+    panNumber: "ABCDE1234F",
+
+    totalProducts: 120,
+    activeProducts: 95,
+    totalOrders: 340,
+    revenue: 2450000,
+
+    description:
+      "Premium eyewear brand for frames and sunglasses.",
+
+    notes:
+      "Top-selling premium frame brand.",
+
     createdOn: "2026-05-11",
+    updatedDate: "2026-05-12",
+    createdBy: "Admin",
   },
 
   {
     id: "2",
+    brandId: "BR-1002",
     brandName: "Titan Eye+",
+    brandLogo: "",
+    brandType: "Eyewear",
     category: "Frame",
     brandGroup: "Budget",
     status: "Active",
+
+    contactPerson: "Riya Patel",
+    email: "titaneye@gmail.com",
+    phone: "+91 9988776655",
+    website: "www.titaneyeplus.com",
+
+    address: "Andheri East",
+    city: "Mumbai",
+    state: "Maharashtra",
+    country: "India",
+    postalCode: "400069",
+
+    gstNumber: "27ABCDE1234F1Z5",
+    panNumber: "ABCDE1234F",
+
+    totalProducts: 90,
+    activeProducts: 80,
+    totalOrders: 210,
+    revenue: 1280000,
+
+    description:
+      "Affordable eyewear brand with wide frame collection.",
+
+    notes:
+      "Good budget category sales.",
+
     createdOn: "2026-05-10",
+    updatedDate: "2026-05-11",
+    createdBy: "Admin",
   },
 
   {
     id: "3",
-    brandName: "Acuvue",
-    category: "Contact Lens",
-    brandGroup: "Imported",
-    status: "Inactive",
+    brandId: "BR-1003",
+    brandName: "Oakley",
+    brandLogo: "",
+    brandType: "Sunglasses",
+    category: "Frame",
+    brandGroup: "Luxury",
+    status: "Active",
+
+    contactPerson: "Amit Verma",
+    email: "oakley@gmail.com",
+    phone: "+91 9090909090",
+    website: "www.oakley.com",
+
+    address: "Sector 18",
+    city: "Noida",
+    state: "Uttar Pradesh",
+    country: "India",
+    postalCode: "201301",
+
+    gstNumber: "09ABCDE1234F1Z5",
+    panNumber: "ABCDE1234F",
+
+    totalProducts: 150,
+    activeProducts: 130,
+    totalOrders: 420,
+    revenue: 3680000,
+
+    description:
+      "Luxury sunglasses and sports eyewear brand.",
+
+    notes:
+      "Strong premium customer base.",
+
     createdOn: "2026-05-09",
+    updatedDate: "2026-05-10",
+    createdBy: "Admin",
   },
 
   {
     id: "4",
-    brandName: "Oakley",
-    category: "Frame",
-    brandGroup: "Premium",
-    status: "Active",
+    brandId: "BR-1004",
+    brandName: "Acuvue",
+    brandLogo: "",
+    brandType: "Contact Lens",
+    category: "Contact Lens",
+    brandGroup: "Imported",
+    status: "Inactive",
+
+    contactPerson: "Sneha Kapoor",
+    email: "acuvue@gmail.com",
+    phone: "+91 8181818181",
+    website: "www.acuvue.com",
+
+    address: "MG Road",
+    city: "Bangalore",
+    state: "Karnataka",
+    country: "India",
+    postalCode: "560001",
+
+    gstNumber: "29ABCDE1234F1Z5",
+    panNumber: "ABCDE1234F",
+
+    totalProducts: 70,
+    activeProducts: 45,
+    totalOrders: 160,
+    revenue: 980000,
+
+    description:
+      "Imported contact lens solutions and products.",
+
+    notes:
+      "Low inventory available.",
+
     createdOn: "2026-05-08",
+    updatedDate: "2026-05-09",
+    createdBy: "Admin",
   },
 
   {
     id: "5",
+    brandId: "BR-1005",
     brandName: "Fastrack",
+    brandLogo: "",
+    brandType: "Accessories",
     category: "Accessories",
     brandGroup: "Budget",
     status: "Active",
+
+    contactPerson: "Karan Mehta",
+    email: "fastrack@gmail.com",
+    phone: "+91 7878787878",
+    website: "www.fastrack.com",
+
+    address: "Park Street",
+    city: "Kolkata",
+    state: "West Bengal",
+    country: "India",
+    postalCode: "700016",
+
+    gstNumber: "19ABCDE1234F1Z5",
+    panNumber: "ABCDE1234F",
+
+    totalProducts: 110,
+    activeProducts: 90,
+    totalOrders: 290,
+    revenue: 1850000,
+
+    description:
+      "Youth-focused accessories and eyewear brand.",
+
+    notes:
+      "Popular among young customers.",
+
     createdOn: "2026-05-07",
+    updatedDate: "2026-05-08",
+    createdBy: "Admin",
   },
 
   {
     id: "6",
-    brandName: "Bausch + Lomb",
-    category: "Contact Lens",
-    brandGroup: "Imported",
+    brandId: "BR-1006",
+    brandName: "Prada",
+    brandLogo: "",
+    brandType: "Luxury Eyewear",
+    category: "Frame",
+    brandGroup: "Luxury",
     status: "Active",
+
+    contactPerson: "Priya Nair",
+    email: "prada@gmail.com",
+    phone: "+91 9998887776",
+    website: "www.prada.com",
+
+    address: "Marine Drive",
+    city: "Mumbai",
+    state: "Maharashtra",
+    country: "India",
+    postalCode: "400002",
+
+    gstNumber: "27ABCDE1234F1Z5",
+    panNumber: "ABCDE1234F",
+
+    totalProducts: 85,
+    activeProducts: 75,
+    totalOrders: 180,
+    revenue: 4950000,
+
+    description:
+      "Luxury designer eyewear collection.",
+
+    notes:
+      "High-value premium orders.",
+
     createdOn: "2026-05-06",
+    updatedDate: "2026-05-07",
+    createdBy: "Admin",
   },
 
   {
     id: "7",
-    brandName: "Vogue Eyewear",
+    brandId: "BR-1007",
+    brandName: "Police",
+    brandLogo: "",
+    brandType: "Sunglasses",
     category: "Frame",
     brandGroup: "Premium",
-    status: "Inactive",
+    status: "Active",
+
+    contactPerson: "Aditya Singh",
+    email: "police@gmail.com",
+    phone: "+91 9098765432",
+    website: "www.police.com",
+
+    address: "Banjara Hills",
+    city: "Hyderabad",
+    state: "Telangana",
+    country: "India",
+    postalCode: "500034",
+
+    gstNumber: "36ABCDE1234F1Z5",
+    panNumber: "ABCDE1234F",
+
+    totalProducts: 95,
+    activeProducts: 78,
+    totalOrders: 240,
+    revenue: 2140000,
+
+    description:
+      "Stylish premium sunglasses and frames.",
+
+    notes:
+      "Good retail performance.",
+
     createdOn: "2026-05-05",
+    updatedDate: "2026-05-06",
+    createdBy: "Admin",
   },
 
   {
     id: "8",
-    brandName: "Police",
-    category: "Frame",
-    brandGroup: "Luxury",
+    brandId: "BR-1008",
+    brandName: "Essilor",
+    brandLogo: "",
+    brandType: "Optical Lens",
+    category: "Optical Lens",
+    brandGroup: "Imported",
     status: "Active",
+
+    contactPerson: "Neha Joshi",
+    email: "essilor@gmail.com",
+    phone: "+91 9898989898",
+    website: "www.essilor.com",
+
+    address: "Civil Lines",
+    city: "Jaipur",
+    state: "Rajasthan",
+    country: "India",
+    postalCode: "302001",
+
+    gstNumber: "08ABCDE1234F1Z5",
+    panNumber: "ABCDE1234F",
+
+    totalProducts: 130,
+    activeProducts: 112,
+    totalOrders: 350,
+    revenue: 3210000,
+
+    description:
+      "Advanced optical lens technology brand.",
+
+    notes:
+      "Excellent customer satisfaction.",
+
     createdOn: "2026-05-04",
+    updatedDate: "2026-05-05",
+    createdBy: "Admin",
   },
 
   {
     id: "9",
-    brandName: "John Jacobs",
-    category: "Frame",
-    brandGroup: "Premium",
-    status: "Active",
+    brandId: "BR-1009",
+    brandName: "Gucci",
+    brandLogo: "",
+    brandType: "Luxury Eyewear",
+    category: "Accessories",
+    brandGroup: "Luxury",
+    status: "Inactive",
+
+    contactPerson: "Vivek Malhotra",
+    email: "gucci@gmail.com",
+    phone: "+91 9123456789",
+    website: "www.gucci.com",
+
+    address: "Connaught Place",
+    city: "Delhi",
+    state: "Delhi",
+    country: "India",
+    postalCode: "110001",
+
+    gstNumber: "07ABCDE1234F1Z5",
+    panNumber: "ABCDE1234F",
+
+    totalProducts: 60,
+    activeProducts: 40,
+    totalOrders: 110,
+    revenue: 6250000,
+
+    description:
+      "Luxury fashion and eyewear products.",
+
+    notes:
+      "Limited imported collection.",
+
     createdOn: "2026-05-03",
+    updatedDate: "2026-05-04",
+    createdBy: "Admin",
   },
 
   {
     id: "10",
-    brandName: "FreshLook",
-    category: "Contact Lens",
-    brandGroup: "Imported",
-    status: "Inactive",
-    createdOn: "2026-05-02",
-  },
-
-  {
-    id: "11",
-    brandName: "Prada",
-    category: "Frame",
-    brandGroup: "Luxury",
-    status: "Active",
-    createdOn: "2026-05-01",
-  },
-
-  {
-    id: "12",
-    brandName: "Gucci",
-    category: "Accessories",
-    brandGroup: "Luxury",
-    status: "Active",
-    createdOn: "2026-04-30",
-  },
-
-  {
-    id: "13",
-    brandName: "Carrera",
-    category: "Frame",
-    brandGroup: "Premium",
-    status: "Active",
-    createdOn: "2026-04-29",
-  },
-
-  {
-    id: "14",
-    brandName: "Essilor",
-    category: "Optical Lens",
-    brandGroup: "Imported",
-    status: "Active",
-    createdOn: "2026-04-28",
-  },
-
-  {
-    id: "15",
+    brandId: "BR-1010",
     brandName: "Zeiss",
+    brandLogo: "",
+    brandType: "Optical Lens",
     category: "Optical Lens",
     brandGroup: "Luxury",
-    status: "Inactive",
-    createdOn: "2026-04-27",
+    status: "Active",
+
+    contactPerson: "Aisha Khan",
+    email: "zeiss@gmail.com",
+    phone: "+91 9988007766",
+    website: "www.zeiss.com",
+
+    address: "Anna Nagar",
+    city: "Chennai",
+    state: "Tamil Nadu",
+    country: "India",
+    postalCode: "600040",
+
+    gstNumber: "33ABCDE1234F1Z5",
+    panNumber: "ABCDE1234F",
+
+    totalProducts: 140,
+    activeProducts: 120,
+    totalOrders: 390,
+    revenue: 4120000,
+
+    description:
+      "World-class optical lens and vision technology.",
+
+    notes:
+      "High-end optical solutions provider.",
+
+    createdOn: "2026-05-02",
+    updatedDate: "2026-05-03",
+    createdBy: "Admin",
   },
 ];
 
 export const brandGroups = [
   {
     id: "1",
+    groupId: "BG-1001",
     groupName: "Premium",
-    description:
-      "High quality premium eyewear brands",
+    groupType: "Eyewear Group",
     status: "Active",
+    description: "High quality premium eyewear brands",
+    parentCategory: "Frame",
+    priorityLevel: "High",
+    displayOrder: 1,
+    totalBrands: 8,
+    activeBrands: 7,
+    totalProducts: 520,
+    revenueContribution: 2450000,
+    managerName: "Rahul Sharma",
+    managerEmail: "rahul.manager@gmail.com",
+    managerPhone: "+91 9876543210",
+    notes: "Best performing brand group.",
     createdOn: "2026-05-11",
+    updatedDate: "2026-05-12",
+    createdBy: "Admin",
   },
-
   {
     id: "2",
+    groupId: "BG-1002",
     groupName: "Budget",
-    description:
-      "Affordable daily use brands",
+    groupType: "Value Group",
     status: "Active",
+    description: "Affordable daily use brands",
+    parentCategory: "Accessories",
+    priorityLevel: "Medium",
+    displayOrder: 2,
+    totalBrands: 6,
+    activeBrands: 6,
+    totalProducts: 310,
+    revenueContribution: 1280000,
+    managerName: "Riya Patel",
+    managerEmail: "riya.manager@gmail.com",
+    managerPhone: "+91 9988776655",
+    notes: "Good for daily-use customer segment.",
     createdOn: "2026-05-10",
+    updatedDate: "2026-05-11",
+    createdBy: "Admin",
   },
-
   {
     id: "3",
+    groupId: "BG-1003",
     groupName: "Luxury",
-    description:
-      "Luxury designer eyewear brands",
+    groupType: "Luxury Group",
     status: "Inactive",
+    description: "Luxury designer eyewear brands",
+    parentCategory: "Frame",
+    priorityLevel: "High",
+    displayOrder: 3,
+    totalBrands: 5,
+    activeBrands: 3,
+    totalProducts: 180,
+    revenueContribution: 3650000,
+    managerName: "Amit Verma",
+    managerEmail: "amit.manager@gmail.com",
+    managerPhone: "+91 9090909090",
+    notes: "Requires updated luxury catalog.",
     createdOn: "2026-05-09",
+    updatedDate: "2026-05-10",
+    createdBy: "Admin",
   },
-
   {
     id: "4",
+    groupId: "BG-1004",
     groupName: "Imported",
-    description:
-      "International imported products",
+    groupType: "International Group",
     status: "Active",
+    description: "International imported products",
+    parentCategory: "Contact Lens",
+    priorityLevel: "Medium",
+    displayOrder: 4,
+    totalBrands: 7,
+    activeBrands: 6,
+    totalProducts: 260,
+    revenueContribution: 2100000,
+    managerName: "Sneha Kapoor",
+    managerEmail: "sneha.manager@gmail.com",
+    managerPhone: "+91 8181818181",
+    notes: "Imported product stock needs regular tracking.",
     createdOn: "2026-05-08",
+    updatedDate: "2026-05-09",
+    createdBy: "Admin",
   },
 ];
-
 export const categories = [
   {
     id: "1",
+    categoryId: "CAT-1001",
     categoryName: "Frame",
-    description:
-      "Optical and sunglasses frames",
+    categoryCode: "FRAME",
+    categoryType: "Product Category",
+    parentCategory: "Eyewear",
     status: "Active",
+    displayOrder: 1,
+    priorityLevel: "High",
+    totalProducts: 250,
+    activeProducts: 220,
+    totalBrands: 12,
+    revenueContribution: 2450000,
+    stockQuantity: 1200,
+    lowStockProducts: 8,
+    warehouseLocation: "Delhi Warehouse",
+    description: "Optical and sunglasses frames",
+    notes: "Top performing category.",
     createdOn: "2026-05-11",
+    updatedDate: "2026-05-12",
+    createdBy: "Admin",
   },
-
   {
     id: "2",
+    categoryId: "CAT-1002",
     categoryName: "Contact Lens",
-    description:
-      "Vision correction contact lenses",
+    categoryCode: "CONTACT-LENS",
+    categoryType: "Product Category",
+    parentCategory: "Vision Care",
     status: "Active",
+    displayOrder: 2,
+    priorityLevel: "Medium",
+    totalProducts: 140,
+    activeProducts: 125,
+    totalBrands: 6,
+    revenueContribution: 1280000,
+    stockQuantity: 850,
+    lowStockProducts: 5,
+    warehouseLocation: "Mumbai Warehouse",
+    description: "Vision correction contact lenses",
+    notes: "Regular restocking required.",
     createdOn: "2026-05-10",
+    updatedDate: "2026-05-11",
+    createdBy: "Admin",
   },
-
   {
     id: "3",
+    categoryId: "CAT-1003",
     categoryName: "Accessories",
-    description:
-      "Eyewear accessories and cleaners",
+    categoryCode: "ACCESSORIES",
+    categoryType: "Product Category",
+    parentCategory: "Eyewear",
     status: "Inactive",
+    displayOrder: 3,
+    priorityLevel: "Low",
+    totalProducts: 90,
+    activeProducts: 55,
+    totalBrands: 5,
+    revenueContribution: 620000,
+    stockQuantity: 430,
+    lowStockProducts: 12,
+    warehouseLocation: "Noida Warehouse",
+    description: "Eyewear accessories and cleaners",
+    notes: "Some items need catalog update.",
     createdOn: "2026-05-09",
+    updatedDate: "2026-05-10",
+    createdBy: "Admin",
   },
-
   {
     id: "4",
+    categoryId: "CAT-1004",
     categoryName: "Optical Lens",
-    description:
-      "Prescription optical lenses",
+    categoryCode: "OPTICAL-LENS",
+    categoryType: "Product Category",
+    parentCategory: "Vision Care",
     status: "Active",
+    displayOrder: 4,
+    priorityLevel: "High",
+    totalProducts: 180,
+    activeProducts: 160,
+    totalBrands: 8,
+    revenueContribution: 3100000,
+    stockQuantity: 980,
+    lowStockProducts: 4,
+    warehouseLocation: "Bangalore Warehouse",
+    description: "Prescription optical lenses",
+    notes: "High-value prescription lens category.",
     createdOn: "2026-05-08",
+    updatedDate: "2026-05-09",
+    createdBy: "Admin",
   },
 ];
-
 export const materials = [
   {
     id: "1",
+
+    materialId: "MAT-1001",
+
+    materialCode: "METAL-001",
+
     materialName: "Metal",
+
     applicableFor: "Frame",
+
+    purchasePrice: 450,
+
+    sellingPrice: 700,
+
+    tax: 18,
+
+    hsnCode: "90031100",
+
+    stockQuantity: 250,
+
+    minimumStockLevel: 40,
+
+    warehouseLocation: "Delhi Warehouse",
+
+    supplierName: "Vision Metals Pvt Ltd",
+
     status: "Active",
+
+    description:
+      "Durable lightweight metal material commonly used in premium eyewear frames.",
+
+    notes:
+      "Best suited for luxury frame collection.",
+
     createdOn: "2026-05-11",
+
+    updatedDate: "2026-05-12",
+
+    createdBy: "Admin",
+
+    lastModifiedBy: "Manager",
   },
 
   {
     id: "2",
+
+    materialId: "MAT-1002",
+
+    materialCode: "PLASTIC-001",
+
     materialName: "Plastic",
+
     applicableFor: "Frame",
+
+    purchasePrice: 180,
+
+    sellingPrice: 320,
+
+    tax: 18,
+
+    hsnCode: "90031100",
+
+    stockQuantity: 520,
+
+    minimumStockLevel: 80,
+
+    warehouseLocation: "Mumbai Warehouse",
+
+    supplierName: "Optic Plast Industries",
+
     status: "Active",
+
+    description:
+      "Affordable and lightweight plastic material used in regular optical frames.",
+
+    notes:
+      "High stock turnover product.",
+
     createdOn: "2026-05-10",
+
+    updatedDate: "2026-05-11",
+
+    createdBy: "Admin",
+
+    lastModifiedBy: "Warehouse Manager",
   },
 
   {
     id: "3",
-    materialName:
-      "Silicone Hydrogel",
 
-    applicableFor:
-      "Contact Lens",
+    materialId: "MAT-1003",
+
+    materialCode: "SIL-HYDRO-001",
+
+    materialName: "Silicone Hydrogel",
+
+    applicableFor: "Contact Lens",
+
+    purchasePrice: 950,
+
+    sellingPrice: 1450,
+
+    tax: 12,
+
+    hsnCode: "90013000",
+
+    stockQuantity: 140,
+
+    minimumStockLevel: 25,
+
+    warehouseLocation: "Bangalore Warehouse",
+
+    supplierName: "Lens Care Solutions",
 
     status: "Active",
 
-    createdOn:
-      "2026-05-09",
+    description:
+      "Premium breathable contact lens material with superior oxygen permeability.",
+
+    notes:
+      "Most preferred material for monthly disposable lenses.",
+
+    createdOn: "2026-05-09",
+
+    updatedDate: "2026-05-10",
+
+    createdBy: "Admin",
+
+    lastModifiedBy: "Lens Department",
   },
 
   {
     id: "4",
-    materialName:
-      "Polycarbonate",
 
-    applicableFor:
-      "Optical Lens",
+    materialId: "MAT-1004",
+
+    materialCode: "POLY-001",
+
+    materialName: "Polycarbonate",
+
+    applicableFor: "Optical Lens",
+
+    purchasePrice: 600,
+
+    sellingPrice: 980,
+
+    tax: 18,
+
+    hsnCode: "90014000",
+
+    stockQuantity: 35,
+
+    minimumStockLevel: 30,
+
+    warehouseLocation: "Noida Warehouse",
+
+    supplierName: "Safe Vision Optics",
 
     status: "Inactive",
 
-    createdOn:
-      "2026-05-08",
+    description:
+      "Impact-resistant lens material ideal for safety and sports eyewear.",
+
+    notes:
+      "Low stock. Reorder required.",
+
+    createdOn: "2026-05-08",
+
+    updatedDate: "2026-05-09",
+
+    createdBy: "Admin",
+
+    lastModifiedBy: "Inventory Team",
   },
 
   {
     id: "5",
-    materialName:
-      "Titanium",
 
-    applicableFor:
-      "Frame",
+    materialId: "MAT-1005",
+
+    materialCode: "TITANIUM-001",
+
+    materialName: "Titanium",
+
+    applicableFor: "Frame",
+
+    purchasePrice: 1200,
+
+    sellingPrice: 1850,
+
+    tax: 18,
+
+    hsnCode: "90031100",
+
+    stockQuantity: 90,
+
+    minimumStockLevel: 20,
+
+    warehouseLocation: "Hyderabad Warehouse",
+
+    supplierName: "Titan Optics Ltd",
 
     status: "Active",
 
-    createdOn:
-      "2026-05-07",
+    description:
+      "Ultra lightweight premium titanium material used in high-end eyewear frames.",
+
+    notes:
+      "Corrosion resistant and durable.",
+
+    createdOn: "2026-05-07",
+
+    updatedDate: "2026-05-08",
+
+    createdBy: "Admin",
+
+    lastModifiedBy: "Product Team",
   },
 ];
-
 export const rimShapes = [
   {
     id: "1",
+
+    rimShapeId: "RIM-1001",
+
+    rimShapeCode: "ROUND-001",
+
     shapeName: "Round",
-    description:
-      "Classic circular frame shape",
+
+    shapeCategory: "Round",
+
+    applicableFor: "Optical Frame",
+
+    totalProducts: 120,
+
     status: "Active",
+
+    description:
+      "Classic circular frame shape suitable for both modern and vintage eyewear collections.",
+
+    notes:
+      "Popular among retro style frames.",
+
     createdOn: "2026-05-11",
+
+    updatedDate: "2026-05-12",
+
+    createdBy: "Admin",
   },
 
   {
     id: "2",
+
+    rimShapeId: "RIM-1002",
+
+    rimShapeCode: "SQUARE-001",
+
     shapeName: "Square",
-    description:
-      "Sharp square frame design",
+
+    shapeCategory: "Square",
+
+    applicableFor: "Sunglasses",
+
+    totalProducts: 95,
+
     status: "Active",
+
+    description:
+      "Sharp square frame design ideal for bold and professional looks.",
+
+    notes:
+      "High demand in premium sunglasses category.",
+
     createdOn: "2026-05-10",
+
+    updatedDate: "2026-05-11",
+
+    createdBy: "Admin",
   },
 
   {
     id: "3",
+
+    rimShapeId: "RIM-1003",
+
+    rimShapeCode: "CATEYE-001",
+
     shapeName: "Cat Eye",
-    description:
-      "Stylish cat eye frame shape",
+
+    shapeCategory: "Cat Eye",
+
+    applicableFor: "RX-able",
+
+    totalProducts: 45,
+
     status: "Inactive",
+
+    description:
+      "Stylish cat eye frame shape designed mainly for fashion eyewear collections.",
+
+    notes:
+      "Currently inactive due to seasonal collection update.",
+
     createdOn: "2026-05-09",
+
+    updatedDate: "2026-05-10",
+
+    createdBy: "Admin",
   },
 
   {
     id: "4",
+
+    rimShapeId: "RIM-1004",
+
+    rimShapeCode: "AVIATOR-001",
+
     shapeName: "Aviator",
-    description:
-      "Pilot inspired aviator shape",
+
+    shapeCategory: "Aviator",
+
+    applicableFor: "Sunglasses",
+
+    totalProducts: 160,
+
     status: "Active",
+
+    description:
+      "Pilot inspired aviator shape widely used in premium sunglasses collections.",
+
+    notes:
+      "Best seller in men's sunglasses.",
+
     createdOn: "2026-05-08",
+
+    updatedDate: "2026-05-09",
+
+    createdBy: "Admin",
   },
 
   {
     id: "5",
+
+    rimShapeId: "RIM-1005",
+
+    rimShapeCode: "RECT-001",
+
     shapeName: "Rectangle",
-    description:
-      "Modern rectangular frame",
+
+    shapeCategory: "Rectangle",
+
+    applicableFor: "Optical Frame",
+
+    totalProducts: 140,
+
     status: "Active",
+
+    description:
+      "Modern rectangular frame shape preferred for office and daily wear eyewear.",
+
+    notes:
+      "Suitable for all age groups.",
+
     createdOn: "2026-05-07",
+
+    updatedDate: "2026-05-08",
+
+    createdBy: "Admin",
   },
 ];
 
 export const frames = [
   {
     id: "1",
+
+   
+    frameId: "FRM-1001",
     brand: "RayBan",
+    frameName: "RayBan Aviator Classic",
     modelNo: "RB-3025",
+
+    
+    categoryId: "CAT-1001",
+    category: "Sunglasses",
+
+   
     rimType: "Full Rim",
     rimShape: "Aviator",
+    frameType: "Metal Frame",
+
+   
+    frameMaterial: "Metal",
     templeMaterial: "Metal",
-    category: "Sunglasses",
-    hsnCode: "90041000",
-    tax: 18,
-    colourCode: "GOLD-BLACK",
+
+    
     size: "58",
     dbl: "14",
     templeLength: "135",
-    launchSeason: "Summer 2026",
-    lensColor: "Green",
+    frameWidth: "142",
+    lensWidth: "58",
+    lensHeight: "50",
+
+    // COLORS
+    colourCode: "GOLD-BLACK",
     frameFrontColor: "Gold",
     templeColor: "Black",
+    lensColor: "Green",
+
+    // PRODUCT DETAILS
+    gender: "Unisex",
+    ageGroup: "Adult",
+    styleType: "Fashion",
+    frameWeight: "24 gm",
+
+    // LENS SUPPORT
+    lensTypeSupported: [
+      "Single Vision",
+      "Progressive",
+      "Blue Cut",
+    ],
+
+    // INVENTORY
     skuCode: "RB-SG-1001",
     barcode: "8901452365478",
+    stock: 15,
+    lowStockLimit: 5,
+    warehouseLocation: "Delhi Warehouse",
+
+    // PRICING
+    purchasePrice: 4500,
     srp: 7999,
+    discountPrice: 7499,
+    tax: 18,
+
+    // LOCATION PRICING
     locationPricing:
       "Mumbai - 7999, Delhi - 8099",
-    stock: 15,
+
+    // STATUS
     status: "Active",
+    featuredProduct: true,
+    trendingProduct: true,
+
+    // PRODUCT MEDIA
+    thumbnailImage:
+      "/images/frames/rayban-main.png",
+
+    galleryImages: [
+      "/images/frames/rayban-1.png",
+      "/images/frames/rayban-2.png",
+    ],
+
+    // SEO
+    slug: "rayban-aviator-classic",
+    metaTitle:
+      "RayBan Aviator Classic Sunglasses",
+    metaDescription:
+      "Premium RayBan aviator sunglasses.",
+
+    // EXTRA DETAILS
+    hsnCode: "90041000",
+    launchSeason: "Summer 2026",
+    countryOfOrigin: "Italy",
+    warrantyPeriod: "1 Year",
+    supplierName: "RayBan India",
+
+    // DESCRIPTION
+    description:
+      "Premium lightweight aviator sunglasses.",
+
+    features: [
+      "UV Protection",
+      "Lightweight",
+      "Scratch Resistant",
+    ],
+
+    notes:
+      "Best selling aviator frame collection.",
+
+    // AUDIT DETAILS
     createdOn: "2026-05-11",
+    updatedDate: "2026-05-12",
+    createdBy: "Admin",
   },
 
   {
     id: "2",
+
+    frameId: "FRM-1002",
     brand: "Oakley",
+    frameName: "Oakley Urban Flex",
     modelNo: "OK-1102",
+
+    categoryId: "CAT-1001",
+    category: "Optical Frame",
+
     rimType: "Half Rim",
     rimShape: "Rectangle",
+    frameType: "Titanium Frame",
+
+    frameMaterial: "Titanium",
     templeMaterial: "Titanium",
-    category: "Optical Frame",
-    hsnCode: "90049090",
-    tax: 18,
-    colourCode: "MATTE-BLUE",
+
     size: "54",
     dbl: "17",
     templeLength: "140",
-    launchSeason: "Winter 2026",
-    lensColor: "Transparent",
+    frameWidth: "138",
+    lensWidth: "54",
+    lensHeight: "42",
+
+    colourCode: "MATTE-BLUE",
     frameFrontColor: "Blue",
     templeColor: "Black",
+    lensColor: "Transparent",
+
+    gender: "Men",
+    ageGroup: "Adult",
+    styleType: "Professional",
+    frameWeight: "20 gm",
+
+    lensTypeSupported: [
+      "Single Vision",
+      "Blue Cut",
+    ],
+
     skuCode: "OK-OF-1002",
     barcode: "8901452365490",
+    stock: 4,
+    lowStockLimit: 5,
+    warehouseLocation: "Mumbai Warehouse",
+
+    purchasePrice: 3500,
     srp: 6499,
+    discountPrice: 5999,
+    tax: 18,
+
     locationPricing:
       "Ahmedabad - 6499",
-    stock: 4,
+
     status: "Active",
+    featuredProduct: false,
+    trendingProduct: true,
+
+    thumbnailImage:
+      "/images/frames/oakley-main.png",
+
+    galleryImages: [
+      "/images/frames/oakley-1.png",
+      "/images/frames/oakley-2.png",
+    ],
+
+    slug: "oakley-urban-flex",
+    metaTitle:
+      "Oakley Urban Flex Optical Frame",
+
+    metaDescription:
+      "Modern titanium optical frame by Oakley.",
+
+    hsnCode: "90049090",
+    launchSeason: "Winter 2026",
+    countryOfOrigin: "USA",
+    warrantyPeriod: "2 Years",
+    supplierName: "Oakley India",
+
+    description:
+      "Durable and lightweight titanium frame.",
+
+    features: [
+      "Flexible Hinges",
+      "Lightweight",
+      "Premium Finish",
+    ],
+
+    notes:
+      "Low stock product.",
+
     createdOn: "2026-05-10",
+    updatedDate: "2026-05-11",
+    createdBy: "Admin",
   },
 
   {
     id: "3",
-    brand: "Vogue",
-    modelNo: "VG-908",
-    rimType: "Rim Less",
-    rimShape: "Round",
+
+    frameId: "FRM-1003",
+    brand: "Gucci",
+    frameName: "Gucci Cat Eye Premium",
+    modelNo: "GC-778",
+
+    categoryId: "CAT-1001",
+    category: "Sunglasses",
+
+    rimType: "Full Rim",
+    rimShape: "Cat Eye",
+    frameType: "Acetate Frame",
+
+    frameMaterial: "Acetate",
     templeMaterial: "Acetate",
-    category: "RX-able",
-    hsnCode: "90049090",
-    tax: 12,
-    colourCode: "ROSE-GOLD",
-    size: "52",
-    dbl: "18",
-    templeLength: "138",
-    launchSeason: "Spring 2026",
-    lensColor: "Brown",
-    frameFrontColor: "Rose Gold",
-    templeColor: "Brown",
-    skuCode: "VG-RX-1003",
-    barcode: "8901452365502",
-    srp: 5599,
-    locationPricing: "Pune - 5599",
-    stock: 0,
-    status: "Inactive",
-    createdOn: "2026-05-09",
+
+    size: "56",
+    dbl: "16",
+    templeLength: "142",
+    frameWidth: "145",
+    lensWidth: "56",
+    lensHeight: "48",
+
+    colourCode: "BLACK-GOLD",
+    frameFrontColor: "Black",
+    templeColor: "Gold",
+    lensColor: "Grey",
+
+    gender: "Women",
+    ageGroup: "Adult",
+    styleType: "Luxury",
+    frameWeight: "28 gm",
+
+    lensTypeSupported: [
+      "Single Vision",
+      "Progressive",
+    ],
+
+    skuCode: "GC-SG-1004",
+    barcode: "8901452365514",
+    stock: 9,
+    lowStockLimit: 3,
+    warehouseLocation: "Bangalore Warehouse",
+
+    purchasePrice: 6500,
+    srp: 9999,
+    discountPrice: 9499,
+    tax: 18,
+
+    locationPricing:
+      "Mumbai - 9999",
+
+    status: "Active",
+    featuredProduct: true,
+    trendingProduct: true,
+
+    thumbnailImage:
+      "/images/frames/gucci-main.png",
+
+    galleryImages: [
+      "/images/frames/gucci-1.png",
+      "/images/frames/gucci-2.png",
+    ],
+
+    slug: "gucci-cat-eye-premium",
+    metaTitle:
+      "Gucci Cat Eye Premium Sunglasses",
+
+    metaDescription:
+      "Luxury Gucci cat eye sunglasses.",
+
+    hsnCode: "90041000",
+    launchSeason: "Autumn 2026",
+    countryOfOrigin: "Italy",
+    warrantyPeriod: "1 Year",
+    supplierName: "Gucci India",
+
+    description:
+      "Luxury cat eye sunglasses with premium finish.",
+
+    features: [
+      "Luxury Design",
+      "UV Protection",
+      "Premium Acetate",
+    ],
+
+    notes:
+      "Premium women collection.",
+
+    createdOn: "2026-05-08",
+    updatedDate: "2026-05-09",
+    createdBy: "Admin",
   },
 
   {
     id: "4",
-    brand: "Gucci",
-    modelNo: "GC-778",
-    rimType: "Full Rim",
-    rimShape: "Cat Eye",
-    templeMaterial: "Acetate",
-    category: "Sunglasses",
-    hsnCode: "90041000",
-    tax: 18,
-    colourCode: "BLACK-GOLD",
-    size: "56",
-    dbl: "16",
-    templeLength: "142",
-    launchSeason: "Autumn 2026",
-    lensColor: "Grey",
-    frameFrontColor: "Black",
-    templeColor: "Gold",
-    skuCode: "GC-SG-1004",
-    barcode: "8901452365514",
-    srp: 9999,
-    locationPricing:
-      "Mumbai - 9999",
-    stock: 9,
-    status: "Active",
-    createdOn: "2026-05-08",
-  },
 
-  {
-    id: "5",
-    brand: "Prada",
-    modelNo: "PR-556",
-    rimType: "Half Rim",
-    rimShape: "Square",
-    templeMaterial: "Steel",
-    category: "Optical Frame",
-    hsnCode: "90049090",
-    tax: 18,
-    colourCode: "SILVER-BLUE",
-    size: "55",
-    dbl: "17",
-    templeLength: "140",
-    launchSeason: "Summer 2026",
-    lensColor: "Transparent",
-    frameFrontColor: "Silver",
-    templeColor: "Blue",
-    skuCode: "PR-OF-1005",
-    barcode: "8901452365526",
-    srp: 7499,
-    locationPricing:
-      "Delhi - 7499",
-    stock: 3,
-    status: "Active",
-    createdOn: "2026-05-07",
-  },
-
-  {
-    id: "6",
+    frameId: "FRM-1004",
     brand: "Titan Eye+",
+    frameName: "Titan Everyday Comfort",
     modelNo: "TE-210",
+
+    categoryId: "CAT-1001",
+    category: "Optical Frame",
+
     rimType: "Full Rim",
     rimShape: "Rectangle",
+    frameType: "Plastic Frame",
+
+    frameMaterial: "Plastic",
     templeMaterial: "Plastic",
-    category: "Optical Frame",
-    hsnCode: "90049090",
-    tax: 12,
-    colourCode: "BLACK-RED",
+
     size: "53",
     dbl: "18",
     templeLength: "136",
-    launchSeason: "Winter 2025",
-    lensColor: "Transparent",
+    frameWidth: "136",
+    lensWidth: "53",
+    lensHeight: "40",
+
+    colourCode: "BLACK-RED",
     frameFrontColor: "Black",
     templeColor: "Red",
+    lensColor: "Transparent",
+
+    gender: "Unisex",
+    ageGroup: "Adult",
+    styleType: "Casual",
+    frameWeight: "22 gm",
+
+    lensTypeSupported: [
+      "Single Vision",
+      "Blue Cut",
+    ],
+
     skuCode: "TE-OF-1006",
     barcode: "8901452365538",
+    stock: 22,
+    lowStockLimit: 8,
+    warehouseLocation: "Surat Warehouse",
+
+    purchasePrice: 1800,
     srp: 3499,
+    discountPrice: 3299,
+    tax: 12,
+
     locationPricing:
       "Surat - 3499",
-    stock: 22,
-    status: "Active",
-    createdOn: "2026-05-06",
-  },
 
-  {
-    id: "7",
-    brand: "Police",
-    modelNo: "PL-900",
-    rimType: "Rim Less",
-    rimShape: "Oval",
-    templeMaterial: "Titanium",
-    category: "RX-able",
+    status: "Active",
+    featuredProduct: false,
+    trendingProduct: false,
+
+    thumbnailImage:
+      "/images/frames/titan-main.png",
+
+    galleryImages: [
+      "/images/frames/titan-1.png",
+      "/images/frames/titan-2.png",
+    ],
+
+    slug: "titan-everyday-comfort",
+    metaTitle:
+      "Titan Everyday Comfort Optical Frame",
+
+    metaDescription:
+      "Comfortable everyday optical frame by Titan.",
+
     hsnCode: "90049090",
-    tax: 18,
-    colourCode: "GUNMETAL",
-    size: "51",
-    dbl: "17",
-    templeLength: "138",
-    launchSeason: "Spring 2026",
-    lensColor: "Brown",
-    frameFrontColor: "Gunmetal",
-    templeColor: "Grey",
-    skuCode: "PL-RX-1007",
-    barcode: "8901452365540",
-    srp: 5899,
-    locationPricing:
-      "Bangalore - 5899",
-    stock: 0,
-    status: "Inactive",
-    createdOn: "2026-05-05",
-  },
+    launchSeason: "Winter 2025",
+    countryOfOrigin: "India",
+    warrantyPeriod: "6 Months",
+    supplierName: "Titan Eye+",
 
-  {
-    id: "8",
-    brand: "Tom Ford",
-    modelNo: "TF-889",
-    rimType: "Full Rim",
-    rimShape: "Wayfarer",
-    templeMaterial: "Acetate",
-    category: "Sunglasses",
-    hsnCode: "90041000",
-    tax: 18,
-    colourCode: "DARK-BROWN",
-    size: "57",
-    dbl: "15",
-    templeLength: "145",
-    launchSeason: "Summer 2026",
-    lensColor: "Black",
-    frameFrontColor: "Brown",
-    templeColor: "Brown",
-    skuCode: "TF-SG-1008",
-    barcode: "8901452365552",
-    srp: 11999,
-    locationPricing:
-      "Hyderabad - 11999",
-    stock: 6,
-    status: "Active",
-    createdOn: "2026-05-04",
+    description:
+      "Affordable and durable daily wear optical frame.",
+
+    features: [
+      "Lightweight",
+      "Comfort Fit",
+      "Budget Friendly",
+    ],
+
+    notes:
+      "High stock available.",
+
+    createdOn: "2026-05-06",
+    updatedDate: "2026-05-07",
+    createdBy: "Admin",
   },
 ];
-
 export const contactLenses = [
   {
     id: "1",
 
-    productName:
-      "Acuvue Oasys",
+    lensId: "LENS-1001",
+    productName: "Acuvue Oasys",
 
-    productCode:
-      "CL-1001",
+    productCode: "CL-1001",
 
-    brand:
-      "Johnson & Johnson",
+    lensName: "Acuvue Oasys",
 
-    powerType:
-      "Spherical",
+    brand: "Johnson & Johnson",
 
-    modality:
-      "Monthly",
+    productType: "Rx",
 
-    material:
-      "Silicone Hydrogel",
+    powerType: "Spherical",
 
-    productType:
-      "Rx",
+    modality: "Monthly",
 
-    baseCurve:
-      "8.4",
+    material: "Silicone Hydrogel",
 
-    diameter:
-      "14.2",
+    baseCurve: "8.4",
+
+    diameter: "14.2",
+
+    sphericalPower: "-2.50",
+
+    cylindricalPower: "-0.75",
+
+    axis: "180",
+
+    additionalPower: "+1.50",
+
+    color: "Transparent",
+
+    hsnCode: "90013000",
+
+    tax: 18,
+
+    mrp: 2999,
+
+    sellingPrice: 2499,
+
+    discountPrice: 2299,
+
+    skuCode: "SKU-CL-1001",
+
+    barcode: "8901452367001",
 
     stock: 120,
 
-    price: 2499,
+    warehouseLocation: "Delhi Warehouse",
 
-    status:
-      "Active",
+    thumbnailImage:
+      "/images/contactlens/lens1.jpg",
 
-    createdOn:
-      "2026-05-11",
+    status: "Active",
+
+    description:
+      "Premium silicone hydrogel contact lens with superior comfort and moisture retention for extended daily wear.",
+
+    notes:
+      "Best selling monthly disposable contact lens.",
+
+    createdOn: "2026-05-11",
+
+    updatedDate: "2026-05-12",
+
+    createdBy: "Admin",
   },
 
   {
     id: "2",
 
-    productName:
-      "Bausch Lomb Ultra",
+    lensId: "LENS-1002",
+    productName: "Acuvue Oasys",
 
-    productCode:
-      "CL-1002",
+    productCode: "CL-1002",
 
-    brand:
-      "Bausch & Lomb",
+    lensName: "Bausch Lomb Ultra",
 
-    powerType:
-      "Astigmatism",
+    brand: "Bausch & Lomb",
 
-    modality:
-      "Daily",
+    productType: "Rx",
 
-    material:
-      "Hydrogel",
+    powerType: "Astigmatism",
 
-    productType:
-      "Rx",
+    modality: "Daily",
 
-    baseCurve:
-      "8.6",
+    material: "Hydrogel",
 
-    diameter:
-      "14.0",
+    baseCurve: "8.6",
+
+    diameter: "14.0",
+
+    sphericalPower: "-1.75",
+
+    cylindricalPower: "-1.25",
+
+    axis: "170",
+
+    additionalPower: "+2.00",
+
+    color: "Light Blue",
+
+    hsnCode: "90013000",
+
+    tax: 18,
+
+    mrp: 3699,
+
+    sellingPrice: 3299,
+
+    discountPrice: 3099,
+
+    skuCode: "SKU-CL-1002",
+
+    barcode: "8901452367002",
 
     stock: 60,
 
-    price: 3299,
+    warehouseLocation: "Mumbai Warehouse",
 
-    status:
-      "Active",
+    thumbnailImage:
+      "/images/contactlens/lens2.jpg",
 
-    createdOn:
-      "2026-05-10",
+    status: "Active",
+
+    description:
+      "Daily disposable toric contact lens designed for sharp and stable vision correction.",
+
+    notes:
+      "Recommended for dry eye users.",
+
+    createdOn: "2026-05-10",
+
+    updatedDate: "2026-05-11",
+
+    createdBy: "Admin",
   },
 
   {
     id: "3",
 
-    productName:
-      "FreshLook Color",
+    lensId: "LENS-1003",
+    productName: "FreshLook Color",
+    productCode: "CL-1003",
 
-    productCode:
-      "CL-1003",
+    lensName: "FreshLook Color",
 
-    brand:
-      "Alcon",
+    brand: "Alcon",
 
-    powerType:
-      "Progressive",
+    productType: "Cosmetic",
 
-    modality:
-      "Quarterly",
+    powerType: "Progressive",
 
-    material:
-      "Hydrogel",
+    modality: "Quarterly",
 
-    productType:
-      "Cosmetic",
+    material: "Hydrogel",
 
-    baseCurve:
-      "8.5",
+    baseCurve: "8.5",
 
-    diameter:
-      "14.1",
+    diameter: "14.1",
+
+    sphericalPower: "-3.00",
+
+    cylindricalPower: "-0.50",
+
+    axis: "160",
+
+    additionalPower: "+1.25",
+
+    color: "Hazel",
+
+    hsnCode: "90013000",
+
+    tax: 12,
+
+    mrp: 2199,
+
+    sellingPrice: 1899,
+
+    discountPrice: 1699,
+
+    skuCode: "SKU-CL-1003",
+
+    barcode: "8901452367003",
 
     stock: 0,
 
-    price: 1899,
+    warehouseLocation: "Bangalore Warehouse",
 
-    status:
-      "Inactive",
+    thumbnailImage:
+      "/images/contactlens/lens3.jpg",
 
-    createdOn:
-      "2026-05-09",
+    status: "Inactive",
+
+    description:
+      "Colored cosmetic contact lens that enhances natural eye appearance with comfortable wear.",
+
+    notes:
+      "Currently out of stock.",
+
+    createdOn: "2026-05-09",
+
+    updatedDate: "2026-05-10",
+
+    createdBy: "Admin",
+  },
+
+  {
+    id: "4",
+
+    lensId: "LENS-1004",
+    productName: "Air Optix Aqua",
+    productCode: "CL-1004",
+
+    lensName: "Air Optix Aqua",
+
+    brand: "Alcon",
+
+    productType: "Rx",
+
+    powerType: "Spherical",
+
+    modality: "BiWeekly",
+
+    material: "Silicone Hydrogel",
+
+    baseCurve: "8.6",
+
+    diameter: "14.2",
+
+    sphericalPower: "-2.00",
+
+    cylindricalPower: "-0.25",
+
+    axis: "175",
+
+    additionalPower: "+1.00",
+
+    color: "Transparent",
+
+    hsnCode: "90013000",
+
+    tax: 18,
+
+    mrp: 2899,
+
+    sellingPrice: 2599,
+
+    discountPrice: 2399,
+
+    skuCode: "SKU-CL-1004",
+
+    barcode: "8901452367004",
+
+    stock: 85,
+
+    warehouseLocation: "Hyderabad Warehouse",
+
+    thumbnailImage:
+      "/images/contactlens/lens4.jpg",
+
+    status: "Active",
+
+    description:
+      "Breathable silicone hydrogel lens designed for exceptional all-day comfort and clarity.",
+
+    notes:
+      "Popular bi-weekly replacement lens.",
+
+    createdOn: "2026-05-08",
+
+    updatedDate: "2026-05-09",
+
+    createdBy: "Admin",
   },
 ];
 

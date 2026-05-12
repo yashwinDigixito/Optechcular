@@ -1,828 +1,838 @@
+import React, { ReactNode } from "react";
+import Link from "next/link";
+
 import {
+  Avatar,
   Box,
+  Button,
   Card,
   Chip,
-  Divider,
+  Container,
   Grid,
+  Stack,
   Typography,
 } from "@mui/material";
 
-import { frames, frameVariants } from "@/assets/genericdata";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import StraightenOutlinedIcon from "@mui/icons-material/StraightenOutlined";
+import PaletteOutlinedIcon from "@mui/icons-material/PaletteOutlined";
+import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
+import PaymentsOutlinedIcon from "@mui/icons-material/PaymentsOutlined";
+import WarehouseOutlinedIcon from "@mui/icons-material/WarehouseOutlined";
+import QrCode2OutlinedIcon from "@mui/icons-material/QrCode2Outlined";
+
+import {
+  frames,
+  frameVariants,
+  categories,
+} from "@/assets/genericdata";
+import { IconLine, InfoLine, SideCard } from "@/component/common/ViewPage";
 
 import StatusChip from "@/component/common/StatusChip";
 
 export default async function FrameViewPage({
   params,
 }: {
-  params: Promise<{
-    id: string;
-  }>;
+  params: Promise<{ id: string }>;
 }) {
+  const { id } = await params;
 
-  const { id } =
-    await params;
+  const frame = frames.find(
+    (item) => item.id === id
+  );
 
-  const frame =
-    frames.find(
-      (item) =>
-        item.id === id
-    );
-    const variants = frameVariants.filter(
-    (item) =>  item.frameId === id
-    );
-  return (
-    <Box
-      sx={{
-        p: 3,
-        minHeight: "100vh",
-        background: "#F4F7FE",
-
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "flex-start",
-      }}
-    >
-      <Card
+  if (!frame) {
+    return (
+      <Box
         sx={{
-          width: "100%",
-          maxWidth: "1100px",
-
-          borderRadius:
-            "24px",
-
-          p: 4,
-
-          boxShadow:
-            "0px 10px 30px rgba(15,23,42,0.08)",
+          minHeight: "100vh",
+          bgcolor: "#F8FAFC",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
-        {/* PAGE TITLE */}
-        <Typography
+        <Card
           sx={{
-            fontSize: "34px",
-            fontWeight: 700,
-            mb: 4,
+            p: 4,
+            borderRadius: "16px",
+            border: "1px solid #E2E8F0",
+            boxShadow: "none",
           }}
         >
-          Frame Details
-        </Typography>
-
-        {/* BASIC INFO */}
-        <Typography
-          sx={{
-            fontSize: "22px",
-            fontWeight: 700,
-            mb: 3,
-            color: "#2563EB",
-          }}
-        >
-          Basic Information
-        </Typography>
-
-        <Grid
-          container
-          spacing={4}
-        >
-          {/* BRAND */}
-          <Grid size={{ xs: 12, md: 4 }}>
-
-            <Typography
-              sx={{
-                color: "#64748B",
-                mb: 1,
-                fontWeight: 600,
-              }}
-            >
-              Brand
-            </Typography>
-
-            <Typography
-              sx={{
-                fontWeight: 700,
-                fontSize: "20px",
-              }}
-            >
-              {frame?.brand}
-            </Typography>
-
-          </Grid>
-
-          {/* MODEL NO */}
-          <Grid size={{ xs: 12, md: 4 }}>
-
-            <Typography
-              sx={{
-                color: "#64748B",
-                mb: 1,
-                fontWeight: 600,
-              }}
-            >
-              Model No
-            </Typography>
-
-            <Typography
-              sx={{
-                fontWeight: 600,
-              }}
-            >
-              {frame?.modelNo}
-            </Typography>
-
-          </Grid>
-
-          {/* CATEGORY */}
-          <Grid size={{ xs: 12, md: 4 }}>
-
-            <Typography
-              sx={{
-                color: "#64748B",
-                mb: 1,
-                fontWeight: 600,
-              }}
-            >
-              Category
-            </Typography>
-
-            <Chip
-              label={
-                frame?.category
-              }
-              sx={{
-                background:
-                  "#EFF6FF",
-
-                color:
-                  "#2563EB",
-
-                fontWeight: 700,
-              }}
-            />
-
-          </Grid>
-
-          {/* RIM TYPE */}
-          <Grid size={{ xs: 12, md: 4 }}>
-
-            <Typography
-              sx={{
-                color: "#64748B",
-                mb: 1,
-                fontWeight: 600,
-              }}
-            >
-              Rim Type
-            </Typography>
-
-            <Typography
-              sx={{
-                fontWeight: 600,
-              }}
-            >
-              {frame?.rimType}
-            </Typography>
-
-          </Grid>
-
-          {/* RIM SHAPE */}
-          <Grid size={{ xs: 12, md: 4 }}>
-
-            <Typography
-              sx={{
-                color: "#64748B",
-                mb: 1,
-                fontWeight: 600,
-              }}
-            >
-              Rim Shape
-            </Typography>
-
-            <Typography
-              sx={{
-                fontWeight: 600,
-              }}
-            >
-              {frame?.rimShape}
-            </Typography>
-
-          </Grid>
-
-          {/* TEMPLE MATERIAL */}
-          <Grid size={{ xs: 12, md: 4 }}>
-
-            <Typography
-              sx={{
-                color: "#64748B",
-                mb: 1,
-                fontWeight: 600,
-              }}
-            >
-              Temple Material
-            </Typography>
-
-            <Typography
-              sx={{
-                fontWeight: 600,
-              }}
-            >
-              {
-                frame?.templeMaterial
-              }
-            </Typography>
-
-          </Grid>
-
-        </Grid>
-
-        <Divider sx={{ my: 5 }} />
-
-        {/* SIZE DETAILS */}
-        <Typography
-          sx={{
-            fontSize: "22px",
-            fontWeight: 700,
-            mb: 3,
-            color: "#2563EB",
-          }}
-        >
-          Size Details
-        </Typography>
-
-        <Grid
-          container
-          spacing={4}
-        >
-          {/* SIZE */}
-          <Grid size={{ xs: 12, md: 4 }}>
-
-            <Typography
-              sx={{
-                color: "#64748B",
-                mb: 1,
-                fontWeight: 600,
-              }}
-            >
-              Size
-            </Typography>
-
-            <Typography
-              sx={{
-                fontWeight: 600,
-              }}
-            >
-              {frame?.size}
-            </Typography>
-
-          </Grid>
-
-          {/* DBL */}
-          <Grid size={{ xs: 12, md: 4 }}>
-
-            <Typography
-              sx={{
-                color: "#64748B",
-                mb: 1,
-                fontWeight: 600,
-              }}
-            >
-              DBL
-            </Typography>
-
-            <Typography
-              sx={{
-                fontWeight: 600,
-              }}
-            >
-              {frame?.dbl}
-            </Typography>
-
-          </Grid>
-
-          {/* TEMPLE LENGTH */}
-          <Grid size={{ xs: 12, md: 4 }}>
-
-            <Typography
-              sx={{
-                color: "#64748B",
-                mb: 1,
-                fontWeight: 600,
-              }}
-            >
-              Temple Length
-            </Typography>
-
-            <Typography
-              sx={{
-                fontWeight: 600,
-              }}
-            >
-              {
-                frame?.templeLength
-              }
-            </Typography>
-
-          </Grid>
-
-        </Grid>
-
-        <Divider sx={{ my: 5 }} />
-
-        {/* COLORS */}
-        <Typography
-          sx={{
-            fontSize: "22px",
-            fontWeight: 700,
-            mb: 3,
-            color: "#2563EB",
-          }}
-        >
-          Color Details
-        </Typography>
-
-        <Grid
-          container
-          spacing={4}
-        >
-          {/* FRAME FRONT COLOR */}
-          <Grid size={{ xs: 12, md: 4 }}>
-
-            <Typography
-              sx={{
-                color: "#64748B",
-                mb: 1,
-                fontWeight: 600,
-              }}
-            >
-              Frame Front Color
-            </Typography>
-
-            <Typography
-              sx={{
-                fontWeight: 600,
-              }}
-            >
-              {
-                frame?.frameFrontColor
-              }
-            </Typography>
-
-          </Grid>
-
-          {/* TEMPLE COLOR */}
-          <Grid size={{ xs: 12, md: 4 }}>
-
-            <Typography
-              sx={{
-                color: "#64748B",
-                mb: 1,
-                fontWeight: 600,
-              }}
-            >
-              Temple Color
-            </Typography>
-
-            <Typography
-              sx={{
-                fontWeight: 600,
-              }}
-            >
-              {
-                frame?.templeColor
-              }
-            </Typography>
-
-          </Grid>
-
-          {/* LENS COLOR */}
-          <Grid size={{ xs: 12, md: 4 }}>
-
-            <Typography
-              sx={{
-                color: "#64748B",
-                mb: 1,
-                fontWeight: 600,
-              }}
-            >
-              Lens Color
-            </Typography>
-
-            <Typography
-              sx={{
-                fontWeight: 600,
-              }}
-            >
-              {frame?.lensColor}
-            </Typography>
-
-          </Grid>
-
-        </Grid>
-
-        <Divider sx={{ my: 5 }} />
-
-        {/* PRICING */}
-        <Typography
-          sx={{
-            fontSize: "22px",
-            fontWeight: 700,
-            mb: 3,
-            color: "#2563EB",
-          }}
-        >
-          Pricing & Tax
-        </Typography>
-
-        <Grid
-          container
-          spacing={4}
-        >
-          {/* SRP */}
-          <Grid size={{ xs: 12, md: 3 }}>
-
-            <Typography
-              sx={{
-                color: "#64748B",
-                mb: 1,
-                fontWeight: 600,
-              }}
-            >
-              SRP
-            </Typography>
-
-            <Typography
-              sx={{
-                fontWeight: 700,
-                color: "#16A34A",
-              }}
-            >
-              ₹{" "}
-              {frame?.srp.toLocaleString()}
-            </Typography>
-
-          </Grid>
-
-          {/* TAX */}
-          <Grid size={{ xs: 12, md: 3 }}>
-
-            <Typography
-              sx={{
-                color: "#64748B",
-                mb: 1,
-                fontWeight: 600,
-              }}
-            >
-              Tax %
-            </Typography>
-
-            <Typography
-              sx={{
-                fontWeight: 600,
-              }}
-            >
-              {frame?.tax}%
-            </Typography>
-
-          </Grid>
-
-          {/* HSN CODE */}
-          <Grid size={{ xs: 12, md: 3 }}>
-
-            <Typography
-              sx={{
-                color: "#64748B",
-                mb: 1,
-                fontWeight: 600,
-              }}
-            >
-              HSN Code
-            </Typography>
-
-            <Typography
-              sx={{
-                fontWeight: 600,
-              }}
-            >
-              {
-                frame?.hsnCode
-              }
-            </Typography>
-
-          </Grid>
-
-          {/* LOCATION PRICING */}
-          <Grid size={{ xs: 12, md: 3 }}>
-
-            <Typography
-              sx={{
-                color: "#64748B",
-                mb: 1,
-                fontWeight: 600,
-              }}
-            >
-              Location Pricing
-            </Typography>
-
-            <Typography
-              sx={{
-                fontWeight: 600,
-              }}
-            >
-              {
-                frame?.locationPricing
-              }
-            </Typography>
-
-          </Grid>
-
-        </Grid>
-
-        <Divider sx={{ my: 5 }} />
-
-        {/* INVENTORY */}
-        <Typography
-          sx={{
-            fontSize: "22px",
-            fontWeight: 700,
-            mb: 3,
-            color: "#2563EB",
-          }}
-        >
-          Inventory Details
-        </Typography>
-
-        <Grid
-          container
-          spacing={4}
-        >
-          {/* SKU */}
-          <Grid size={{ xs: 12, md: 3 }}>
-
-            <Typography
-              sx={{
-                color: "#64748B",
-                mb: 1,
-                fontWeight: 600,
-              }}
-            >
-              SKU Code
-            </Typography>
-
-            <Chip
-              label={
-                frame?.skuCode
-              }
-              sx={{
-                background:
-                  "#EFF6FF",
-
-                color:
-                  "#2563EB",
-
-                fontWeight: 700,
-              }}
-            />
-
-          </Grid>
-
-          {/* BARCODE */}
-          <Grid size={{ xs: 12, md: 3 }}>
-
-            <Typography
-              sx={{
-                color: "#64748B",
-                mb: 1,
-                fontWeight: 600,
-              }}
-            >
-              Barcode
-            </Typography>
-
-            <Typography
-              sx={{
-                fontWeight: 600,
-              }}
-            >
-              {
-                frame?.barcode
-              }
-            </Typography>
-
-          </Grid>
-
-          {/* STOCK */}
-          <Grid size={{ xs: 12, md: 3 }}>
-
-            <Typography
-              sx={{
-                color: "#64748B",
-                mb: 1,
-                fontWeight: 600,
-              }}
-            >
-              Stock
-            </Typography>
-
-            <Chip
-              label={
-                frame?.stock === 0
-                  ? "Out of Stock"
-                  : frame &&
-                    frame.stock <= 5
-                  ? "Low Stock"
-                  : "In Stock"
-              }
-              sx={{
-                background:
-                  frame?.stock === 0
-                    ? "#FEE2E2"
-                    : frame &&
-                      frame.stock <= 5
-                    ? "#FEF3C7"
-                    : "#DCFCE7",
-
-                color:
-                  frame?.stock === 0
-                    ? "#DC2626"
-                    : frame &&
-                      frame.stock <= 5
-                    ? "#D97706"
-                    : "#16A34A",
-
-                fontWeight: 700,
-              }}
-            />
-
-          </Grid>
-
-          {/* STATUS */}
-          <Grid size={{ xs: 12, md: 3 }}>
-
-            <Typography
-              sx={{
-                color: "#64748B",
-                mb: 1,
-                fontWeight: 600,
-              }}
-            >
-              Status
-            </Typography>
-
-            <StatusChip
-              status={
-                frame?.status || ""
-              }
-            />
-          </Grid>
-        </Grid>
-
-        <Divider sx={{ my: 5 }} />
-
-        {/* VARIANTS */}
-        <Typography
-          sx={{
-            fontSize: "22px",
-            fontWeight: 700,
-            mb: 3,
-            color: "#2563EB",
-          }}
-        >
-          Product Variants
-        </Typography>
-        
-        <Grid
-          container
-          spacing={3}
-        >
-        
-          {variants.map(
-            (variant) => (
-        
-              <Grid
-                key={variant.id}
-                size={{
-                  xs: 12,
-                  md: 4,
-                }}
-              >
-                <Card
-                  sx={{
-                    p: 3,
-                    borderRadius:
-                      "18px",
-        
-                    border:
-                      "1px solid #E2E8F0",
-        
-                    boxShadow:
-                      "none",
-                  }}
-                >
-                  {/* COLOR */}
-                  <Typography
-                    sx={{
-                      fontSize: "20px",
-                      fontWeight: 700,
-                      color: "#0F172A",
-                    }}
-                  >
-                    {variant.color}
-                  </Typography>
-        
-                  {/* SIZE */}
-                  <Typography
-                    sx={{
-                      mt: 1,
-                      color: "#64748B",
-                    }}
-                  >
-                    Size:{" "}
-                    {
-                      variant.size
-                    }
-                  </Typography>
-        
-                  {/* SKU */}
-                  <Chip
-                    label={
-                      variant.sku
-                    }
-                    sx={{
-                      mt: 2,
-        
-                      background:
-                        "#EFF6FF",
-        
-                      color:
-                        "#2563EB",
-        
-                      fontWeight: 700,
-                    }}
-                  />
-        
-                  {/* PRICE */}
-                  <Typography
-                    sx={{
-                      mt: 2,
-                      fontWeight: 700,
-                      color: "#16A34A",
-                    }}
-                  >
-                    ₹{" "}
-                    {variant.price.toLocaleString()}
-                  </Typography>
-        
-                  {/* STOCK */}
-                  <Chip
-                    label={`${variant.stock} pcs`}
-                    sx={{
-                      mt: 2,
-        
-                      background:
-                        variant.stock > 0
-                          ? "#DCFCE7"
-                          : "#FEE2E2",
-        
-                      color:
-                        variant.stock > 0
-                          ? "#16A34A"
-                          : "#DC2626",
-        
-                      fontWeight: 700,
-                    }}
-                  />
-        
-                </Card>
-        
-              </Grid>
-            )
-          )}
-        </Grid>
-
-        <Divider sx={{ my: 5 }} />
-
-        {/* CREATED DATE */}
-        <Box>
-
           <Typography
             sx={{
               color: "#64748B",
-              mb: 1,
-              fontWeight: 600,
+              fontWeight: 700,
             }}
           >
-            Created On
+            Frame not found
           </Typography>
+        </Card>
+      </Box>
+    );
+  }
+
+  const variants =
+    frameVariants.filter(
+      (item) =>
+        item.frameId === id
+    );
+
+  const category =
+    categories.find(
+      (item) =>
+        item.categoryId ===
+        frame.categoryId
+    );
+
+  return (
+    <Box
+      sx={{
+        width: "100%",
+        minHeight: "100vh",
+        bgcolor: "#F8FAFC",
+      }}
+    >
+      {/* HEADER */}
+      <Box
+       
+      >
+        <Container maxWidth="xl">
+          <Link
+            href="/products/frames"
+            passHref
+            style={{
+              textDecoration:
+                "none",
+            }}
+          >
+            <Button
+              startIcon={
+                <ArrowBackIcon />
+              }
+              sx={{
+                color: "#64748B",
+                textTransform:
+                  "none",
+                fontWeight: 600,
+              }}
+            >
+              Back to Frames
+            </Button>
+          </Link>
+        </Container>
+      </Box>
+
+      <Container
+        maxWidth="xl"
+        sx={{ py: 4 }}
+      >
+        {/* PAGE TITLE */}
+        <Box sx={{ mb: 4 }}>
+          <Stack
+            direction="row"
+            spacing={1.5}
+           sx={{alignItems:"center", flexWrap:"wrap"}}
+          >
+            <Typography
+              sx={{
+                fontSize: {
+                  xs: "1.5rem",
+                  md: "1.9rem",
+                },
+
+                fontWeight: 800,
+                color: "#3B82F6",
+              }}
+            >
+              Frame:{" "}
+              {frame.frameName}
+            </Typography>
+
+            <Chip
+              label={frame.status}
+              size="small"
+              sx={{
+                bgcolor:
+                  frame.status ===
+                  "Active"
+                    ? "#DCFCE7"
+                    : "#FEE2E2",
+
+                color:
+                  frame.status ===
+                  "Active"
+                    ? "#15803D"
+                    : "#B91C1C",
+
+                fontWeight: 700,
+                borderRadius:
+                  "8px",
+              }}
+            />
+          </Stack>
 
           <Typography
             sx={{
-              fontWeight: 600,
+              mt: 1,
+              color: "#64748B",
+              fontSize: 14,
             }}
           >
-            {
-              frame?.createdOn
-            }
+            Created On:{" "}
+            {frame.createdOn}
           </Typography>
         </Box>
-      </Card>
+
+        {/* MAIN LAYOUT */}
+        <Box
+          sx={{
+            display: "flex",
+            gap: 3,
+
+            alignItems:
+              "flex-start",
+
+            flexDirection: {
+              xs: "column",
+              lg: "row",
+            },
+          }}
+        >
+          {/* LEFT SIDE */}
+          <Box
+            sx={{
+              width: {
+                xs: "100%",
+                lg: "60%",
+              },
+            }}
+          >
+            <Stack spacing={3}>
+              {/* BASIC INFO */}
+              <SideCard title="Frame Information">
+                <InfoLine
+                  label="Frame ID"
+                  value={
+                    frame.frameId
+                  }
+                />
+
+                <InfoLine
+                  label="Brand"
+                  value={
+                    frame.brand
+                  }
+                />
+
+                <InfoLine
+                  label="Model No"
+                  value={
+                    frame.modelNo
+                  }
+                />
+
+                <InfoLine
+                  label="Category"
+                  value={
+                    frame.category
+                  }
+                />
+
+                <InfoLine
+                  label="Rim Type"
+                  value={
+                    frame.rimType
+                  }
+                />
+
+                <InfoLine
+                  label="Rim Shape"
+                  value={
+                    frame.rimShape
+                  }
+                />
+
+                <InfoLine
+                  label="Frame Material"
+                  value={
+                    frame.frameMaterial
+                  }
+                />
+
+                <InfoLine
+                  label="Temple Material"
+                  value={
+                    frame.templeMaterial
+                  }
+                />
+
+                <InfoLine
+                  label="Gender"
+                  value={
+                    frame.gender
+                  }
+                />
+              </SideCard>
+
+              {/* SIZE DETAILS */}
+              <SideCard title="Size Details">
+                <InfoLine
+                  label="Size"
+                  value={frame.size}
+                />
+
+                <InfoLine
+                  label="DBL"
+                  value={frame.dbl}
+                />
+
+                <InfoLine
+                  label="Temple Length"
+                  value={
+                    frame.templeLength
+                  }
+                />
+
+                <InfoLine
+                  label="Frame Width"
+                  value={
+                    frame.frameWidth
+                  }
+                />
+
+                <InfoLine
+                  label="Lens Width"
+                  value={
+                    frame.lensWidth
+                  }
+                />
+
+                <InfoLine
+                  label="Lens Height"
+                  value={
+                    frame.lensHeight
+                  }
+                />
+              </SideCard>
+
+              {/* COLOR DETAILS */}
+              <SideCard title="Color Details">
+                <InfoLine
+                  label="Colour Code"
+                  value={
+                    frame.colourCode
+                  }
+                />
+
+                <InfoLine
+                  label="Front Color"
+                  value={
+                    frame.frameFrontColor
+                  }
+                />
+
+                <InfoLine
+                  label="Temple Color"
+                  value={
+                    frame.templeColor
+                  }
+                />
+
+                <InfoLine
+                  label="Lens Color"
+                  value={
+                    frame.lensColor
+                  }
+                />
+              </SideCard>
+
+              {/* PRICE */}
+              <SideCard title="Pricing & Tax">
+                <InfoLine
+                  label="Purchase Price"
+                  value={`₹${frame.purchasePrice}`}
+                />
+
+                <InfoLine
+                  label="Selling Price"
+                  value={`₹${frame.srp}`}
+                />
+
+                <InfoLine
+                  label="Discount Price"
+                  value={`₹${frame.discountPrice}`}
+                />
+
+                <InfoLine
+                  label="Tax"
+                  value={`${frame.tax}%`}
+                />
+
+                <InfoLine
+                  label="HSN Code"
+                  value={
+                    frame.hsnCode
+                  }
+                />
+              </SideCard>
+
+              {/* INVENTORY */}
+              <SideCard title="Inventory Details">
+                <InfoLine
+                  label="SKU Code"
+                  value={
+                    frame.skuCode
+                  }
+                />
+
+                <InfoLine
+                  label="Barcode"
+                  value={
+                    frame.barcode
+                  }
+                />
+
+                <InfoLine
+                  label="Stock"
+                  value={
+                    frame.stock
+                  }
+                />
+
+                <InfoLine
+                  label="Warehouse"
+                  value={
+                    frame.warehouseLocation
+                  }
+                />
+              </SideCard>
+
+              {/* DESCRIPTION */}
+              <SideCard title="Description">
+                <Typography
+                  sx={{
+                    color:
+                      "#475569",
+
+                    fontSize: 14,
+
+                    lineHeight: 1.7,
+                  }}
+                >
+                  {
+                    frame.description
+                  }
+                </Typography>
+              </SideCard>
+            </Stack>
+          </Box>
+
+          {/* RIGHT SIDE */}
+          <Box
+            sx={{
+              width: {
+                xs: "100%",
+                lg: "40%",
+              },
+            }}
+          >
+            <Stack spacing={3}>
+              {/* TOP CARD */}
+              <Card
+                sx={{
+                  p: 3,
+                  borderRadius:
+                    "16px",
+
+                  boxShadow:
+                    "none",
+
+                  border:
+                    "1px solid #E2E8F0",
+
+                  bgcolor:
+                    "#FFFFFF",
+
+                  textAlign:
+                    "center",
+                }}
+              >
+                <Avatar
+                  src={
+                    frame.thumbnailImage
+                  }
+                  variant="rounded"
+                  sx={{
+                    width: 100,
+                    height: 100,
+
+                    mx: "auto",
+                    mb: 2,
+
+                    borderRadius:
+                      "20px",
+                  }}
+                />
+
+                <Typography
+                  sx={{
+                    fontSize: 24,
+                    fontWeight: 800,
+                    color:
+                      "#0F172A",
+                  }}
+                >
+                  {frame.brand}
+                </Typography>
+
+                <Typography
+                  sx={{
+                    color:
+                      "#64748B",
+
+                    fontSize: 14,
+
+                    mt: 0.5,
+                  }}
+                >
+                  {
+                    frame.modelNo
+                  }{" "}
+                  •{" "}
+                  {
+                    frame.category
+                  }
+                </Typography>
+
+                <Box
+                  sx={{
+                    mt: 2,
+                  }}
+                >
+                  <StatusChip
+                    status={
+                      frame.status
+                    }
+                  />
+                </Box>
+              </Card>
+
+              {/* SUMMARY */}
+              <SideCard title="Frame Summary">
+                <IconLine
+                  icon={
+                    <VisibilityOutlinedIcon />
+                  }
+                  text={`Frame Type: ${frame.frameType}`}
+                />
+
+                <IconLine
+                  icon={
+                    <StraightenOutlinedIcon />
+                  }
+                  text={`Size: ${frame.size}`}
+                />
+
+                <IconLine
+                  icon={
+                    <PaletteOutlinedIcon />
+                  }
+                  text={`Color: ${frame.frameFrontColor}`}
+                />
+
+                <IconLine
+                  icon={
+                    <Inventory2OutlinedIcon />
+                  }
+                  text={`Stock: ${frame.stock}`}
+                />
+
+                <IconLine
+                  icon={
+                    <PaymentsOutlinedIcon />
+                  }
+                  text={`Price: ₹${frame.srp}`}
+                />
+
+                <IconLine
+                  icon={
+                    <WarehouseOutlinedIcon />
+                  }
+                  text={
+                    frame.warehouseLocation
+                  }
+                />
+              </SideCard>
+
+              {/* CATEGORY */}
+              <SideCard title="Category Details">
+                <InfoLine
+                  label="Category"
+                  value={
+                    category?.categoryName
+                  }
+                />
+
+                <InfoLine
+                  label="Category Code"
+                  value={
+                    category?.categoryCode
+                  }
+                />
+
+                <InfoLine
+                  label="Category Type"
+                  value={
+                    category?.categoryType
+                  }
+                />
+
+                <InfoLine
+                  label="Priority"
+                  value={
+                    category?.priorityLevel
+                  }
+                />
+              </SideCard>
+
+              {/* VARIANTS */}
+              <SideCard title="Variants">
+                <Grid
+                  container
+                  spacing={2}
+                >
+                  {variants.map(
+                    (
+                      variant
+                    ) => (
+                      <Grid
+                        key={
+                          variant.id
+                        }
+                        size={{
+                          xs: 12,
+                        }}
+                      >
+                        <Card
+                          sx={{
+                            p: 2,
+                            borderRadius:
+                              "14px",
+
+                            border:
+                              "1px solid #E2E8F0",
+
+                            boxShadow:
+                              "none",
+                          }}
+                        >
+                          <Stack
+                            direction="row"
+                            sx={{justifyContent:"space-between", alignItems:"center"}}
+                          >
+                            <Typography
+                              sx={{
+                                fontWeight: 700,
+                              }}
+                            >
+                              {
+                                variant.color
+                              }
+                            </Typography>
+
+                            <Chip
+                              label={`${variant.stock} pcs`}
+                              size="small"
+                              sx={{
+                                bgcolor:
+                                  variant.stock >
+                                  0
+                                    ? "#DCFCE7"
+                                    : "#FEE2E2",
+
+                                color:
+                                  variant.stock >
+                                  0
+                                    ? "#15803D"
+                                    : "#B91C1C",
+
+                                fontWeight: 700,
+                              }}
+                            />
+                          </Stack>
+
+                          <Typography
+                            sx={{
+                              mt: 1,
+                              color:
+                                "#64748B",
+
+                              fontSize: 13,
+                            }}
+                          >
+                            Size:{" "}
+                            {
+                              variant.size
+                            }
+                          </Typography>
+
+                          <Typography
+                            sx={{
+                              mt: 1,
+                              fontWeight: 700,
+
+                              color:
+                                "#3B82F6",
+                            }}
+                          >
+                            ₹
+                            {
+                              variant.price
+                            }
+                          </Typography>
+                        </Card>
+                      </Grid>
+                    )
+                  )}
+                </Grid>
+              </SideCard>
+            </Stack>
+          </Box>
+        </Box>
+      </Container>
     </Box>
   );
 }
+
+// function SideCard({
+//   title,
+//   children,
+// }: {
+//   title: string;
+//   children: ReactNode;
+// }) {
+//   return (
+//     <Card
+//       sx={{
+//         p: 2.5,
+
+//         borderRadius: "16px",
+
+//         boxShadow: "none",
+
+//         border:
+//           "1px solid #E2E8F0",
+
+//         bgcolor: "#FFFFFF",
+//       }}
+//     >
+//       <Typography
+//         sx={{
+//           fontSize: 18,
+//           fontWeight: 700,
+
+//           color: "#0F172A",
+
+//           mb: 2,
+//         }}
+//       >
+//         {title}
+//       </Typography>
+
+//       {children}
+//     </Card>
+//   );
+// }
+
+// function InfoLine({
+//   label,
+//   value,
+// }: {
+//   label: string;
+//   value?: string | number;
+// }) {
+//   return (
+//     <Stack
+//       direction="row"
+//       alignItems="center"
+//       justifyContent="space-between"
+//       sx={{
+//         py: 1.5,
+
+//         borderBottom:
+//           "1px solid #E2E8F0",
+//       }}
+//     >
+//       <Typography
+//         sx={{
+//           width: "180px",
+
+//           flexShrink: 0,
+
+//           color: "#64748B",
+
+//           fontSize: "14px",
+
+//           fontWeight: 500,
+//         }}
+//       >
+//         {label}
+//       </Typography>
+
+//       <Typography
+//         sx={{
+//           flex: 1,
+
+//           textAlign: "right",
+
+//           color: "#0F172A",
+
+//           fontSize: "14px",
+
+//           fontWeight: 700,
+//         }}
+//       >
+//         {value || "N/A"}
+//       </Typography>
+//     </Stack>
+//   );
+// }
+
+// function IconLine({
+//   icon,
+//   text,
+// }: {
+//   icon: ReactNode;
+//   text?: string;
+// }) {
+//   return (
+//     <Stack
+//       direction="row"
+//       spacing={1}
+//       alignItems="center"
+//       sx={{ mb: 1.3 }}
+//     >
+//       <Box
+//         sx={{
+//           display: "flex",
+//           color: "#64748B",
+//         }}
+//       >
+//         {icon}
+//       </Box>
+
+//       <Typography
+//         sx={{
+//           color: "#334155",
+//           fontSize: 14,
+//           fontWeight: 500,
+//         }}
+//       >
+//         {text || "N/A"}
+//       </Typography>
+//     </Stack>
+//   );
+// }
