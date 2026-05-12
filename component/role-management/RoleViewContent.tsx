@@ -39,14 +39,7 @@ export default function RoleViewContent({
     }}
 >
       {/* TOP NAVIGATION */}
-    <Box
-        sx={{
-        py: 2,
-        background: "#FFFFFF",
-        borderBottom:
-            "1px solid #E2E8F0",
-        }}
-    >
+    <Box>
         <Container maxWidth="lg">
 
         <Link
