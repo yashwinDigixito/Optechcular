@@ -69,17 +69,14 @@ export default async function MaterialViewPage({
       sx={{
         width: "100%",
         minHeight: "100vh",
-        bgcolor: "#F8FAFC",
       }}
     >
       {/* TOP BAR */}
-      <Box
-       
-      >
+      <Box>
         <Container maxWidth="xl">
-           <Box sx={{ mb: 3 }}>
+      <Box>
         <Link
-          href="/product/materials"
+          href="/products/materials"
           style={{
             textDecoration:
               "none",

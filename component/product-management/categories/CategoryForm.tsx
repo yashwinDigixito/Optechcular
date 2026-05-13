@@ -35,7 +35,7 @@ export default function CategoryForm() {
     <Box sx={{ p: 3 }}>
       <Box sx={{ mb: 3 }}>
         <Link
-          href="/product/categories"
+          href="/products/categories"
           style={{
             textDecoration:
               "none",

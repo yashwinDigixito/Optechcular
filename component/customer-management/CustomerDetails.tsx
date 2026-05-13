@@ -38,7 +38,6 @@ export default async function CustomerViewPage({
       <Box
         sx={{
           minHeight: "100vh",
-          bgcolor: "#F8FAFC",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -61,28 +60,31 @@ export default async function CustomerViewPage({
   }
 
   return (
-    <Box sx={{ width: "100%", minHeight: "100vh", bgcolor: "#F8FAFC" }}>
+    <Box sx={{ width: "100%", minHeight: "100vh" }}>
       <Box
         sx={{
-          py: 2,
-          bgcolor: "#FFFFFF",
-          borderBottom: "1px solid #E2E8F0",
+          px: 3,
         }}
       >
-        <Container maxWidth="xl">
-          <Link href="/customers" passHref style={{ textDecoration: "none" }}>
-            <Button
-              startIcon={<ArrowBackIcon />}
-              sx={{
-                color: "#64748B",
-                textTransform: "none",
-                fontWeight: 600,
-              }}
-            >
-              Back to Customers
-            </Button>
-          </Link>
-        </Container>
+        <Link
+          href="/customers"
+          style={{
+            textDecoration:
+              "none",
+          }}
+        >
+          <Button
+            startIcon={
+              <ArrowBackIcon />
+            }
+            sx={{
+              textTransform:"none",
+              fontWeight:600,
+            }}
+          >
+            Back
+          </Button>
+        </Link>
       </Box>
 
       <Container maxWidth="xl" sx={{ py: 4 }}>

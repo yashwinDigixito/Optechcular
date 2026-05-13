@@ -4,8 +4,14 @@ import {
   useState,
 } from "react";
 
+import {
+  BrandGroup,
+} from "@/assets/types";
+
 import BlockIcon from "@mui/icons-material/Block";
+
 import EditIcon from "@mui/icons-material/Edit";
+
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 
 import {
@@ -26,13 +32,9 @@ import { useRouter } from "next/navigation";
 import StatusChip from "@/component/common/StatusChip";
 
 interface Props {
-  groups: {
-    id: string;
-    groupName: string;
-    description: string;
-    status: string;
-    createdOn: string;
-  }[];
+
+  groups:
+    BrandGroup[];
 }
 
 export default function BrandGroupTable({
@@ -85,26 +87,23 @@ export default function BrandGroupTable({
         border:
           "1px solid #E2E8F0",
 
-        overflow: "hidden",
-
-        boxShadow:
-          "0px 4px 20px rgba(15,23,42,0.04)",
+        overflow:
+          "hidden",
       }}
     >
       <Table
         sx={{
-          minWidth: 900,
+          minWidth: 850,
 
           "& .MuiTableCell-root":
             {
-              py: 2.5,
+              py: 2.2,
 
               borderColor:
                 "#F1F5F9",
             },
         }}
       >
-
         {/* TABLE HEAD */}
         <TableHead>
 
@@ -112,61 +111,84 @@ export default function BrandGroupTable({
             sx={{
               background:
                 "#F8FAFC",
-
-              "& .MuiTableCell-root":
-                {
-                  py: 2.2,
-                },
             }}
           >
             <TableCell>
+
               <Typography
                 sx={{
-                  fontWeight: 700,
+                  fontWeight:
+                    700,
                 }}
               >
                 Group Name
               </Typography>
+
             </TableCell>
 
             <TableCell>
+
               <Typography
                 sx={{
-                  fontWeight: 700,
+                  fontWeight:
+                    700,
                 }}
               >
-                Description
+                Group Type
               </Typography>
+
             </TableCell>
 
             <TableCell>
+
               <Typography
                 sx={{
-                  fontWeight: 700,
+                  fontWeight:
+                    700,
+                }}
+              >
+                Parent Category
+              </Typography>
+
+            </TableCell>
+
+            <TableCell>
+
+              <Typography
+                sx={{
+                  fontWeight:
+                    700,
                 }}
               >
                 Status
               </Typography>
+
             </TableCell>
 
             <TableCell>
+
               <Typography
                 sx={{
-                  fontWeight: 700,
+                  fontWeight:
+                    700,
                 }}
               >
                 Created On
               </Typography>
+
             </TableCell>
 
             <TableCell>
+
               <Typography
                 sx={{
-                  fontWeight: 700,
+                  fontWeight:
+                    700,
                 }}
               >
                 Actions
               </Typography>
+
             </TableCell>
 
           </TableRow>
@@ -177,7 +199,9 @@ export default function BrandGroupTable({
         <TableBody>
 
           {groups.map(
-            (group) => {
+            (
+              group
+            ) => {
 
               const currentStatus =
 
@@ -190,40 +214,56 @@ export default function BrandGroupTable({
               return (
 
                 <TableRow
-                  key={group.id}
+                  key={
+                    group.id
+                  }
                   hover
                   sx={{
-                    transition:
-                      "0.2s",
-
-                    "&:hover": {
-                      background:
-                        "#F8FAFC",
-                    },
+                    "&:hover":
+                      {
+                        background:
+                          "#F8FAFC",
+                      },
                   }}
                 >
                   {/* GROUP NAME */}
                   <TableCell>
 
-                    <Typography
-                      sx={{
-                        fontWeight: 700,
+                    <Box>
 
-                        color:
-                          "#2563EB",
+                      <Typography
+                        sx={{
+                          fontWeight:
+                            700,
 
-                        fontSize:
-                          "16px",
-                      }}
-                    >
-                      {
-                        group.groupName
-                      }
-                    </Typography>
+                          color:
+                            "#2563EB",
+                        }}
+                      >
+                        {
+                          group.groupName
+                        }
+                      </Typography>
+
+                      <Typography
+                        sx={{
+                          fontSize:
+                            "13px",
+
+                          color:
+                            "#64748B",
+                        }}
+                      >
+                        {
+                          group.groupId
+                        }
+                      </Typography>
+
+                    </Box>
 
                   </TableCell>
 
-                  {/* DESCRIPTION */}
+                  {/* GROUP TYPE */}
                   <TableCell>
 
                     <Typography
@@ -231,14 +271,28 @@ export default function BrandGroupTable({
                         color:
                           "#475569",
 
-                        fontWeight: 500,
-
-                        maxWidth:
-                          "350px",
+                        fontWeight:
+                          600,
                       }}
                     >
                       {
-                        group.description
+                        group.groupType
+                      }
+                    </Typography>
+
+                  </TableCell>
+
+                  {/* PARENT CATEGORY */}
+                  <TableCell>
+
+                    <Typography
+                      sx={{
+                        color:
+                          "#475569",
+                      }}
+                    >
+                      {
+                        group.parentCategory || "-"
                       }
                     </Typography>
 
@@ -262,8 +316,6 @@ export default function BrandGroupTable({
                       sx={{
                         color:
                           "#64748B",
-
-                        fontWeight: 500,
                       }}
                     >
                       {
@@ -344,7 +396,7 @@ export default function BrandGroupTable({
 
                       </Tooltip>
 
-                      {/* STATUS TOGGLE */}
+                      {/* STATUS */}
                       <Tooltip
                         title={
                           currentStatus ===
@@ -362,17 +414,6 @@ export default function BrandGroupTable({
                                 ? "#FEF2F2"
 
                                 : "#DCFCE7",
-
-                            "&:hover":
-                              {
-                                background:
-                                  currentStatus ===
-                                  "Active"
-
-                                    ? "#FEE2E2"
-
-                                    : "#BBF7D0",
-                              },
                           }}
                           onClick={() =>
                             handleToggleStatus(
@@ -392,15 +433,22 @@ export default function BrandGroupTable({
                             }}
                           />
                         </IconButton>
+
                       </Tooltip>
+
                     </Box>
+
                   </TableCell>
+
                 </TableRow>
               );
             }
           )}
+
         </TableBody>
+
       </Table>
+
     </TableContainer>
   );
 }

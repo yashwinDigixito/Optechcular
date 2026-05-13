@@ -373,15 +373,17 @@ export interface PurchaseOrder {
   vendorEmail: string;
   vendorPhone: string;
   productName: string;
+  brand:string;
+  purchaseNo:string;
   productSku: string;
   category: string;
   quantity: number;
   unitPrice: number;
   tax: number;
   discount: number;
-  totalAmount: number;
+  grandTotal: number;
   paymentStatus: string;
-  poStatus: string;
+  status: string;
   orderDate: string;
   expectedDelivery: string;
   createdBy: string;
@@ -436,7 +438,7 @@ export interface Frame {
   categoryName?: string;
 
  
-  brandName: string;
+  brand: string;
   modelNumber?: string;
 
  

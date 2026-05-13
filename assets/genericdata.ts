@@ -560,7 +560,7 @@ export const brands = [
     notes:
       "Top-selling premium frame brand.",
 
-    createdOn: "2026-05-11",
+    createdDate: "2026-05-11",
     updatedDate: "2026-05-12",
     createdBy: "Admin",
   },
@@ -600,7 +600,7 @@ export const brands = [
     notes:
       "Good budget category sales.",
 
-    createdOn: "2026-05-10",
+    createdDate: "2026-05-10",
     updatedDate: "2026-05-11",
     createdBy: "Admin",
   },
@@ -640,7 +640,7 @@ export const brands = [
     notes:
       "Strong premium customer base.",
 
-    createdOn: "2026-05-09",
+    createdDate: "2026-05-09",
     updatedDate: "2026-05-10",
     createdBy: "Admin",
   },
@@ -680,7 +680,7 @@ export const brands = [
     notes:
       "Low inventory available.",
 
-    createdOn: "2026-05-08",
+    createdDate: "2026-05-08",
     updatedDate: "2026-05-09",
     createdBy: "Admin",
   },
@@ -720,7 +720,7 @@ export const brands = [
     notes:
       "Popular among young customers.",
 
-    createdOn: "2026-05-07",
+    createdDate: "2026-05-07",
     updatedDate: "2026-05-08",
     createdBy: "Admin",
   },
@@ -760,7 +760,7 @@ export const brands = [
     notes:
       "High-value premium orders.",
 
-    createdOn: "2026-05-06",
+    createdDate: "2026-05-06",
     updatedDate: "2026-05-07",
     createdBy: "Admin",
   },
@@ -800,7 +800,7 @@ export const brands = [
     notes:
       "Good retail performance.",
 
-    createdOn: "2026-05-05",
+    createdDate: "2026-05-05",
     updatedDate: "2026-05-06",
     createdBy: "Admin",
   },
@@ -840,7 +840,7 @@ export const brands = [
     notes:
       "Excellent customer satisfaction.",
 
-    createdOn: "2026-05-04",
+    createdDate: "2026-05-04",
     updatedDate: "2026-05-05",
     createdBy: "Admin",
   },
@@ -880,7 +880,7 @@ export const brands = [
     notes:
       "Limited imported collection.",
 
-    createdOn: "2026-05-03",
+    createdDate: "2026-05-03",
     updatedDate: "2026-05-04",
     createdBy: "Admin",
   },
@@ -920,7 +920,7 @@ export const brands = [
     notes:
       "High-end optical solutions provider.",
 
-    createdOn: "2026-05-02",
+    createdDate: "2026-05-02",
     updatedDate: "2026-05-03",
     createdBy: "Admin",
   },
@@ -1542,7 +1542,7 @@ export const frames = [
 
     // PRICING
     purchasePrice: 4500,
-    srp: 7999,
+    sellingPrice: 7999,
     discountPrice: 7499,
     tax: 18,
 
@@ -1644,7 +1644,7 @@ export const frames = [
     warehouseLocation: "Mumbai Warehouse",
 
     purchasePrice: 3500,
-    srp: 6499,
+    sellingPrice: 6499,
     discountPrice: 5999,
     tax: 18,
 
@@ -1740,7 +1740,7 @@ export const frames = [
     warehouseLocation: "Bangalore Warehouse",
 
     purchasePrice: 6500,
-    srp: 9999,
+    sellingPrice: 9999,
     discountPrice: 9499,
     tax: 18,
 
@@ -1836,7 +1836,7 @@ export const frames = [
     warehouseLocation: "Surat Warehouse",
 
     purchasePrice: 1800,
-    srp: 3499,
+    sellingPrice: 3499,
     discountPrice: 3299,
     tax: 12,
 

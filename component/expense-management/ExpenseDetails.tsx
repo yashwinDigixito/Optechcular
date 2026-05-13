@@ -40,18 +40,15 @@ export default function ExpenseDetails({
       sx={{
         minHeight:
           "100vh",
-
-        bgcolor:
-          "#F8FAFC",
       }}
     >
       {/* TOP */}
       <Box
         sx={{
-          p: 3,
+          px: 4,
         }}
       >
-      <Box sx={{ mb: 3 }}>
+      <Box sx={{ mb: 2}}>
         <Link
           href="/expenses"
           style={{

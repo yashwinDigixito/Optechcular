@@ -17,7 +17,7 @@ export default function ContactLensForm() {
     <Box sx={{ p: 3 }}>
       <Box sx={{ mb: 3 }}>
         <Link
-          href="/product/contact-lens"
+          href="/products/contact-lens"
           style={{
             textDecoration:
               "none",

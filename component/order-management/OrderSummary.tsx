@@ -115,11 +115,10 @@ export default function OrderSummary({
       {/* TOP */}
       <Box
         sx={{
-          py: 2,
           px: 3,
         }}
-      >
-        <Box sx={{ mb: 3 }}>
+>
+        <Box>
         <Link
           href="/orders"
           style={{

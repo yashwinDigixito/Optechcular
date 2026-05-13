@@ -72,15 +72,14 @@ export default async function ContactLensViewPage({
       sx={{
         width: "100%",
         minHeight: "100vh",
-        bgcolor: "#F8FAFC",
       }}
     >
       {/* TOP BAR */}
       <Box>
         <Container maxWidth="xl">
-          <Box sx={{ mb: 3 }}>
+      <Box>
         <Link
-          href="/product/contact-lens"
+          href="/products/contact-lens"
           style={{
             textDecoration:
               "none",

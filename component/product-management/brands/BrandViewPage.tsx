@@ -65,7 +65,7 @@ export default async function BrandViewPage({
     <Box sx={{ width: "100%", minHeight: "100vh"}}>
       <Box>
         <Container maxWidth="xl">
-          <Box sx={{ mb: 3 }}>
+        <Box>
         <Link
           href="/products/brands"
           style={{
@@ -115,7 +115,7 @@ export default async function BrandViewPage({
           </Stack>
 
           <Typography sx={{ mt: 1, color: "#64748B", fontSize: 14 }}>
-            Created On: {brand.createdOn}
+            Created On: {brand.createdDate}
           </Typography>
         </Box>
 

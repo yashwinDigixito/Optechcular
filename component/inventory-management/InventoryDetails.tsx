@@ -1,7 +1,7 @@
 "use client";
 
 import {
-    Inventory,
+  Inventory,
 } from "@/assets/types";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -19,13 +19,13 @@ import SellOutlinedIcon from "@mui/icons-material/SellOutlined";
 import StoreOutlinedIcon from "@mui/icons-material/StoreOutlined";
 
 import {
-    Box,
-    Button,
-    Chip,
-    Container,
-    Divider,
-    Stack,
-    Typography,
+  Box,
+  Button,
+  Chip,
+  Container,
+  Divider,
+  Stack,
+  Typography,
 } from "@mui/material";
 
 import Link from "next/link";
@@ -43,12 +43,7 @@ export default function InventoryDetails({
   return (
     <Box
       sx={{
-        minHeight:
-          "100vh",
-
-        bgcolor:
-          "#F8FAFC",
-
+        minHeight:"100vh",
         py: 4,
       }}
     >
@@ -302,7 +297,7 @@ export default function InventoryDetails({
               }
               title="Created By"
               value={
-                inventory.createdBy
+                inventory.createdBy || "-"
               }
             />
 
@@ -366,7 +361,7 @@ export default function InventoryDetails({
               }}
             >
               {
-                inventory.notes
+                inventory.notes || "-"
               }
             </Typography>
 

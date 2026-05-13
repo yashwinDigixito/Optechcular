@@ -61,27 +61,30 @@ export default async function InvoiceDetails({
   }
 
   return (
-    <Box sx={{ width: "100%", minHeight: "100vh", bgcolor: "#F8FAFC" }}>
-      <Box
-        sx={{
-          py: 2,
-          bgcolor: "#FFFFFF",
-          borderBottom: "1px solid #E2E8F0",
-        }}
-      >
+    <Box sx={{ width: "100%", minHeight: "100vh" }}>
+      <Box>
         <Container maxWidth="xl">
-          <Link href="/invoices" passHref style={{ textDecoration: "none" }}>
-            <Button
-              startIcon={<ArrowBackIcon />}
-              sx={{
-                color: "#64748B",
-                textTransform: "none",
-                fontWeight: 600,
-              }}
-            >
-              Back to Invoices
-            </Button>
-          </Link>
+          <Box>
+        <Link
+          href="/invoices"
+          style={{
+            textDecoration:
+              "none",
+          }}
+        >
+          <Button
+            startIcon={
+              <ArrowBackIcon />
+            }
+            sx={{
+              textTransform:"none",
+              fontWeight:600,
+            }}
+          >
+            Back
+          </Button>
+        </Link>
+      </Box>
         </Container>
       </Box>
 

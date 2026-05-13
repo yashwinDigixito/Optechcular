@@ -1,9 +1,21 @@
 "use client";
 
+import {
+  useState,
+} from "react";
+
+import {
+  ContactLens,
+} from "@/assets/types";
+
 import StatusChip from "@/component/common/StatusChip";
+
 import BlockIcon from "@mui/icons-material/Block";
+
 import EditIcon from "@mui/icons-material/Edit";
+
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
+
 import {
   Box,
   Chip,
@@ -17,258 +29,465 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
+
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 
 interface Props {
-  contactLenses: {
-    id: string;
-    productName: string;
-    productCode: string;
-    brand: string;
-    powerType: string;
-    modality: string;
-    material: string;
-    productType: string;
-    baseCurve: string;
-    diameter: string;
-    stock: number;
-    price: number;
-    status: string;
-    createdOn: string;
-  }[];
+
+  contactLenses:
+    ContactLens[];
 }
 
 export default function ContactLensTable({
   contactLenses,
 }: Props) {
-  const router = useRouter();
-  const [statusMap, setStatusMap] = useState<Record<string, string>>({});
+
+  const router =
+    useRouter();
+
+  const [statusMap, setStatusMap] =
+    useState<
+      Record<string, string>
+    >({});
+
   const handleToggleStatus = (
-  id: string
-) => {
-  setStatusMap((prev) => ({
-    ...prev,
-    [id]: prev[id] === "Active" ? "Inactive" : "Active",
-  }));
-};
+    id: string
+  ) => {
+
+    setStatusMap((prev) => ({
+
+      ...prev,
+
+      [id]:
+        (
+          prev[id] ||
+
+          contactLenses.find(
+            (lens) =>
+              lens.id === id
+          )?.status
+        ) === "Active"
+
+          ? "Inactive"
+
+          : "Active",
+    }));
+  };
+
   return (
     <TableContainer
-  sx={{
-    mt: 2,
-    borderRadius: "20px",
-    background: "#FFFFFF",
-    border: "1px solid #E2E8F0",
-    overflow: "hidden",
-    boxShadow: "0px 4px 20px rgba(15,23,42,0.04)",
-  }}
->
+      sx={{
+        mt: 2,
 
+        borderRadius:
+          "24px",
+
+        background:
+          "#FFFFFF",
+
+        border:
+          "1px solid #E2E8F0",
+
+        overflow:
+          "hidden",
+      }}
+    >
       <Table
         sx={{
-          minWidth: 1100,
+          minWidth: 1000,
+
           "& .MuiTableCell-root":
             {
-              py: 2,
-              borderColor: "#F1F5F9",
+              py: 2.2,
+
+              borderColor:
+                "#F1F5F9",
             },
         }}
       >
-
+        {/* TABLE HEAD */}
         <TableHead>
+
           <TableRow
             sx={{
-              background: "#F8FAFC",
-              "& .MuiTableCell-root":
-                {
-                  py: 2.2,
-                },
+              background:
+                "#F8FAFC",
             }}
           >
             <TableCell>
-              <Typography sx={{ fontWeight: 700 }}>
-                Product
+
+              <Typography
+                sx={{
+                  fontWeight:
+                    700,
+                }}
+              >
+                Lens Name
               </Typography>
+
             </TableCell>
+
             <TableCell>
-              <Typography sx={{ fontWeight: 700 }}>
-                Product Code
-              </Typography>
-            </TableCell>
-            <TableCell>
-              <Typography sx={{ fontWeight: 700 }}>
+
+              <Typography
+                sx={{
+                  fontWeight:
+                    700,
+                }}
+              >
                 Brand
               </Typography>
+
             </TableCell>
+
             <TableCell>
-              <Typography sx={{ fontWeight: 700 }}>
+
+              <Typography
+                sx={{
+                  fontWeight:
+                    700,
+                }}
+              >
                 Power Type
               </Typography>
+
             </TableCell>
+
             <TableCell>
-              <Typography sx={{ fontWeight: 700 }}>
+
+              <Typography
+                sx={{
+                  fontWeight:
+                    700,
+                }}
+              >
+                Modality
+              </Typography>
+
+            </TableCell>
+
+            <TableCell>
+
+              <Typography
+                sx={{
+                  fontWeight:
+                    700,
+                }}
+              >
                 Price
               </Typography>
+
             </TableCell>
+
             <TableCell>
-              <Typography sx={{ fontWeight: 700 }}>
-                Stock
-              </Typography>
-            </TableCell>
-            <TableCell>
-              <Typography sx={{ fontWeight: 700 }}>
+
+              <Typography
+                sx={{
+                  fontWeight:
+                    700,
+                }}
+              >
                 Status
               </Typography>
+
             </TableCell>
+
             <TableCell>
-              <Typography sx={{ fontWeight: 700 }}>
+
+              <Typography
+                sx={{
+                  fontWeight:
+                    700,
+                }}
+              >
                 Actions
               </Typography>
+
             </TableCell>
+
           </TableRow>
+
         </TableHead>
+
+        {/* TABLE BODY */}
         <TableBody>
-          {contactLenses.map((lens) => (
-            <TableRow
-              key={lens.id}
-              hover
-              sx={{
-                transition: "0.2s",
-                "&:hover": {
-                  background: "#F8FAFC",
-                },
-              }}
-            >
-              <TableCell>
-                <Box>
-                  <Typography
-                    sx={{
-                      fontWeight: 700,
-                      color: "#2563EB",
-                    }}
-                  >
-                    { lens.productName }
-                  </Typography>
-                  <Typography
-                    sx={{
-                      color: "#64748B",
-                      fontSize: "14px",
-                    }}
-                  >
-                    {
-                      lens.modality
-                    }{" "}
-                    •{" "}
-                    {
-                      lens.material
-                    }
-                  </Typography>
-                </Box>
-              </TableCell>
-              <TableCell>
-                <Chip
-                  label={
-                    lens.productCode
+
+          {contactLenses.map(
+            (
+              lens
+            ) => {
+
+              const currentStatus =
+
+                statusMap[
+                  lens.id
+                ] ||
+
+                lens.status;
+
+              return (
+
+                <TableRow
+                  key={
+                    lens.id
                   }
+                  hover
                   sx={{
-                    background: "#EFF6FF",
-                    color: "#2563EB",
-                    fontWeight: 700,
-                  }}
-                />
-              </TableCell>
-              <TableCell>
-                {lens.brand}
-              </TableCell>
-              <TableCell>
-                {lens.powerType}
-              </TableCell>
-              <TableCell>
-                <Typography
-                  sx={{
-                    fontWeight: 700,
+                    "&:hover":
+                      {
+                        background:
+                          "#F8FAFC",
+                      },
                   }}
                 >
-                  ₹ {lens.price}
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Chip
-                  label={`${lens.stock} pcs`}
-                  sx={{ background: lens.stock > 0 ? "#DCFCE7" : "#FEE2E2",
-                    color: lens.stock > 0 ? "#16A34A" : "#DC2626",
-                    fontWeight: 700,
-                  }}
-                />
-              </TableCell>
-              <TableCell>
-                <StatusChip status={ statusMap[lens.id] || lens.status}/>
-              </TableCell>
-              <TableCell>
-                <Box
-                  sx={{
-                    display: "flex",
-                    gap: 1,
-                  }}
-                >
-                  <Tooltip title="View">
-                    <IconButton
+                  {/* LENS NAME */}
+                  <TableCell>
+
+                    <Box>
+
+                      <Typography
+                        sx={{
+                          fontWeight:
+                            700,
+
+                          color:
+                            "#2563EB",
+                        }}
+                      >
+                        {
+                          lens.lensName
+                        }
+                      </Typography>
+
+                      <Typography
+                        sx={{
+                          fontSize:
+                            "13px",
+
+                          color:
+                            "#64748B",
+                        }}
+                      >
+                        {
+                          lens.productCode
+                        }
+                      </Typography>
+
+                    </Box>
+
+                  </TableCell>
+
+                  {/* BRAND */}
+                  <TableCell>
+
+                    <Typography
                       sx={{
-                        background: "#EFF6FF",
+                        color:
+                          "#475569",
+
+                        fontWeight:
+                          600,
                       }}
-                      onClick={() =>
-                        router.push(`/products/contact-lens/view/${lens.id}`)
-                      }
                     >
-                      <RemoveRedEyeOutlinedIcon />
-                    </IconButton>
-                  </Tooltip>
-                  <Tooltip title="Edit">
-                    <IconButton
-                      sx={{
-                        background: "#F8FAFC",
-                      }}
-                      onClick={() =>
-                        router.push(`/products/contact-lens/edit/${lens.id}`)
+                      {
+                        lens.brand
                       }
-                    >
-                      <EditIcon />
-                    </IconButton>
-                  </Tooltip>
-                  <Tooltip
-                    title={
-                    (
-                      statusMap[lens.id] ||
-                      lens.status
-                    ) === "Active"
-                        ? "Deactivate"
-                        : "Activate"
-                    }
-                  >
-                    <IconButton
+                    </Typography>
+
+                  </TableCell>
+
+                  {/* POWER TYPE */}
+                  <TableCell>
+
+                    <Chip
+                      label={
+                        lens.powerType
+                      }
                       sx={{
                         background:
-                          "#FEF2F2",
+                          "#EFF6FF",
+
+                        color:
+                          "#2563EB",
+
+                        fontWeight:
+                          600,
                       }}
-                      onClick={() =>
-                        handleToggleStatus(
-                          lens.id
-                        )
-                      }
+                    />
+
+                  </TableCell>
+
+                  {/* MODALITY */}
+                  <TableCell>
+
+                    <Typography
+                      sx={{
+                        color:
+                          "#475569",
+                      }}
                     >
-                      <BlockIcon
-                        sx={{
-                          color: "#DC2626",
-                        }}
-                      />
-                    </IconButton>
-                  </Tooltip>
-                </Box>
-              </TableCell>
-            </TableRow>
-          ))}
+                      {
+                        lens.modality
+                      }
+                    </Typography>
+
+                  </TableCell>
+
+                  {/* PRICE */}
+                  <TableCell>
+
+                    <Typography
+                      sx={{
+                        fontWeight:
+                          700,
+
+                        color:
+                          "#16A34A",
+                      }}
+                    >
+                      ₹{" "}
+                      {
+                        lens.sellingPrice.toLocaleString()
+                      }
+                    </Typography>
+
+                  </TableCell>
+
+                  {/* STATUS */}
+                  <TableCell>
+
+                    <StatusChip
+                      status={
+                        currentStatus
+                      }
+                    />
+
+                  </TableCell>
+
+                  {/* ACTIONS */}
+                  <TableCell>
+
+                    <Box
+                      sx={{
+                        display:
+                          "flex",
+
+                        gap: 1,
+                      }}
+                    >
+                      {/* VIEW */}
+                      <Tooltip title="View">
+
+                        <IconButton
+                          sx={{
+                            background:
+                              "#EFF6FF",
+
+                            "&:hover":
+                              {
+                                background:
+                                  "#DBEAFE",
+                              },
+                          }}
+                          onClick={() =>
+                            router.push(
+                              `/products/contact-lens/view/${lens.id}`
+                            )
+                          }
+                        >
+                          <RemoveRedEyeOutlinedIcon
+                            sx={{
+                              color:
+                                "#2563EB",
+                            }}
+                          />
+                        </IconButton>
+
+                      </Tooltip>
+
+                      {/* EDIT */}
+                      <Tooltip title="Edit">
+
+                        <IconButton
+                          sx={{
+                            background:
+                              "#F8FAFC",
+
+                            "&:hover":
+                              {
+                                background:
+                                  "#E2E8F0",
+                              },
+                          }}
+                          onClick={() =>
+                            router.push(
+                              `/products/contact-lens/edit/${lens.id}`
+                            )
+                          }
+                        >
+                          <EditIcon
+                            sx={{
+                              color:
+                                "#0F172A",
+                            }}
+                          />
+                        </IconButton>
+
+                      </Tooltip>
+
+                      {/* STATUS */}
+                      <Tooltip
+                        title={
+                          currentStatus ===
+                          "Active"
+                            ? "Deactivate"
+                            : "Activate"
+                        }
+                      >
+                        <IconButton
+                          sx={{
+                            background:
+                              currentStatus ===
+                              "Active"
+
+                                ? "#FEF2F2"
+
+                                : "#DCFCE7",
+                          }}
+                          onClick={() =>
+                            handleToggleStatus(
+                              lens.id
+                            )
+                          }
+                        >
+                          <BlockIcon
+                            sx={{
+                              color:
+                                currentStatus ===
+                                "Active"
+
+                                  ? "#DC2626"
+
+                                  : "#16A34A",
+                            }}
+                          />
+                        </IconButton>
+
+                      </Tooltip>
+
+                    </Box>
+
+                  </TableCell>
+
+                </TableRow>
+              );
+            }
+          )}
+
         </TableBody>
+
       </Table>
+
     </TableContainer>
   );
 }

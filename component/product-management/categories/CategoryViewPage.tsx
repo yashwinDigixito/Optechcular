@@ -58,14 +58,11 @@ export default async function CategoryViewPage({
   }
 
   return (
-    <Box sx={{ width: "100%", minHeight: "100vh", bgcolor: "#F8FAFC" }}>
-      <Box
-       
-      >
+    <Box sx={{ width: "100%", minHeight: "100vh" }}>
         <Container maxWidth="xl">
-          <Box sx={{ mb: 3 }}>
+      <Box>
         <Link
-          href="/product/categories"
+          href="/products/categories"
           style={{
             textDecoration:
               "none",
@@ -85,7 +82,6 @@ export default async function CategoryViewPage({
         </Link>
       </Box>
         </Container>
-      </Box>
 
       <Container maxWidth="xl" sx={{ py: 4 }}>
         <Box sx={{ mb: 4 }}>

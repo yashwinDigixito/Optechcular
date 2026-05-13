@@ -35,7 +35,6 @@ export default async function RimShapeViewPage({
       <Box
         sx={{
           minHeight: "100vh",
-          bgcolor: "#F8FAFC",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -72,9 +71,9 @@ export default async function RimShapeViewPage({
       {/* TOP BAR */}
       <Box >
         <Container maxWidth="xl">
-          <Box sx={{ mb: 3 }}>
+          <Box>
         <Link
-          href="/product/rim-shapes"
+          href="/products/rim-shapes"
           style={{
             textDecoration:
               "none",

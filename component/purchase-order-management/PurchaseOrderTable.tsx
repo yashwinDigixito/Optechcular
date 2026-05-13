@@ -1,6 +1,8 @@
 "use client";
 
-import { PurchaseOrder } from "@/assets/types";
+import {
+  PurchaseOrder,
+} from "@/assets/types";
 
 import EditIcon from "@mui/icons-material/Edit";
 
@@ -38,16 +40,35 @@ export default function PurchaseOrderTable({
   return (
     <TableContainer
       sx={{
+        mt: 2,
+
         borderRadius:
-          "20px",
+          "24px",
+
+        background:
+          "#FFFFFF",
 
         border:
           "1px solid #E2E8F0",
+
+        overflow:
+          "hidden",
       }}
     >
-      <Table>
+      <Table
+        sx={{
+          minWidth: 1000,
 
-        {/* HEAD */}
+          "& .MuiTableCell-root":
+            {
+              py: 2.2,
+
+              borderColor:
+                "#F1F5F9",
+            },
+        }}
+      >
+        {/* TABLE HEAD */}
         <TableHead>
 
           <TableRow
@@ -57,111 +78,224 @@ export default function PurchaseOrderTable({
             }}
           >
             <TableCell>
-              <Typography sx={{fontWeight:700}}>
-                PO Number
+
+              <Typography
+                sx={{
+                  fontWeight:
+                    700,
+                }}
+              >
+                Purchase No
               </Typography>
+
             </TableCell>
 
             <TableCell>
-              <Typography sx={{fontWeight:700}}>
+
+              <Typography
+                sx={{
+                  fontWeight:
+                    700,
+                }}
+              >
                 Vendor
               </Typography>
+
             </TableCell>
 
             <TableCell>
-              <Typography sx={{fontWeight:700}}>
+
+              <Typography
+                sx={{
+                  fontWeight:
+                    700,
+                }}
+              >
                 Product
               </Typography>
+
             </TableCell>
 
             <TableCell>
-              <Typography sx={{fontWeight:700}}>
-                Quantity
-              </Typography>
-            </TableCell>
 
-            <TableCell>
-              <Typography sx={{fontWeight:700}}>
+              <Typography
+                sx={{
+                  fontWeight:
+                    700,
+                }}
+              >
                 Amount
               </Typography>
+
             </TableCell>
 
             <TableCell>
-              <Typography sx={{fontWeight:700}}>
+
+              <Typography
+                sx={{
+                  fontWeight:
+                    700,
+                }}
+              >
                 Payment
               </Typography>
+
             </TableCell>
 
             <TableCell>
-              <Typography sx={{fontWeight:700}}>
+
+              <Typography
+                sx={{
+                  fontWeight:
+                    700,
+                }}
+              >
                 Status
               </Typography>
+
             </TableCell>
 
             <TableCell>
-              <Typography sx={{fontWeight:700}}>
+
+              <Typography
+                sx={{
+                  fontWeight:
+                    700,
+                }}
+              >
                 Actions
               </Typography>
+
             </TableCell>
 
           </TableRow>
 
         </TableHead>
 
-        {/* BODY */}
+        {/* TABLE BODY */}
         <TableBody>
 
           {purchaseOrders.map(
-            (po) => (
+            (
+              po
+            ) => (
 
               <TableRow
                 key={po.id}
                 hover
+                sx={{
+                  "&:hover":
+                    {
+                      background:
+                        "#F8FAFC",
+                    },
+                }}
               >
+                {/* PURCHASE NO */}
+                <TableCell>
+
+                  <Box>
+
+                    <Typography
+                      sx={{
+                        color:
+                          "#2563EB",
+
+                        fontWeight:
+                          700,
+                      }}
+                    >
+                      {
+                        po.purchaseNo
+                      }
+                    </Typography>
+
+                    <Typography
+                      sx={{
+                        fontSize:
+                          "13px",
+
+                        color:
+                          "#64748B",
+                      }}
+                    >
+                      {
+                        po.orderDate
+                      }
+                    </Typography>
+
+                  </Box>
+
+                </TableCell>
+
+                {/* VENDOR */}
                 <TableCell>
 
                   <Typography
                     sx={{
-                      color:
-                        "#2563EB",
-
                       fontWeight:
-                        700,
+                        600,
+
+                      color:
+                        "#475569",
                     }}
                   >
                     {
-                      po.poNumber
+                      po.vendorName
                     }
                   </Typography>
 
                 </TableCell>
 
+                {/* PRODUCT */}
                 <TableCell>
-                  {
-                    po.vendorName
-                  }
+
+                  <Box>
+
+                    <Typography
+                      sx={{
+                        fontWeight:
+                          600,
+                      }}
+                    >
+                      {
+                        po.productName
+                      }
+                    </Typography>
+
+                    <Typography
+                      sx={{
+                        fontSize:
+                          "13px",
+
+                        color:
+                          "#64748B",
+                      }}
+                    >
+                      {
+                        po.brand
+                      }
+                    </Typography>
+
+                  </Box>
+
                 </TableCell>
 
-                <TableCell>
-                  {
-                    po.productName
-                  }
-                </TableCell>
-
-                <TableCell>
-                  {
-                    po.quantity
-                  }
-                </TableCell>
-
+                {/* AMOUNT */}
                 <TableCell>
 
                   <Typography
-                    sx={{fontWeight:700}}
+                    sx={{
+                      fontWeight:
+                        700,
+
+                      color:
+                        "#16A34A",
+                    }}
                   >
-                    ₹
+                    ₹{" "}
                     {
-                      po.totalAmount
+                      po.grandTotal.toLocaleString()
                     }
                   </Typography>
 
@@ -187,7 +321,12 @@ export default function PurchaseOrderTable({
 
                           ? "#FEF3C7"
 
-                          : "#DBEAFE",
+                          : po.paymentStatus ===
+                            "Partial"
+
+                          ? "#DBEAFE"
+
+                          : "#FEE2E2",
 
                       color:
                         po.paymentStatus ===
@@ -200,7 +339,12 @@ export default function PurchaseOrderTable({
 
                           ? "#B45309"
 
-                          : "#2563EB",
+                          : po.paymentStatus ===
+                            "Partial"
+
+                          ? "#2563EB"
+
+                          : "#DC2626",
 
                       fontWeight:
                         700,
@@ -214,31 +358,31 @@ export default function PurchaseOrderTable({
 
                   <Chip
                     label={
-                      po.poStatus
+                      po.status
                     }
                     size="small"
                     sx={{
                       bgcolor:
-                        po.poStatus ===
-                        "Delivered"
+                        po.status ===
+                        "Received"
 
                           ? "#DCFCE7"
 
-                          : po.poStatus ===
-                            "Processing"
+                          : po.status ===
+                            "Ordered"
 
                           ? "#DBEAFE"
 
                           : "#FEF3C7",
 
                       color:
-                        po.poStatus ===
-                        "Delivered"
+                        po.status ===
+                        "Received"
 
                           ? "#15803D"
 
-                          : po.poStatus ===
-                            "Processing"
+                          : po.status ===
+                            "Ordered"
 
                           ? "#2563EB"
 
@@ -251,6 +395,7 @@ export default function PurchaseOrderTable({
 
                 </TableCell>
 
+                {/* ACTIONS */}
                 <TableCell>
 
                   <Box
