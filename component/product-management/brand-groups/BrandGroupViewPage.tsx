@@ -1,4 +1,3 @@
-import React, { ReactNode } from "react";
 import Link from "next/link";
 
 import {
@@ -12,14 +11,14 @@ import {
 } from "@mui/material";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import BadgeOutlinedIcon from "@mui/icons-material/BadgeOutlined";
 import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
-import ReceiptLongOutlinedIcon from "@mui/icons-material/ReceiptLongOutlined";
+import MailOutlineOutlinedIcon from "@mui/icons-material/MailOutlineOutlined";
 import PaymentsOutlinedIcon from "@mui/icons-material/PaymentsOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
-import MailOutlineOutlinedIcon from "@mui/icons-material/MailOutlineOutlined";
 import PhoneOutlinedIcon from "@mui/icons-material/PhoneOutlined";
-import BadgeOutlinedIcon from "@mui/icons-material/BadgeOutlined";
+import ReceiptLongOutlinedIcon from "@mui/icons-material/ReceiptLongOutlined";
 
 import { brandGroups } from "@/assets/genericdata";
 import { IconLine, InfoLine, SideCard } from "@/component/common/ViewPage";
@@ -61,23 +60,32 @@ export default async function BrandGroupViewPage({
   }
 
   return (
-    <Box sx={{ width: "100%", minHeight: "100vh", bgcolor: "#F8FAFC" }}>
+    <Box sx={{ width: "100%", minHeight: "100vh" }}>
       <Box
         
       >
         <Container maxWidth="xl">
-          <Link href="/brand-groups" passHref style={{ textDecoration: "none" }}>
-            <Button
-              startIcon={<ArrowBackIcon />}
-              sx={{
-                color: "#64748B",
-                textTransform: "none",
-                fontWeight: 600,
-              }}
-            >
-              Back to Brand Groups
-            </Button>
-          </Link>
+          <Box sx={{ mb: 3 }}>
+        <Link
+          href="/products/brand-groups"
+          style={{
+            textDecoration:
+              "none",
+          }}
+        >
+          <Button
+            startIcon={
+              <ArrowBackIcon />
+            }
+            sx={{
+              textTransform:"none",
+              fontWeight:600,
+            }}
+          >
+            Back
+          </Button>
+        </Link>
+      </Box>
         </Container>
       </Box>
 

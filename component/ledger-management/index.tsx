@@ -1,25 +1,25 @@
 "use client";
 
 import {
-    ledgers,
+  ledgers,
 } from "@/assets/genericdata";
 
 import {
-    Ledger,
+  Ledger,
 } from "@/assets/types";
 
 import AddIcon from "@mui/icons-material/Add";
 
 import {
-    Box,
-    Button,
-    Typography,
+  Box,
+  Button,
+  Typography,
 } from "@mui/material";
 
 import { useRouter } from "next/navigation";
 
 import {
-    useState,
+  useState,
 } from "react";
 
 import TableContainerCard from "@/component/common/TableContainerCard";
@@ -105,22 +105,42 @@ export default function LedgerManagementPage() {
             "center",
 
           mb: 3,
+
+          flexWrap:
+            "wrap",
+
+          gap: 2,
         }}
       >
-        <Typography
-          sx={{
-            fontSize:
-              "32px",
+        <Box>
 
-            fontWeight:
-              700,
+          <Typography
+            sx={{
+              fontSize:
+                "32px",
 
-            color:
-              "#0F172A",
-          }}
-        >
-          Ledger Management
-        </Typography>
+              fontWeight:
+                700,
+
+              color:
+                "#0F172A",
+            }}
+          >
+            Ledger Management
+          </Typography>
+
+          <Typography
+            sx={{
+              color:
+                "#64748B",
+
+              mt: 0.5,
+            }}
+          >
+            Manage ledger accounts and balances
+          </Typography>
+
+        </Box>
 
         <Button
           variant="contained"

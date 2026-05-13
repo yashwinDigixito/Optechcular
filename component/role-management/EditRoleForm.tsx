@@ -1,20 +1,21 @@
 "use client";
 
 import {
-    useState,
+  useState,
 } from "react";
 
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import {
-    Box,
-    Button,
-    Checkbox,
-    Divider,
-    FormControlLabel,
-    MenuItem,
-    TextField,
-    Typography,
+  Box,
+  Button,
+  Checkbox,
+  Divider,
+  FormControlLabel,
+  MenuItem,
+  TextField,
+  Typography,
 } from "@mui/material";
-
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 const permissionGroups = [
@@ -164,6 +165,34 @@ export default function EditRoleForm({
         p: 3,
       }}
     >
+      {/* BACK */}
+      <Box sx={{ mb: 3 }}>
+      
+        <Link
+          href="/roles"
+          style={{
+            textDecoration:
+              "none",
+          }}
+        >
+          <Button
+            startIcon={
+              <ArrowBackIcon />
+            }
+            sx={{
+              textTransform:
+                "none",
+      
+              fontWeight:
+                600,
+            }}
+          >
+            Back to Roles
+          </Button>
+      
+        </Link>
+      
+      </Box>
       <Box
         sx={{
           background:

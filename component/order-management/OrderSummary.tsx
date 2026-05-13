@@ -110,19 +110,16 @@ export default function OrderSummary({
 
         minHeight:
           "100vh",
-
-        bgcolor:
-          "#F8FAFC",
       }}
     >
       {/* TOP */}
       <Box
         sx={{
           py: 2,
-
           px: 3,
         }}
       >
+        <Box sx={{ mb: 3 }}>
         <Link
           href="/orders"
           style={{
@@ -135,17 +132,14 @@ export default function OrderSummary({
               <ArrowBackIcon />
             }
             sx={{
-              textTransform:
-                "none",
-
-              fontWeight: 600,
+              textTransform:"none",
+              fontWeight:600,
             }}
           >
             Back to Orders
           </Button>
-
         </Link>
-
+      </Box>
       </Box>
 
       <Container

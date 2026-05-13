@@ -1,22 +1,23 @@
 "use client";
 
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import {
-    useState,
+  Box,
+  Button,
+  Card,
+  Grid,
+  MenuItem,
+  TextField,
+  Typography,
+} from "@mui/material";
+import {
+  useState,
 } from "react";
 
 import {
-    Box,
-    Button,
-    Card,
-    Grid,
-    MenuItem,
-    TextField,
-    Typography,
-} from "@mui/material";
-
-import {
-    brands,
+  brands,
 } from "@/assets/genericdata";
+import Link from "next/link";
 
 export default function EditBrandPage({
   params,
@@ -85,6 +86,27 @@ export default function EditBrandPage({
         p: 3,
       }}
     >
+      <Box sx={{ mb: 3 }}>
+        <Link
+          href="/products/brands"
+          style={{
+            textDecoration:
+              "none",
+          }}
+        >
+          <Button
+            startIcon={
+              <ArrowBackIcon />
+            }
+            sx={{
+              textTransform:"none",
+              fontWeight:600,
+            }}
+          >
+            Back
+          </Button>
+        </Link>
+      </Box>
       {/* TITLE */}
       <Typography
         sx={{

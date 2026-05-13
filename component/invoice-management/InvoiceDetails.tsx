@@ -9,13 +9,13 @@ import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
 import PrintOutlinedIcon from "@mui/icons-material/PrintOutlined";
 
 import {
-    Box,
-    Button,
-    Card,
-    Chip,
-    Divider,
-    Stack,
-    Typography,
+  Box,
+  Button,
+  Card,
+  Chip,
+  Divider,
+  Stack,
+  Typography,
 } from "@mui/material";
 
 import { Invoice } from "@/assets/types";
@@ -62,27 +62,27 @@ export default function InvoiceDetails({
         {/* LEFT */}
         <Box>
 
-          <Link
-            href="/invoices"
-            style={{
-              textDecoration:
-                "none",
+          <Box sx={{ mb: 3 }}>
+        <Link
+          href="/invoices"
+          style={{
+            textDecoration:
+              "none",
+          }}
+        >
+          <Button
+            startIcon={
+              <ArrowBackIcon />
+            }
+            sx={{
+              textTransform:"none",
+              fontWeight:600,
             }}
           >
-            <Button
-              startIcon={
-                <ArrowBackIcon />
-              }
-              sx={{
-                mb: 2,
-
-                textTransform:
-                  "none",
-              }}
-            >
-              Back to Invoices
-            </Button>
-          </Link>
+            Back
+          </Button>
+        </Link>
+      </Box>
 
           <Typography
             sx={{

@@ -1,7 +1,7 @@
 "use client";
 
 import {
-    Expense,
+  Expense,
 } from "@/assets/types";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -15,13 +15,13 @@ import PaymentsOutlinedIcon from "@mui/icons-material/PaymentsOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 
 import {
-    Box,
-    Button,
-    Chip,
-    Container,
-    Divider,
-    Stack,
-    Typography,
+  Box,
+  Button,
+  Chip,
+  Container,
+  Divider,
+  Stack,
+  Typography,
 } from "@mui/material";
 
 import Link from "next/link";
@@ -51,6 +51,7 @@ export default function ExpenseDetails({
           p: 3,
         }}
       >
+      <Box sx={{ mb: 3 }}>
         <Link
           href="/expenses"
           style={{
@@ -62,12 +63,15 @@ export default function ExpenseDetails({
             startIcon={
               <ArrowBackIcon />
             }
+            sx={{
+              textTransform:"none",
+              fontWeight:600,
+            }}
           >
-            Back to Expenses
+            Back
           </Button>
-
         </Link>
-
+      </Box>
       </Box>
 
       <Container

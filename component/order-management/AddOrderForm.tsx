@@ -1,18 +1,20 @@
 "use client";
 
 import {
-    useState,
+  useState,
 } from "react";
 
 import {
-    Box,
-    Button,
-    Grid,
-    MenuItem,
-    TextField,
-    Typography,
+  Box,
+  Button,
+  Grid,
+  MenuItem,
+  TextField,
+  Typography,
 } from "@mui/material";
 
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export default function AddOrderForm() {
@@ -79,6 +81,27 @@ export default function AddOrderForm() {
         p: 3,
       }}
     >
+    <Box sx={{ mb: 3 }}>
+        <Link
+          href="/orders"
+          style={{
+            textDecoration:
+              "none",
+          }}
+        >
+          <Button
+            startIcon={
+              <ArrowBackIcon />
+            }
+            sx={{
+              textTransform:"none",
+              fontWeight:600,
+            }}
+          >
+            Back to Orders
+          </Button>
+        </Link>
+      </Box>
       <Box
         sx={{
           background:

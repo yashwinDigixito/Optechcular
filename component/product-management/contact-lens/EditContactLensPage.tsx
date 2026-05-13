@@ -1,23 +1,24 @@
 "use client";
 
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import {
-    useEffect,
-    useState,
+  Box,
+  Button,
+  Card,
+  Grid,
+  MenuItem,
+  TextField,
+  Typography,
+} from "@mui/material";
+import {
+  useEffect,
+  useState,
 } from "react";
 
 import {
-    Box,
-    Button,
-    Card,
-    Grid,
-    MenuItem,
-    TextField,
-    Typography,
-} from "@mui/material";
-
-import {
-    contactLenses,
+  contactLenses,
 } from "@/assets/genericdata";
+import Link from "next/link";
 
 export default function EditContactLensPage({
   params,
@@ -91,7 +92,7 @@ export default function EditContactLensPage({
 
             price:
               String(
-                lens.price
+                lens.mrp
               ),
 
             status:
@@ -115,7 +116,27 @@ export default function EditContactLensPage({
 
   return (
     <Box sx={{ p: 3 }}>
-
+      <Box sx={{ mb: 3 }}>
+        <Link
+          href="/product/contact-lens"
+          style={{
+            textDecoration:
+              "none",
+          }}
+        >
+          <Button
+            startIcon={
+              <ArrowBackIcon />
+            }
+            sx={{
+              textTransform:"none",
+              fontWeight:600,
+            }}
+          >
+            Back
+          </Button>
+        </Link>
+      </Box>
       <Typography
         sx={{
           fontSize: "32px",

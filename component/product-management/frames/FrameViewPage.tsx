@@ -1,4 +1,3 @@
-import React, { ReactNode } from "react";
 import Link from "next/link";
 
 import {
@@ -14,18 +13,17 @@ import {
 } from "@mui/material";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
-import StraightenOutlinedIcon from "@mui/icons-material/StraightenOutlined";
-import PaletteOutlinedIcon from "@mui/icons-material/PaletteOutlined";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
+import PaletteOutlinedIcon from "@mui/icons-material/PaletteOutlined";
 import PaymentsOutlinedIcon from "@mui/icons-material/PaymentsOutlined";
+import StraightenOutlinedIcon from "@mui/icons-material/StraightenOutlined";
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import WarehouseOutlinedIcon from "@mui/icons-material/WarehouseOutlined";
-import QrCode2OutlinedIcon from "@mui/icons-material/QrCode2Outlined";
 
 import {
+  categories,
   frames,
   frameVariants,
-  categories,
 } from "@/assets/genericdata";
 import { IconLine, InfoLine, SideCard } from "@/component/common/ViewPage";
 
@@ -92,36 +90,32 @@ export default async function FrameViewPage({
       sx={{
         width: "100%",
         minHeight: "100vh",
-        bgcolor: "#F8FAFC",
       }}
     >
       {/* HEADER */}
-      <Box
-       
-      >
+      <Box>
         <Container maxWidth="xl">
-          <Link
-            href="/products/frames"
-            passHref
-            style={{
-              textDecoration:
-                "none",
+          <Box sx={{ mb: 3 }}>
+        <Link
+          href="/product/frames"
+          style={{
+            textDecoration:
+              "none",
+          }}
+        >
+          <Button
+            startIcon={
+              <ArrowBackIcon />
+            }
+            sx={{
+              textTransform:"none",
+              fontWeight:600,
             }}
           >
-            <Button
-              startIcon={
-                <ArrowBackIcon />
-              }
-              sx={{
-                color: "#64748B",
-                textTransform:
-                  "none",
-                fontWeight: 600,
-              }}
-            >
-              Back to Frames
-            </Button>
-          </Link>
+            Back
+          </Button>
+        </Link>
+      </Box>
         </Container>
       </Box>
 

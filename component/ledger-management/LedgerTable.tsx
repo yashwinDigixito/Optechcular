@@ -1,7 +1,7 @@
 "use client";
 
 import {
-    Ledger,
+  Ledger,
 } from "@/assets/types";
 
 import EditIcon from "@mui/icons-material/Edit";
@@ -9,17 +9,17 @@ import EditIcon from "@mui/icons-material/Edit";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 
 import {
-    Box,
-    Chip,
-    IconButton,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
-    Tooltip,
-    Typography,
+  Box,
+  Chip,
+  IconButton,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Tooltip,
+  Typography,
 } from "@mui/material";
 
 import { useRouter } from "next/navigation";
@@ -41,14 +41,30 @@ export default function LedgerTable({
     <TableContainer
       sx={{
         borderRadius:
-          "20px",
+          "24px",
 
         border:
           "1px solid #E2E8F0",
+
+        overflow:
+          "hidden",
+
+        background:
+          "#FFFFFF",
       }}
     >
-      <Table>
+      <Table
+        sx={{
+          "& .MuiTableCell-root":
+            {
+              py: 2,
 
+              borderColor:
+                "#F1F5F9",
+            },
+        }}
+      >
+        {/* TABLE HEAD */}
         <TableHead>
 
           <TableRow
@@ -58,37 +74,49 @@ export default function LedgerTable({
             }}
           >
             <TableCell>
-              <Typography sx={{fontWeight:700}}>
+              <Typography sx={{ fontWeight: 700 }}>
                 Ledger Name
               </Typography>
             </TableCell>
 
             <TableCell>
-              <Typography sx={{fontWeight:700}}>
+              <Typography sx={{ fontWeight: 700 }}>
                 Group
               </Typography>
             </TableCell>
 
             <TableCell>
-              <Typography sx={{fontWeight:700}}>
+              <Typography sx={{ fontWeight: 700 }}>
+                Opening Balance
+              </Typography>
+            </TableCell>
+
+            <TableCell>
+              <Typography sx={{ fontWeight: 700 }}>
                 Balance Type
               </Typography>
             </TableCell>
 
             <TableCell>
-              <Typography sx={{fontWeight:700}}>
+              <Typography sx={{ fontWeight: 700 }}>
                 Current Balance
               </Typography>
             </TableCell>
 
             <TableCell>
-              <Typography sx={{fontWeight:700}}>
+              <Typography sx={{ fontWeight: 700 }}>
                 Status
               </Typography>
             </TableCell>
 
             <TableCell>
-              <Typography sx={{fontWeight:700}}>
+              <Typography sx={{ fontWeight: 700 }}>
+                Created On
+              </Typography>
+            </TableCell>
+
+            <TableCell>
+              <Typography sx={{ fontWeight: 700 }}>
                 Actions
               </Typography>
             </TableCell>
@@ -97,6 +125,7 @@ export default function LedgerTable({
 
         </TableHead>
 
+        {/* TABLE BODY */}
         <TableBody>
 
           {ledgers.map(
@@ -105,16 +134,22 @@ export default function LedgerTable({
               <TableRow
                 key={ledger.id}
                 hover
+                sx={{
+                  "&:hover": {
+                    background:
+                      "#F8FAFC",
+                  },
+                }}
               >
+                {/* LEDGER NAME */}
                 <TableCell>
 
                   <Typography
                     sx={{
+                      fontWeight: 700,
+
                       color:
                         "#2563EB",
-
-                      fontWeight:
-                        700,
                     }}
                   >
                     {
@@ -124,12 +159,38 @@ export default function LedgerTable({
 
                 </TableCell>
 
+                {/* GROUP */}
                 <TableCell>
-                  {
-                    ledger.ledgerGroup
-                  }
+
+                  <Typography
+                    sx={{
+                      fontWeight: 600,
+                    }}
+                  >
+                    {
+                      ledger.ledgerGroup
+                    }
+                  </Typography>
+
                 </TableCell>
 
+                {/* OPENING BALANCE */}
+                <TableCell>
+
+                  <Typography
+                    sx={{
+                      fontWeight: 700,
+                    }}
+                  >
+                    ₹
+                    {
+                      ledger.openingBalance.toLocaleString()
+                    }
+                  </Typography>
+
+                </TableCell>
+
+                {/* BALANCE TYPE */}
                 <TableCell>
 
                   <Chip
@@ -138,7 +199,7 @@ export default function LedgerTable({
                     }
                     size="small"
                     sx={{
-                      bgcolor:
+                      background:
                         ledger.balanceType ===
                         "Debit"
 
@@ -154,17 +215,22 @@ export default function LedgerTable({
 
                           : "#15803D",
 
-                      fontWeight:
-                        700,
+                      fontWeight: 700,
+
+                      borderRadius:
+                        "8px",
                     }}
                   />
 
                 </TableCell>
 
+                {/* CURRENT BALANCE */}
                 <TableCell>
 
                   <Typography
-                    sx={{fontWeight:700}}
+                    sx={{
+                      fontWeight: 700,
+                    }}
                   >
                     ₹
                     {
@@ -174,6 +240,7 @@ export default function LedgerTable({
 
                 </TableCell>
 
+                {/* STATUS */}
                 <TableCell>
 
                   <Chip
@@ -182,7 +249,7 @@ export default function LedgerTable({
                     }
                     size="small"
                     sx={{
-                      bgcolor:
+                      background:
                         ledger.status ===
                         "Active"
 
@@ -198,13 +265,32 @@ export default function LedgerTable({
 
                           : "#DC2626",
 
-                      fontWeight:
-                        700,
+                      fontWeight: 700,
+
+                      borderRadius:
+                        "8px",
                     }}
                   />
 
                 </TableCell>
 
+                {/* CREATED ON */}
+                <TableCell>
+
+                  <Typography
+                    sx={{
+                      color:
+                        "#64748B",
+                    }}
+                  >
+                    {
+                      ledger.createdOn
+                    }
+                  </Typography>
+
+                </TableCell>
+
+                {/* ACTIONS */}
                 <TableCell>
 
                   <Box
@@ -215,30 +301,62 @@ export default function LedgerTable({
                       gap: 1,
                     }}
                   >
+                    {/* VIEW */}
                     <Tooltip title="View">
 
                       <IconButton
+                        sx={{
+                          background:
+                            "#EFF6FF",
+
+                          "&:hover":
+                            {
+                              background:
+                                "#DBEAFE",
+                            },
+                        }}
                         onClick={() =>
                           router.push(
                             `/ledgers/view/${ledger.id}`
                           )
                         }
                       >
-                        <RemoveRedEyeOutlinedIcon />
+                        <RemoveRedEyeOutlinedIcon
+                          sx={{
+                            color:
+                              "#2563EB",
+                          }}
+                        />
                       </IconButton>
 
                     </Tooltip>
 
+                    {/* EDIT */}
                     <Tooltip title="Edit">
 
                       <IconButton
+                        sx={{
+                          background:
+                            "#F8FAFC",
+
+                          "&:hover":
+                            {
+                              background:
+                                "#E2E8F0",
+                            },
+                        }}
                         onClick={() =>
                           router.push(
                             `/ledgers/edit/${ledger.id}`
                           )
                         }
                       >
-                        <EditIcon />
+                        <EditIcon
+                          sx={{
+                            color:
+                              "#0F172A",
+                          }}
+                        />
                       </IconButton>
 
                     </Tooltip>

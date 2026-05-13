@@ -1,11 +1,11 @@
 "use client";
 
 import {
-    Box,
-    Button,
-    Chip,
-    Divider,
-    Typography,
+  Box,
+  Button,
+  Chip,
+  Divider,
+  Typography,
 } from "@mui/material";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -13,7 +13,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Link from "next/link";
 
 import {
-    customers,
+  customers,
 } from "@/assets/genericdata";
 
 import StatusChip from "@/component/common/StatusChip";
@@ -36,30 +36,27 @@ export default function CustomerDetails({
         p: 3,
       }}
     >
-      {/* BACK BUTTON */}
-      <Link
-        href="/customers"
-        style={{
-          textDecoration:
-            "none",
-        }}
-      >
-        <Button
-          startIcon={
-            <ArrowBackIcon />
-          }
-          sx={{
-            mb: 3,
-
-            textTransform:
+      <Box sx={{ mb: 3 }}>
+        <Link
+          href="/customers"
+          style={{
+            textDecoration:
               "none",
-
-            fontWeight: 600,
           }}
         >
-          Back to Customers
-        </Button>
-      </Link>
+          <Button
+            startIcon={
+              <ArrowBackIcon />
+            }
+            sx={{
+              textTransform:"none",
+              fontWeight:600,
+            }}
+          >
+            Back
+          </Button>
+        </Link>
+      </Box>
 
       {/* CARD */}
       <Box

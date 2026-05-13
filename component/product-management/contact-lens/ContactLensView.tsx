@@ -1,4 +1,3 @@
-import React, { ReactNode } from "react";
 import Link from "next/link";
 
 import {
@@ -8,23 +7,22 @@ import {
   Card,
   Chip,
   Container,
-  Grid,
   Stack,
-  Typography,
+  Typography
 } from "@mui/material";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
-import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import ColorLensOutlinedIcon from "@mui/icons-material/ColorLensOutlined";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
 import PaymentsOutlinedIcon from "@mui/icons-material/PaymentsOutlined";
-import WarehouseOutlinedIcon from "@mui/icons-material/WarehouseOutlined";
 import QrCode2OutlinedIcon from "@mui/icons-material/QrCode2Outlined";
+import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import WarehouseOutlinedIcon from "@mui/icons-material/WarehouseOutlined";
 
 import { contactLenses } from "@/assets/genericdata";
-import { IconLine, InfoLine, SideCard } from "@/component/common/ViewPage";
 import StatusChip from "@/component/common/StatusChip";
+import { IconLine, InfoLine, SideCard } from "@/component/common/ViewPage";
 
 export default async function ContactLensViewPage({
   params,
@@ -80,22 +78,27 @@ export default async function ContactLensViewPage({
       {/* TOP BAR */}
       <Box>
         <Container maxWidth="xl">
-          <Link
-            href="/products/contact-lens"
-            passHref
-            style={{ textDecoration: "none" }}
+          <Box sx={{ mb: 3 }}>
+        <Link
+          href="/product/contact-lens"
+          style={{
+            textDecoration:
+              "none",
+          }}
+        >
+          <Button
+            startIcon={
+              <ArrowBackIcon />
+            }
+            sx={{
+              textTransform:"none",
+              fontWeight:600,
+            }}
           >
-            <Button
-              startIcon={<ArrowBackIcon />}
-              sx={{
-                color: "#64748B",
-                textTransform: "none",
-                fontWeight: 600,
-              }}
-            >
-              Back to Contact Lens
-            </Button>
-          </Link>
+            Back
+          </Button>
+        </Link>
+      </Box>
         </Container>
       </Box>
 

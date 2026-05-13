@@ -1,7 +1,7 @@
 "use client";
 
 import {
-    PurchaseOrder,
+  PurchaseOrder,
 } from "@/assets/types";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -15,13 +15,13 @@ import MailOutlineOutlinedIcon from "@mui/icons-material/MailOutlineOutlined";
 import PhoneOutlinedIcon from "@mui/icons-material/PhoneOutlined";
 
 import {
-    Box,
-    Button,
-    Chip,
-    Container,
-    Divider,
-    Stack,
-    Typography,
+  Box,
+  Button,
+  Chip,
+  Container,
+  Divider,
+  Stack,
+  Typography,
 } from "@mui/material";
 
 import Link from "next/link";
@@ -41,9 +41,6 @@ export default function PurchaseOrderDetails({
       sx={{
         minHeight:
           "100vh",
-
-        bgcolor:
-          "#F8FAFC",
       }}
     >
       {/* TOP */}
@@ -52,6 +49,7 @@ export default function PurchaseOrderDetails({
           p: 3,
         }}
       >
+        <Box sx={{ mb: 3 }}>
         <Link
           href="/purchase-orders"
           style={{
@@ -63,12 +61,15 @@ export default function PurchaseOrderDetails({
             startIcon={
               <ArrowBackIcon />
             }
+            sx={{
+              textTransform:"none",
+              fontWeight:600,
+            }}
           >
             Back to Purchase Orders
           </Button>
-
         </Link>
-
+      </Box>
       </Box>
 
       <Container

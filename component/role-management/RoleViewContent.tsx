@@ -1,16 +1,22 @@
 "use client";
 
 import { roles } from "@/assets/genericdata";
+
 import StatusChip from "@/component/common/StatusChip";
+
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+
 import {
   Box,
   Button,
   Chip,
+  Container,
   Divider,
   Typography,
 } from "@mui/material";
+
 import Link from "next/link";
+
 export default function RoleViewContent({
   id,
 }: {
@@ -24,297 +30,310 @@ export default function RoleViewContent({
 
   return (
     <Box
-    sx={{
-    width: "100%",
-    height: "100vh",
-    background: "#F8FAFC",
-    overflow: "hidden",
-    display: "flex",
-    flexDirection: "column",
-    }}
->
-      {/* TOP NAVIGATION */}
-    <Box>
-        <Container maxWidth="lg">
-
+      sx={{
+        width: "100%",
+        minHeight: "100vh",
+        py: 4,
+      }}
+    >
+      <Container maxWidth="lg">
+        {/* TOP NAVIGATION */}
+        <Box sx={{ mb: 3 }}>
         <Link
-            href="/roles"
-            passHref
-            style={{
-            textDecoration: "none",
-            }}
+          href="/roles"
+          style={{
+            textDecoration:"none",
+          }}
         >
-            <Button
+          <Button
             startIcon={
-                <ArrowBackIcon />
+              <ArrowBackIcon />
             }
             sx={{
-                color: "#64748B",
-                textTransform:
-                "none",
-                fontWeight: 600,
+              textTransform:"none",
+              fontWeight:600,
             }}
-            >
+          >
             Back to Roles
-            </Button>
+          </Button>
         </Link>
+      </Box>
 
-      {/* CARD */}
-      <Box
-        sx={{
-          background:
-            "#FFFFFF",
-
-          borderRadius:
-            "24px",
-
-          border:
-            "1px solid #E2E8F0",
-
-          p: 4,
-        }}
-      >
-        {/* HEADER */}
+        {/* CARD */}
         <Box
           sx={{
-            display: "flex",
+            background:
+              "#FFFFFF",
 
-            justifyContent:
-              "space-between",
+            borderRadius:
+              "24px",
 
-            alignItems:
-              "center",
+            border:
+              "1px solid #E2E8F0",
 
-            mb: 3,
+            p: 4,
           }}
         >
-          <Box>
+          {/* HEADER */}
+          <Box
+            sx={{
+              display:
+                "flex",
 
-            <Typography
-              sx={{
-                fontSize:
-                  "28px",
+              justifyContent:
+                "space-between",
 
-                fontWeight: 700,
+              alignItems:
+                "center",
 
-                color:
-                  "#2563EB",
-              }}
-            >
-              {
-                currentRole?.roleName
-              }
-            </Typography>
+              mb: 3,
 
-            <Typography
-              sx={{
-                color:
-                  "#64748B",
+              flexWrap:
+                "wrap",
 
-                mt: 0.5,
-              }}
-            >
-              {
-                currentRole?.description
-              }
-            </Typography>
+              gap: 2,
+            }}
+          >
+            <Box>
 
-          </Box>
-
-          <StatusChip
-            status={
-              currentRole?.status ||
-              "Inactive"
-            }
-          />
-
-        </Box>
-
-        <Divider
-          sx={{
-            mb: 4,
-          }}
-        />
-
-        {/* PERMISSIONS */}
-        <Typography
-          sx={{
-            fontWeight: 700,
-
-            fontSize:
-              "20px",
-
-            mb: 2,
-          }}
-        >
-          Permissions
-        </Typography>
-
-        <Box
-          sx={{
-            display: "flex",
-
-            flexWrap:
-              "wrap",
-
-            gap: 1.5,
-
-            mb: 5,
-          }}
-        >
-          {currentRole?.permissions.map(
-            (
-              permission
-            ) => (
-
-              <Chip
-                key={
-                  permission
-                }
-                label={
-                  permission
-                }
+              <Typography
                 sx={{
-                  background:
-                    "#EFF6FF",
+                  fontSize:
+                    "28px",
+
+                  fontWeight:
+                    700,
 
                   color:
                     "#2563EB",
-
-                  fontWeight: 600,
-
-                  borderRadius:
-                    "10px",
                 }}
-              />
-            )
-          )}
+              >
+                {
+                  currentRole?.roleName
+                }
+              </Typography>
+
+              <Typography
+                sx={{
+                  color:
+                    "#64748B",
+
+                  mt: 0.5,
+                }}
+              >
+                {
+                  currentRole?.description
+                }
+              </Typography>
+
+            </Box>
+
+            <StatusChip
+              status={
+                currentRole?.status ||
+                "Inactive"
+              }
+            />
+
+          </Box>
+
+          <Divider
+            sx={{
+              mb: 4,
+            }}
+          />
+
+          {/* PERMISSIONS */}
+          <Typography
+            sx={{
+              fontWeight:
+                700,
+
+              fontSize:
+                "20px",
+
+              mb: 2,
+            }}
+          >
+            Permissions
+          </Typography>
+
+          <Box
+            sx={{
+              display:
+                "flex",
+
+              flexWrap:
+                "wrap",
+
+              gap: 1.5,
+
+              mb: 5,
+            }}
+          >
+            {currentRole?.permissions.map(
+              (
+                permission
+              ) => (
+
+                <Chip
+                  key={
+                    permission
+                  }
+                  label={
+                    permission
+                  }
+                  sx={{
+                    background:
+                      "#EFF6FF",
+
+                    color:
+                      "#2563EB",
+
+                    fontWeight:
+                      600,
+
+                    borderRadius:
+                      "10px",
+                  }}
+                />
+              )
+            )}
+
+          </Box>
+
+          {/* DETAILS */}
+          <Box
+            sx={{
+              display:
+                "grid",
+
+              gridTemplateColumns:
+                {
+                  xs: "1fr",
+
+                  md: "1fr 1fr 1fr",
+                },
+
+              gap: 3,
+
+              borderTop:
+                "1px solid #F1F5F9",
+
+              pt: 4,
+            }}
+          >
+            {/* ROLE ID */}
+            <Box>
+
+              <Typography
+                sx={{
+                  fontSize:
+                    "13px",
+
+                  color:
+                    "#94A3B8",
+
+                  fontWeight:
+                    700,
+
+                  mb: 1,
+                }}
+              >
+                ROLE ID
+              </Typography>
+
+              <Typography
+                sx={{
+                  fontWeight:
+                    700,
+
+                  color:
+                    "#0F172A",
+                }}
+              >
+                {id}
+              </Typography>
+
+            </Box>
+
+            {/* CREATED DATE */}
+            <Box>
+
+              <Typography
+                sx={{
+                  fontSize:
+                    "13px",
+
+                  color:
+                    "#94A3B8",
+
+                  fontWeight:
+                    700,
+
+                  mb: 1,
+                }}
+              >
+                CREATED ON
+              </Typography>
+
+              <Typography
+                sx={{
+                  fontWeight:
+                    700,
+
+                  color:
+                    "#0F172A",
+                }}
+              >
+                {
+                  currentRole?.createdOn
+                }
+              </Typography>
+
+            </Box>
+
+            {/* USERS */}
+            <Box>
+
+              <Typography
+                sx={{
+                  fontSize:
+                    "13px",
+
+                  color:
+                    "#94A3B8",
+
+                  fontWeight:
+                    700,
+
+                  mb: 1,
+                }}
+              >
+                TOTAL USERS
+              </Typography>
+
+              <Typography
+                sx={{
+                  fontWeight:
+                    700,
+
+                  color:
+                    "#0F172A",
+                }}
+              >
+                {
+                  currentRole?.totalUsers
+                }
+              </Typography>
+
+            </Box>
+
+          </Box>
 
         </Box>
 
-        {/* DETAILS */}
-        <Box
-          sx={{
-            display: "grid",
-
-            gridTemplateColumns:
-              {
-                xs: "1fr",
-
-                md: "1fr 1fr 1fr",
-              },
-
-            gap: 3,
-
-            borderTop:
-              "1px solid #F1F5F9",
-
-            pt: 4,
-          }}
-        >
-          {/* ROLE ID */}
-          <Box>
-
-            <Typography
-              sx={{
-                fontSize:
-                  "13px",
-
-                color:
-                  "#94A3B8",
-
-                fontWeight: 700,
-
-                mb: 1,
-              }}
-            >
-              ROLE ID
-            </Typography>
-
-            <Typography
-              sx={{
-                fontWeight: 700,
-
-                color:
-                  "#0F172A",
-              }}
-            >
-              {id}
-            </Typography>
-
-          </Box>
-
-          {/* CREATED DATE */}
-          <Box>
-
-            <Typography
-              sx={{
-                fontSize:
-                  "13px",
-
-                color:
-                  "#94A3B8",
-
-                fontWeight: 700,
-
-                mb: 1,
-              }}
-            >
-              CREATED ON
-            </Typography>
-
-            <Typography
-              sx={{
-                fontWeight: 700,
-
-                color:
-                  "#0F172A",
-              }}
-            >
-              {
-                currentRole?.createdOn
-              }
-            </Typography>
-
-          </Box>
-
-          {/* USERS */}
-          <Box>
-
-            <Typography
-              sx={{
-                fontSize:
-                  "13px",
-
-                color:
-                  "#94A3B8",
-
-                fontWeight: 700,
-
-                mb: 1,
-              }}
-            >
-              TOTAL USERS
-            </Typography>
-
-            <Typography
-              sx={{
-                fontWeight: 700,
-
-                color:
-                  "#0F172A",
-              }}
-            >
-              {
-                currentRole?.totalUsers
-              }
-            </Typography>
-
-          </Box>
-
-        </Box>
-
-      </Box>
+      </Container>
 
     </Box>
   );

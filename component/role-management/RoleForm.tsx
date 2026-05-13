@@ -1,10 +1,6 @@
 "use client";
 
 import {
-  useState,
-} from "react";
-
-import {
   Box,
   Button,
   Checkbox,
@@ -13,6 +9,10 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import Link from "next/link";
+import { useState } from "react";
+
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 import { useRouter } from "next/navigation";
 
@@ -137,6 +137,26 @@ export default function RoleForm() {
         p: 3,
       }}
     >
+      <Box sx={{ mb: 3 }}>
+        <Link
+          href="/roles"
+          style={{
+            textDecoration:"none",
+          }}
+        >
+          <Button
+            startIcon={
+              <ArrowBackIcon />
+            }
+            sx={{
+              textTransform:"none",
+              fontWeight:600,
+            }}
+          >
+            Back to Roles
+          </Button>
+        </Link>
+      </Box>
       <Box
         sx={{
           background:

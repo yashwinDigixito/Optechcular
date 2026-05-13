@@ -1,15 +1,15 @@
 "use client";
 
 import {
-    Box,
+  Box,
 } from "@mui/material";
 
 import {
-    useParams,
+  useParams,
 } from "next/navigation";
 
 import {
-    users,
+  users,
 } from "@/assets/genericdata";
 
 import EditUserForm from "@/component/user-management/EditUserForm";
@@ -29,25 +29,15 @@ export default function EditUserPage() {
   if (!user) {
 
     return (
-      <Box
-        sx={{
-          p: 3,
-        }}
-      >
+      <Box sx={{ p: 3 }}>
         User not found
       </Box>
     );
   }
 
   return (
-    <Box
-      sx={{
-        p: 3,
-      }}
-    >
-      <EditUserForm
-        user={user}
-      />
-    </Box>
+    <EditUserForm
+      user={user}
+    />
   );
 }

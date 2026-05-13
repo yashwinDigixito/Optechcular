@@ -35,38 +35,37 @@ setStatus,
 return (
     <Box
     sx={{
-        display: "flex",
+        display:"flex",
         gap: 2,
         mb: 3,
-        flexWrap: "wrap",
+        flexWrap:"wrap",
     }}
     >
     <TextField
         placeholder="Search user..."
         value={search}
         onChange={(e) =>
-        setSearch(
-            e.target.value
-        )
+        setSearch(e.target.value)
         }
         sx={{
-        minWidth: "260px",
+        minWidth:"280px",
         "& .MuiOutlinedInput-root":
             {
-            borderRadius: "14px",
-            background: "#FFFFFF",
+            borderRadius:"14px",
+            background:"#FFFFFF",
             },
         }}
         slotProps={{
         input: {
-            startAdornment: (
-            <InputAdornment position="start">
+            startAdornment:
+            (
+                <InputAdornment position="start">
                 <SearchIcon
-                sx={{
-                    color: "#94A3B8",
-                }}
+                    sx={{
+                    color:"#94A3B8",
+                    }}
                 />
-            </InputAdornment>
+                </InputAdornment>
             ),
         },
         }}
@@ -75,36 +74,34 @@ return (
         select
         value={role}
         onChange={(e) =>
-        setRole(
-            e.target.value
-        )
+        setRole(e.target.value)
         }
         sx={{
-        minWidth: "220px",
+        minWidth:"220px",
         "& .MuiOutlinedInput-root":
             {
             borderRadius:"14px",
-            background:"#FFFFFF",
+            background:
+                "#FFFFFF",
             },
         }}
         slotProps={{
         select: {
-            displayEmpty: true,
-            renderValue: (
-            selected
-            ) => {
-            if (!selected) {
+            displayEmpty:true,
+            renderValue:
+            (selected) => {
+                if (!selected) {
                 return (
-                <Box
+                    <Box
                     sx={{
-                    color:"#94A3B8",
+                        color:"#94A3B8",
                     }}
-                >
-                    Sort by Role
-                </Box>
+                    >
+                    Filter by Role
+                    </Box>
                 );
-            }
-            return selected as string;
+                }
+                return selected as string;
             },
         },
         }}
@@ -121,19 +118,15 @@ return (
         <MenuItem value="Sales">
         Sales
         </MenuItem>
-
     </TextField>
-
     <TextField
         select
         value={status}
         onChange={(e) =>
-        setStatus(
-            e.target.value
-        )
+        setStatus(e.target.value)
         }
         sx={{
-        minWidth: "220px",
+        minWidth:"220px",
         "& .MuiOutlinedInput-root":
             {
             borderRadius:"14px",
@@ -142,22 +135,23 @@ return (
         }}
         slotProps={{
         select: {
-            displayEmpty: true,
-            renderValue: (
-            selected
-            ) => {
-            if (!selected) {
+            displayEmpty:
+            true,
+            renderValue:
+            (selected) => {
+                if (!selected) {
+
                 return (
-                <Box
+                    <Box
                     sx={{
-                    color:"#94A3B8",
+                        color:"#94A3B8",
                     }}
-                >
-                    Sort by Status
-                </Box>
+                    >
+                    Filter by Status
+                    </Box>
                 );
-            }
-            return selected as string;
+                }
+                return selected as string;
             },
         },
         }}

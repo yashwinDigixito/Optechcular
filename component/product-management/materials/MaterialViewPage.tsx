@@ -1,4 +1,3 @@
-import React, { ReactNode } from "react";
 import Link from "next/link";
 
 import {
@@ -11,16 +10,16 @@ import {
   Typography,
 } from "@mui/material";
 
+import { materials } from "@/assets/genericdata";
+import { IconLine, InfoLine, SideCard } from "@/component/common/ViewPage";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import BadgeOutlinedIcon from "@mui/icons-material/BadgeOutlined";
 import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
 import PaymentsOutlinedIcon from "@mui/icons-material/PaymentsOutlined";
+import ReceiptLongOutlinedIcon from "@mui/icons-material/ReceiptLongOutlined";
 import WarehouseOutlinedIcon from "@mui/icons-material/WarehouseOutlined";
 import WarningAmberOutlinedIcon from "@mui/icons-material/WarningAmberOutlined";
-import BadgeOutlinedIcon from "@mui/icons-material/BadgeOutlined";
-import ReceiptLongOutlinedIcon from "@mui/icons-material/ReceiptLongOutlined";
-import { IconLine, InfoLine, SideCard } from "@/component/common/ViewPage";
-import { materials } from "@/assets/genericdata";
 
 export default async function MaterialViewPage({
   params,
@@ -78,22 +77,27 @@ export default async function MaterialViewPage({
        
       >
         <Container maxWidth="xl">
-          <Link
-            href="/products/materials"
-            passHref
-            style={{ textDecoration: "none" }}
+           <Box sx={{ mb: 3 }}>
+        <Link
+          href="/product/materials"
+          style={{
+            textDecoration:
+              "none",
+          }}
+        >
+          <Button
+            startIcon={
+              <ArrowBackIcon />
+            }
+            sx={{
+              textTransform:"none",
+              fontWeight:600,
+            }}
           >
-            <Button
-              startIcon={<ArrowBackIcon />}
-              sx={{
-                color: "#64748B",
-                textTransform: "none",
-                fontWeight: 600,
-              }}
-            >
-              Back to Materials
-            </Button>
-          </Link>
+            Back
+          </Button>
+        </Link>
+      </Box>
         </Container>
       </Box>
 

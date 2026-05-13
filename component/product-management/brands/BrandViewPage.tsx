@@ -1,4 +1,3 @@
-import React, { ReactNode } from "react";
 import Link from "next/link";
 
 import {
@@ -11,18 +10,18 @@ import {
   Typography,
 } from "@mui/material";
 
+import { brands } from "@/assets/genericdata";
+import { IconLine, InfoLine, SideCard } from "@/component/common/ViewPage";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import BadgeOutlinedIcon from "@mui/icons-material/BadgeOutlined";
 import BusinessIcon from "@mui/icons-material/Business";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
-import PhoneOutlinedIcon from "@mui/icons-material/PhoneOutlined";
+import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
 import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
-import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
-import ReceiptLongOutlinedIcon from "@mui/icons-material/ReceiptLongOutlined";
 import PaymentsOutlinedIcon from "@mui/icons-material/PaymentsOutlined";
-import BadgeOutlinedIcon from "@mui/icons-material/BadgeOutlined";
-import { IconLine, InfoLine, SideCard } from "@/component/common/ViewPage";
-import { brands } from "@/assets/genericdata";
+import PhoneOutlinedIcon from "@mui/icons-material/PhoneOutlined";
+import ReceiptLongOutlinedIcon from "@mui/icons-material/ReceiptLongOutlined";
 
 export default async function BrandViewPage({
   params,
@@ -63,21 +62,30 @@ export default async function BrandViewPage({
   }
 
   return (
-    <Box sx={{ width: "100%", minHeight: "100vh", bgcolor: "#F8FAFC" }}>
+    <Box sx={{ width: "100%", minHeight: "100vh"}}>
       <Box>
         <Container maxWidth="xl">
-          <Link href="/products/brand-groups" passHref style={{ textDecoration: "none" }}>
-            <Button
-              startIcon={<ArrowBackIcon />}
-              sx={{
-                color: "#64748B",
-                textTransform: "none",
-                fontWeight: 600,
-              }}
-            >
-              Back to Brands
-            </Button>
-          </Link>
+          <Box sx={{ mb: 3 }}>
+        <Link
+          href="/products/brands"
+          style={{
+            textDecoration:
+              "none",
+          }}
+        >
+          <Button
+            startIcon={
+              <ArrowBackIcon />
+            }
+            sx={{
+              textTransform:"none",
+              fontWeight:600,
+            }}
+          >
+            Back
+          </Button>
+        </Link>
+      </Box>
         </Container>
       </Box>
 

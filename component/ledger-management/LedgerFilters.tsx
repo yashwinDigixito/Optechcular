@@ -3,10 +3,10 @@
 import SearchIcon from "@mui/icons-material/Search";
 
 import {
-    Box,
-    InputAdornment,
-    MenuItem,
-    TextField,
+  Box,
+  InputAdornment,
+  MenuItem,
+  TextField,
 } from "@mui/material";
 
 interface Props {

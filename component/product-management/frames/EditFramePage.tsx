@@ -6,6 +6,10 @@ import {
 } from "react";
 
 import {
+  frames,
+} from "@/assets/genericdata";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import {
   Box,
   Button,
   Card,
@@ -14,10 +18,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-
-import {
-  frames,
-} from "@/assets/genericdata";
+import Link from "next/link";
 
 export default function EditFramePage({
   params,
@@ -157,7 +158,27 @@ export default function EditFramePage({
 
   return (
     <Box sx={{ p: 3 }}>
-
+      <Box sx={{ mb: 3 }}>
+        <Link
+          href="/product/frames"
+          style={{
+            textDecoration:
+              "none",
+          }}
+        >
+          <Button
+            startIcon={
+              <ArrowBackIcon />
+            }
+            sx={{
+              textTransform:"none",
+              fontWeight:600,
+            }}
+          >
+            Back
+          </Button>
+        </Link>
+      </Box>
       <Typography
         sx={{
           fontSize: "32px",

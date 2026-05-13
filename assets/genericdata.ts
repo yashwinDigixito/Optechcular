@@ -1,30 +1,15 @@
 import {
   DashboardStat,
   Expense,
+  Inventory,
   Invoice,
   Ledger,
+  LedgerGroup,
   PurchaseOrder,
-  ReportChartData
+  ReportChartData,
+  SalesTarget,
+  User
 } from "@/assets/types";
-
-
-export const salesTargets = [
-  {
-    id: "1",
-    salesPerson: "Admin User",
-    targetAmount: 100000,
-    achievedAmount: 60000,
-    remainingAmount: 40000,
-  },
-
-  {
-    id: "2",
-    salesPerson: "Sales User",
-    targetAmount: 80000,
-    achievedAmount: 30000,
-    remainingAmount: 50000,
-  },
-];
 
 export const dashboardStats: DashboardStat[] = [
   {
@@ -2401,117 +2386,6 @@ export const frameVariants = [
   },
 ];
 
-export const users = [
-
-  {
-    id: "1",
-
-    fullName:
-      "Yash Sharma",
-
-    email:
-      "yash@gmail.com",
-
-    phone:
-      "9876543210",
-
-    role: "Admin",
-
-    status:
-      "Active",
-
-    createdOn:
-      "2026-05-12",
-  },
-
-  {
-    id: "2",
-
-    fullName:
-      "Rahul Verma",
-
-    email:
-      "rahul@gmail.com",
-
-    phone:
-      "9123456780",
-
-    role:
-      "Manager",
-
-    status:
-      "Inactive",
-
-    createdOn:
-      "2026-05-10",
-  },
-
-  {
-    id: "3",
-
-    fullName:
-      "Priya Shah",
-
-    email:
-      "priya@gmail.com",
-
-    phone:
-      "9988776655",
-
-    role: "Sales",
-
-    status:
-      "Active",
-
-    createdOn:
-      "2026-05-09",
-  },
-
-  {
-    id: "4",
-
-    fullName:
-      "Amit Patel",
-
-    email:
-      "amit@gmail.com",
-
-    phone:
-      "9012345678",
-
-    role:
-      "Sales",
-
-    status:
-      "Active",
-
-    createdOn:
-      "2026-05-08",
-  },
-
-  {
-    id: "5",
-
-    fullName:
-      "Sneha Mehta",
-
-    email:
-      "sneha@gmail.com",
-
-    phone:
-      "9871203456",
-
-    role:
-      "Manager",
-
-    status:
-      "Inactive",
-
-    createdOn:
-      "2026-05-07",
-  },
-
-];
 
 export const roles = [
 
@@ -3215,6 +3089,61 @@ Expense[] = [
       "Monthly salary payout.",
   },
 ];
+
+
+export const ledgerGroups:
+LedgerGroup[] = [
+
+  {
+    id: "1",
+
+    groupName:
+      "Administrative",
+
+    createdAt:
+      "2026-05-10",
+
+    status:
+      "Active",
+
+    notes:
+      "Administrative expenses group.",
+  },
+
+  {
+    id: "2",
+
+    groupName:
+      "Utilities",
+
+    createdAt:
+      "2026-05-11",
+
+    status:
+      "Active",
+
+    notes:
+      "Utility expenses group.",
+  },
+
+  {
+    id: "3",
+
+    groupName:
+      "Revenue",
+
+    createdAt:
+      "2026-05-12",
+
+    status:
+      "Active",
+
+    notes:
+      "Sales revenue group.",
+  },
+
+];
+
 export const ledgers:
 Ledger[] = [
 
@@ -3246,26 +3175,26 @@ Ledger[] = [
       "Active",
 
     notes:
-      "Handles office related expenses.",
+      "Office related expenses.",
   },
 
   {
     id: "2",
 
     ledgerName:
-      "Utility Expense Ledger",
+      "Electricity Ledger",
 
     ledgerGroup:
       "Utilities",
 
     openingBalance:
-      25000,
+      20000,
 
     balanceType:
       "Debit",
 
     currentBalance:
-      18500,
+      14500,
 
     createdOn:
       "2026-05-11",
@@ -3277,7 +3206,7 @@ Ledger[] = [
       "Active",
 
     notes:
-      "Electricity and utility payments.",
+      "Electricity payments.",
   },
 
   {
@@ -3308,7 +3237,218 @@ Ledger[] = [
       "Active",
 
     notes:
-      "Tracks company sales revenue.",
+      "Revenue tracking.",
+  },
+
+];
+
+export const salesTargets:
+SalesTarget[] = [
+
+  {
+    id: "1",
+    salesPersonName:"Rahul Sharma",
+    targetAmount:100000,
+    achievedAmount:85000,
+    remainingAmount:15000,
+    dueDate:"2026-06-30",
+    month:"June",
+    status:"In Progress",
+    notes:"Good performance this month.",
+  },
+
+  {
+    id: "2",
+    salesPersonName:"Priya Patel",
+    targetAmount:120000,
+    achievedAmount:120000,
+    remainingAmount:0,
+    dueDate:"2026-06-30",
+    month:"June",
+    status:"Completed",
+    notes:"Target achieved successfully.",
+  },
+
+  {
+    id: "3",
+    salesPersonName:"Amit Verma",
+    targetAmount:90000,
+    achievedAmount:45000,
+    remainingAmount:45000,
+    dueDate:"2026-06-30",
+    month:"June",
+    status:"Pending",
+    notes:"Needs improvement.",
+  },
+];
+
+export const users:
+User[] = [
+
+  {
+    id: "1",
+
+    fullName:
+      "Rahul Sharma",
+
+    email:
+      "rahul@gmail.com",
+
+    phoneNumber:
+      "9876543210",
+
+    role:
+      "Admin",
+
+    status:
+      "Active",
+
+    createdOn:
+      "2026-05-10",
+
+    password:
+      "123456",
+  },
+
+  {
+    id: "2",
+
+    fullName:
+      "Priya Patel",
+
+    email:
+      "priya@gmail.com",
+
+    phoneNumber:
+      "9876543211",
+
+    role:
+      "Sales",
+
+    status:
+      "Active",
+
+    createdOn:
+      "2026-05-11",
+
+    password:
+      "123456",
+  },
+
+  {
+    id: "3",
+
+    fullName:
+      "Amit Verma",
+
+    email:
+      "amit@gmail.com",
+
+    phoneNumber:
+      "9876543212",
+
+    role:
+      "Manager",
+
+    status:
+      "Inactive",
+
+    createdOn:
+      "2026-05-12",
+
+    password:
+      "123456",
+  },
+
+];
+
+export const inventories:
+Inventory[] = [
+
+  {
+    id: "1",
+
+    productName:
+      "RayBan Aviator",
+
+    sku:
+      "RB-AVI-001",
+
+    barcode:
+      "123456789",
+
+    category:
+      "Frame",
+
+    brand:
+      "RayBan",
+
+    branch:
+      "Mumbai",
+
+    stock:
+      25,
+
+    minStock:
+      10,
+
+    price:
+      4500,
+
+    status:
+      "In Stock",
+
+    createdOn:
+      "2026-05-14",
+
+    createdBy:
+      "Admin",
+
+    notes:
+      "Fast moving frame.",
+  },
+
+  {
+    id: "2",
+
+    productName:
+      "Acuvue Moist",
+
+    sku:
+      "ACV-MST-101",
+
+    barcode:
+      "987654321",
+
+    category:
+      "Contact Lens",
+
+    brand:
+      "Acuvue",
+
+    branch:
+      "Delhi",
+
+    stock:
+      5,
+
+    minStock:
+      10,
+
+    price:
+      2200,
+
+    status:
+      "Low Stock",
+
+    createdOn:
+      "2026-05-13",
+
+    createdBy:
+      "Manager",
+
+    notes:
+      "Need urgent refill.",
   },
 
 ];

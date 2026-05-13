@@ -1,4 +1,3 @@
-import React, { ReactNode } from "react";
 import Link from "next/link";
 
 import {
@@ -11,14 +10,14 @@ import {
   Typography,
 } from "@mui/material";
 
+import { rimShapes } from "@/assets/genericdata";
+import { IconLine, InfoLine, SideCard } from "@/component/common/ViewPage";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import BadgeOutlinedIcon from "@mui/icons-material/BadgeOutlined";
 import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
-import BadgeOutlinedIcon from "@mui/icons-material/BadgeOutlined";
 import ReceiptLongOutlinedIcon from "@mui/icons-material/ReceiptLongOutlined";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
-import { IconLine, InfoLine, SideCard } from "@/component/common/ViewPage";
-import { rimShapes } from "@/assets/genericdata";
 
 export default async function RimShapeViewPage({
   params,
@@ -68,30 +67,32 @@ export default async function RimShapeViewPage({
       sx={{
         width: "100%",
         minHeight: "100vh",
-        bgcolor: "#F8FAFC",
       }}
     >
       {/* TOP BAR */}
       <Box >
         <Container maxWidth="xl">
-          <Link
-            href="/products/rim-shapes"
-            passHref
-            style={{
-              textDecoration: "none",
+          <Box sx={{ mb: 3 }}>
+        <Link
+          href="/product/rim-shapes"
+          style={{
+            textDecoration:
+              "none",
+          }}
+        >
+          <Button
+            startIcon={
+              <ArrowBackIcon />
+            }
+            sx={{
+              textTransform:"none",
+              fontWeight:600,
             }}
           >
-            <Button
-              startIcon={<ArrowBackIcon />}
-              sx={{
-                color: "#64748B",
-                textTransform: "none",
-                fontWeight: 600,
-              }}
-            >
-              Back to Rim Shapes
-            </Button>
-          </Link>
+            Back
+          </Button>
+        </Link>
+      </Box>
         </Container>
       </Box>
 

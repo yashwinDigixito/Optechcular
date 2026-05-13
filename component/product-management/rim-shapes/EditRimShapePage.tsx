@@ -1,23 +1,25 @@
 "use client";
 
 import {
-    useEffect,
-    useState,
+  useEffect,
+  useState,
 } from "react";
 
 import {
-    Box,
-    Button,
-    Card,
-    Grid,
-    MenuItem,
-    TextField,
-    Typography,
+  Box,
+  Button,
+  Card,
+  Grid,
+  MenuItem,
+  TextField,
+  Typography,
 } from "@mui/material";
 
 import {
-    rimShapes,
+  rimShapes,
 } from "@/assets/genericdata";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import Link from "next/link";
 
 export default function EditRimShapePage({
   params,
@@ -75,7 +77,27 @@ export default function EditRimShapePage({
 
   return (
     <Box sx={{ p: 3 }}>
-
+      <Box sx={{ mb: 3 }}>
+        <Link
+          href="/product/rim-shapes"
+          style={{
+            textDecoration:
+              "none",
+          }}
+        >
+          <Button
+            startIcon={
+              <ArrowBackIcon />
+            }
+            sx={{
+              textTransform:"none",
+              fontWeight:600,
+            }}
+          >
+            Back
+          </Button>
+        </Link>
+      </Box>
       <Typography
         sx={{
           fontSize: "32px",

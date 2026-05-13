@@ -1,17 +1,19 @@
 "use client";
 
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import {
   Box,
   Button,
   Card,
+  Checkbox,
   Grid,
+  ListItemText,
   MenuItem,
   TextField,
   Typography,
-  Checkbox,
-  ListItemText,
 } from "@mui/material";
 import { useFormik } from "formik";
+import Link from "next/link";
 import * as yup from "yup";
 
 const categories = [
@@ -51,6 +53,27 @@ export default function BrandForm() {
 
   return (
     <Box sx={{ p: 3 }}>
+      <Box sx={{ mb: 3 }}>
+        <Link
+          href="/products/brands"
+          style={{
+            textDecoration:
+              "none",
+          }}
+        >
+          <Button
+            startIcon={
+              <ArrowBackIcon />
+            }
+            sx={{
+              textTransform:"none",
+              fontWeight:600,
+            }}
+          >
+            Back
+          </Button>
+        </Link>
+      </Box>
       <Typography
         sx={{
           fontSize: "32px",

@@ -1,10 +1,13 @@
 "use client";
 
+import {
+    User,
+} from "@/assets/types";
 
-import StatusChip from "@/component/common/StatusChip";
-import BlockIcon from "@mui/icons-material/Block";
 import EditIcon from "@mui/icons-material/Edit";
+
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
+
 import {
     Box,
     Chip,
@@ -18,321 +21,252 @@ import {
     Tooltip,
     Typography,
 } from "@mui/material";
+
 import { useRouter } from "next/navigation";
 
 interface Props {
 
-  users: {
-    id: string;
-    fullName: string;
-    email: string;
-    phone: string;
-    role: string;
-    status: string;
-    createdOn: string;
-    }[];
-
-    setUserData:
-    React.Dispatch<
-    React.SetStateAction<
-    {
-        id: string;
-        fullName: string;
-        email: string;
-        phone: string;
-        role: string;
-        status: string;
-        createdOn: string;
-    }[]
-    >
-    >;
+  users:
+    User[];
 }
 
 export default function UserTable({
   users,
-  setUserData,
 }: Props) {
 
-  const router = useRouter();
-
-  const handleToggleStatus = (
-    id: string
-  ) => {
-
-    setUserData((prev) =>
-      prev.map((user) =>
-        user.id === id
-          ? {
-            ...user, status: user.status === "Active" ? "Inactive" : "Active",
-            }
-          : user
-      )
-    );
-  };
+  const router =
+    useRouter();
 
   return (
     <TableContainer
       sx={{
-        mt: 2,
-        borderRadius:"24px",
-        background:"#FFFFFF",
-        border:"1px solid #E2E8F0",
-        overflow: "hidden",
-        boxShadow: "0px 4px 20px rgba(15,23,42,0.04)",
+        borderRadius:
+          "24px",
+
+        border:
+          "1px solid #E2E8F0",
+
+        overflow:
+          "hidden",
+
+        background:
+          "#FFFFFF",
       }}
     >
-      <Table
-        sx={{
-          minWidth: 1100,
-          "& .MuiTableCell-root":
-            {
-              py: 2.5,
-              borderColor: "#F1F5F9",
-            },
-        }}
-      >
+      <Table>
 
         <TableHead>
+
           <TableRow
             sx={{
-              background:"#F8FAFC",
-              "& .MuiTableCell-root":
-                {
-                  py: 2.2,
-                },
+              background:
+                "#F8FAFC",
             }}
           >
             <TableCell>
-            <Typography
-                sx={{
-                fontWeight: 700,
-                }}
-            >
+              <Typography sx={{fontWeight:700}}>
                 Full Name
-            </Typography>
+              </Typography>
             </TableCell>
 
             <TableCell>
-            <Typography
-                sx={{
-                fontWeight: 700,
-                }}
-            >
+              <Typography sx={{fontWeight:700}}>
                 Email
-            </Typography>
+              </Typography>
             </TableCell>
 
             <TableCell>
-            <Typography
-                sx={{
-                fontWeight: 700,
-                }}
-            >
+              <Typography sx={{fontWeight:700}}>
                 Phone Number
-            </Typography>
+              </Typography>
             </TableCell>
 
             <TableCell>
-            <Typography
-                sx={{
-                fontWeight: 700,
-                }}
-            >
+              <Typography sx={{fontWeight:700}}>
                 Role
-            </Typography>
+              </Typography>
             </TableCell>
 
             <TableCell>
-            <Typography
-                sx={{
-                fontWeight: 700,
-                }}
-            >
+              <Typography sx={{fontWeight:700}}>
                 Status
-            </Typography>
+              </Typography>
             </TableCell>
 
             <TableCell>
-            <Typography
-                sx={{
-                fontWeight: 700,
-                }}
-            >
-                Created On
-            </Typography>
-            </TableCell>
-
-            <TableCell>
-            <Typography
-                sx={{
-                fontWeight: 700,
-                }}
-            >
+              <Typography sx={{fontWeight:700}}>
                 Actions
-            </Typography>
+              </Typography>
             </TableCell>
-        </TableRow>
+
+          </TableRow>
+
         </TableHead>
+
         <TableBody>
-        {users.map(
+
+          {users.map(
             (user) => (
-            <TableRow
+
+              <TableRow
                 key={user.id}
                 hover
-                sx={{
-                transition: "0.2s",
-                "&:hover": {
-                    background:"#F8FAFC",
-                },
-                }}
-            >
+              >
                 <TableCell>
-                <Typography
+
+                  <Typography
                     sx={{
-                    fontWeight: 700,
-                    color: "#2563EB",
-                    fontSize: "16px",
+                      fontWeight:
+                        700,
+
+                      color:
+                        "#2563EB",
                     }}
-                >
+                  >
                     {
-                    user.fullName
+                      user.fullName
                     }
-                </Typography>
-                </TableCell>
-                <TableCell>
-                <Typography
-                    sx={{
-                    color: "#475569",
-                    fontWeight: 500,
-                    }}
-                >
-                    {
-                    user.email
-                    }
-                </Typography>
-                </TableCell>
-                <TableCell>
-                <Typography
-                    sx={{
-                    color: "#475569",
-                    fontWeight: 500,
-                    }}
-                >
-                    {
-                    user.phone
-                    }
-                </Typography>
-                </TableCell>
-                <TableCell>
-                <Chip
-                    label={
-                    user.role
-                    }
-                    sx={{
-                    background: "#EFF6FF",
-                    color: "#2563EB",
-                    fontWeight: 600,
-                    }}
-                />
+                  </Typography>
 
                 </TableCell>
+
                 <TableCell>
-                <StatusChip
-                    status={
-                    user.status
-                    }
-                />
+                  {user.email}
                 </TableCell>
+
                 <TableCell>
-                <Typography
-                    sx={{
-                    color: "#64748B",
-                    fontWeight: 500,
-                    }}
-                >
-                    {
-                    user.createdOn
-                    }
-                </Typography>
+                  {
+                    user.phoneNumber
+                  }
                 </TableCell>
+
                 <TableCell>
-                <Box
+
+                  <Typography
                     sx={{
-                    display:"flex",
-                    gap: 1,
+                      fontWeight:
+                        600,
                     }}
-                >
+                  >
+                    {user.role}
+                  </Typography>
+
+                </TableCell>
+
+                <TableCell>
+
+                  <Chip
+                    label={
+                      user.status
+                    }
+                    size="small"
+                    sx={{
+                      background:
+                        user.status ===
+                        "Active"
+
+                          ? "#DCFCE7"
+
+                          : "#FEE2E2",
+
+                      color:
+                        user.status ===
+                        "Active"
+
+                          ? "#15803D"
+
+                          : "#DC2626",
+
+                      fontWeight:
+                        700,
+                    }}
+                  />
+
+                </TableCell>
+
+                {/* ACTIONS */}
+                <TableCell>
+
+                  <Box
+                    sx={{
+                      display:
+                        "flex",
+
+                      gap: 1,
+                    }}
+                  >
+                    {/* VIEW */}
                     <Tooltip title="View">
-                    <IconButton
+
+                      <IconButton
                         sx={{
-                        background: "#EFF6FF",
-                        "&:hover":
+                          background:
+                            "#EFF6FF",
+
+                          "&:hover":
                             {
-                            background: "#DBEAFE",
+                              background:
+                                "#DBEAFE",
                             },
                         }}
                         onClick={() =>
-                        router.push( `/users/view/${user.id}` )
+                          router.push(
+                            `/users/view/${user.id}`
+                          )
                         }
-                    >
+                      >
                         <RemoveRedEyeOutlinedIcon
-                        sx={{
-                            color: "#2563EB",
-                        }}
+                          sx={{
+                            color:
+                              "#2563EB",
+                          }}
                         />
-                    </IconButton>
+                      </IconButton>
+
                     </Tooltip>
+
+                    {/* EDIT */}
                     <Tooltip title="Edit">
-                    <IconButton
+
+                      <IconButton
                         sx={{
-                        background: "#F8FAFC",
-                        "&:hover":
+                          background:
+                            "#F8FAFC",
+
+                          "&:hover":
                             {
-                            background: "#E2E8F0",
+                              background:
+                                "#E2E8F0",
                             },
                         }}
                         onClick={() =>
-                        router.push(`/users/edit/${user.id}`)
+                          router.push(
+                            `/users/edit/${user.id}`
+                          )
                         }
-                    >
+                      >
                         <EditIcon
-                        sx={{
-                            color:"#0F172A",
-                        }}
+                          sx={{
+                            color:
+                              "#0F172A",
+                          }}
                         />
-                    </IconButton>
+                      </IconButton>
+
                     </Tooltip>
-                    <Tooltip
-                    title={
-                        user.status === "Active" ? "Deactivate" : "Activate"
-                    }
-                    >
-                    <IconButton
-                        sx={{
-                        background: user.status === "Active" ? "#FEF2F2" : "#DCFCE7",
-                        "&:hover":
-                            {
-                            background: user.status === "Active" ? "#FEE2E2" : "#BBF7D0",
-                            },
-                        }}
-                        onClick={() =>
-                        handleToggleStatus( user.id)
-                        }
-                    >
-                        <BlockIcon
-                        sx={{
-                            color: user.status === "Active" ? "#DC2626" : "#16A34A",
-                        }}
-                        />
-                    </IconButton>
-                    </Tooltip>
-                </Box>
+
+                  </Box>
+
                 </TableCell>
-            </TableRow>
+
+              </TableRow>
             )
-        )}
+          )}
+
         </TableBody>
-    </Table>
+
+      </Table>
+
     </TableContainer>
-);
+  );
 }

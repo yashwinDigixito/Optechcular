@@ -1,4 +1,3 @@
-import React, { ReactNode } from "react";
 import Link from "next/link";
 
 import {
@@ -11,16 +10,16 @@ import {
   Typography,
 } from "@mui/material";
 
+import { categories } from "@/assets/genericdata";
+import { IconLine, InfoLine, SideCard } from "@/component/common/ViewPage";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import BadgeOutlinedIcon from "@mui/icons-material/BadgeOutlined";
 import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
-import ReceiptLongOutlinedIcon from "@mui/icons-material/ReceiptLongOutlined";
 import PaymentsOutlinedIcon from "@mui/icons-material/PaymentsOutlined";
+import ReceiptLongOutlinedIcon from "@mui/icons-material/ReceiptLongOutlined";
 import WarehouseOutlinedIcon from "@mui/icons-material/WarehouseOutlined";
 import WarningAmberOutlinedIcon from "@mui/icons-material/WarningAmberOutlined";
-import BadgeOutlinedIcon from "@mui/icons-material/BadgeOutlined";
-import { IconLine, InfoLine, SideCard } from "@/component/common/ViewPage";
-import { categories } from "@/assets/genericdata";
 
 export default async function CategoryViewPage({
   params,
@@ -64,18 +63,27 @@ export default async function CategoryViewPage({
        
       >
         <Container maxWidth="xl">
-          <Link href="/products/categories" passHref style={{ textDecoration: "none" }}>
-            <Button
-              startIcon={<ArrowBackIcon />}
-              sx={{
-                color: "#64748B",
-                textTransform: "none",
-                fontWeight: 600,
-              }}
-            >
-              Back to Categories
-            </Button>
-          </Link>
+          <Box sx={{ mb: 3 }}>
+        <Link
+          href="/product/categories"
+          style={{
+            textDecoration:
+              "none",
+          }}
+        >
+          <Button
+            startIcon={
+              <ArrowBackIcon />
+            }
+            sx={{
+              textTransform:"none",
+              fontWeight:600,
+            }}
+          >
+            Back
+          </Button>
+        </Link>
+      </Box>
         </Container>
       </Box>
 

@@ -28,69 +28,18 @@ import {
   AccountCircle as UserCircle,
   People as Users,
 } from "@mui/icons-material";
-
+import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
 import {
   usePathname,
 } from "next/navigation";
 
 const sidebarMenus = [
-  {
-    title: "User Management",
-    icon: <Users />,
-    path: "/users",
-  },
 
-  {
-    title: "Role Management",
-    icon: <ShieldCheck />,
-    path: "/roles",
-  },
-
-  {
+    {
     title: "Customer Management",
     icon: <UserCircle />,
     path: "/customers",
   },
-
-  {
-    title: "Order Management",
-    icon: <ShoppingCart />,
-    path: "/orders",
-  },
-
-  {
-    title: "Invoice Management",
-    icon: <FileText />,
-    path: "/invoices",
-  },
-
-  {
-    title: "Sales Person Target",
-    icon: <Target />,
-    path: "/sales-target",
-  },
-
-  {
-    title: "Expense Tracking",
-    icon: <CreditCard />,
-    path: "/expenses",
-  },
-
-  {
-    title: "Ledger Management",
-    icon: <BookOpen />,
-    path: "/ledgers",
-  },
-
-  {
-    title:
-      "Purchase Order Management",
-
-    icon: <Package />,
-
-    path: "/purchase-orders",
-  },
-
   {
     title: "Product Management",
 
@@ -151,6 +100,67 @@ const sidebarMenus = [
           "/products/rim-shapes",
       },
     ],
+  },
+  {
+    title:"Inventory Management",
+    icon: <Inventory2OutlinedIcon />,
+    path:"/inventory"
+  },
+  {
+    title:
+      "Purchase Order Management",
+
+    icon: <Package />,
+
+    path: "/purchase-orders",
+  },
+  {
+    title: "Order Management",
+    icon: <ShoppingCart />,
+    path: "/orders",
+  },
+    {
+    title: "Invoice Management",
+    icon: <FileText />,
+    path: "/invoices",
+  },
+    {
+    title: "Expense Tracking",
+    icon: <CreditCard />,
+    path: "/expenses",
+  },
+  {
+  title: "Ledger Management",
+  icon: <BookOpen />,
+  children: [
+    {
+      title:
+        "Ledger Group",
+      path:
+        "/ledger-groups",
+    },
+    {
+      title:
+        "Ledger Master",
+      path:
+        "/ledgers",
+    },
+  ],
+},
+    {
+    title: "Sales Person Target",
+    icon: <Target />,
+    path: "/sales-target",
+  },
+    {
+    title: "Role Management",
+    icon: <ShieldCheck />,
+    path: "/roles",
+  },
+  {
+    title: "User Management",
+    icon: <Users />,
+    path: "/users",
   },
 ];
 

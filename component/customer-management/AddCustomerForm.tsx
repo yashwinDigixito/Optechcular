@@ -1,19 +1,20 @@
 "use client";
 
 import {
-    useState,
+  useState,
 } from "react";
 
 import {
-    Box,
-    Button,
-    MenuItem,
-    TextField,
-    Typography,
+  Box,
+  Button,
+  MenuItem,
+  TextField,
+  Typography,
 } from "@mui/material";
 
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
-
 export default function AddCustomerForm() {
 
   const router =
@@ -73,6 +74,27 @@ export default function AddCustomerForm() {
         p: 3,
       }}
     >
+      <Box sx={{ mb: 3 }}>
+        <Link
+          href="/customers"
+          style={{
+            textDecoration:
+              "none",
+          }}
+        >
+          <Button
+            startIcon={
+              <ArrowBackIcon />
+            }
+            sx={{
+              textTransform:"none",
+              fontWeight:600,
+            }}
+          >
+            Back
+          </Button>
+        </Link>
+      </Box>
       <Box
         sx={{
           background:

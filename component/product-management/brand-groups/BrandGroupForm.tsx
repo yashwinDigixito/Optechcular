@@ -1,5 +1,6 @@
 "use client";
 
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import {
   Box,
   Button,
@@ -10,8 +11,8 @@ import {
   Typography,
 } from "@mui/material";
 import { useFormik } from "formik";
+import Link from "next/link";
 import * as yup from "yup";
-
 const validationSchema = yup.object({
   groupName: yup.string().required("Group name is required"),
   status: yup.string().required("Status is required"),
@@ -30,11 +31,32 @@ export default function BrandGroupForm() {
   });
 
   return (
-    <Box 
-      sx={{ 
-        p: 3, 
+    <Box
+      sx={{
+        p: 3,
         }}
     >
+      <Box sx={{ mb: 3 }}>
+        <Link
+          href="/products/brand-groups"
+          style={{
+            textDecoration:
+              "none",
+          }}
+        >
+          <Button
+            startIcon={
+              <ArrowBackIcon />
+            }
+            sx={{
+              textTransform:"none",
+              fontWeight:600,
+            }}
+          >
+            Back
+          </Button>
+        </Link>
+      </Box>
       {/* TITLE */}
       <Typography
         sx={{

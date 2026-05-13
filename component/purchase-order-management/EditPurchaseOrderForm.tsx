@@ -1,22 +1,22 @@
 "use client";
 
 import {
-    useState,
-} from "react";
-
-import {
-    PurchaseOrder,
+  PurchaseOrder,
 } from "@/assets/types";
-
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import {
-    Box,
-    Button,
-    Divider,
-    Grid,
-    MenuItem,
-    TextField,
-    Typography,
+  Box,
+  Button,
+  Divider,
+  Grid,
+  MenuItem,
+  TextField,
+  Typography,
 } from "@mui/material";
+import Link from "next/link";
+import {
+  useState,
+} from "react";
 
 import { useRouter } from "next/navigation";
 
@@ -129,6 +129,27 @@ export default function EditPurchaseOrderForm({
 
   return (
     <Box sx={{ p: 3 }}>
+      <Box sx={{ mb: 3 }}>
+        <Link
+          href="/purchase-orders"
+          style={{
+            textDecoration:
+              "none",
+          }}
+        >
+          <Button
+            startIcon={
+              <ArrowBackIcon />
+            }
+            sx={{
+              textTransform:"none",
+              fontWeight:600,
+            }}
+          >
+            Back to Purchase Orders
+          </Button>
+        </Link>
+      </Box>
 
       <Box
         sx={{

@@ -1,18 +1,19 @@
 "use client";
 
 import {
-    useState,
+  useState,
 } from "react";
 
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import {
-    Box,
-    Button,
-    Grid,
-    MenuItem,
-    TextField,
-    Typography,
+  Box,
+  Button,
+  Grid,
+  MenuItem,
+  TextField,
+  Typography,
 } from "@mui/material";
-
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export default function AddExpenseForm() {
@@ -68,7 +69,27 @@ export default function AddExpenseForm() {
 
   return (
     <Box sx={{ p: 3 }}>
-
+      <Box sx={{ mb: 3 }}>
+        <Link
+          href="/expenses"
+          style={{
+            textDecoration:
+              "none",
+          }}
+        >
+          <Button
+            startIcon={
+              <ArrowBackIcon />
+            }
+            sx={{
+              textTransform:"none",
+              fontWeight:600,
+            }}
+          >
+            Back
+          </Button>
+        </Link>
+      </Box>
       <Box
         sx={{
           p: 4,

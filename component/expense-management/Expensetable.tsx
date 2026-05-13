@@ -1,7 +1,7 @@
 "use client";
 
 import {
-    Expense,
+  Expense,
 } from "@/assets/types";
 
 import EditIcon from "@mui/icons-material/Edit";
@@ -9,17 +9,17 @@ import EditIcon from "@mui/icons-material/Edit";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 
 import {
-    Box,
-    Chip,
-    IconButton,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
-    Tooltip,
-    Typography,
+  Box,
+  Chip,
+  IconButton,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Tooltip,
+  Typography,
 } from "@mui/material";
 
 import { useRouter } from "next/navigation";
@@ -180,7 +180,7 @@ export default function ExpenseTable({
 
                 </TableCell>
 
-                <TableCell>
+               <TableCell>
 
                   <Box
                     sx={{
@@ -190,36 +190,65 @@ export default function ExpenseTable({
                       gap: 1,
                     }}
                   >
+                    {/* VIEW */}
                     <Tooltip title="View">
 
                       <IconButton
+                        sx={{
+                          background:
+                            "#EFF6FF",
+
+                          "&:hover":
+                            {
+                              background:
+                                "#DBEAFE",
+                            },
+                        }}
                         onClick={() =>
                           router.push(
                             `/expenses/view/${expense.id}`
                           )
                         }
                       >
-                        <RemoveRedEyeOutlinedIcon />
+                        <RemoveRedEyeOutlinedIcon
+                          sx={{
+                            color:
+                              "#2563EB",
+                          }}
+                        />
                       </IconButton>
 
                     </Tooltip>
 
+                    {/* EDIT */}
                     <Tooltip title="Edit">
 
                       <IconButton
+                        sx={{
+                          background:
+                            "#F8FAFC",
+
+                          "&:hover":
+                            {
+                              background:
+                                "#E2E8F0",
+                            },
+                        }}
                         onClick={() =>
                           router.push(
                             `/expenses/edit/${expense.id}`
                           )
                         }
                       >
-                        <EditIcon />
+                        <EditIcon
+                          sx={{
+                            color:
+                              "#0F172A",
+                          }}
+                        />
                       </IconButton>
-
                     </Tooltip>
-
                   </Box>
-
                 </TableCell>
 
               </TableRow>

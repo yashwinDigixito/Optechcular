@@ -1,5 +1,12 @@
 "use client";
 
+import BasicInfo from "@/component/product-management/frames/FormSection/BasicInfo";
+import FrameVariationForm from "@/component/product-management/frames/FormSection/FrameVariationForm";
+import ProductSpecs from "@/component/product-management/frames/FormSection/ProductSpecs";
+import RimDetails from "@/component/product-management/frames/FormSection/RimDetails";
+import TaxSection from "@/component/product-management/frames/FormSection/TaxSection";
+import { frameValidation } from "@/component/product-management/frames/FormSection/validations";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import {
   Box,
   Button,
@@ -7,16 +14,9 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import { useFormik } from "formik";
-import { frameValidation } from "@/component/product-management/frames/FormSection/validations";
-import BasicInfo from "@/component/product-management/frames/FormSection/BasicInfo";
-import RimDetails from "@/component/product-management/frames/FormSection/RimDetails";
-import ProductSpecs from "@/component/product-management/frames/FormSection/ProductSpecs";
-import TaxSection from "@/component/product-management/frames/FormSection/TaxSection";
-import FrameVariationForm from "@/component/product-management/frames/FormSection/FrameVariationForm";
+import { FormikProvider, useFormik } from "formik";
+import Link from "next/link";
 import { FrameFormValues } from "./FormSection/types";
-import { FormikProvider } from "formik";
-
 export default function FrameForm() {
 
   const formik = useFormik<FrameFormValues>({
@@ -40,6 +40,27 @@ export default function FrameForm() {
 
   return (
     <Box sx={{ p: 3 }}>
+      <Box sx={{ mb: 3 }}>
+              <Link
+                href="/product/frames"
+                style={{
+                  textDecoration:
+                    "none",
+                }}
+              >
+                <Button
+                  startIcon={
+                    <ArrowBackIcon />
+                  }
+                  sx={{
+                    textTransform:"none",
+                    fontWeight:600,
+                  }}
+                >
+                  Back
+                </Button>
+              </Link>
+            </Box>
       <Typography sx={{ fontSize: 32, fontWeight: 700, mb: 3 }}>
         Add Frame
       </Typography>

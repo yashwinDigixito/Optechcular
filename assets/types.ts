@@ -9,14 +9,6 @@ export interface Customer {
   country?: string;
 }
 
-export interface User {
-  id: string;
-  fullName: string;
-  email: string;
-  role: string;
-  status: string;
-  phoneNumber?: string;
-}
 export interface Product {
   id: string;
   productName: string;
@@ -180,14 +172,6 @@ export interface Order {
   notes?: string;
 }
 
-export interface SalesTarget {
-  id: string;
-  salesPerson: string;
-  targetAmount: number;
-  achievedAmount: number;
-  remainingAmount: number;
-}
-
 export interface RoleData {
   id: string;
   roleName: string;
@@ -205,7 +189,6 @@ export interface ContactLens {
 
   lensId: string;
   productCode: string;
-
   lensName: string;
   brand: string;
 
@@ -217,7 +200,6 @@ export interface ContactLens {
 
   baseCurve: string;
   diameter: string;
-
   sphericalPower?: string;
   cylindricalPower?: string;
   axis?: string;
@@ -318,53 +300,33 @@ export interface Frame {
     | "Acetate"
     | "Titanium"
     | "TR90";
-
   frameColor: string;
   templeColor?: string;
   weight?: number;
-
- 
   lensTypeSupported?: string[];
-
- 
   stockQuantity?: number;
   lowStockLimit?: number;
   warehouseLocation?: string;
-
-
   purchasePrice?: number;
   sellingPrice: number;
   discountPrice?: number;
   gstPercentage?: number;
-
- 
   status:
     | "Active"
     | "Inactive"
     | "Out of Stock";
-
   featuredProduct?: boolean;
   trendingProduct?: boolean;
-
-  
   thumbnailImage: string;
   galleryImages?: string[];
-
- 
   description: string;
   features?: string[];
-
-  
   metaTitle?: string;
   metaDescription?: string;
   slug?: string;
-
-  
   warrantyPeriod?: string;
   supplierName?: string;
   countryOfOrigin?: string;
-
- 
   createdOn: string;
   updatedDate?: string;
   createdBy?: string;
@@ -401,4 +363,123 @@ export interface Material {
 
   createdBy?: string;
   lastModifiedBy?: string;
+}
+
+
+export interface LedgerGroup {
+  id: string;
+  groupName: string;
+  createdAt: string;
+  status: string;
+  notes: string;
+}
+
+export interface Ledger {
+  id: string;
+  ledgerName: string;
+  ledgerGroup: string;
+  openingBalance: number;
+  balanceType: string;
+  currentBalance: number;
+  createdOn: string;
+  createdBy: string;
+  status: string;
+  notes: string;
+}
+
+export interface Invoice {
+  id: string;
+  invoiceNo: string;
+  orderNo: string;
+  customerName: string;
+  productName: string;
+  brand: string;
+  category: string;
+  invoiceDate: string;
+  dueDate: string;
+  subtotal: number;
+  tax: number;
+  discount: number;
+  totalAmount: number;
+  paidAmount: number;
+  dueAmount: number;
+  paymentStatus: string;
+  invoiceStatus: string;
+  paymentMethod: string;
+  createdBy: string;
+  notes: string;
+}
+
+export interface PurchaseOrder {
+  id: string;
+  poNumber: string;
+  vendorName: string;
+  vendorEmail: string;
+  vendorPhone: string;
+  productName: string;
+  productSku: string;
+  category: string;
+  quantity: number;
+  unitPrice: number;
+  tax: number;
+  discount: number;
+  totalAmount: number;
+  paymentStatus: string;
+  poStatus: string;
+  orderDate: string;
+  expectedDelivery: string;
+  createdBy: string;
+  notes: string;
+}
+
+export interface Expense {
+  id: string;
+  expenseName: string;
+  ledger: string;
+  amount: number;
+  paymentMethod: string;
+  expenseDate: string;
+  createdBy: string;
+  status: string;
+  notes: string;
+}
+
+export interface SalesTarget {
+  id: string;
+  salesPersonName: string;
+  targetAmount: number;
+  achievedAmount: number;
+  remainingAmount: number;
+  dueDate: string;
+  month: string;
+  status: string;
+  notes: string;
+}
+
+export interface User {
+  id: string;
+  fullName: string;
+  email: string;
+  phoneNumber: string;
+  role: string;
+  status: string;
+  createdOn: string;
+  password: string;
+}
+
+export interface Inventory {
+  id: string;
+  productName: string;
+  sku: string;
+  barcode: string;
+  category: string;
+  brand: string;
+  branch: string;
+  stock: number;
+  minStock: number;
+  price: number;
+  status: string;
+  createdOn: string;
+  createdBy: string;
+  notes: string;
 }

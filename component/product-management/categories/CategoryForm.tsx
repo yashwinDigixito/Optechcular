@@ -1,5 +1,6 @@
 "use client";
 
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import {
   Box,
   Button,
@@ -10,6 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useFormik } from "formik";
+import Link from "next/link";
 import * as yup from "yup";
 
 const validationSchema = yup.object({
@@ -31,6 +33,27 @@ export default function CategoryForm() {
 
   return (
     <Box sx={{ p: 3 }}>
+      <Box sx={{ mb: 3 }}>
+        <Link
+          href="/product/categories"
+          style={{
+            textDecoration:
+              "none",
+          }}
+        >
+          <Button
+            startIcon={
+              <ArrowBackIcon />
+            }
+            sx={{
+              textTransform:"none",
+              fontWeight:600,
+            }}
+          >
+            Back
+          </Button>
+        </Link>
+      </Box>
       {/* TITLE */}
       <Typography
         sx={{
