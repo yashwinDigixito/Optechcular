@@ -1,472 +1,254 @@
-"use client";
-
-import {
-  Inventory,
-} from "@/assets/types";
-
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-
-import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
-
-import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
-
-import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
-
-import QrCode2OutlinedIcon from "@mui/icons-material/QrCode2Outlined";
-
-import SellOutlinedIcon from "@mui/icons-material/SellOutlined";
-
-import StoreOutlinedIcon from "@mui/icons-material/StoreOutlined";
+import Link from "next/link";
 
 import {
   Box,
   Button,
+  Card,
   Chip,
   Container,
-  Divider,
   Stack,
   Typography,
 } from "@mui/material";
 
-import Link from "next/link";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import HistoryOutlinedIcon from "@mui/icons-material/HistoryOutlined";
+import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
+import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
+import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
+import QrCodeScannerOutlinedIcon from "@mui/icons-material/QrCodeScannerOutlined";
+import SellOutlinedIcon from "@mui/icons-material/SellOutlined";
+import StorefrontOutlinedIcon from "@mui/icons-material/StorefrontOutlined";
 
-interface Props {
+import { inventories } from "@/assets/genericdata";
+import { IconLine, InfoLine, SideCard } from "../common/ViewPage";
+export default async function InventoryDetailsPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
 
-  inventory:
-    Inventory;
-}
+  const item = inventories.find((item) => item.id === id);
 
-export default function InventoryDetails({
-  inventory,
-}: Props) {
+  if (!item) {
+    return (
+      <Box
+        sx={{
+          minHeight: "100vh",
+          bgcolor: "#F8FAFC",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Card
+          sx={{
+            p: 4,
+            borderRadius: "16px",
+            border: "1px solid #E2E8F0",
+            boxShadow: "none",
+          }}
+        >
+          <Typography sx={{ color: "#64748B", fontWeight: 700 }}>
+            Inventory item not found
+          </Typography>
+        </Card>
+      </Box>
+    );
+  }
 
   return (
-    <Box
-      sx={{
-        minHeight:"100vh",
-        py: 4,
-      }}
-    >
-      <Container maxWidth="lg">
-
-        {/* BACK */}
-        <Box sx={{ mb: 3 }}>
-
-          <Link
-            href="/inventory"
-            style={{
-              textDecoration:
-                "none",
-            }}
-          >
+    <Box sx={{ width: "100%", minHeight: "100vh", bgcolor: "#F8FAFC" }}>
+      {/* Navigation Header */}
+      <Box>
+        <Container maxWidth="xl">
+          <Link href="/inventory" passHref style={{ textDecoration: "none" }}>
             <Button
-              startIcon={
-                <ArrowBackIcon />
-              }
+              startIcon={<ArrowBackIcon />}
               sx={{
-                textTransform:
-                  "none",
-
-                fontWeight:
-                  600,
+                color: "#64748B",
+                textTransform: "none",
+                fontWeight: 600,
               }}
             >
               Back to Inventory
             </Button>
-
           </Link>
+        </Container>
+      </Box>
 
-        </Box>
-
-        {/* CARD */}
-        <Box
-          sx={{
-            background:
-              "#FFFFFF",
-
-            borderRadius:
-              "24px",
-
-            border:
-              "1px solid #E2E8F0",
-
-            p: 4,
-          }}
-        >
-          {/* HEADER */}
-          <Box
-            sx={{
-              display:
-                "flex",
-
-              justifyContent:
-                "space-between",
-
-              alignItems:
-                "center",
-
-              flexWrap:
-                "wrap",
-
-              gap: 2,
-
-              mb: 3,
-            }}
-          >
-            <Box>
-
-              <Typography
-                sx={{
-                  fontSize:
-                    "30px",
-
-                  fontWeight:
-                    700,
-
-                  color:
-                    "#2563EB",
-                }}
-              >
-                {
-                  inventory.productName
-                }
-              </Typography>
-
-              <Typography
-                sx={{
-                  color:
-                    "#64748B",
-
-                  mt: 0.5,
-                }}
-              >
-                Inventory Details
-              </Typography>
-
-            </Box>
-
-            <Chip
-              label={
-                inventory.status
-              }
-              sx={{
-                bgcolor:
-                  inventory.status ===
-                  "In Stock"
-
-                    ? "#DCFCE7"
-
-                    : "#FEE2E2",
-
-                color:
-                  inventory.status ===
-                  "In Stock"
-
-                    ? "#15803D"
-
-                    : "#DC2626",
-
-                fontWeight:
-                  700,
-              }}
-            />
-
-          </Box>
-
-          <Divider sx={{ mb: 4 }} />
-
-          {/* INFO GRID */}
-          <Box
-            sx={{
-              display:
-                "grid",
-
-              gridTemplateColumns:
-                {
-                  xs: "1fr",
-
-                  md: "1fr 1fr",
-                },
-
-              gap: 3,
-            }}
-          >
-            {/* SKU */}
-            <InfoCard
-              icon={
-                <Inventory2OutlinedIcon />
-              }
-              title="SKU"
-              value={
-                inventory.sku
-              }
-            />
-
-            {/* BARCODE */}
-            <InfoCard
-              icon={
-                <QrCode2OutlinedIcon />
-              }
-              title="Barcode"
-              value={
-                inventory.barcode
-              }
-            />
-
-            {/* CATEGORY */}
-            <InfoCard
-              icon={
-                <SellOutlinedIcon />
-              }
-              title="Category"
-              value={
-                inventory.category
-              }
-            />
-
-            {/* BRAND */}
-            <InfoCard
-              icon={
-                <SellOutlinedIcon />
-              }
-              title="Brand"
-              value={
-                inventory.brand
-              }
-            />
-
-            {/* STOCK */}
-            <InfoCard
-              icon={
-                <Inventory2OutlinedIcon />
-              }
-              title="Current Stock"
-              value={
-                inventory.stock.toString()
-              }
-            />
-
-            {/* MIN STOCK */}
-            <InfoCard
-              icon={
-                <Inventory2OutlinedIcon />
-              }
-              title="Minimum Stock"
-              value={
-                inventory.minStock.toString()
-              }
-            />
-
-            {/* PRICE */}
-            <InfoCard
-              icon={
-                <SellOutlinedIcon />
-              }
-              title="Price"
-              value={`₹${new Intl.NumberFormat("en-IN").format(
-                inventory.price
-              )}`}
-            />
-
-            {/* BRANCH */}
-            <InfoCard
-              icon={
-                <StoreOutlinedIcon />
-              }
-              title="Branch"
-              value={
-                inventory.branch
-              }
-            />
-
-            {/* CREATED */}
-            <InfoCard
-              icon={
-                <CalendarMonthOutlinedIcon />
-              }
-              title="Created On"
-              value={
-                inventory.createdOn
-              }
-            />
-
-            {/* CREATED BY */}
-            <InfoCard
-              icon={
-                <StoreOutlinedIcon />
-              }
-              title="Created By"
-              value={
-                inventory.createdBy || "-"
-              }
-            />
-
-          </Box>
-
-          {/* NOTES */}
-          <Box
-            sx={{
-              mt: 4,
-
-              p: 3,
-
-              borderRadius:
-                "18px",
-
-              border:
-                "1px solid #E2E8F0",
-
-              background:
-                "#F8FAFC",
-            }}
-          >
-            <Stack
-              direction="row"
-              spacing={1}
-              sx={{
-                alignItems:
-                  "center",
-
-                mb: 2,
-              }}
-            >
-              <DescriptionOutlinedIcon
-                sx={{
-                  color:
-                    "#2563EB",
-                }}
-              />
-
-              <Typography
-                sx={{
-                  fontWeight:
-                    700,
-
-                  fontSize:
-                    "18px",
-                }}
-              >
-                Notes
-              </Typography>
-
-            </Stack>
-
+      <Container maxWidth="xl" sx={{ py: 4 }}>
+        {/* Product Identity Section */}
+        <Box sx={{ mb: 4 }}>
+          <Stack direction="row" spacing={1.5} sx={{alignItems: "center",flexWrap: "wrap"}} >
             <Typography
               sx={{
-                color:
-                  "#475569",
-
-                lineHeight:
-                  1.8,
+                fontSize: { xs: "1.5rem", md: "1.9rem" },
+                fontWeight: 800,
+                color: "#3B82F6",
               }}
             >
-              {
-                inventory.notes || "-"
-              }
+              {item.productName}
             </Typography>
 
-          </Box>
+            <Chip
+              label={item.sku}
+              size="small"
+              sx={{
+                bgcolor: "#EFF6FF",
+                color: "#3B82F6",
+                fontWeight: 700,
+                borderRadius: "8px",
+              }}
+            />
 
+            <Chip
+              label={item.status}
+              size="small"
+              sx={{
+                bgcolor:
+                  item.status === "In Stock"
+                    ? "#DCFCE7"
+                    : item.status === "Out of Stock"
+                    ? "#FEE2E2"
+                    : "#FEF3C7",
+                color:
+                  item.status === "In Stock"
+                    ? "#15803D"
+                    : item.status === "Out of Stock"
+                    ? "#B91C1C"
+                    : "#D97706",
+                fontWeight: 700,
+                borderRadius: "8px",
+              }}
+            />
+          </Stack>
+
+          <Typography sx={{ mt: 1, color: "#64748B", fontSize: 14 }}>
+            Branch: {item.branch} | Warehouse Location: {item.location}
+          </Typography>
         </Box>
 
-      </Container>
-
-    </Box>
-  );
-}
-
-function InfoCard({
-  icon,
-  title,
-  value,
-}: {
-  icon: React.ReactNode;
-  title: string;
-  value: string;
-}) {
-
-  return (
-    <Box
-      sx={{
-        p: 3,
-
-        borderRadius:
-          "18px",
-
-        border:
-          "1px solid #E2E8F0",
-
-        background:
-          "#FFFFFF",
-      }}
-    >
-      <Stack
-        direction="row"
-        spacing={2}
-        sx={{
-          alignItems:
-            "center",
-
-          mb: 2,
-        }}
-      >
         <Box
           sx={{
-            width: 42,
-
-            height: 42,
-
-            borderRadius:
-              "12px",
-
-            bgcolor:
-              "#EFF6FF",
-
-            display:
-              "flex",
-
-            alignItems:
-              "center",
-
-            justifyContent:
-              "center",
-
-            color:
-              "#2563EB",
+            display: "flex",
+            gap: 3,
+            alignItems: "flex-start",
+            flexDirection: { xs: "column", lg: "row" },
           }}
         >
-          {icon}
+          {/* Main Details Section */}
+          <Box sx={{ width: { xs: "100%", lg: "60%" } }}>
+            <Stack spacing={3}>
+              <SideCard title="Product Specifications">
+                <InfoLine label="SKU Code" value={item.sku} />
+                <InfoLine label="Barcode" value={item.barcode} />
+                <InfoLine label="Category" value={item.category} />
+                <InfoLine label="Brand" value={item.brand} />
+                <InfoLine label="Unit of Measure" value={item.unitOfMeasure} />
+              </SideCard>
+
+              <SideCard title="Stock & Inventory Levels">
+                <InfoLine label="Quantity on Hand" value={`${item.stock} ${item.unitOfMeasure}(s)`} />
+                <InfoLine label="Minimum Stock Level" value={`${item.minStock} ${item.unitOfMeasure}(s)`} />
+                <InfoLine label="Storage Location" value={item.location} />
+                <InfoLine label="Branch Office" value={item.branch} />
+              </SideCard>
+
+              <SideCard title="Financial Information">
+                <InfoLine label="Cost Price" value={`${item.currency} ${item.costPrice.toLocaleString()}`} />
+                <InfoLine label="Selling Price (MSRP)" value={`${item.currency} ${item.price.toLocaleString()}`} />
+                <InfoLine label="Supplier" value={item.supplier} />
+              </SideCard>
+
+              <SideCard title="System Audit">
+                <InfoLine label="Registered On" value={item.createdOn} />
+                <InfoLine label="Last Stock Update" value={item.updatedDate} />
+                <InfoLine label="Managed By" value={item.createdBy} />
+              </SideCard>
+            </Stack>
+          </Box>
+
+          {/* Sidebar Summary Section */}
+          <Box sx={{ width: { xs: "100%", lg: "40%" } }}>
+            <Stack spacing={3}>
+              <Card
+                sx={{
+                  p: 3,
+                  borderRadius: "16px",
+                  boxShadow: "none",
+                  border: "1px solid #E2E8F0",
+                  bgcolor: "#FFFFFF",
+                  textAlign: "center",
+                }}
+              >
+                <Box
+                  sx={{
+                    width: 80,
+                    height: 80,
+                    mx: "auto",
+                    mb: 2,
+                    borderRadius: "18px",
+                    bgcolor: "#EFF6FF",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Inventory2OutlinedIcon
+                    sx={{ fontSize: 40, color: "#3B82F6" }}
+                  />
+                </Box>
+
+                <Typography sx={{ fontSize: 28, fontWeight: 800, color: "#0F172A" }}>
+                  {item.stock}
+                </Typography>
+
+                <Typography sx={{ color: "#64748B", fontSize: 14, mt: 0.5 }}>
+                  Units Currently Available
+                </Typography>
+              </Card>
+
+              <SideCard title="Stock Summary">
+                <IconLine
+                  icon={<QrCodeScannerOutlinedIcon />}
+                  text={`SKU: ${item.sku}`}
+                />
+                <IconLine
+                  icon={<SellOutlinedIcon />}
+                  text={`Price: ${item.currency} ${item.price}`}
+                />
+                <IconLine
+                  icon={<LocalShippingOutlinedIcon />}
+                  text={`Supplier: ${item.supplier}`}
+                />
+                <IconLine
+                  icon={<MapOutlinedIcon />}
+                  text={`Location: ${item.location}`}
+                />
+              </SideCard>
+
+              <SideCard title="Notes">
+                <Typography sx={{ color: "#475569", fontSize: 14, lineHeight: 1.7 }}>
+                  {item.notes || "No additional product notes available."}
+                </Typography>
+              </SideCard>
+
+              <SideCard title="Logistics Overview">
+                <IconLine
+                  icon={<StorefrontOutlinedIcon />}
+                  text={`Branch: ${item.branch}`}
+                />
+                <IconLine
+                  icon={<HistoryOutlinedIcon />}
+                  text={`Last Inventory Check: ${item.updatedDate}`}
+                />
+              </SideCard>
+            </Stack>
+          </Box>
         </Box>
-
-        <Typography
-          sx={{
-            color:
-              "#64748B",
-
-            fontWeight:
-              600,
-          }}
-        >
-          {title}
-        </Typography>
-
-      </Stack>
-
-      <Typography
-        sx={{
-          fontSize:
-            "20px",
-
-          fontWeight:
-            700,
-
-          color:
-            "#0F172A",
-        }}
-      >
-        {value}
-      </Typography>
-
+      </Container>
     </Box>
   );
 }
+

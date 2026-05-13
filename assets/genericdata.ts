@@ -3727,92 +3727,77 @@ export const purchaseOrders = [
   },
 ];
 
-export const expenses:
-Expense[] = [
-
+export const expenses: Expense[] = [
   {
-    id: "1",
-
-    expenseName:
-      "Office Rent",
-
-    ledger:
-      "Administrative Expense",
-
-    amount:
-      25000,
-
-    paymentMethod:
-      "Bank Transfer",
-
-    expenseDate:
-      "2026-05-10",
-
-    createdBy:
-      "Admin",
-
-    status:
-      "Paid",
-
-    notes:
-      "Monthly office rent payment.",
+    id: "EXP-001",
+    expenseName: "Office Monthly Rent",
+    ledger: "Administrative",
+    amount: 45000,
+    currency: "INR",
+    expenseDate: "2026-05-01",
+    paymentMethod: "Bank Transfer",
+    status: "Approved",
+    description: "May 2026 rent for Delhi head office",
+    createdOn: "2026-05-01",
+    createdBy: "Admin",
+    notes: "Monthly office rent payment.",
   },
-
   {
-    id: "2",
-
-    expenseName:
-      "Electricity Bill",
-
-    ledger:
-      "Utility Expense",
-
-    amount:
-      8200,
-
-    paymentMethod:
-      "UPI",
-
-    expenseDate:
-      "2026-05-12",
-
-    createdBy:
-      "Manager",
-
-    status:
-      "Pending",
-
-    notes:
-      "Awaiting approval.",
+    id: "EXP-002",
+    expenseName: "Google Workspace Subscription",
+    ledger: "IT & Software",
+    amount: 12500,
+    currency: "INR",
+    expenseDate: "2026-05-05",
+    paymentMethod: "Credit Card",
+    status: "Approved",
+    description: "Annual renewal for team email accounts",
+    createdOn: "2026-05-05",
+    createdBy: "Admin",
+    notes: "Standard IT overhead.",
   },
-
   {
-    id: "3",
-
-    expenseName:
-      "Staff Salary",
-
-    ledger:
-      "Payroll",
-
-    amount:
-      120000,
-
-    paymentMethod:
-      "Bank Transfer",
-
-    expenseDate:
-      "2026-05-15",
-
-    createdBy:
-      "Admin",
-
-    status:
-      "Paid",
-
-    notes:
-      "Monthly salary payout.",
+    id: "EXP-003",
+    expenseName: "Client Lunch - Rahul Sharma",
+    ledger: "Marketing & Sales",
+    amount: 3200,
+    currency: "INR",
+    expenseDate: "2026-05-07",
+    paymentMethod: "UPI",
+    status: "Pending",
+    description: "Project kickoff meeting lunch",
+    createdOn: "2026-05-07",
+    createdBy: "Admin",
+    notes: "Awaiting receipt verification.",
   },
+  {
+    id: "EXP-004",
+    expenseName: "New Inventory Storage Racks",
+    ledger: "Fixed Assets",
+    amount: 18000,
+    currency: "INR",
+    expenseDate: "2026-05-10",
+    paymentMethod: "Cheque",
+    status: "Approved",
+    description: "Additional racks for warehouse organization",
+    createdOn: "2026-05-10",
+    createdBy: "Admin",
+    notes: "Capital expenditure for warehouse.",
+  },
+  {
+    id: "EXP-005",
+    expenseName: "Social Media Ad Campaign",
+    ledger: "Marketing & Sales",
+    amount: 25000,
+    currency: "INR",
+    expenseDate: "2026-05-12",
+    paymentMethod: "Card",
+    status: "Pending",
+    description: "Facebook and Instagram ads for new frame collection",
+    createdOn: "2026-05-13",
+    createdBy: "Admin",
+    notes: "Campaign running for 30 days.",
+  }
 ];
 
 
@@ -3967,133 +3952,154 @@ Ledger[] = [
 
 ];
 
-export const salesTargets:
-SalesTarget[] = [
-
+export const salesTargets: SalesTarget[] = [
   {
     id: "1",
-    salesPersonName:"Rahul Sharma",
-    targetAmount:100000,
-    achievedAmount:85000,
-    remainingAmount:15000,
-    dueDate:"2026-06-30",
-    month:"June",
-    status:"In Progress",
-    notes:"Good performance this month.",
+    targetId: "TAR-1001",
+    salesPersonId: "SP-101",
+    salesPersonName: "Rahul Sharma",
+    targetAmount: 100000,
+    achievedAmount: 85000,
+    remainingAmount: 15000,
+    dueDate: "2026-06-30",
+    month: "June",
+    status: "In Progress",
+    notes: "Good performance this month.",
+    createdOn: "2026-06-01",
+    updatedDate: "2026-06-12",
+    createdBy: "Admin",
   },
-
   {
     id: "2",
-    salesPersonName:"Priya Patel",
-    targetAmount:120000,
-    achievedAmount:120000,
-    remainingAmount:0,
-    dueDate:"2026-06-30",
-    month:"June",
-    status:"Completed",
-    notes:"Target achieved successfully.",
+    targetId: "TAR-1002",
+    salesPersonId: "SP-102",
+    salesPersonName: "Priya Patel",
+    targetAmount: 120000,
+    achievedAmount: 120000,
+    remainingAmount: 0,
+    dueDate: "2026-06-30",
+    month: "June",
+    status: "Completed",
+    notes: "Target achieved successfully.",
+    createdOn: "2026-06-01",
+    updatedDate: "2026-06-25",
+    createdBy: "Admin",
   },
-
   {
     id: "3",
-    salesPersonName:"Amit Verma",
-    targetAmount:90000,
-    achievedAmount:45000,
-    remainingAmount:45000,
-    dueDate:"2026-06-30",
-    month:"June",
-    status:"Pending",
-    notes:"Needs improvement.",
+    targetId: "TAR-1003",
+    salesPersonId: "SP-103",
+    salesPersonName: "Amit Verma",
+    targetAmount: 90000,
+    achievedAmount: 45000,
+    remainingAmount: 45000,
+    dueDate: "2026-06-30",
+    month: "June",
+    status: "Pending",
+    notes: "Needs improvement.",
+    createdOn: "2026-06-02",
+    updatedDate: "2026-06-10",
+    createdBy: "Admin",
   },
+  {
+    id: "4",
+    targetId: "TAR-1004",
+    salesPersonId: "SP-104",
+    salesPersonName: "Sneha Kapoor",
+    targetAmount: 150000,
+    achievedAmount: 140000,
+    remainingAmount: 10000,
+    dueDate: "2026-06-30",
+    month: "June",
+    status: "In Progress",
+    notes: "Almost completed target.",
+    createdOn: "2026-06-03",
+    updatedDate: "2026-06-13",
+    createdBy: "Admin",
+  },
+  {
+    id: "5",
+    targetId: "TAR-1005",
+    salesPersonId: "SP-105",
+    salesPersonName: "Karan Mehta",
+    targetAmount: 80000,
+    achievedAmount: 20000,
+    remainingAmount: 60000,
+    dueDate: "2026-06-30",
+    month: "June",
+    status: "Overdue",
+    notes: "Performance significantly below expectations.",
+    createdOn: "2026-06-04",
+    updatedDate: "2026-06-14",
+    createdBy: "Admin",
+  }
 ];
 
-export const inventories:
-Inventory[] = [
-
+export const inventories: Inventory[] = [
   {
     id: "1",
-
-    productName:
-      "RayBan Aviator",
-
-    sku:
-      "RB-AVI-001",
-
-    barcode:
-      "123456789",
-
-    category:
-      "Frame",
-
-    brand:
-      "RayBan",
-
-    branch:
-      "Mumbai",
-
-    stock:
-      25,
-
-    minStock:
-      10,
-
-    price:
-      4500,
-
-    status:
-      "In Stock",
-
-    createdOn:
-      "2026-05-14",
-
-    createdBy:
-      "Admin",
-
-    notes:
-      "Fast moving frame.",
+    productName: "RayBan Aviator",
+    sku: "RB-AVI-001",
+    barcode: "123456789",
+    category: "Frame",
+    brand: "RayBan",
+    branch: "Mumbai",
+    stock: 25,
+    minStock: 10,
+    unitOfMeasure: "Pair",
+    costPrice: 3200,
+    price: 4500,
+    currency: "INR",
+    status: "In Stock",
+    supplier: "Luxottica India",
+    location: "Aisle 4, Shelf B",
+    createdOn: "2026-05-14",
+    updatedDate: "2026-05-15",
+    createdBy: "Admin",
+    notes: "Fast moving frame. Keep 2 extra pieces in display.",
   },
-
   {
     id: "2",
-
-    productName:
-      "Acuvue Moist",
-
-    sku:
-      "ACV-MST-101",
-
-    barcode:
-      "987654321",
-
-    category:
-      "Contact Lens",
-
-    brand:
-      "Acuvue",
-
-    branch:
-      "Delhi",
-
-    stock:
-      5,
-
-    minStock:
-      10,
-
-    price:
-      2200,
-
-    status:
-      "Low Stock",
-
-    createdOn:
-      "2026-05-13",
-
-    createdBy:
-      "Manager",
-
-    notes:
-      "Need urgent refill.",
+    productName: "Acuvue Moist",
+    sku: "ACV-MST-101",
+    barcode: "987654321",
+    category: "Contact Lens",
+    brand: "Acuvue",
+    branch: "Delhi",
+    stock: 5,
+    minStock: 15,
+    unitOfMeasure: "Box",
+    costPrice: 1600,
+    price: 2200,
+    currency: "INR",
+    status: "Low Stock",
+    supplier: "Johnson & Johnson Vision",
+    location: "Cold Storage Room 1",
+    createdOn: "2026-05-13",
+    updatedDate: "2026-05-14",
+    createdBy: "Manager",
+    notes: "Need urgent refill. Customer demand is high in Delhi North.",
   },
-
+  {
+    id: "3",
+    productName: "Zeiss ClearView Lenses",
+    sku: "ZSS-CLV-99",
+    barcode: "456123789",
+    category: "Lens",
+    brand: "Zeiss",
+    branch: "Mumbai",
+    stock: 0,
+    minStock: 5,
+    unitOfMeasure: "Pair",
+    costPrice: 5500,
+    price: 8500,
+    currency: "INR",
+    status: "Out of Stock",
+    supplier: "Carl Zeiss Optical",
+    location: "Main Vault",
+    createdOn: "2026-05-10",
+    updatedDate: "2026-05-15",
+    createdBy: "Admin",
+    notes: "Awaiting shipment from international warehouse.",
+  }
 ];
