@@ -344,15 +344,10 @@ export default function RoleViewContent({
                   currentRole?.totalUsers
                 }
               </Typography>
-
             </Box>
-
           </Box>
-
         </Box>
-
-      <Container/>
-
+      </Container>
     </Box>
   );
 }
