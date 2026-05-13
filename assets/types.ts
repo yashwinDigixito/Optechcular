@@ -1,32 +1,90 @@
 export interface Customer {
   id: string;
-  fullName: string;
-  customerType: "B2B" | "B2C";
+
+  customerId: string;
+  customerName: string;
+  customerType: string;
+
+  status: string;
+
+  profileImage?: string;
+
   email: string;
-  phoneNumber: string;
+  phone: string;
+  alternatePhone?: string;
+  website?: string;
+
+  address: string;
   city: string;
-  state?: string;
-  country?: string;
+  state: string;
+  country: string;
+  postalCode?: string;
+
+  salesPerson?: string;
+  customerGroup?: string;
+
+  totalOrders?: number;
+  totalRevenue?: number;
+  lastOrderDate?: string;
+
+  paymentMethod?: string;
+  outstandingAmount?: number;
+  creditLimit?: number;
+  gstNumber?: string;
+
+  lastLogin?: string;
+  lastPurchase?: string;
+
+  notes?: string;
+
+  createdOn: string;
+  updatedDate?: string;
+  createdBy?: string;
 }
 
 export interface User {
   id: string;
+
+  userId: string;
+
   fullName: string;
+  username?: string;
+
   email: string;
+  phone: string;
+
   role: string;
-  status: string;
-  phoneNumber?: string;
-}
+  department?: string;
 
-export interface Invoice {
-  id: string;
-  invoiceNo: string;
-  customer: string;
-  amount: number;
   status: string;
-  date?: string;
-}
 
+  password?: string;
+
+  profileImage?: string;
+
+  permissions?: string[];
+  accessLevel?: string;
+
+  address?: string;
+  city?: string;
+  state?: string;
+  country?: string;
+
+  totalOrdersManaged?: number;
+  assignedCustomers?: number;
+
+  lastLogin?: string;
+  lastActivity?: string;
+  loginStatus?: string;
+
+  twoFactorEnabled?: boolean;
+
+  notes?: string;
+
+  createdOn: string;
+  updatedDate?: string;
+  createdBy?: string;
+}
 export interface Product {
   id: string;
   productName: string;
@@ -190,29 +248,6 @@ export interface Order {
   notes?: string;
 }
 
-export interface PurchaseOrder {
-  id: string;
-  poNo: string;
-  vendorName: string;
-  totalQty: number;
-  status: string;
-}
-
-export interface Expense {
-  id: string;
-  expenseName: string;
-  ledger: string;
-  amount: number;
-}
-
-export interface Ledger {
-  id: string;
-  ledgerName: string;
-  group: string;
-  openingAmount: number;
-  type: string;
-}
-
 export interface SalesTarget {
   id: string;
   salesPerson: string;
@@ -293,6 +328,110 @@ export interface ReportChartProps {
   data: ReportChartData[];
   color?: string;
   label:string;
+}
+
+export interface Invoice {
+  id: string;
+  invoiceId: string;
+  invoiceNo: string;
+
+  orderNo: string;
+
+  customerName: string;
+  email: string;
+  phone: string;
+
+  billingAddress: string;
+  shippingAddress?: string;
+
+  invoiceDate: string;
+  dueDate: string;
+
+  invoiceStatus: "Draft" | "Sent" | "Cancelled";
+  paymentStatus: "Paid" | "Pending" | "Partial" | "Overdue";
+
+  productName: string;
+  productType: string;
+  quantity: number;
+  unitPrice: number;
+  tax: number;
+  discount: number;
+  lineTotal: number;
+
+  subtotal: number;
+  taxAmount: number;
+  discountAmount: number;
+  shippingCharge: number;
+  grandTotal: number;
+
+  paidAmount: number;
+  balanceDue: number;
+
+  paymentMethod?: string;
+  transactionId?: string;
+
+  notes?: string;
+
+  createdOn: string;
+  updatedDate?: string;
+  createdBy?: string;
+}
+
+export interface PurchaseOrder {
+  id: string;
+  poNumber: string;
+  vendorName: string;
+  vendorEmail: string;
+  vendorPhone: string;
+  productName: string;
+  productSku: string;
+  category: string;
+  quantity: number;
+  unitPrice: number;
+  tax: number;
+  discount: number;
+  totalAmount: number;
+  paymentStatus: string;
+  poStatus: string;
+  orderDate: string;
+  expectedDelivery: string;
+  createdBy: string;
+  notes: string;
+}
+
+export interface Expense {
+  id: string;
+  expenseName: string;
+  ledger: string;
+  amount: number;
+  paymentMethod: string;
+  expenseDate: string;
+  createdBy: string;
+  status: string;
+  notes: string;
+}
+
+export interface Ledger {
+
+  id: string;
+
+  ledgerName: string;
+
+  ledgerGroup: string;
+
+  openingBalance: number;
+
+  balanceType: string;
+
+  currentBalance: number;
+
+  createdOn: string;
+
+  createdBy: string;
+
+  status: string;
+
+  notes: string;
 }
 
 export interface Frame {
@@ -434,4 +573,57 @@ export interface Material {
 
   createdBy?: string;
   lastModifiedBy?: string;
+}
+
+export interface Purchase {
+  id: string;
+  purchaseId: string;
+  purchaseNo: string;
+
+  supplierInvoiceNo?: string;
+
+  supplierName: string;
+  email?: string;
+  phone: string;
+  gstNumber?: string;
+  billingAddress: string;
+
+  purchaseDate: string;
+  dueDate: string;
+
+  purchaseStatus: "Draft" | "Ordered" | "Received" | "Cancelled";
+  paymentStatus: "Paid" | "Pending" | "Partial" | "Overdue";
+
+  productName: string;
+  productType: string;
+  brand?: string;
+
+  quantity: number;
+  unitCost: number;
+  tax: number;
+  discount: number;
+  lineTotal: number;
+
+  subtotal: number;
+  taxAmount: number;
+  discountAmount: number;
+  shippingCharge: number;
+  grandTotal: number;
+
+  paidAmount: number;
+  balanceDue: number;
+
+  paymentMethod?: string;
+  transactionId?: string;
+
+  warehouseLocation?: string;
+  receivedQuantity?: number;
+  pendingQuantity?: number;
+  receivedDate?: string;
+
+  notes?: string;
+
+  createdOn: string;
+  updatedDate?: string;
+  createdBy?: string;
 }

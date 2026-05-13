@@ -1,167 +1,405 @@
 "use client";
 
 import {
+  useState,
+} from "react";
+
+import {
   Box,
   Button,
-  Card,
   Checkbox,
+  Divider,
   FormControlLabel,
-  Grid,
-  MenuItem,
   TextField,
   Typography,
 } from "@mui/material";
 
-const permissions = [
-  "Create",
-  "Edit",
-  "View",
-  "Deactivate",
+import { useRouter } from "next/navigation";
+
+const permissionGroups = [
+
+  {
+    title:
+      "User Management",
+
+    permissions: [
+      "Create User",
+      "Edit User",
+      "View User",
+      "Deactivate User",
+    ],
+  },
+
+  {
+    title:
+      "Product Management",
+
+    permissions: [
+      "Frames",
+      "Brands",
+      "Categories",
+      "Materials",
+      "Contact Lens",
+    ],
+  },
+
+  {
+    title:
+      "Inventory",
+
+    permissions: [
+      "Stock Management",
+      "Purchase Entry",
+      "Barcode Access",
+    ],
+  },
+
+  {
+    title:
+      "Billing & Sales",
+
+    permissions: [
+      "Billing Access",
+      "Reports",
+      "Customer Management",
+    ],
+  },
+
 ];
 
 export default function RoleForm() {
 
+  const router =
+    useRouter();
+
+  const [roleName, setRoleName] =
+    useState("");
+
+  const [description, setDescription] =
+    useState("");
+
+  const [status, setStatus] =
+    useState("Active");
+
+  const [selectedPermissions,
+    setSelectedPermissions] =
+      useState<string[]>([]);
+
+  const handlePermissionChange = (
+    permission: string
+  ) => {
+
+    setSelectedPermissions(
+      (prev) =>
+
+        prev.includes(
+          permission
+        )
+
+          ? prev.filter(
+              (item) =>
+                item !==
+                permission
+            )
+
+          : [
+              ...prev,
+              permission,
+            ]
+    );
+  };
+
+  const handleSubmit = () => {
+
+    const payload = {
+
+      roleName,
+
+      description,
+
+      status,
+
+      permissions:
+        selectedPermissions,
+    };
+
+    console.log(
+      "Role Data:",
+      payload
+    );
+
+    router.push("/roles");
+  };
+
   return (
     <Box
       sx={{
-        width: "100%",
-        minHeight: "calc(100vh - 70px)",
-
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "flex-start",
-
-        background: "#F1F5F9",
-
-        pt: 5,
-        px: 3,
+        p: 3,
       }}
     >
       <Box
         sx={{
-          width: "100%",
-          maxWidth: "900px",
+          background:
+            "#FFFFFF",
+
+          borderRadius:
+            "24px",
+
+          border:
+            "1px solid #E2E8F0",
+
+          p: 4,
         }}
       >
+        {/* HEADER */}
         <Typography
           sx={{
-            fontSize: "32px",
+            fontSize:
+              "28px",
+
             fontWeight: 700,
-            mb: 3,
-            color: "#0F172A",
+
+            color:
+              "#0F172A",
+
+            mb: 4,
           }}
         >
           Add Role
         </Typography>
 
-        <Card
+        {/* FORM */}
+        <Box
           sx={{
-            p: 4,
-            borderRadius: "24px",
+            display: "grid",
 
-            boxShadow:
-              "0px 10px 30px rgba(15,23,42,0.08)",
+            gridTemplateColumns:
+              {
+                xs: "1fr",
+
+                md: "1fr 1fr",
+              },
+
+            gap: 3,
           }}
         >
+          {/* ROLE NAME */}
+          <TextField
+            fullWidth
+            label="Role Name"
+            value={roleName}
+            onChange={(e) =>
+              setRoleName(
+                e.target.value
+              )
+            }
+          />
 
-          <Grid container spacing={3}>
+          {/* STATUS */}
+          <TextField
+            select
+            fullWidth
+            label="Status"
+            value={status}
+            onChange={(e) =>
+              setStatus(
+                e.target.value
+              )
+            }
+          >
+            <option value="Active">
+              Active
+            </option>
 
-            <Grid size={{ xs: 12, md: 6 }}>
-              <TextField
-                fullWidth
-                label="Role Name"
-              />
-            </Grid>
+            <option value="Inactive">
+              Inactive
+            </option>
 
-            <Grid size={{ xs: 12, md: 6 }}>
-              <TextField
-                select
-                fullWidth
-                label="Status"
-                defaultValue="Active"
-              >
-                <MenuItem value="Active">
-                  Active
-                </MenuItem>
+          </TextField>
 
-                <MenuItem value="Inactive">
-                  Inactive
-                </MenuItem>
-              </TextField>
-            </Grid>
+        </Box>
 
-          </Grid>
+        {/* DESCRIPTION */}
+        <TextField
+          fullWidth
+          multiline
+          rows={4}
+          label="Description"
+          value={description}
+          onChange={(e) =>
+            setDescription(
+              e.target.value
+            )
+          }
+          sx={{
+            mt: 3,
+          }}
+        />
 
+        {/* PERMISSIONS */}
+        <Box
+          sx={{
+            mt: 5,
+          }}
+        >
           <Typography
             sx={{
-              mt: 5,
-              fontSize: "24px",
+              fontSize:
+                "22px",
+
               fontWeight: 700,
-              color: "#0F172A",
+
+              color:
+                "#0F172A",
+
+              mb: 3,
             }}
           >
             Permissions
           </Typography>
 
-          <Grid
-            container
-            spacing={2}
-            sx={{ mt: 2 }}
+          <Box
+            sx={{
+              display: "grid",
+
+              gridTemplateColumns:
+                {
+                  xs: "1fr",
+
+                  md: "1fr 1fr",
+                },
+
+              gap: 3,
+            }}
           >
+            {permissionGroups.map(
+              (group) => (
 
-            {permissions.map((permission) => (
-
-              <Grid
-                key={permission}
-                size={{ xs: 12, md: 3 }}
-              >
-                <Card
+                <Box
+                  key={group.title}
                   sx={{
-                    p: 2,
-                    borderRadius: "18px",
                     border:
                       "1px solid #E2E8F0",
 
-                    boxShadow: "none",
+                    borderRadius:
+                      "18px",
 
-                    transition: "0.3s",
+                    p: 3,
 
-                    "&:hover": {
-                      border:
-                        "1px solid #2563EB",
-
-                      background:
-                        "#EFF6FF",
-                    },
+                    background:
+                      "#F8FAFC",
                   }}
                 >
-                  <FormControlLabel
-                    control={<Checkbox />}
-                    label={permission}
-                  />
-                </Card>
-              </Grid>
-            ))}
+                  <Typography
+                    sx={{
+                      fontSize:
+                        "18px",
 
-          </Grid>
+                      fontWeight: 700,
+
+                      color:
+                        "#0F172A",
+
+                      mb: 2,
+                    }}
+                  >
+                    {
+                      group.title
+                    }
+                  </Typography>
+
+                  <Divider
+                    sx={{
+                      mb: 2,
+                    }}
+                  />
+
+                  <Box
+                    sx={{
+                      display:
+                        "flex",
+
+                      flexDirection:
+                        "column",
+
+                      gap: 1,
+                    }}
+                  >
+                    {group.permissions.map(
+                      (
+                        permission
+                      ) => (
+
+                        <FormControlLabel
+                          key={
+                            permission
+                          }
+                          control={
+                            <Checkbox
+                              checked={selectedPermissions.includes(
+                                permission
+                              )}
+                              onChange={() =>
+                                handlePermissionChange(
+                                  permission
+                                )
+                              }
+                            />
+                          }
+                          label={
+                            permission
+                          }
+                        />
+                      )
+                    )}
+
+                  </Box>
+
+                </Box>
+              )
+            )}
+
+          </Box>
+
+        </Box>
+
+        {/* BUTTONS */}
+        <Box
+          sx={{
+            display: "flex",
+
+            justifyContent:
+              "flex-end",
+
+            gap: 2,
+
+            mt: 5,
+          }}
+        >
+          <Button
+            variant="outlined"
+            onClick={() =>
+              router.push(
+                "/roles"
+              )
+            }
+          >
+            Cancel
+          </Button>
 
           <Button
             variant="contained"
-            sx={{
-              mt: 5,
-              height: "50px",
-              borderRadius: "14px",
-              px: 5,
-              textTransform: "none",
-              fontWeight: 700,
-              fontSize: "16px",
-            }}
+            onClick={
+              handleSubmit
+            }
           >
             Save Role
           </Button>
 
-        </Card>
+        </Box>
+
       </Box>
+
     </Box>
   );
 }

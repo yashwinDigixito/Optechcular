@@ -1,19 +1,21 @@
+"use client";
+
+import {
+  useParams,
+} from "next/navigation";
+
 import RoleViewContent from "@/component/role-management/RoleViewContent";
 
-export default async function ViewPage({
-  params,
-}: {
-  params: Promise<{
-    id: string;
-  }>;
-}) {
+export default function RoleViewPage() {
 
-  const { id } =
-    await params;
+  const params =
+    useParams();
 
   return (
     <RoleViewContent
-      id={id}
+      id={
+        params.id as string
+      }
     />
   );
 }

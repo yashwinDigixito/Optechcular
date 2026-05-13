@@ -1,15 +1,25 @@
 "use client";
 
+import SearchIcon from "@mui/icons-material/Search";
+
 import {
-    Box,
+  Box,
+  InputAdornment,
+  MenuItem,
+  TextField,
 } from "@mui/material";
 
-import SearchField from "@/component/common/SearchField";
+interface Props {
 
-interface RoleFiltersProps {
   search: string;
 
   setSearch: (
+    value: string
+  ) => void;
+
+  status: string;
+
+  setStatus: (
     value: string
   ) => void;
 }
@@ -17,23 +27,121 @@ interface RoleFiltersProps {
 export default function RoleFilters({
   search,
   setSearch,
-}: RoleFiltersProps) {
+  status,
+  setStatus,
+}: Props) {
 
   return (
     <Box
       sx={{
         display: "flex",
+
         gap: 2,
-        mt: 3,
+
+        mb: 3,
+
+        flexWrap: "wrap",
       }}
     >
-      <Box sx={{ flex: 1 }}>
-        <SearchField
-          placeholder="Search role name..."
-          value={search}
-          onChange={setSearch}
-        />
-      </Box>
+      {/* SEARCH */}
+      <TextField
+        placeholder="Search role..."
+        value={search}
+        onChange={(e) =>
+          setSearch(
+            e.target.value
+          )
+        }
+        sx={{
+          minWidth: "260px",
+
+          "& .MuiOutlinedInput-root":
+            {
+              borderRadius:
+                "14px",
+
+              background:
+                "#FFFFFF",
+            },
+        }}
+        slotProps={{
+          input: {
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon
+                  sx={{
+                    color:
+                      "#94A3B8",
+                  }}
+                />
+              </InputAdornment>
+            ),
+          },
+        }}
+      />
+
+      {/* STATUS */}
+      <TextField
+        select
+        value={status}
+        onChange={(e) =>
+          setStatus(
+            e.target.value
+          )
+        }
+        sx={{
+          minWidth: "220px",
+
+          "& .MuiOutlinedInput-root":
+            {
+              borderRadius:
+                "14px",
+
+              background:
+                "#FFFFFF",
+            },
+        }}
+        slotProps={{
+          select: {
+            displayEmpty: true,
+
+            renderValue: (
+              selected
+            ) => {
+
+              if (!selected) {
+
+                return (
+                  <Box
+                    sx={{
+                      color:
+                        "#94A3B8",
+                    }}
+                  >
+                    Sort by Status
+                  </Box>
+                );
+              }
+
+              return selected as string;
+            },
+          },
+        }}
+      >
+        <MenuItem value="">
+          All Status
+        </MenuItem>
+
+        <MenuItem value="Active">
+          Active
+        </MenuItem>
+
+        <MenuItem value="Inactive">
+          Inactive
+        </MenuItem>
+
+      </TextField>
+
     </Box>
   );
 }
