@@ -1,21 +1,17 @@
-"use client";
+import CustomerViewPage from "@/component/customer-management/CustomerDetails";
 
-import {
-    useParams,
-} from "next/navigation";
 
-import CustomerDetails from "@/component/customer-management/CustomerDetails";
-
-export default function CustomerViewPage() {
-
-  const params =
-    useParams();
+export default async function ViewPage({
+  params,
+}: {
+  params: Promise<{
+    id: string;
+  }>;
+}) {
 
   return (
-    <CustomerDetails
-      id={
-        params.id as string
-      }
+    <CustomerViewPage
+      params={params}
     />
   );
 }

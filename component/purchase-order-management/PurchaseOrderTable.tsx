@@ -161,7 +161,7 @@ export default function PurchaseOrderTable({
                   >
                     ₹
                     {
-                      po.totalAmount.toLocaleString()
+                      po.totalAmount
                     }
                   </Typography>
 

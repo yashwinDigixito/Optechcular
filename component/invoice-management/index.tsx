@@ -57,20 +57,9 @@ export default function InvoiceManagementPage() {
     invoiceData.filter(
       (invoice) => {
 
-        const matchesSearch =
-          search
-            ? invoice.invoiceNo
-                .toLowerCase()
-                .includes(
-                  search.toLowerCase()
-                ) ||
-
-              invoice.customerName
-                .toLowerCase()
-                .includes(
-                  search.toLowerCase()
-                )
-            : true;
+        const matchesSearch = !search || [invoice.invoiceNo, invoice.customerName].some(
+  field => field?.toLowerCase().includes(search.toLowerCase())
+);
 
         const matchesPayment =
           paymentStatus

@@ -1,45 +1,17 @@
-"use client";
 
-import {
-    Box,
-} from "@mui/material";
+import PurchaseOrderViewPage from "@/component/purchase-order-management/PurchaseOrderDetails";
 
-import {
-    useParams,
-} from "next/navigation";
-
-import {
-    purchaseOrders,
-} from "@/assets/genericdata";
-
-import PurchaseOrderDetails from "@/component/purchase-order-management/PurchaseOrderDetails";
-
-export default function PurchaseOrderViewPage() {
-
-  const params =
-    useParams();
-
-  const purchaseOrder =
-    purchaseOrders.find(
-      (item) =>
-        item.id ===
-        params.id
-    );
-
-  if (!purchaseOrder) {
-
-    return (
-      <Box sx={{ p: 3 }}>
-        Purchase Order not found
-      </Box>
-    );
-  }
+export default async function Page({
+  params,
+}: {
+  params: Promise<{
+    id: string;
+  }>;
+}) {
 
   return (
-    <PurchaseOrderDetails
-      purchaseOrder={
-        purchaseOrder
-      }
+    <PurchaseOrderViewPage
+      params={params}
     />
   );
 }

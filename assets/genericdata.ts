@@ -2,13 +2,10 @@ import {
   DashboardStat,
   Expense,
   Inventory,
-  Invoice,
   Ledger,
   LedgerGroup,
-  PurchaseOrder,
   ReportChartData,
-  SalesTarget,
-  User
+  SalesTarget
 } from "@/assets/types";
 
 export const dashboardStats: DashboardStat[] = [
@@ -2386,7 +2383,182 @@ export const frameVariants = [
   },
 ];
 
-
+export const users = [
+  {
+    id: "USR-001",
+    userId: "1001",
+    fullName: "Alex Thompson",
+    username: "athompson_admin",
+    email: "alex.t@company.com",
+    phone: "+1 (555) 123-4567",
+    role: "Administrator",
+    department: "IT Operations",
+    status: "Active",
+    password: "hashed_password_123",
+    profileImage: "https://api.dicebear.com/7.x/avataaars/svg?seed=Alex",
+    permissions: ["all", "manage_users", "view_reports"],
+    accessLevel: "SuperUser",
+    address: "123 Tech Lane",
+    city: "New York",
+    state: "NY",
+    country: "USA",
+    totalOrdersManaged: 145,
+    assignedCustomers: 12,
+    lastLogin: "2026-05-12T09:30:00Z",
+    lastActivity: "2026-05-13T10:15:00Z",
+    loginStatus: "Online",
+    twoFactorEnabled: true,
+    notes: "Primary system administrator for the Northeast region.",
+    createdOn: "2024-01-15T08:00:00Z",
+    updatedDate: "2026-01-20T14:30:00Z",
+    createdBy: "System_Init"
+  },
+  {
+    id: "USR-002",
+    userId: "1002",
+    fullName: "Sarah Chen",
+    username: "schen_procure",
+    email: "s.chen@company.com",
+    phone: "+1 (555) 987-6543",
+    role: "Procurement Manager",
+    department: "Supply Chain",
+    status: "Active",
+    password: "hashed_password_456",
+    profileImage: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah",
+    permissions: ["view_orders", "approve_orders", "manage_vendors"],
+    accessLevel: "Manager",
+    address: "456 Logistic Way",
+    city: "San Francisco",
+    state: "CA",
+    country: "USA",
+    totalOrdersManaged: 892,
+    assignedCustomers: 5,
+    lastLogin: "2026-05-13T08:15:00Z",
+    lastActivity: "2026-05-13T12:45:00Z",
+    loginStatus: "Online",
+    twoFactorEnabled: true,
+    notes: "Authorized for high-value purchase approvals.",
+    createdOn: "2024-03-20T10:00:00Z",
+    updatedDate: "2025-12-01T09:00:00Z",
+    createdBy: "USR-001"
+  },
+  {
+    id: "USR-003",
+    userId: "1003",
+    fullName: "Michael Rodriguez",
+    username: "mrod_sales",
+    email: "m.rodriguez@company.com",
+    phone: "+1 (555) 444-5566",
+    role: "Sales Executive",
+    department: "Sales",
+    status: "Active",
+    password: "hashed_password_789",
+    profileImage: "https://api.dicebear.com/7.x/avataaars/svg?seed=Michael",
+    permissions: ["view_customers", "create_orders", "edit_own_profile"],
+    accessLevel: "Staff",
+    address: "789 Sales Blvd",
+    city: "Austin",
+    state: "TX",
+    country: "USA",
+    totalOrdersManaged: 312,
+    assignedCustomers: 45,
+    lastLogin: "2026-05-11T16:45:00Z",
+    lastActivity: "2026-05-12T11:20:00Z",
+    loginStatus: "Offline",
+    twoFactorEnabled: false,
+    notes: "Top performer for Q1 2026.",
+    createdOn: "2024-06-10T11:30:00Z",
+    updatedDate: "2026-02-15T16:20:00Z",
+    createdBy: "USR-001"
+  },
+  {
+    id: "USR-004",
+    userId: "1004",
+    fullName: "Emily Blunt",
+    username: "eblunt_fin",
+    email: "e.blunt@company.com",
+    phone: "+44 20 7946 0123",
+    role: "Finance Auditor",
+    department: "Finance",
+    status: "Inactive",
+    password: "hashed_password_abc",
+    profileImage: "https://api.dicebear.com/7.x/avataaars/svg?seed=Emily",
+    permissions: ["view_reports", "view_invoices", "export_data"],
+    accessLevel: "Auditor",
+    address: "10 Baker Street",
+    city: "London",
+    state: "Greater London",
+    country: "UK",
+    totalOrdersManaged: 0,
+    assignedCustomers: 0,
+    lastLogin: "2026-04-30T11:00:00Z",
+    lastActivity: "2026-04-30T13:00:00Z",
+    loginStatus: "Offline",
+    twoFactorEnabled: true,
+    notes: "On maternity leave until September 2026.",
+    createdOn: "2023-11-05T09:00:00Z",
+    updatedDate: "2026-04-30T13:00:00Z",
+    createdBy: "USR-001"
+  },
+  {
+    id: "USR-005",
+    userId: "1005",
+    fullName: "David Park",
+    username: "dpark_whse",
+    email: "d.park@company.com",
+    phone: "+82 2-312-4567",
+    role: "Warehouse Supervisor",
+    department: "Logistics",
+    status: "Active",
+    password: "hashed_password_def",
+    profileImage: "https://api.dicebear.com/7.x/avataaars/svg?seed=David",
+    permissions: ["update_inventory", "view_shipments", "manage_stock"],
+    accessLevel: "Staff",
+    address: "22 Gangnam-daero",
+    city: "Seoul",
+    state: "Seoul",
+    country: "South Korea",
+    totalOrdersManaged: 1205,
+    assignedCustomers: 0,
+    lastLogin: "2026-05-13T07:00:00Z",
+    lastActivity: "2026-05-13T13:00:00Z",
+    loginStatus: "Online",
+    twoFactorEnabled: false,
+    notes: "Managing the night shift operations.",
+    createdOn: "2025-02-12T06:00:00Z",
+    updatedDate: "2025-02-12T06:00:00Z",
+    createdBy: "USR-002"
+  },
+  {
+    id: "USR-006",
+    userId: "1006",
+    fullName: "Priya Sharma",
+    username: "psharma_hr",
+    email: "p.sharma@company.com",
+    phone: "+91 98765 43210",
+    role: "HR Generalist",
+    department: "Human Resources",
+    status: "Suspended",
+    password: "hashed_password_ghi",
+    profileImage: "https://api.dicebear.com/7.x/avataaars/svg?seed=Priya",
+    permissions: ["view_employee_basic", "manage_payroll"],
+    accessLevel: "Restricted",
+    address: "Level 5, Sky Tower",
+    city: "Mumbai",
+    state: "Maharashtra",
+    country: "India",
+    totalOrdersManaged: 0,
+    assignedCustomers: 0,
+    lastLogin: "2026-05-01T14:20:00Z",
+    lastActivity: "2026-05-01T15:00:00Z",
+    loginStatus: "Offline",
+    twoFactorEnabled: true,
+    notes: "Account suspended pending security review after multiple failed login attempts.",
+    createdOn: "2025-04-01T10:45:00Z",
+    updatedDate: "2026-05-02T09:15:00Z",
+    createdBy: "USR-001"
+  }
+];
 export const roles = [
 
   {
@@ -2496,509 +2668,1062 @@ export const roles = [
 ];
 
 export const customers = [
-
   {
     id: "1",
+    customerId: "CUS-1001",
+    customerName: "Rahul Sharma",
+    fullName: "Rahul Sharma",
+    customerType: "B2C",
 
-    customerType:
-      "B2C",
+    status: "Active",
 
-    fullName:
-      "Rahul Sharma",
+    email: "rahul@gmail.com",
+    phone: "+91 9876543210",
+    alternatePhone: "+91 9123456780",
 
-    phoneNumber:
-      "9876543210",
+    addressLine1: "22 MG Road",
+    addressLine2: "Near Metro Station",
 
-    email:
-      "rahul@gmail.com",
+    address: "22 MG Road, Near Metro Station",
+    city: "Delhi",
+    state: "Delhi",
+    country: "India",
+    postalCode: "110001",
 
-    addressLine1:
-      "MG Road",
+    salesPerson: "Amit Verma",
+    customerGroup: "Premium",
 
-    addressLine2:
-      "Near Metro Station",
+    totalOrders: 18,
+    totalRevenue: 245000,
+    lastOrderDate: "2026-05-12",
 
-    city:
-      "Mumbai",
+    paymentMethod: "UPI",
+    outstandingAmount: 1200,
+    creditLimit: 50000,
+    gstNumber: "07ABCDE1234F1Z5",
 
-    state:
-      "Maharashtra",
+    lastLogin: "2026-05-12",
+    lastPurchase: "2026-05-11",
 
-    country:
-      "India",
+    notes: "Premium repeat customer.",
 
-    status:
-      "Active",
-
-    createdOn:
-      "2026-05-12",
+    createdOn: "2026-05-01",
+    updatedDate: "2026-05-12",
+    createdBy: "Admin",
   },
 
   {
     id: "2",
+    customerId: "CUS-1002",
+    customerName: "Riya Patel",
+    fullName: "Riya Patel",
+    customerType: "B2B",
 
-    customerType:
-      "B2B",
+    status: "Active",
 
-    fullName:
-      "Vision Optics Pvt Ltd",
+    email: "riya@gmail.com",
+    phone: "+91 9988776655",
+    alternatePhone: "+91 9876501234",
 
-    phoneNumber:
-      "9898989898",
+    addressLine1: "Andheri East",
+    addressLine2: "Business Park",
 
-    email:
-      "visionoptics@gmail.com",
+    address: "Andheri East, Business Park",
+    city: "Mumbai",
+    state: "Maharashtra",
+    country: "India",
+    postalCode: "400069",
 
-    addressLine1:
-      "Ring Road",
+    salesPerson: "Suresh",
+    customerGroup: "Wholesale",
 
-    addressLine2:
-      "Business Hub",
+    totalOrders: 35,
+    totalRevenue: 680000,
+    lastOrderDate: "2026-05-11",
 
-    city:
-      "Ahmedabad",
+    paymentMethod: "Bank Transfer",
+    outstandingAmount: 5400,
+    creditLimit: 120000,
+    gstNumber: "27ABCDE1234F1Z5",
 
-    state:
-      "Gujarat",
+    lastLogin: "2026-05-11",
+    lastPurchase: "2026-05-10",
 
-    country:
-      "India",
+    notes: "Wholesale customer account.",
 
-    status:
-      "Active",
-
-    createdOn:
-      "2026-05-11",
+    createdOn: "2026-05-02",
+    updatedDate: "2026-05-11",
+    createdBy: "Admin",
   },
 
   {
     id: "3",
+    customerId: "CUS-1003",
+    customerName: "Arjun Verma",
+    fullName: "Arjun Verma",
+    customerType: "B2C",
 
-    customerType:
-      "B2C",
+    status: "Inactive",
 
-    fullName:
-      "Priya Patel",
+    email: "arjun@gmail.com",
+    phone: "+91 9090909090",
+    alternatePhone: "+91 9898989898",
 
-    phoneNumber:
-      "9123456780",
+    addressLine1: "Sector 18",
+    addressLine2: "Near Mall",
 
-    email:
-      "priya@gmail.com",
+    address: "Sector 18, Near Mall",
+    city: "Noida",
+    state: "Uttar Pradesh",
+    country: "India",
+    postalCode: "201301",
 
-    addressLine1:
-      "SG Highway",
+    salesPerson: "Rohit",
+    customerGroup: "Regular",
 
-    addressLine2:
-      "Apartment 402",
+    totalOrders: 8,
+    totalRevenue: 98000,
+    lastOrderDate: "2026-05-09",
 
-    city:
-      "Ahmedabad",
+    paymentMethod: "Cash",
+    outstandingAmount: 0,
+    creditLimit: 20000,
+    gstNumber: "09ABCDE1234F1Z5",
 
-    state:
-      "Gujarat",
+    lastLogin: "2026-05-09",
+    lastPurchase: "2026-05-08",
 
-    country:
-      "India",
+    notes: "Inactive customer profile.",
 
-    status:
-      "Inactive",
-
-    createdOn:
-      "2026-05-10",
+    createdOn: "2026-05-03",
+    updatedDate: "2026-05-09",
+    createdBy: "Admin",
   },
 
   {
     id: "4",
+    customerId: "CUS-1004",
+    customerName: "Sneha Kapoor",
+    fullName: "Sneha Kapoor",
+    customerType: "B2C",
 
-    customerType:
-      "B2B",
+    status: "Active",
 
-    fullName:
-      "EyeCare Vision",
+    email: "sneha@gmail.com",
+    phone: "+91 8181818181",
+    alternatePhone: "+91 8000000001",
 
-    phoneNumber:
-      "9988776655",
+    addressLine1: "MG Road",
+    addressLine2: "Central Plaza",
 
-    email:
-      "eyecare@gmail.com",
+    address: "MG Road, Central Plaza",
+    city: "Bangalore",
+    state: "Karnataka",
+    country: "India",
+    postalCode: "560001",
 
-    addressLine1:
-      "Linking Road",
+    salesPerson: "Vikas",
+    customerGroup: "Premium",
 
-    addressLine2:
-      "Corporate Plaza",
+    totalOrders: 24,
+    totalRevenue: 320000,
+    lastOrderDate: "2026-05-12",
 
-    city:
-      "Delhi",
+    paymentMethod: "Card",
+    outstandingAmount: 2500,
+    creditLimit: 65000,
+    gstNumber: "29ABCDE1234F1Z5",
 
-    state:
-      "Delhi",
+    lastLogin: "2026-05-12",
+    lastPurchase: "2026-05-11",
 
-    country:
-      "India",
+    notes: "Frequent buyer.",
 
-    status:
-      "Active",
-
-    createdOn:
-      "2026-05-09",
+    createdOn: "2026-05-04",
+    updatedDate: "2026-05-12",
+    createdBy: "Admin",
   },
 
+  {
+    id: "5",
+    customerId: "CUS-1005",
+    customerName: "Karan Mehta",
+    fullName: "Karan Mehta",
+    customerType: "B2B",
+
+    status: "Active",
+
+    email: "karan@gmail.com",
+    phone: "+91 7878787878",
+    alternatePhone: "+91 9000000001",
+
+    addressLine1: "Park Street",
+    addressLine2: "Office Complex",
+
+    address: "Park Street, Office Complex",
+    city: "Kolkata",
+    state: "West Bengal",
+    country: "India",
+    postalCode: "700016",
+
+    salesPerson: "Anjali",
+    customerGroup: "Distributor",
+
+    totalOrders: 42,
+    totalRevenue: 890000,
+    lastOrderDate: "2026-05-10",
+
+    paymentMethod: "Bank Transfer",
+    outstandingAmount: 7800,
+    creditLimit: 150000,
+    gstNumber: "19ABCDE1234F1Z5",
+
+    lastLogin: "2026-05-10",
+    lastPurchase: "2026-05-09",
+
+    notes: "Distributor customer.",
+
+    createdOn: "2026-05-05",
+    updatedDate: "2026-05-10",
+    createdBy: "Admin",
+  },
+
+  {
+    id: "6",
+    customerId: "CUS-1006",
+    customerName: "Priya Nair",
+    fullName: "Priya Nair",
+    customerType: "B2C",
+
+    status: "Active",
+
+    email: "priya@gmail.com",
+    phone: "+91 9998887776",
+    alternatePhone: "+91 9111111111",
+
+    addressLine1: "Marine Drive",
+    addressLine2: "Sea View Apartments",
+
+    address: "Marine Drive, Sea View Apartments",
+    city: "Mumbai",
+    state: "Maharashtra",
+    country: "India",
+    postalCode: "400002",
+
+    salesPerson: "Deepak",
+    customerGroup: "Regular",
+
+    totalOrders: 16,
+    totalRevenue: 185000,
+    lastOrderDate: "2026-05-08",
+
+    paymentMethod: "UPI",
+    outstandingAmount: 0,
+    creditLimit: 30000,
+    gstNumber: "27ABCDE1234F1Z5",
+
+    lastLogin: "2026-05-08",
+    lastPurchase: "2026-05-07",
+
+    notes: "Regular customer account.",
+
+    createdOn: "2026-05-06",
+    updatedDate: "2026-05-08",
+    createdBy: "Admin",
+  },
+
+  {
+    id: "7",
+    customerId: "CUS-1007",
+    customerName: "Aditya Singh",
+    fullName: "Aditya Singh",
+    customerType: "B2B",
+
+    status: "Inactive",
+
+    email: "aditya@gmail.com",
+    phone: "+91 9098765432",
+    alternatePhone: "+91 9555555555",
+
+    addressLine1: "Banjara Hills",
+    addressLine2: "Corporate Hub",
+
+    address: "Banjara Hills, Corporate Hub",
+    city: "Hyderabad",
+    state: "Telangana",
+    country: "India",
+    postalCode: "500034",
+
+    salesPerson: "Rahul",
+    customerGroup: "Corporate",
+
+    totalOrders: 27,
+    totalRevenue: 540000,
+    lastOrderDate: "2026-05-06",
+
+    paymentMethod: "Cheque",
+    outstandingAmount: 12000,
+    creditLimit: 200000,
+    gstNumber: "36ABCDE1234F1Z5",
+
+    lastLogin: "2026-05-06",
+    lastPurchase: "2026-05-05",
+
+    notes: "Corporate inactive account.",
+
+    createdOn: "2026-05-07",
+    updatedDate: "2026-05-06",
+    createdBy: "Admin",
+  },
+
+  {
+    id: "8",
+    customerId: "CUS-1008",
+    customerName: "Neha Joshi",
+    fullName: "Neha Joshi",
+    customerType: "B2C",
+
+    status: "Active",
+
+    email: "neha@gmail.com",
+    phone: "+91 9898989898",
+    alternatePhone: "+91 9444444444",
+
+    addressLine1: "Civil Lines",
+    addressLine2: "Near Bus Stand",
+
+    address: "Civil Lines, Near Bus Stand",
+    city: "Jaipur",
+    state: "Rajasthan",
+    country: "India",
+    postalCode: "302001",
+
+    salesPerson: "Sonia",
+    customerGroup: "Premium",
+
+    totalOrders: 20,
+    totalRevenue: 265000,
+    lastOrderDate: "2026-05-12",
+
+    paymentMethod: "Card",
+    outstandingAmount: 3500,
+    creditLimit: 55000,
+    gstNumber: "08ABCDE1234F1Z5",
+
+    lastLogin: "2026-05-12",
+    lastPurchase: "2026-05-11",
+
+    notes: "Premium eyewear customer.",
+
+    createdOn: "2026-05-08",
+    updatedDate: "2026-05-12",
+    createdBy: "Admin",
+  },
 ];
 
-export const invoices:Invoice[]= [
-
+export const invoices = [
   {
     id: "1",
-
-    invoiceNo:
-      "INV-1001",
-
-    orderNo:
-      "ORD-1001",
-
-    customerName:
-      "Rahul Sharma",
-
-    productName:
-      "RayBan Aviator Frame",
-
-    brand:
-      "RayBan",
-
-    category:
-      "Frame",
-
-    invoiceDate:
-      "2026-05-14",
-
-    dueDate:
-      "2026-05-20",
-
-    subtotal:
-      4200,
-
-    tax:
-      300,
-
-    discount:
-      0,
-
-    totalAmount:
-      4500,
-
-    paidAmount:
-      4500,
-
-    dueAmount:
-      0,
-
-    paymentStatus:
-      "Paid",
-
-    invoiceStatus:
-      "Completed",
-
-    paymentMethod:
-      "UPI",
-
-    createdBy:
-      "Admin",
-
-    notes:
-      "Customer paid full amount.",
+    invoiceId: "INV-1001",
+    invoiceNo: "INV-2026-001",
+    orderNo: "ORD-1001",
+    customerName: "Rahul Sharma",
+    email: "rahul@gmail.com",
+    phone: "+91 9876543210",
+    billingAddress: "22 MG Road, Near Metro Station, Delhi, India - 110001",
+    shippingAddress: "22 MG Road, Near Metro Station, Delhi, India - 110001",
+    invoiceDate: "2026-05-01",
+    dueDate: "2026-05-10",
+    invoiceStatus: "Sent",
+    paymentStatus: "Paid",
+    productName: "RayBan Optical Frame",
+    productType: "Frame",
+    category: "Eyewear", // Added category
+    quantity: 2,
+    unitPrice: 8500,
+    tax: 18,
+    discount: 1000,
+    lineTotal: 17000,
+    subtotal: 17000,
+    taxAmount: 3060,
+    discountAmount: 1000,
+    shippingCharge: 200,
+    grandTotal: 19260,
+    paidAmount: 19260,
+    balanceDue: 0,
+    paymentMethod: "UPI",
+    transactionId: "TXN-908776",
+    notes: "Invoice paid successfully.",
+    createdOn: "2026-05-01",
+    updatedDate: "2026-05-02",
+    createdBy: "Admin",
   },
-
   {
     id: "2",
-
-    invoiceNo:
-      "INV-1002",
-
-    orderNo:
-      "ORD-1002",
-
-    customerName:
-      "Vision Optics Pvt Ltd",
-
-    productName:
-      "Premium Optical Lens",
-
-    brand:
-      "Essilor",
-
-    category:
-      "Optical Lens",
-
-    invoiceDate:
-      "2026-05-13",
-
-    dueDate:
-      "2026-05-22",
-
-    subtotal:
-      12000,
-
-    tax:
-      800,
-
-    discount:
-      0,
-
-    totalAmount:
-      12800,
-
-    paidAmount:
-      0,
-
-    dueAmount:
-      12800,
-
-    paymentStatus:
-      "Pending",
-
-    invoiceStatus:
-      "Pending",
-
-    paymentMethod:
-      "Bank Transfer",
-
-    createdBy:
-      "Manager",
-
-    notes:
-      "Waiting for payment approval.",
+    invoiceId: "INV-1002",
+    invoiceNo: "INV-2026-002",
+    orderNo: "ORD-1002",
+    customerName: "Riya Patel",
+    email: "riya@gmail.com",
+    phone: "+91 9988776655",
+    billingAddress: "Andheri East, Business Park, Mumbai, India - 400069",
+    shippingAddress: "Andheri East, Business Park, Mumbai, India - 400069",
+    invoiceDate: "2026-05-02",
+    dueDate: "2026-05-12",
+    invoiceStatus: "Sent",
+    paymentStatus: "Partial",
+    productName: "Acuvue Contact Lens",
+    productType: "Contact Lens",
+    category: "Contacts", // Added category
+    quantity: 5,
+    unitPrice: 2500,
+    tax: 12,
+    discount: 500,
+    lineTotal: 12500,
+    subtotal: 12500,
+    taxAmount: 1500,
+    discountAmount: 500,
+    shippingCharge: 150,
+    grandTotal: 13650,
+    paidAmount: 7000,
+    balanceDue: 6650,
+    paymentMethod: "Bank Transfer",
+    transactionId: "TXN-887766",
+    notes: "Partial payment received.",
+    createdOn: "2026-05-02",
+    updatedDate: "2026-05-03",
+    createdBy: "Admin",
   },
-
   {
     id: "3",
-    invoiceNo:
-      "INV-1003",
-    orderNo:
-      "ORD-1003",
-    customerName:
-      "Priya Patel",
-    productName:
-      "Acuvue Contact Lens",
-    brand:
-      "Acuvue",
-    category:
-      "Contact Lens",
-    invoiceDate:
-      "2026-05-12",
-    dueDate:
-      "2026-05-18",
-    subtotal:
-      2000,
-    tax:
-      200,
-    discount:
-      0,
-    totalAmount:
-      2200,
-    paidAmount:
-      2200,
-    dueAmount:
-      0,
-    paymentStatus:
-      "Paid",
-    invoiceStatus:
-      "Completed",
-    paymentMethod:
-      "Cash",
-    createdBy:
-      "Sales",
-    notes:
-      "Cash payment received.",
+    invoiceId: "INV-1003",
+    invoiceNo: "INV-2026-003",
+    orderNo: "ORD-1003",
+    customerName: "Arjun Verma",
+    email: "arjun@gmail.com",
+    phone: "+91 9090909090",
+    billingAddress: "Sector 18, Near Mall, Noida, India - 201301",
+    shippingAddress: "Sector 18, Near Mall, Noida, India - 201301",
+    invoiceDate: "2026-05-03",
+    dueDate: "2026-05-15",
+    invoiceStatus: "Draft",
+    paymentStatus: "Pending",
+    productName: "Fastrack Sunglasses",
+    productType: "Accessories",
+    category: "Fashion", // Added category
+    quantity: 3,
+    unitPrice: 4200,
+    tax: 18,
+    discount: 0,
+    lineTotal: 12600,
+    subtotal: 12600,
+    taxAmount: 2268,
+    discountAmount: 0,
+    shippingCharge: 200,
+    grandTotal: 15068,
+    paidAmount: 0,
+    balanceDue: 15068,
+    paymentMethod: "Cash",
+    transactionId: "",
+    notes: "Waiting for customer confirmation.",
+    createdOn: "2026-05-03",
+    updatedDate: "2026-05-03",
+    createdBy: "Admin",
   },
   {
     id: "4",
-    invoiceNo:
-      "INV-1004",
-    orderNo:
-      "ORD-1004",
-    customerName:
-      "EyeCare Vision",
-    productName:
-      "Oakley Sports Frame",
-    brand:
-      "Oakley",
-    category:
-      "Frame",
-    invoiceDate:
-      "2026-05-11",
-    dueDate:
-      "2026-05-25",
-    subtotal:
-      8400,
-    tax:
-      500,
-    discount:
-      0,
-    totalAmount:
-      8900,
-    paidAmount:
-      3000,
-    dueAmount:
-      5900,
-    paymentStatus:
-      "Partial",
-    invoiceStatus:
-      "Processing",
-    paymentMethod:
-      "Card",
-    createdBy:
-      "Admin",
-    notes:
-      "Partial advance payment received.",
+    invoiceId: "INV-1004",
+    invoiceNo: "INV-2026-004",
+    orderNo: "ORD-1004",
+    customerName: "Sneha Kapoor",
+    email: "sneha@gmail.com",
+    phone: "+91 8181818181",
+    billingAddress: "MG Road, Central Plaza, Bangalore, India - 560001",
+    shippingAddress: "MG Road, Central Plaza, Bangalore, India - 560001",
+    invoiceDate: "2026-05-04",
+    dueDate: "2026-05-14",
+    invoiceStatus: "Sent",
+    paymentStatus: "Paid",
+    productName: "Oakley Premium Frame",
+    productType: "Frame",
+    category: "Premium", // Added category
+    quantity: 1,
+    unitPrice: 18000,
+    tax: 18,
+    discount: 1500,
+    lineTotal: 18000,
+    subtotal: 18000,
+    taxAmount: 3240,
+    discountAmount: 1500,
+    shippingCharge: 300,
+    grandTotal: 20040,
+    paidAmount: 20040,
+    balanceDue: 0,
+    paymentMethod: "Card",
+    transactionId: "TXN-667788",
+    notes: "Premium customer order.",
+    createdOn: "2026-05-04",
+    updatedDate: "2026-05-05",
+    createdBy: "Admin",
+  },
+  {
+    id: "5",
+    invoiceId: "INV-1005",
+    invoiceNo: "INV-2026-005",
+    orderNo: "ORD-1005",
+    customerName: "Karan Mehta",
+    email: "karan@gmail.com",
+    phone: "+91 7878787878",
+    billingAddress: "Park Street, Office Complex, Kolkata, India - 700016",
+    shippingAddress: "Park Street, Office Complex, Kolkata, India - 700016",
+    invoiceDate: "2026-05-05",
+    dueDate: "2026-05-16",
+    invoiceStatus: "Cancelled",
+    paymentStatus: "Overdue",
+    productName: "Essilor Optical Lens",
+    productType: "Optical Lens",
+    category: "Medical", // Added category
+    quantity: 4,
+    unitPrice: 6200,
+    tax: 18,
+    discount: 1000,
+    lineTotal: 24800,
+    subtotal: 24800,
+    taxAmount: 4464,
+    discountAmount: 1000,
+    shippingCharge: 250,
+    grandTotal: 28514,
+    paidAmount: 5000,
+    balanceDue: 23514,
+    paymentMethod: "Cheque",
+    transactionId: "TXN-554433",
+    notes: "Invoice overdue and cancelled.",
+    createdOn: "2026-05-05",
+    updatedDate: "2026-05-06",
+    createdBy: "Admin",
+  },
+  {
+    id: "6",
+    invoiceId: "INV-1006",
+    invoiceNo: "INV-2026-006",
+    orderNo: "ORD-1006",
+    customerName: "Priya Nair",
+    email: "priya@gmail.com",
+    phone: "+91 9998887776",
+    billingAddress: "Marine Drive, Sea View Apartments, Mumbai, India - 400002",
+    shippingAddress: "Marine Drive, Sea View Apartments, Mumbai, India - 400002",
+    invoiceDate: "2026-05-06",
+    dueDate: "2026-05-18",
+    invoiceStatus: "Sent",
+    paymentStatus: "Paid",
+    productName: "Zeiss Lens Package",
+    productType: "Optical Lens",
+    category: "Medical", // Added category
+    quantity: 2,
+    unitPrice: 9500,
+    tax: 18,
+    discount: 1200,
+    lineTotal: 19000,
+    subtotal: 19000,
+    taxAmount: 3420,
+    discountAmount: 1200,
+    shippingCharge: 250,
+    grandTotal: 21470,
+    paidAmount: 21470,
+    balanceDue: 0,
+    paymentMethod: "UPI",
+    transactionId: "TXN-998877",
+    notes: "Completed invoice payment.",
+    createdOn: "2026-05-06",
+    updatedDate: "2026-05-07",
+    createdBy: "Admin",
   },
 ];
-
-export const purchaseOrders:
-PurchaseOrder[] = [
-
+export const purchaseOrders = [
   {
     id: "1",
+    purchaseId: "PUR-1001",
+    purchaseNo: "PO-2026-001",
 
-    poNumber:
-      "PO-1001",
+    supplierInvoiceNo: "SUP-INV-001",
 
-    vendorName:
-      "Vision Lens Supplier",
+    vendorName: "Vision Optical Suppliers",
+    supplierName: "Vision Optical Suppliers",
 
-    vendorEmail:
-      "vision@gmail.com",
+    email: "visionoptical@gmail.com",
+    phone: "+91 9876543210",
+    mobile: "+91 9876543210",
 
-    vendorPhone:
-      "+91 9876543210",
+    gstNumber: "07ABCDE1234F1Z5",
 
-    productName:
-      "Premium Optical Lens",
+    billingAddress:
+      "22 MG Road, Delhi, India - 110001",
 
-    productSku:
-      "SKU-OL-1001",
+    poDate: "2026-05-01",
+    purchaseDate: "2026-05-01",
 
-    category:
-      "Optical Lens",
+    dueDate: "2026-05-10",
 
-    quantity:
-      50,
+    purchaseStatus: "Received",
+    status: "Received",
 
-    unitPrice:
-      1200,
+    paymentStatus: "Paid",
 
-    tax:
-      3000,
+    referenceNo: "REF-1001",
 
-    discount:
-      1000,
+    productName: "RayBan Optical Frame",
+    productType: "Frame",
 
-    totalAmount:
-      62000,
+    brand: "RayBan",
 
-    paymentStatus:
-      "Paid",
+    selectProductDetails:
+      "Premium optical frame",
 
-    poStatus:
-      "Delivered",
+    barcode: "RB2026001",
 
-    orderDate:
-      "2026-05-10",
+    subtopic: "Premium Eyewear",
 
-    expectedDelivery:
-      "2026-05-20",
+    quantity: 20,
+    totalQty: 20,
 
-    createdBy:
-      "Admin",
+    unitCost: 3500,
+
+    tax: 18,
+    discount: 1000,
+
+    lineTotal: 70000,
+
+    subtotal: 70000,
+    taxAmount: 12600,
+    discountAmount: 1000,
+    shippingCharge: 500,
+    grandTotal: 82100,
+
+    paidAmount: 82100,
+    balanceDue: 0,
+
+    paymentMethod: "Bank Transfer",
+    transactionId: "TXN-887766",
+
+    warehouseLocation:
+      "Delhi Warehouse",
+
+    receivedQuantity: 20,
+    pendingQuantity: 0,
+
+    receivedDate: "2026-05-03",
 
     notes:
-      "Delivered successfully.",
+      "Purchase order received successfully.",
+
+    createdOn: "2026-05-01",
+    updatedDate: "2026-05-03",
+    createdBy: "Admin",
   },
 
   {
     id: "2",
+    purchaseId: "PUR-1002",
+    purchaseNo: "PO-2026-002",
 
-    poNumber:
-      "PO-1002",
+    supplierInvoiceNo: "SUP-INV-002",
 
-    vendorName:
-      "RayBan Distributor",
+    vendorName: "Elite Lens Traders",
+    supplierName: "Elite Lens Traders",
 
-    vendorEmail:
-      "rayban@gmail.com",
+    email: "elitelens@gmail.com",
+    phone: "+91 9988776655",
+    mobile: "+91 9988776655",
 
-    vendorPhone:
-      "+91 9988776655",
+    gstNumber: "27ABCDE1234F1Z5",
 
-    productName:
-      "RayBan Aviator Frame",
+    billingAddress:
+      "Andheri East, Mumbai, India - 400069",
 
-    productSku:
-      "SKU-RB-2001",
+    poDate: "2026-05-02",
+    purchaseDate: "2026-05-02",
 
-    category:
-      "Frame",
+    dueDate: "2026-05-12",
 
-    quantity:
-      30,
+    purchaseStatus: "Ordered",
+    status: "Ordered",
 
-    unitPrice:
-      2500,
+    paymentStatus: "Partial",
 
-    tax:
-      4000,
+    referenceNo: "REF-1002",
 
-    discount:
-      0,
+    productName: "Essilor Lens",
+    productType: "Optical Lens",
 
-    totalAmount:
-      79000,
+    brand: "Essilor",
 
-    paymentStatus:
-      "Pending",
+    selectProductDetails:
+      "Anti glare optical lens",
 
-    poStatus:
-      "Processing",
+    barcode: "EL2026002",
 
-    orderDate:
-      "2026-05-12",
+    subtopic: "Lens Category",
 
-    expectedDelivery:
-      "2026-05-24",
+    quantity: 50,
+    totalQty: 50,
 
-    createdBy:
-      "Manager",
+    unitCost: 1800,
+
+    tax: 12,
+    discount: 2000,
+
+    lineTotal: 90000,
+
+    subtotal: 90000,
+    taxAmount: 10800,
+    discountAmount: 2000,
+    shippingCharge: 700,
+    grandTotal: 99500,
+
+    paidAmount: 45000,
+    balanceDue: 54500,
+
+    paymentMethod: "Cheque",
+    transactionId: "TXN-554433",
+
+    warehouseLocation:
+      "Mumbai Warehouse",
+
+    receivedQuantity: 30,
+    pendingQuantity: 20,
+
+    receivedDate: "2026-05-05",
 
     notes:
-      "Waiting for dispatch.",
+      "Remaining quantity pending.",
+
+    createdOn: "2026-05-02",
+    updatedDate: "2026-05-05",
+    createdBy: "Admin",
   },
 
   {
     id: "3",
-    poNumber:
-      "PO-1003",
-    vendorName:
-      "Acuvue Supplier",
-    vendorEmail:
-      "acuvue@gmail.com",
-    vendorPhone:
-      "+91 9123456780",
-    productName:
-      "Acuvue Contact Lens",
-    productSku:"SKU-CL-3001",
-    category:"Contact Lens",
-    quantity:100,
-    unitPrice:500,
-    tax:2500,
-    discount:500,
-    totalAmount:52000,
-    paymentStatus:"Partial",
-    poStatus:"Pending",
-    orderDate:"2026-05-14",
-    expectedDelivery:"2026-05-28",
-    createdBy:"Sales",
-    notes:"Advance payment done.",
+    purchaseId: "PUR-1003",
+    purchaseNo: "PO-2026-003",
+
+    supplierInvoiceNo: "SUP-INV-003",
+
+    vendorName: "Fashion Accessories Hub",
+    supplierName: "Fashion Accessories Hub",
+
+    email: "fashionhub@gmail.com",
+    phone: "+91 9090909090",
+    mobile: "+91 9090909090",
+
+    gstNumber: "09ABCDE1234F1Z5",
+
+    billingAddress:
+      "Sector 18, Noida, India - 201301",
+
+    poDate: "2026-05-03",
+    purchaseDate: "2026-05-03",
+
+    dueDate: "2026-05-15",
+
+    purchaseStatus: "Draft",
+    status: "Draft",
+
+    paymentStatus: "Pending",
+
+    referenceNo: "REF-1003",
+
+    productName: "Fastrack Sunglasses",
+    productType: "Accessories",
+
+    brand: "Fastrack",
+
+    selectProductDetails:
+      "Stylish sunglasses collection",
+
+    barcode: "FS2026003",
+
+    subtopic: "Accessories",
+
+    quantity: 35,
+    totalQty: 35,
+
+    unitCost: 1200,
+
+    tax: 18,
+    discount: 0,
+
+    lineTotal: 42000,
+
+    subtotal: 42000,
+    taxAmount: 7560,
+    discountAmount: 0,
+    shippingCharge: 300,
+    grandTotal: 49860,
+
+    paidAmount: 0,
+    balanceDue: 49860,
+
+    paymentMethod: "Cash",
+    transactionId: "",
+
+    warehouseLocation:
+      "Noida Warehouse",
+
+    receivedQuantity: 0,
+    pendingQuantity: 35,
+
+    receivedDate: "",
+
+    notes:
+      "Waiting for supplier confirmation.",
+
+    createdOn: "2026-05-03",
+    updatedDate: "2026-05-03",
+    createdBy: "Admin",
+  },
+
+  {
+    id: "4",
+    purchaseId: "PUR-1004",
+    purchaseNo: "PO-2026-004",
+
+    supplierInvoiceNo: "SUP-INV-004",
+
+    vendorName: "Luxury Eyewear Pvt Ltd",
+    supplierName: "Luxury Eyewear Pvt Ltd",
+
+    email: "luxuryeyewear@gmail.com",
+    phone: "+91 8181818181",
+    mobile: "+91 8181818181",
+
+    gstNumber: "29ABCDE1234F1Z5",
+
+    billingAddress:
+      "MG Road, Bangalore, India - 560001",
+
+    poDate: "2026-05-04",
+    purchaseDate: "2026-05-04",
+
+    dueDate: "2026-05-18",
+
+    purchaseStatus: "Received",
+    status: "Received",
+
+    paymentStatus: "Paid",
+
+    referenceNo: "REF-1004",
+
+    productName: "Oakley Premium Frame",
+    productType: "Frame",
+
+    brand: "Oakley",
+
+    selectProductDetails:
+      "Luxury imported frame",
+
+    barcode: "OK2026004",
+
+    subtopic: "Luxury Collection",
+
+    quantity: 15,
+    totalQty: 15,
+
+    unitCost: 7200,
+
+    tax: 18,
+    discount: 3000,
+
+    lineTotal: 108000,
+
+    subtotal: 108000,
+    taxAmount: 19440,
+    discountAmount: 3000,
+    shippingCharge: 800,
+    grandTotal: 125240,
+
+    paidAmount: 125240,
+    balanceDue: 0,
+
+    paymentMethod: "UPI",
+    transactionId: "TXN-778899",
+
+    warehouseLocation:
+      "Bangalore Warehouse",
+
+    receivedQuantity: 15,
+    pendingQuantity: 0,
+
+    receivedDate: "2026-05-06",
+
+    notes:
+      "Premium imported order completed.",
+
+    createdOn: "2026-05-04",
+    updatedDate: "2026-05-06",
+    createdBy: "Admin",
+  },
+
+  {
+    id: "5",
+    purchaseId: "PUR-1005",
+    purchaseNo: "PO-2026-005",
+
+    supplierInvoiceNo: "SUP-INV-005",
+
+    vendorName: "Contact Lens World",
+    supplierName: "Contact Lens World",
+
+    email: "lensworld@gmail.com",
+    phone: "+91 7878787878",
+    mobile: "+91 7878787878",
+
+    gstNumber: "19ABCDE1234F1Z5",
+
+    billingAddress:
+      "Park Street, Kolkata, India - 700016",
+
+    poDate: "2026-05-05",
+    purchaseDate: "2026-05-05",
+
+    dueDate: "2026-05-20",
+
+    purchaseStatus: "Ordered",
+    status: "Ordered",
+
+    paymentStatus: "Overdue",
+
+    referenceNo: "REF-1005",
+
+    productName: "Acuvue Contact Lens",
+    productType: "Contact Lens",
+
+    brand: "Acuvue",
+
+    selectProductDetails:
+      "Monthly disposable lenses",
+
+    barcode: "AC2026005",
+
+    subtopic: "Contact Lens",
+
+    quantity: 100,
+    totalQty: 100,
+
+    unitCost: 650,
+
+    tax: 12,
+    discount: 1500,
+
+    lineTotal: 65000,
+
+    subtotal: 65000,
+    taxAmount: 7800,
+    discountAmount: 1500,
+    shippingCharge: 600,
+    grandTotal: 71900,
+
+    paidAmount: 25000,
+    balanceDue: 46900,
+
+    paymentMethod: "Bank Transfer",
+    transactionId: "TXN-112233",
+
+    warehouseLocation:
+      "Kolkata Warehouse",
+
+    receivedQuantity: 60,
+    pendingQuantity: 40,
+
+    receivedDate: "2026-05-08",
+
+    notes:
+      "Delayed shipment from supplier.",
+
+    createdOn: "2026-05-05",
+    updatedDate: "2026-05-08",
+    createdBy: "Admin",
+  },
+
+  {
+    id: "6",
+    purchaseId: "PUR-1006",
+    purchaseNo: "PO-2026-006",
+
+    supplierInvoiceNo: "SUP-INV-006",
+
+    vendorName: "Zeiss Vision Care",
+    supplierName: "Zeiss Vision Care",
+
+    email: "zeissvision@gmail.com",
+    phone: "+91 9998887776",
+    mobile: "+91 9998887776",
+
+    gstNumber: "27ABCDE1234F1Z5",
+
+    billingAddress:
+      "Marine Drive, Mumbai, India - 400002",
+
+    poDate: "2026-05-06",
+    purchaseDate: "2026-05-06",
+
+    dueDate: "2026-05-22",
+
+    purchaseStatus: "Received",
+    status: "Received",
+
+    paymentStatus: "Paid",
+
+    referenceNo: "REF-1006",
+
+    productName: "Zeiss Lens Package",
+    productType: "Optical Lens",
+
+    brand: "Zeiss",
+
+    selectProductDetails:
+      "Premium lens package",
+
+    barcode: "ZE2026006",
+
+    subtopic: "Vision Care",
+
+    quantity: 40,
+    totalQty: 40,
+
+    unitCost: 2800,
+
+    tax: 18,
+    discount: 2500,
+
+    lineTotal: 112000,
+
+    subtotal: 112000,
+    taxAmount: 20160,
+    discountAmount: 2500,
+    shippingCharge: 900,
+    grandTotal: 130560,
+
+    paidAmount: 130560,
+    balanceDue: 0,
+
+    paymentMethod: "Card",
+    transactionId: "TXN-334455",
+
+    warehouseLocation:
+      "Mumbai Warehouse",
+
+    receivedQuantity: 40,
+    pendingQuantity: 0,
+
+    receivedDate: "2026-05-09",
+
+    notes:
+      "High-value purchase completed.",
+
+    createdOn: "2026-05-06",
+    updatedDate: "2026-05-09",
+    createdBy: "Admin",
   },
 ];
 
@@ -3280,86 +4005,6 @@ SalesTarget[] = [
     status:"Pending",
     notes:"Needs improvement.",
   },
-];
-
-export const users:
-User[] = [
-
-  {
-    id: "1",
-
-    fullName:
-      "Rahul Sharma",
-
-    email:
-      "rahul@gmail.com",
-
-    phoneNumber:
-      "9876543210",
-
-    role:
-      "Admin",
-
-    status:
-      "Active",
-
-    createdOn:
-      "2026-05-10",
-
-    password:
-      "123456",
-  },
-
-  {
-    id: "2",
-
-    fullName:
-      "Priya Patel",
-
-    email:
-      "priya@gmail.com",
-
-    phoneNumber:
-      "9876543211",
-
-    role:
-      "Sales",
-
-    status:
-      "Active",
-
-    createdOn:
-      "2026-05-11",
-
-    password:
-      "123456",
-  },
-
-  {
-    id: "3",
-
-    fullName:
-      "Amit Verma",
-
-    email:
-      "amit@gmail.com",
-
-    phoneNumber:
-      "9876543212",
-
-    role:
-      "Manager",
-
-    status:
-      "Inactive",
-
-    createdOn:
-      "2026-05-12",
-
-    password:
-      "123456",
-  },
-
 ];
 
 export const inventories:

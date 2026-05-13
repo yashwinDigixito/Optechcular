@@ -1,435 +1,273 @@
-"use client";
+import Link from "next/link";
 
 import {
   Box,
   Button,
+  Card,
   Chip,
-  Divider,
+  Container,
+  Stack,
   Typography,
 } from "@mui/material";
 
+import { customers } from "@/assets/genericdata";
+import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import BadgeOutlinedIcon from "@mui/icons-material/BadgeOutlined";
+import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
+import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
+import MailOutlineOutlinedIcon from "@mui/icons-material/MailOutlineOutlined";
+import PaymentsOutlinedIcon from "@mui/icons-material/PaymentsOutlined";
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import PhoneOutlinedIcon from "@mui/icons-material/PhoneOutlined";
+import ReceiptLongOutlinedIcon from "@mui/icons-material/ReceiptLongOutlined";
+import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
+import { IconLine, InfoLine, SideCard } from "../common/ViewPage";
 
-import Link from "next/link";
-
-import {
-  customers,
-} from "@/assets/genericdata";
-
-import StatusChip from "@/component/common/StatusChip";
-
-export default function CustomerDetails({
-  id,
+export default async function CustomerViewPage({
+  params,
 }: {
-  id: string;
+  params: Promise<{ id: string }>;
 }) {
+  const { id } = await params;
 
-  const currentCustomer =
-    customers.find(
-      (customer) =>
-        customer.id === id
-    );
+  const customer = customers.find((item) => item.id === id);
 
-  return (
-    <Box
-      sx={{
-        p: 3,
-      }}
-    >
-      <Box sx={{ mb: 3 }}>
-        <Link
-          href="/customers"
-          style={{
-            textDecoration:
-              "none",
-          }}
-        >
-          <Button
-            startIcon={
-              <ArrowBackIcon />
-            }
-            sx={{
-              textTransform:"none",
-              fontWeight:600,
-            }}
-          >
-            Back
-          </Button>
-        </Link>
-      </Box>
-
-      {/* CARD */}
+  if (!customer) {
+    return (
       <Box
         sx={{
-          background:
-            "#FFFFFF",
-
-          borderRadius:
-            "24px",
-
-          border:
-            "1px solid #E2E8F0",
-
-          p: 4,
+          minHeight: "100vh",
+          bgcolor: "#F8FAFC",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
-        {/* HEADER */}
-        <Box
+        <Card
           sx={{
-            display: "flex",
-
-            justifyContent:
-              "space-between",
-
-            alignItems:
-              "center",
-
-            mb: 3,
+            p: 4,
+            borderRadius: "16px",
+            border: "1px solid #E2E8F0",
+            boxShadow: "none",
           }}
         >
-          <Box>
+          <Typography sx={{ color: "#64748B", fontWeight: 700 }}>
+            Customer not found
+          </Typography>
+        </Card>
+      </Box>
+    );
+  }
 
-            <Typography
+  return (
+    <Box sx={{ width: "100%", minHeight: "100vh", bgcolor: "#F8FAFC" }}>
+      <Box
+        sx={{
+          py: 2,
+          bgcolor: "#FFFFFF",
+          borderBottom: "1px solid #E2E8F0",
+        }}
+      >
+        <Container maxWidth="xl">
+          <Link href="/customers" passHref style={{ textDecoration: "none" }}>
+            <Button
+              startIcon={<ArrowBackIcon />}
               sx={{
-                fontSize:
-                  "28px",
-
-                fontWeight: 700,
-
-                color:
-                  "#2563EB",
+                color: "#64748B",
+                textTransform: "none",
+                fontWeight: 600,
               }}
             >
-              {
-                currentCustomer?.fullName
-              }
-            </Typography>
+              Back to Customers
+            </Button>
+          </Link>
+        </Container>
+      </Box>
 
+      <Container maxWidth="xl" sx={{ py: 4 }}>
+        <Box sx={{ mb: 4 }}>
+          <Stack direction="row" spacing={1.5} sx={{alignItems:"center", flexWrap:"wrap"}}>
             <Typography
               sx={{
-                color:
-                  "#64748B",
-
-                mt: 0.5,
+                fontSize: { xs: "1.5rem", md: "1.9rem" },
+                fontWeight: 800,
+                color: "#3B82F6",
               }}
             >
-              {
-                currentCustomer?.email
-              }
-            </Typography>
-
-          </Box>
-
-          <StatusChip
-            status={
-              currentCustomer?.status ||
-              "Inactive"
-            }
-          />
-
-        </Box>
-
-        <Divider
-          sx={{
-            mb: 4,
-          }}
-        />
-
-        {/* DETAILS */}
-        <Box
-          sx={{
-            display: "grid",
-
-            gridTemplateColumns:
-              {
-                xs: "1fr",
-
-                md: "1fr 1fr",
-              },
-
-            gap: 3,
-          }}
-        >
-          {/* CUSTOMER TYPE */}
-          <Box>
-
-            <Typography
-              sx={{
-                fontSize:
-                  "13px",
-
-                color:
-                  "#94A3B8",
-
-                fontWeight: 700,
-
-                mb: 1,
-              }}
-            >
-              CUSTOMER TYPE
+              Customer: {customer.customerName}
             </Typography>
 
             <Chip
-              label={
-                currentCustomer?.customerType
-              }
+              label={customer.customerType}
+              size="small"
               sx={{
-                background:
-                  currentCustomer?.customerType ===
-                  "B2B"
-
-                    ? "#EFF6FF"
-
-                    : "#FDF4FF",
-
-                color:
-                  currentCustomer?.customerType ===
-                  "B2B"
-
-                    ? "#2563EB"
-
-                    : "#C026D3",
-
+                bgcolor: "#EFF6FF",
+                color: "#3B82F6",
                 fontWeight: 700,
-
-                borderRadius:
-                  "8px",
+                borderRadius: "8px",
               }}
             />
 
-          </Box>
-
-          {/* PHONE */}
-          <Box>
-
-            <Typography
+            <Chip
+              label={customer.status}
+              size="small"
               sx={{
-                fontSize:
-                  "13px",
-
-                color:
-                  "#94A3B8",
-
+                bgcolor: customer.status === "Active" ? "#DCFCE7" : "#FEE2E2",
+                color: customer.status === "Active" ? "#15803D" : "#B91C1C",
                 fontWeight: 700,
-
-                mb: 1,
+                borderRadius: "8px",
               }}
-            >
-              PHONE NUMBER
-            </Typography>
+            />
+          </Stack>
 
-            <Typography
-              sx={{
-                fontWeight: 600,
-
-                color:
-                  "#0F172A",
-              }}
-            >
-              {
-                currentCustomer?.phoneNumber
-              }
-            </Typography>
-
-          </Box>
-
-          {/* EMAIL */}
-          <Box>
-
-            <Typography
-              sx={{
-                fontSize:
-                  "13px",
-
-                color:
-                  "#94A3B8",
-
-                fontWeight: 700,
-
-                mb: 1,
-              }}
-            >
-              EMAIL ADDRESS
-            </Typography>
-
-            <Typography
-              sx={{
-                fontWeight: 600,
-
-                color:
-                  "#0F172A",
-              }}
-            >
-              {
-                currentCustomer?.email
-              }
-            </Typography>
-
-          </Box>
-
-          {/* CITY */}
-          <Box>
-
-            <Typography
-              sx={{
-                fontSize:
-                  "13px",
-
-                color:
-                  "#94A3B8",
-
-                fontWeight: 700,
-
-                mb: 1,
-              }}
-            >
-              CITY
-            </Typography>
-
-            <Typography
-              sx={{
-                fontWeight: 600,
-
-                color:
-                  "#0F172A",
-              }}
-            >
-              {
-                currentCustomer?.city
-              }
-            </Typography>
-
-          </Box>
-
-          {/* STATE */}
-          <Box>
-
-            <Typography
-              sx={{
-                fontSize:
-                  "13px",
-
-                color:
-                  "#94A3B8",
-
-                fontWeight: 700,
-
-                mb: 1,
-              }}
-            >
-              STATE
-            </Typography>
-
-            <Typography
-              sx={{
-                fontWeight: 600,
-
-                color:
-                  "#0F172A",
-              }}
-            >
-              {
-                currentCustomer?.state
-              }
-            </Typography>
-
-          </Box>
-
-          {/* COUNTRY */}
-          <Box>
-
-            <Typography
-              sx={{
-                fontSize:
-                  "13px",
-
-                color:
-                  "#94A3B8",
-
-                fontWeight: 700,
-
-                mb: 1,
-              }}
-            >
-              COUNTRY
-            </Typography>
-
-            <Typography
-              sx={{
-                fontWeight: 600,
-
-                color:
-                  "#0F172A",
-              }}
-            >
-              {
-                currentCustomer?.country
-              }
-            </Typography>
-
-          </Box>
-
+          <Typography sx={{ mt: 1, color: "#64748B", fontSize: 14 }}>
+            Created On: {customer.createdOn}
+          </Typography>
         </Box>
 
-        {/* ADDRESS */}
         <Box
           sx={{
-            mt: 5,
-
-            pt: 4,
-
-            borderTop:
-              "1px solid #F1F5F9",
+            display: "flex",
+            gap: 3,
+            alignItems: "flex-start",
+            flexDirection: { xs: "column", lg: "row" },
           }}
         >
-          <Typography
-            sx={{
-              fontWeight: 700,
+          <Box sx={{ width: { xs: "100%", lg: "60%" } }}>
+            <Stack spacing={3}>
+              <SideCard title="Customer Information">
+                <InfoLine label="Customer ID" value={customer.customerId} />
+                <InfoLine label="Full Name" value={customer.fullName} />
+                <InfoLine label="Customer Type" value={customer.customerType} />
+                <InfoLine label="Customer Group" value={customer.customerGroup} />
+                <InfoLine label="Status" value={customer.status} />
+              </SideCard>
 
-              fontSize:
-                "20px",
+              <SideCard title="Contact Information">
+                <IconLine icon={<PersonOutlineOutlinedIcon />} text={customer.customerName} />
+                <IconLine icon={<MailOutlineOutlinedIcon />} text={customer.email} />
+                <IconLine icon={<PhoneOutlinedIcon />} text={customer.phone} />
+                <IconLine
+                  icon={<PhoneOutlinedIcon />}
+                  text={`Alternate: ${customer.alternatePhone ?? "N/A"}`}
+                />
+              </SideCard>
 
-              mb: 2,
-            }}
-          >
-            Address Details
-          </Typography>
+              <SideCard title="Address Information">
+                <InfoLine label="Address Line 1" value={customer.addressLine1} />
+                <InfoLine label="Address Line 2" value={customer.addressLine2} />
+                <InfoLine label="City" value={customer.city} />
+                <InfoLine label="State" value={customer.state} />
+                <InfoLine label="Country" value={customer.country} />
+                <InfoLine label="Postal Code" value={customer.postalCode} />
 
-          <Typography
-            sx={{
-              color:
-                "#475569",
+                <Stack direction="row" spacing={1} sx={{ mt: 2,  alignItems:"center" }}>
+                  <LocationOnOutlinedIcon sx={{ color: "#3B82F6", fontSize: 18 }} />
+                  <Typography sx={{ color: "#3B82F6", fontWeight: 600 }}>
+                    View Map
+                  </Typography>
+                </Stack>
+              </SideCard>
 
-              lineHeight: 1.8,
-            }}
-          >
-            {
-              currentCustomer?.addressLine1
-            }
-            <br />
+              <SideCard title="Sales Information">
+                <InfoLine label="Assigned Sales Person" value={customer.salesPerson} />
+                <InfoLine label="Total Orders" value={customer.totalOrders} />
+                <InfoLine
+                  label="Total Revenue"
+                  value={`₹${customer.totalRevenue ?? 0}`}
+                />
+                <InfoLine label="Last Order Date" value={customer.lastOrderDate} />
+              </SideCard>
 
-            {
-              currentCustomer?.addressLine2
-            }
-            <br />
+              <SideCard title="Payment Information">
+                <InfoLine label="Payment Method" value={customer.paymentMethod} />
+                <InfoLine
+                  label="Outstanding Amount"
+                  value={`₹${customer.outstandingAmount ?? 0}`}
+                />
+                <InfoLine label="Credit Limit" value={`₹${customer.creditLimit ?? 0}`} />
+                <InfoLine label="GST Number" value={customer.gstNumber} />
+              </SideCard>
 
-            {
-              currentCustomer?.city
-            },{" "}
-            {
-              currentCustomer?.state
-            }
-            <br />
+              <SideCard title="System Information">
+                <InfoLine label="Created On" value={customer.createdOn} />
+                <InfoLine label="Updated Date" value={customer.updatedDate} />
+                <InfoLine label="Created By" value={customer.createdBy} />
+              </SideCard>
+            </Stack>
+          </Box>
 
-            {
-              currentCustomer?.country
-            }
-          </Typography>
+          <Box sx={{ width: { xs: "100%", lg: "40%" } }}>
+            <Stack spacing={3}>
+              <Card
+                sx={{
+                  p: 3,
+                  borderRadius: "16px",
+                  boxShadow: "none",
+                  border: "1px solid #E2E8F0",
+                  bgcolor: "#FFFFFF",
+                  textAlign: "center",
+                }}
+              >
+                <Box
+                  sx={{
+                    width: 90,
+                    height: 90,
+                    mx: "auto",
+                    mb: 2,
+                    borderRadius: "18px",
+                    bgcolor: "#EFF6FF",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <PersonOutlineOutlinedIcon sx={{ fontSize: 46, color: "#3B82F6" }} />
+                </Box>
 
+                <Typography sx={{ fontSize: 24, fontWeight: 800, color: "#0F172A" }}>
+                  {customer.fullName}
+                </Typography>
+
+                <Typography sx={{ color: "#64748B", fontSize: 14, mt: 0.5 }}>
+                  {customer.customerType} • {customer.customerGroup}
+                </Typography>
+              </Card>
+
+              <SideCard title="Customer Summary">
+                <IconLine icon={<BadgeOutlinedIcon />} text={`Customer ID: ${customer.customerId}`} />
+                <IconLine icon={<ReceiptLongOutlinedIcon />} text={`Total Orders: ${customer.totalOrders ?? 0}`} />
+                <IconLine icon={<PaymentsOutlinedIcon />} text={`Revenue: ₹${customer.totalRevenue ?? 0}`} />
+                <IconLine icon={<AccountBalanceWalletOutlinedIcon />} text={`Outstanding: ₹${customer.outstandingAmount ?? 0}`} />
+              </SideCard>
+
+              <SideCard title="Activity Information">
+                <IconLine icon={<LoginOutlinedIcon />} text={`Last Login: ${customer.lastLogin ?? "N/A"}`} />
+                <IconLine icon={<ShoppingBagOutlinedIcon />} text={`Last Purchase: ${customer.lastPurchase ?? "N/A"}`} />
+                <IconLine icon={<ReceiptLongOutlinedIcon />} text={`Last Order: ${customer.lastOrderDate ?? "N/A"}`} />
+              </SideCard>
+
+              <SideCard title="Complete Address">
+                <Typography sx={{ color: "#475569", fontSize: 14, lineHeight: 1.7 }}>
+                  {customer.addressLine1}, {customer.addressLine2}
+                  <br />
+                  {customer.city}, {customer.state}
+                  <br />
+                  {customer.country} - {customer.postalCode}
+                </Typography>
+              </SideCard>
+
+              <SideCard title="Notes">
+                <Typography sx={{ color: "#475569", fontSize: 14, lineHeight: 1.7 }}>
+                  {customer.notes || "No notes available"}
+                </Typography>
+              </SideCard>
+            </Stack>
+          </Box>
         </Box>
-
-      </Box>
-
+      </Container>
     </Box>
   );
 }
+

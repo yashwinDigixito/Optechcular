@@ -1,14 +1,90 @@
 export interface Customer {
   id: string;
-  fullName: string;
-  customerType: "B2B" | "B2C";
+
+  customerId: string;
+  customerName: string;
+  customerType: string;
+
+  status: string;
+
+  profileImage?: string;
+
   email: string;
-  phoneNumber: string;
+  phone: string;
+  alternatePhone?: string;
+  website?: string;
+
+  address: string;
   city: string;
-  state?: string;
-  country?: string;
+  state: string;
+  country: string;
+  postalCode?: string;
+
+  salesPerson?: string;
+  customerGroup?: string;
+
+  totalOrders?: number;
+  totalRevenue?: number;
+  lastOrderDate?: string;
+
+  paymentMethod?: string;
+  outstandingAmount?: number;
+  creditLimit?: number;
+  gstNumber?: string;
+
+  lastLogin?: string;
+  lastPurchase?: string;
+
+  notes?: string;
+
+  createdOn: string;
+  updatedDate?: string;
+  createdBy?: string;
 }
 
+export interface User {
+  id: string;
+
+  userId: string;
+
+  fullName: string;
+  username?: string;
+
+  email: string;
+  phone: string;
+
+  role: string;
+  department?: string;
+
+  status: string;
+
+  password?: string;
+
+  profileImage?: string;
+
+  permissions?: string[];
+  accessLevel?: string;
+
+  address?: string;
+  city?: string;
+  state?: string;
+  country?: string;
+
+  totalOrdersManaged?: number;
+  assignedCustomers?: number;
+
+  lastLogin?: string;
+  lastActivity?: string;
+  loginStatus?: string;
+
+  twoFactorEnabled?: boolean;
+
+  notes?: string;
+
+  createdOn: string;
+  updatedDate?: string;
+  createdBy?: string;
+}
 export interface Product {
   id: string;
   productName: string;
@@ -243,7 +319,109 @@ export interface ReportChartProps {
   color?: string;
   label:string;
 }
+export interface Invoice {
+  id: string;
+  invoiceId: string;
+  invoiceNo: string;
 
+  orderNo: string;
+
+  customerName: string;
+  email: string;
+  phone: string;
+
+  billingAddress: string;
+  shippingAddress?: string;
+
+  invoiceDate: string;
+  dueDate: string;
+
+  invoiceStatus: "Draft" | "Sent" | "Cancelled";
+  paymentStatus: "Paid" | "Pending" | "Partial" | "Overdue";
+
+  productName: string;
+  productType: string;
+  quantity: number;
+  unitPrice: number;
+  tax: number;
+  discount: number;
+  lineTotal: number;
+
+  subtotal: number;
+  taxAmount: number;
+  discountAmount: number;
+  shippingCharge: number;
+  grandTotal: number;
+
+  paidAmount: number;
+  balanceDue: number;
+
+  paymentMethod?: string;
+  transactionId?: string;
+
+  notes?: string;
+
+  createdOn: string;
+  updatedDate?: string;
+  createdBy?: string;
+}
+
+export interface PurchaseOrder {
+  id: string;
+  poNumber: string;
+  vendorName: string;
+  vendorEmail: string;
+  vendorPhone: string;
+  productName: string;
+  productSku: string;
+  category: string;
+  quantity: number;
+  unitPrice: number;
+  tax: number;
+  discount: number;
+  totalAmount: number;
+  paymentStatus: string;
+  poStatus: string;
+  orderDate: string;
+  expectedDelivery: string;
+  createdBy: string;
+  notes: string;
+}
+
+export interface Expense {
+  id: string;
+  expenseName: string;
+  ledger: string;
+  amount: number;
+  paymentMethod: string;
+  expenseDate: string;
+  createdBy: string;
+  status: string;
+  notes: string;
+}
+
+export interface Ledger {
+
+  id: string;
+
+  ledgerName: string;
+
+  ledgerGroup: string;
+
+  openingBalance: number;
+
+  balanceType: string;
+
+  currentBalance: number;
+
+  createdOn: string;
+
+  createdBy: string;
+
+  status: string;
+
+  notes: string;
+}
 export interface Frame {
   id: string;
 
@@ -365,7 +543,6 @@ export interface Material {
   lastModifiedBy?: string;
 }
 
-
 export interface LedgerGroup {
   id: string;
   groupName: string;
@@ -374,74 +551,41 @@ export interface LedgerGroup {
   notes: string;
 }
 
-export interface Ledger {
-  id: string;
-  ledgerName: string;
-  ledgerGroup: string;
-  openingBalance: number;
-  balanceType: string;
-  currentBalance: number;
-  createdOn: string;
-  createdBy: string;
-  status: string;
-  notes: string;
-}
 
-export interface Invoice {
+export interface Purchase {
   id: string;
-  invoiceNo: string;
-  orderNo: string;
-  customerName: string;
-  productName: string;
-  brand: string;
-  category: string;
-  invoiceDate: string;
+  purchaseId: string;
+  purchaseNo: string;
+
+  supplierInvoiceNo?: string;
+
+  supplierName: string;
+  email?: string;
+  phone: string;
+  gstNumber?: string;
+  billingAddress: string;
+
+  purchaseDate: string;
   dueDate: string;
-  subtotal: number;
-  tax: number;
-  discount: number;
-  totalAmount: number;
-  paidAmount: number;
-  dueAmount: number;
-  paymentStatus: string;
-  invoiceStatus: string;
-  paymentMethod: string;
-  createdBy: string;
-  notes: string;
-}
 
-export interface PurchaseOrder {
-  id: string;
-  poNumber: string;
-  vendorName: string;
-  vendorEmail: string;
-  vendorPhone: string;
+  purchaseStatus: "Draft" | "Ordered" | "Received" | "Cancelled";
+  paymentStatus: "Paid" | "Pending" | "Partial" | "Overdue";
+
   productName: string;
-  productSku: string;
-  category: string;
+  productType: string;
+  brand?: string;
+
   quantity: number;
-  unitPrice: number;
+  unitCost: number;
   tax: number;
   discount: number;
-  totalAmount: number;
-  paymentStatus: string;
-  poStatus: string;
-  orderDate: string;
-  expectedDelivery: string;
-  createdBy: string;
-  notes: string;
-}
+  lineTotal: number;
 
-export interface Expense {
-  id: string;
-  expenseName: string;
-  ledger: string;
-  amount: number;
-  paymentMethod: string;
-  expenseDate: string;
-  createdBy: string;
-  status: string;
-  notes: string;
+  subtotal: number;
+  taxAmount: number;
+  discountAmount: number;
+  shippingCharge: number;
+  grandTotal: number;
 }
 
 export interface SalesTarget {
@@ -456,30 +600,38 @@ export interface SalesTarget {
   notes: string;
 }
 
-export interface User {
-  id: string;
-  fullName: string;
-  email: string;
-  phoneNumber: string;
-  role: string;
-  status: string;
-  createdOn: string;
-  password: string;
-}
 
 export interface Inventory {
+
   id: string;
+
   productName: string;
+
   sku: string;
+
   barcode: string;
+
   category: string;
+
   brand: string;
+
   branch: string;
+
   stock: number;
+
   minStock: number;
+
   price: number;
+
   status: string;
+
+  warehouseLocation?: string;
+
+  notes?: string;
+
   createdOn: string;
-  createdBy: string;
-  notes: string;
+
+  updatedDate?: string;
+
+  createdBy?: string;
 }
