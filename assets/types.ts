@@ -389,15 +389,21 @@ export interface PurchaseOrder {
 }
 
 export interface Expense {
-  id: string;
+  id: string;           
   expenseName: string;
   ledger: string;
   amount: number;
-  paymentMethod: string;
+  currency: string;     
   expenseDate: string;
+  paymentMethod: string;
+  status: string;       
+  description: string;  
+  
+  // Audit Fields
+  createdOn: string;    
   createdBy: string;
-  status: string;
-  notes: string;
+  
+  notes?: string;       
 }
 
 export interface Ledger {
@@ -590,48 +596,44 @@ export interface Purchase {
 
 export interface SalesTarget {
   id: string;
+  targetId: string;       
+  salesPersonId: string;  
   salesPersonName: string;
   targetAmount: number;
   achievedAmount: number;
   remainingAmount: number;
+  
   dueDate: string;
-  month: string;
-  status: string;
+  month: string;         
+  status: string;         
+  
   notes: string;
+  
+  // System Fields
+  createdOn: string;
+  updatedDate: string;
+  createdBy: string;
 }
 
-
 export interface Inventory {
-
   id: string;
-
   productName: string;
-
   sku: string;
-
   barcode: string;
-
   category: string;
-
   brand: string;
-
   branch: string;
-
   stock: number;
-
   minStock: number;
-
+  unitOfMeasure: string; 
+  costPrice: number;
   price: number;
-
-  status: string;
-
-  warehouseLocation?: string;
-
-  notes?: string;
-
-  createdOn: string;
-
-  updatedDate?: string;
-
-  createdBy?: string;
+  currency: string;
+ status: string; 
+  supplier: string;
+  location: string; 
+   createdOn: string;
+  updatedDate: string;
+  createdBy: string;
+  notes: string;
 }
