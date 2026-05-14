@@ -347,9 +347,6 @@ export default function RoleViewContent({
           </Box>
 
         </Box>
-
-      </Container>
-
     </Box>
-  );
+ )
 }

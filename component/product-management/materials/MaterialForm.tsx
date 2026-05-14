@@ -18,7 +18,7 @@ export default function MaterialForm() {
     <Box sx={{ p: 3 }}>
        <Box sx={{ mb: 3 }}>
         <Link
-          href="/product/materials"
+          href="/products/materials"
           style={{
             textDecoration:
               "none",

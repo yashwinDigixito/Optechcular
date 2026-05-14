@@ -61,11 +61,11 @@ export default function FrameForm() {
                 </Button>
               </Link>
             </Box>
-      <Typography sx={{ fontSize: 32, fontWeight: 700, mb: 3 }}>
-        Add Frame
-      </Typography>
 
       <Card sx={{ p: 4, borderRadius: "24px" }}>
+        <Typography sx={{ fontSize: 32, fontWeight: 700, mb: 3 }}>
+        Add Frame
+        </Typography>
         <FormikProvider value={formik}>
         <form onSubmit={formik.handleSubmit}>
           <Grid container spacing={4}>
