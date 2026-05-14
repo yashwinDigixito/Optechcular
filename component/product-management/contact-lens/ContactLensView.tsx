@@ -1,14 +1,14 @@
-import Link from "next/link";
 import {
-  Avatar,
-  Box,
-  Button,
-  Card,
-  Chip,
-  Container,
-  Stack,
-  Typography,
+    Avatar,
+    Box,
+    Button,
+    Card,
+    Chip,
+    Container,
+    Stack,
+    Typography,
 } from "@mui/material";
+import Link from "next/link";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ColorLensOutlinedIcon from "@mui/icons-material/ColorLensOutlined";
@@ -19,10 +19,10 @@ import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import WarehouseOutlinedIcon from "@mui/icons-material/WarehouseOutlined";
 
+import { themeConfig } from "@/assets/constants";
 import { contactLenses } from "@/assets/genericdata";
 import StatusChip from "@/component/common/StatusChip";
 import { IconLine, InfoLine, SideCard, getFadeInStyle } from "@/component/common/ViewPage";
-import { themeConfig } from "@/assets/CommonDesign";
 
 export default async function ContactLensViewPage({
   params,

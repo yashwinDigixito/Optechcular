@@ -1,13 +1,13 @@
-import Link from "next/link";
 import {
-  Box,
-  Button,
-  Card,
-  Chip,
-  Container,
-  Stack,
-  Typography,
+    Box,
+    Button,
+    Card,
+    Chip,
+    Container,
+    Stack,
+    Typography,
 } from "@mui/material";
+import Link from "next/link";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import HistoryOutlinedIcon from "@mui/icons-material/HistoryOutlined";
@@ -18,9 +18,9 @@ import QrCodeScannerOutlinedIcon from "@mui/icons-material/QrCodeScannerOutlined
 import SellOutlinedIcon from "@mui/icons-material/SellOutlined";
 import StorefrontOutlinedIcon from "@mui/icons-material/StorefrontOutlined";
 
+import { themeConfig } from "@/assets/constants";
 import { inventories } from "@/assets/genericdata";
 import { IconLine, InfoLine, SideCard, getFadeInStyle } from "../common/ViewPage";
-import { themeConfig } from "@/assets/CommonDesign";
 
 export default async function InventoryDetailsPage({
   params,

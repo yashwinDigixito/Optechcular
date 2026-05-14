@@ -1,12 +1,12 @@
-import Link from "next/link";
 import {
-  Box,
-  Button,
-  Card,
-  Container,
-  Stack,
-  Typography,
+    Box,
+    Button,
+    Card,
+    Container,
+    Stack,
+    Typography,
 } from "@mui/material";
+import Link from "next/link";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import BadgeOutlinedIcon from "@mui/icons-material/BadgeOutlined";
@@ -19,9 +19,9 @@ import WarningAmberOutlinedIcon from "@mui/icons-material/WarningAmberOutlined";
 
 import { materials } from "@/assets/genericdata";
 
-import { IconLine, InfoLine, SideCard, getFadeInStyle } from "@/component/common/ViewPage";
-import { themeConfig } from "@/assets/CommonDesign";
+import { themeConfig } from "@/assets/constants";
 import StatusChip from "@/component/common/StatusChip";
+import { IconLine, InfoLine, SideCard, getFadeInStyle } from "@/component/common/ViewPage";
 
 export default async function MaterialViewPage({
   params,

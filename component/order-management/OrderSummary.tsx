@@ -1,17 +1,16 @@
 "use client";
 
-import React from "react";
-import Link from "next/link";
 import { Order } from "@/assets/types";
 import {
-  Box,
-  Button,
-  Chip,
-  Container,
-  Divider,
-  Stack,
-  Typography,
+    Box,
+    Button,
+    Chip,
+    Container,
+    Divider,
+    Stack,
+    Typography,
 } from "@mui/material";
+import Link from "next/link";
 
 // Icons
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -23,17 +22,16 @@ import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined
 import PhoneOutlinedIcon from "@mui/icons-material/PhoneOutlined";
 import ReceiptLongOutlinedIcon from "@mui/icons-material/ReceiptLongOutlined";
 
-import { themeConfig } from "@/assets/CommonDesign";
-import {
-  CustomCard,
-  IconLine,
-  InfoLine,
-  SectionTitle,
-  SideCard,
-  SummaryLine,
-
-} from "./order-view";
+import { themeConfig } from "@/assets/constants";
 import { getFadeInStyle } from "../common/ViewPage";
+import {
+    CustomCard,
+    IconLine,
+    InfoLine,
+    SectionTitle,
+    SideCard,
+    SummaryLine,
+} from "./order-view";
 
 
 interface OrderViewProps {

@@ -1,13 +1,13 @@
-import Link from "next/link";
 import {
-  Box,
-  Button,
-  Card,
-  Chip,
-  Container,
-  Stack,
-  Typography,
+    Box,
+    Button,
+    Card,
+    Chip,
+    Container,
+    Stack,
+    Typography,
 } from "@mui/material";
+import Link from "next/link";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import BadgeOutlinedIcon from "@mui/icons-material/BadgeOutlined";
@@ -19,9 +19,9 @@ import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined
 import PhoneOutlinedIcon from "@mui/icons-material/PhoneOutlined";
 import ReceiptLongOutlinedIcon from "@mui/icons-material/ReceiptLongOutlined";
 
+import { themeConfig } from "@/assets/constants";
 import { brandGroups } from "@/assets/genericdata";
 import { IconLine, InfoLine, SideCard, getFadeInStyle } from "@/component/common/ViewPage";
-import { themeConfig } from "@/assets/CommonDesign";
 
 export default async function BrandGroupViewPage({
   params,

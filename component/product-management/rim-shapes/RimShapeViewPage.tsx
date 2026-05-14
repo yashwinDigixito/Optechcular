@@ -1,12 +1,12 @@
-import Link from "next/link";
 import {
-  Box,
-  Button,
-  Card,
-  Container,
-  Stack,
-  Typography,
+    Box,
+    Button,
+    Card,
+    Container,
+    Stack,
+    Typography,
 } from "@mui/material";
+import Link from "next/link";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import BadgeOutlinedIcon from "@mui/icons-material/BadgeOutlined";
@@ -15,10 +15,10 @@ import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
 import ReceiptLongOutlinedIcon from "@mui/icons-material/ReceiptLongOutlined";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 
+import { themeConfig } from "@/assets/constants";
 import { rimShapes } from "@/assets/genericdata";
 import StatusChip from "@/component/common/StatusChip";
 import { IconLine, InfoLine, SideCard, getFadeInStyle } from "@/component/common/ViewPage";
-import { themeConfig } from "@/assets/CommonDesign";
 
 export default async function RimShapeViewPage({
   params,

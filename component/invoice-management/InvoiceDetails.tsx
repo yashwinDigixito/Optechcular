@@ -1,15 +1,13 @@
-import React from "react";
-import Link from "next/link";
 import {
-  Box,
-  Button,
-  Card,
-  Chip,
-  Container,
-  Divider,
-  Stack,
-  Typography,
+    Box,
+    Button,
+    Card,
+    Container,
+    Divider,
+    Stack,
+    Typography
 } from "@mui/material";
+import Link from "next/link";
 
 // Icons
 import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
@@ -23,10 +21,10 @@ import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined
 import PhoneOutlinedIcon from "@mui/icons-material/PhoneOutlined";
 import ReceiptLongOutlinedIcon from "@mui/icons-material/ReceiptLongOutlined";
 
+import { themeConfig } from "@/assets/constants";
 import { invoices } from "@/assets/genericdata";
-import { IconLine, InfoLine, SideCard, SummaryLine, getFadeInStyle } from "../common/ViewPage";
-import { themeConfig } from "@/assets/CommonDesign";
 import StatusChip from "../common/StatusChip";
+import { IconLine, InfoLine, SideCard, SummaryLine, getFadeInStyle } from "../common/ViewPage";
 
 export default async function InvoiceDetails({
   params,

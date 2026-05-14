@@ -17,7 +17,7 @@ import PaletteOutlinedIcon from "@mui/icons-material/PaletteOutlined";
 import StyleOutlinedIcon from "@mui/icons-material/StyleOutlined";
 import WarehouseOutlinedIcon from "@mui/icons-material/WarehouseOutlined";
 
-import { themeConfig } from "@/assets/CommonDesign";
+import { themeConfig } from "@/assets/constants";
 import { categories, frames, frameVariants } from "@/assets/genericdata";
 import StatusChip from "@/component/common/StatusChip";
 import { getFadeInStyle, IconLine, InfoLine, SideCard } from "@/component/common/ViewPage";

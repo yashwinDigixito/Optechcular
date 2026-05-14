@@ -1,30 +1,29 @@
-import React from "react";
-import Link from "next/link";
 import {
-  Box,
-  Button,
-  Card,
-  Chip,
-  Container,
-  LinearProgress,
-  Stack,
-  Typography,
+    Box,
+    Button,
+    Card,
+    Chip,
+    Container,
+    LinearProgress,
+    Stack,
+    Typography,
 } from "@mui/material";
+import Link from "next/link";
 
 // Icons
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import AssignmentTurnedInOutlinedIcon from "@mui/icons-material/AssignmentTurnedInOutlined";
 import BadgeOutlinedIcon from "@mui/icons-material/BadgeOutlined";
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
-import PaymentsOutlinedIcon from "@mui/icons-material/PaymentsOutlined";
-import TrendingUpOutlinedIcon from "@mui/icons-material/TrendingUpOutlined";
-import PendingActionsOutlinedIcon from "@mui/icons-material/PendingActionsOutlined";
-import AssignmentTurnedInOutlinedIcon from "@mui/icons-material/AssignmentTurnedInOutlined";
 import HistoryOutlinedIcon from "@mui/icons-material/HistoryOutlined";
+import PaymentsOutlinedIcon from "@mui/icons-material/PaymentsOutlined";
+import PendingActionsOutlinedIcon from "@mui/icons-material/PendingActionsOutlined";
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import TrendingUpOutlinedIcon from "@mui/icons-material/TrendingUpOutlined";
 
+import { themeConfig } from "@/assets/constants";
 import { salesTargets } from "@/assets/genericdata";
 import { IconLine, InfoLine, SideCard, getFadeInStyle } from "../common/ViewPage";
-import { themeConfig } from "@/assets/CommonDesign";
 
 export default async function SalesTargetDetails({
   params,

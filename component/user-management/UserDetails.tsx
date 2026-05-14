@@ -1,5 +1,3 @@
-import React from "react";
-import Link from "next/link";
 import {
   Box,
   Button,
@@ -9,6 +7,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import Link from "next/link";
 
 // Icons
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -21,11 +20,10 @@ import MailOutlineOutlinedIcon from "@mui/icons-material/MailOutlineOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import PhoneOutlinedIcon from "@mui/icons-material/PhoneOutlined";
 import ReceiptLongOutlinedIcon from "@mui/icons-material/ReceiptLongOutlined";
-import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 
+import { themeConfig } from "@/assets/constants";
 import { users } from "@/assets/genericdata";
 import { IconLine, InfoLine, SideCard, getFadeInStyle } from "../common/ViewPage";
-import { themeConfig } from "@/assets/CommonDesign";
 
 export default async function UserDetails({
   params,

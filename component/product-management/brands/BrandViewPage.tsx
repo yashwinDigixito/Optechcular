@@ -1,24 +1,23 @@
-import Link from "next/link";
 import {
-  Box,
-  Button,
-  Card,
-  Chip,
-  Container,
-  Stack,
-  Typography,
+    Box,
+    Button,
+    Card,
+    Chip,
+    Container,
+    Stack,
+    Typography,
 } from "@mui/material";
+import Link from "next/link";
 
+import { themeConfig } from "@/assets/constants";
 import { brands } from "@/assets/genericdata";
 import { IconLine, InfoLine, SideCard, getFadeInStyle } from "@/component/common/ViewPage";
-import { themeConfig } from "@/assets/CommonDesign";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import BadgeOutlinedIcon from "@mui/icons-material/BadgeOutlined";
 import BusinessIcon from "@mui/icons-material/Business";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
 import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
-import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import PaymentsOutlinedIcon from "@mui/icons-material/PaymentsOutlined";
 import PhoneOutlinedIcon from "@mui/icons-material/PhoneOutlined";
 import ReceiptLongOutlinedIcon from "@mui/icons-material/ReceiptLongOutlined";

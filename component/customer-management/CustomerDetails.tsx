@@ -1,14 +1,15 @@
-import Link from "next/link";
 import {
-  Box,
-  Button,
-  Card,
-  Chip,
-  Container,
-  Stack,
-  Typography,
+    Box,
+    Button,
+    Card,
+    Chip,
+    Container,
+    Stack,
+    Typography,
 } from "@mui/material";
+import Link from "next/link";
 
+import { themeConfig } from "@/assets/constants";
 import { customers } from "@/assets/genericdata";
 import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -22,7 +23,6 @@ import PhoneOutlinedIcon from "@mui/icons-material/PhoneOutlined";
 import ReceiptLongOutlinedIcon from "@mui/icons-material/ReceiptLongOutlined";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import { IconLine, InfoLine, SideCard, getFadeInStyle } from "../common/ViewPage";
-import { themeConfig } from "@/assets/CommonDesign";
 
 
 export default async function CustomerViewPage({

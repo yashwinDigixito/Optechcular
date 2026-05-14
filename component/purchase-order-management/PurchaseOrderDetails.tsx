@@ -1,13 +1,13 @@
-import Link from "next/link";
 import {
-  Box,
-  Button,
-  Card,
-  Chip,
-  Container,
-  Stack,
-  Typography,
+    Box,
+    Button,
+    Card,
+    Chip,
+    Container,
+    Stack,
+    Typography,
 } from "@mui/material";
+import Link from "next/link";
 
 
 
@@ -22,10 +22,9 @@ import PhoneOutlinedIcon from "@mui/icons-material/PhoneOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 
 
+import { themeConfig } from "@/assets/constants";
 import { purchaseOrders } from "@/assets/genericdata";
-import { IconLine, InfoLine, SideCard, SummaryLine } from "../common/ViewPage";
-import { themeConfig } from "@/assets/CommonDesign";
-import { getFadeInStyle } from "../common/ViewPage"; 
+import { getFadeInStyle, IconLine, InfoLine, SideCard, SummaryLine } from "../common/ViewPage";
 
 export default async function PurchaseOrderViewPage({
   params,

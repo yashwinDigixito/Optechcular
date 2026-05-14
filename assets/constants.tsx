@@ -45,3 +45,70 @@ export const themeConfig = {
     xl: "18px",
   }
 };
+
+
+export const FONT_FAMILY = {
+
+  HEADING:
+    "'Work Sans', sans-serif",
+
+  SUB_HEADING:
+    "'Work Sans', sans-serif",
+
+  BODY:
+    "'Inter', sans-serif",
+
+  TABLE_HEADING:
+    "'Inter', sans-serif",
+
+  TABLE_BODY:
+    "'Inter', sans-serif",
+
+  BUTTON:
+    "'Inter', sans-serif",
+
+  INPUT:
+    "'Inter', sans-serif",
+};
+
+export const FONT_SIZE = {
+
+  PAGE_HEADING:
+    "32px",
+
+  SECTION_HEADING:
+    "24px",
+
+  CARD_HEADING:
+    "20px",
+
+  SUB_HEADING:
+    "16px",
+
+  BODY:
+    "14px",
+
+  TABLE_HEADING:
+    "14px",
+
+  TABLE_BODY:
+    "14px",
+
+  SMALL:
+    "12px",
+};
+
+export const FONT_WEIGHT = {
+
+  BOLD:
+    700,
+
+  SEMI_BOLD:
+    600,
+
+  MEDIUM:
+    500,
+
+  REGULAR:
+    400,
+};
