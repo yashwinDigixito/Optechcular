@@ -1,4 +1,5 @@
 import { Box, Card, Stack, Typography } from "@mui/material";
+import { SxProps, Theme } from "@mui/material";
 import { ReactNode } from "react";
 
 export function SectionTitle({ title }: { title: string }) {
@@ -143,3 +144,20 @@ export function SummaryLine({
     </Stack>
   );
 }
+
+
+export const getFadeInStyle = (delay: number = 0): SxProps<Theme> => ({
+  "@keyframes fadeIn": {
+    "0%": { 
+      opacity: 0, 
+      transform: "translateY(10px)" 
+    },
+    "100%": { 
+      opacity: 1, 
+      transform: "translateY(0)" 
+    },
+  },
+  opacity: 0, 
+  animation: "fadeIn 0.5s ease-out forwards",
+  animationDelay: `${delay}s`,
+});

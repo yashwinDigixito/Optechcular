@@ -1,5 +1,4 @@
 import Link from "next/link";
-
 import {
   Box,
   Button,
@@ -9,6 +8,8 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+
+import { themeConfig } from "@/assets/CommonDesign";
 
 import { expenses } from "@/assets/genericdata";
 import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
@@ -25,29 +26,41 @@ export default async function ExpenseDetailsPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-
   const expense = expenses.find((item) => item.id === id);
+
+  
+  const { colors, typography, borderRadius } = themeConfig;
+
+  // Reusable animation styles
+  const fadeInStyles = {
+    "@keyframes fadeIn": {
+      "0%": { opacity: 0, transform: "translateY(10px)" },
+      "100%": { opacity: 1, transform: "translateY(0)" },
+    },
+    animation: "fadeIn 0.5s ease-out forwards",
+  };
 
   if (!expense) {
     return (
       <Box
         sx={{
           minHeight: "100vh",
-          bgcolor: "#F8FAFC",
+          bgcolor: colors.bgLight,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          ...fadeInStyles,
         }}
       >
         <Card
           sx={{
             p: 4,
-            borderRadius: "16px",
-            border: "1px solid #E2E8F0",
+            borderRadius: borderRadius.large,
+            border: `1px solid ${colors.border}`,
             boxShadow: "none",
           }}
         >
-          <Typography sx={{ color: "#64748B", fontWeight: 700 }}>
+          <Typography sx={{ color: colors.textSecondary, fontWeight: typography.fontWeight.bold }}>
             Expense record not found
           </Typography>
         </Card>
@@ -56,18 +69,17 @@ export default async function ExpenseDetailsPage({
   }
 
   return (
-    <Box sx={{ width: "100%", minHeight: "100vh", bgcolor: "#F8FAFC" }}>
+    <Box sx={{ width: "100%", minHeight: "100vh", bgcolor: colors.bgLight }}>
       {/* Top Navigation Bar */}
-      <Box>
-      
-        <Container maxWidth="xl">
+      <Box sx={{ opacity: 0, ...fadeInStyles, animationDelay: "0.1s" }}>
+        <Container maxWidth="xl" sx={{ pt: 2 }}>
           <Link href="/expenses" passHref style={{ textDecoration: "none" }}>
             <Button
               startIcon={<ArrowBackIcon />}
               sx={{
-                color: "#64748B",
+                color: colors.textSecondary,
                 textTransform: "none",
-                fontWeight: 600,
+                fontWeight: typography.fontWeight.medium,
               }}
             >
               Back to Expenses
@@ -78,13 +90,13 @@ export default async function ExpenseDetailsPage({
 
       <Container maxWidth="xl" sx={{ py: 4 }}>
         {/* Header Section */}
-        <Box sx={{ mb: 4 }}>
-          <Stack direction="row" spacing={1.5} sx={{alignItems: "center",flexWrap: "wrap"}} >
+        <Box sx={{ mb: 4, opacity: 0, ...fadeInStyles, animationDelay: "0.2s" }}>
+          <Stack direction="row" spacing={1.5} sx={{ alignItems: "center", flexWrap: "wrap" }}>
             <Typography
               sx={{
-                fontSize: { xs: "1.5rem", md: "1.9rem" },
-                fontWeight: 800,
-                color: "#3B82F6",
+                fontSize: { xs: typography.fontSize.h3, md: "1.9rem" },
+                fontWeight: typography.fontWeight.extraBold,
+                color: colors.primary,
               }}
             >
               {expense.expenseName}
@@ -94,10 +106,10 @@ export default async function ExpenseDetailsPage({
               label={expense.id}
               size="small"
               sx={{
-                bgcolor: "#EFF6FF",
-                color: "#3B82F6",
-                fontWeight: 700,
-                borderRadius: "8px",
+                bgcolor: colors.primaryLight,
+                color: colors.primary,
+                fontWeight: typography.fontWeight.bold,
+                borderRadius: borderRadius.small,
               }}
             />
 
@@ -107,23 +119,23 @@ export default async function ExpenseDetailsPage({
               sx={{
                 bgcolor:
                   expense.status === "Approved" || expense.status === "Paid"
-                    ? "#DCFCE7"
+                    ? colors.successBg
                     : expense.status === "Rejected"
-                    ? "#FEE2E2"
-                    : "#FEF3C7",
+                    ? colors.errorBg
+                    : colors.warningBg,
                 color:
                   expense.status === "Approved" || expense.status === "Paid"
-                    ? "#15803D"
+                    ? colors.success
                     : expense.status === "Rejected"
-                    ? "#B91C1C"
-                    : "#D97706",
-                fontWeight: 700,
-                borderRadius: "8px",
+                    ? colors.error
+                    : colors.warning,
+                fontWeight: typography.fontWeight.bold,
+                borderRadius: borderRadius.small,
               }}
             />
           </Stack>
 
-          <Typography sx={{ mt: 1, color: "#64748B", fontSize: 14 }}>
+          <Typography sx={{ mt: 1, color: colors.textSecondary, fontSize: typography.fontSize.small }}>
             Transaction Date: {expense.expenseDate}
           </Typography>
         </Box>
@@ -137,7 +149,14 @@ export default async function ExpenseDetailsPage({
           }}
         >
           {/* Main Content - Left Side */}
-          <Box sx={{ width: { xs: "100%", lg: "60%" } }}>
+          <Box 
+            sx={{ 
+                width: { xs: "100%", lg: "60%" },
+                opacity: 0,
+                ...fadeInStyles,
+                animationDelay: "0.3s"
+            }}
+          >
             <Stack spacing={3}>
               <SideCard title="General Information">
                 <InfoLine label="Expense ID" value={expense.id} />
@@ -161,16 +180,25 @@ export default async function ExpenseDetailsPage({
           </Box>
 
           {/* Sidebar - Right Side */}
-          <Box sx={{ width: { xs: "100%", lg: "40%" } }}>
+          <Box 
+            sx={{ 
+                width: { xs: "100%", lg: "40%" },
+                opacity: 0,
+                ...fadeInStyles,
+                animationDelay: "0.4s"
+            }}
+          >
             <Stack spacing={3}>
               <Card
                 sx={{
                   p: 3,
-                  borderRadius: "16px",
+                  borderRadius: borderRadius.large,
                   boxShadow: "none",
-                  border: "1px solid #E2E8F0",
-                  bgcolor: "#FFFFFF",
+                  border: `1px solid ${colors.border}`,
+                  bgcolor: colors.white,
                   textAlign: "center",
+                  transition: "transform 0.3s ease",
+                  "&:hover": { transform: "scale(1.02)" }
                 }}
               >
                 <Box
@@ -179,42 +207,42 @@ export default async function ExpenseDetailsPage({
                     height: 80,
                     mx: "auto",
                     mb: 2,
-                    borderRadius: "50%",
-                    bgcolor: "#EFF6FF",
+                    borderRadius: borderRadius.xl, // Circular look
+                    bgcolor: colors.primaryLight,
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                   }}
                 >
                   <AccountBalanceWalletOutlinedIcon
-                    sx={{ fontSize: 40, color: "#3B82F6" }}
+                    sx={{ fontSize: 40, color: colors.primary }}
                   />
                 </Box>
 
-                <Typography sx={{ fontSize: 28, fontWeight: 800, color: "#0F172A" }}>
+                <Typography sx={{ fontSize: 28, fontWeight: typography.fontWeight.extraBold, color: colors.textMain }}>
                   {expense.currency} {expense.amount.toLocaleString()}
                 </Typography>
 
-                <Typography sx={{ color: "#64748B", fontSize: 14, mt: 0.5 }}>
+                <Typography sx={{ color: colors.textSecondary, fontSize: typography.fontSize.small, mt: 0.5 }}>
                   Total Expense Value
                 </Typography>
               </Card>
 
               <SideCard title="Quick Summary">
                 <IconLine
-                  icon={<ReceiptLongOutlinedIcon />}
+                  icon={<ReceiptLongOutlinedIcon sx={{ color: colors.primary }} />}
                   text={`Category: ${expense.ledger}`}
                 />
                 <IconLine
-                  icon={<PaymentsOutlinedIcon />}
+                  icon={<PaymentsOutlinedIcon sx={{ color: colors.primary }} />}
                   text={`Method: ${expense.paymentMethod}`}
                 />
                 <IconLine
-                  icon={<CalendarMonthOutlinedIcon />}
+                  icon={<CalendarMonthOutlinedIcon sx={{ color: colors.primary }} />}
                   text={`Date: ${expense.expenseDate}`}
                 />
                 <IconLine
-                  icon={<PersonOutlineOutlinedIcon />}
+                  icon={<PersonOutlineOutlinedIcon sx={{ color: colors.primary }} />}
                   text={`Raised By: ${expense.createdBy}`}
                 />
               </SideCard>
@@ -222,20 +250,20 @@ export default async function ExpenseDetailsPage({
               <SideCard title="Description & Notes">
                 <Stack spacing={2}>
                   <Box>
-                    <Typography sx={{ color: "#64748B", fontSize: 12, fontWeight: 700, textTransform: "uppercase", mb: 0.5 }}>
+                    <Typography sx={{ color: colors.textSecondary, fontSize: 12, fontWeight: typography.fontWeight.bold, textTransform: "uppercase", mb: 0.5 }}>
                       Purpose
                     </Typography>
-                    <Typography sx={{ color: "#475569", fontSize: 14, lineHeight: 1.6 }}>
+                    <Typography sx={{ color: colors.textMain, fontSize: 14, lineHeight: 1.6 }}>
                       {expense.description}
                     </Typography>
                   </Box>
                   
                   {expense.notes && (
-                    <Box sx={{ pt: 2, borderTop: "1px dashed #E2E8F0" }}>
-                      <Typography sx={{ color: "#64748B", fontSize: 12, fontWeight: 700, textTransform: "uppercase", mb: 0.5 }}>
+                    <Box sx={{ pt: 2, borderTop: `1px dashed ${colors.border}` }}>
+                      <Typography sx={{ color: colors.textSecondary, fontSize: 12, fontWeight: typography.fontWeight.bold, textTransform: "uppercase", mb: 0.5 }}>
                         Internal Notes
                       </Typography>
-                      <Typography sx={{ color: "#475569", fontSize: 14, lineHeight: 1.6 }}>
+                      <Typography sx={{ color: colors.textMain, fontSize: 14, lineHeight: 1.6 }}>
                         {expense.notes}
                       </Typography>
                     </Box>
@@ -249,4 +277,3 @@ export default async function ExpenseDetailsPage({
     </Box>
   );
 }
-

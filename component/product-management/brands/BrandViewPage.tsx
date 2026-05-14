@@ -1,5 +1,4 @@
 import Link from "next/link";
-
 import {
   Box,
   Button,
@@ -11,7 +10,8 @@ import {
 } from "@mui/material";
 
 import { brands } from "@/assets/genericdata";
-import { IconLine, InfoLine, SideCard } from "@/component/common/ViewPage";
+import { IconLine, InfoLine, SideCard, getFadeInStyle } from "@/component/common/ViewPage";
+import { themeConfig } from "@/assets/CommonDesign";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import BadgeOutlinedIcon from "@mui/icons-material/BadgeOutlined";
 import BusinessIcon from "@mui/icons-material/Business";
@@ -31,29 +31,31 @@ export default async function BrandViewPage({
   }>;
 }) {
   const { id } = await params;
-
   const brand = brands.find((item) => item.id === id);
+
+  const { colors, typography, borderRadius } = themeConfig;
 
   if (!brand) {
     return (
       <Box
         sx={{
           minHeight: "100vh",
-          bgcolor: "#F8FAFC",
+          bgcolor: colors.bgLight,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          ...getFadeInStyle(0.1),
         }}
       >
         <Card
           sx={{
             p: 4,
-            borderRadius: "16px",
-            border: "1px solid #E2E8F0",
+            borderRadius: borderRadius.large,
+            border: `1px solid ${colors.border}`,
             boxShadow: "none",
           }}
         >
-          <Typography sx={{ fontWeight: 700, color: "#64748B" }}>
+          <Typography sx={{ fontWeight: 700, color: colors.textSecondary }}>
             Brand not found
           </Typography>
         </Card>
@@ -62,41 +64,34 @@ export default async function BrandViewPage({
   }
 
   return (
-    <Box sx={{ width: "100%", minHeight: "100vh"}}>
-      <Box>
+    <Box sx={{ width: "100%", minHeight: "100vh", bgcolor: colors.bgLight }}>
+      {/* Navigation Header */}
+      <Box sx={{ pt: 2, ...getFadeInStyle(0.1) }}>
         <Container maxWidth="xl">
-        <Box>
-        <Link
-          href="/products/brands"
-          style={{
-            textDecoration:
-              "none",
-          }}
-        >
-          <Button
-            startIcon={
-              <ArrowBackIcon />
-            }
-            sx={{
-              textTransform:"none",
-              fontWeight:600,
-            }}
-          >
-            Back
-          </Button>
-        </Link>
-      </Box>
+          <Link href="/products/brands" style={{ textDecoration: "none" }}>
+            <Button
+              startIcon={<ArrowBackIcon />}
+              sx={{
+                textTransform: "none",
+                fontWeight: typography.fontWeight.medium,
+                color: colors.primary,
+              }}
+            >
+              Back to Brands
+            </Button>
+          </Link>
         </Container>
       </Box>
 
       <Container maxWidth="xl" sx={{ py: 4 }}>
-        <Box sx={{ mb: 4 }}>
-          <Stack direction="row" spacing={1.5} sx={{alignItems:"center", flexWrap:"wrap"}}>
+        {/* Header Identity Section */}
+        <Box sx={{ mb: 4, ...getFadeInStyle(0.2) }}>
+          <Stack direction="row" spacing={1.5} sx={{ alignItems: "center", flexWrap: "wrap" }}>
             <Typography
               sx={{
-                fontSize: { xs: "1.5rem", md: "1.9rem" },
-                fontWeight: 800,
-                color: "#3B82F6",
+                fontSize: { xs: typography.fontSize.h3, md: "1.9rem" },
+                fontWeight: typography.fontWeight.extraBold,
+                color: colors.primary,
               }}
             >
               Brand Details: {brand.brandName}
@@ -106,15 +101,15 @@ export default async function BrandViewPage({
               label={brand.status}
               size="small"
               sx={{
-                bgcolor: brand.status === "Active" ? "#DCFCE7" : "#FEE2E2",
-                color: brand.status === "Active" ? "#15803D" : "#B91C1C",
-                fontWeight: 700,
-                borderRadius: "8px",
+                bgcolor: brand.status === "Active" ? colors.successBg : colors.errorBg,
+                color: brand.status === "Active" ? colors.success : colors.error,
+                fontWeight: typography.fontWeight.bold,
+                borderRadius: borderRadius.small,
               }}
             />
           </Stack>
 
-          <Typography sx={{ mt: 1, color: "#64748B", fontSize: 14 }}>
+          <Typography sx={{ mt: 1, color: colors.textSecondary, fontSize: typography.fontSize.small }}>
             Created On: {brand.createdDate}
           </Typography>
         </Box>
@@ -127,7 +122,8 @@ export default async function BrandViewPage({
             flexDirection: { xs: "column", lg: "row" },
           }}
         >
-          <Box sx={{ width: { xs: "100%", lg: "60%" } }}>
+          {/* Main Content Section (Scrollable) */}
+          <Box sx={{ width: { xs: "100%", lg: "60%" }, ...getFadeInStyle(0.3) }}>
             <Stack spacing={3}>
               <SideCard title="Brand Information">
                 <InfoLine label="Brand ID" value={brand.brandId} />
@@ -139,14 +135,14 @@ export default async function BrandViewPage({
               </SideCard>
 
               <SideCard title="Contact Information">
-                <IconLine icon={<BusinessIcon />} text={brand.contactPerson} />
-                <IconLine icon={<EmailOutlinedIcon />} text={brand.email} />
-                <IconLine icon={<PhoneOutlinedIcon />} text={brand.phone} />
-                <IconLine icon={<LanguageOutlinedIcon />} text={brand.website || "N/A"} />
+                <IconLine icon={<BusinessIcon sx={{ color: colors.primary }} />} text={brand.contactPerson} />
+                <IconLine icon={<EmailOutlinedIcon sx={{ color: colors.primary }} />} text={brand.email} />
+                <IconLine icon={<PhoneOutlinedIcon sx={{ color: colors.primary }} />} text={brand.phone} />
+                <IconLine icon={<LanguageOutlinedIcon sx={{ color: colors.primary }} />} text={brand.website || "N/A"} />
               </SideCard>
 
               <SideCard title="Address Information">
-                <IconLine icon={<LocationOnOutlinedIcon />} text={brand.address} />
+                <InfoLine label="Address" value={brand.address} />
                 <InfoLine label="City" value={brand.city} />
                 <InfoLine label="State" value={brand.state} />
                 <InfoLine label="Country" value={brand.country} />
@@ -162,16 +158,27 @@ export default async function BrandViewPage({
             </Stack>
           </Box>
 
-          <Box sx={{ width: { xs: "100%", lg: "40%" } }}>
+          {/* Sidebar Section (Sticky) */}
+          <Box
+            sx={{
+              width: { xs: "100%", lg: "40%" },
+              position: { lg: "sticky" },
+              top: 24,
+              alignSelf: "flex-start",
+              ...getFadeInStyle(0.4),
+            }}
+          >
             <Stack spacing={3}>
               <Card
                 sx={{
                   p: 3,
-                  borderRadius: "16px",
+                  borderRadius: borderRadius.large,
                   boxShadow: "none",
-                  border: "1px solid #E2E8F0",
-                  bgcolor: "#FFFFFF",
+                  border: `1px solid ${colors.border}`,
+                  bgcolor: colors.white,
                   textAlign: "center",
+                  transition: "transform 0.3s ease",
+                  "&:hover": { transform: "scale(1.02)" }
                 }}
               >
                 <Box
@@ -180,52 +187,52 @@ export default async function BrandViewPage({
                     height: 90,
                     mx: "auto",
                     mb: 2,
-                    borderRadius: "18px",
-                    bgcolor: "#EFF6FF",
+                    borderRadius: borderRadius.xl,
+                    bgcolor: colors.primaryLight,
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                   }}
                 >
-                  <BusinessIcon sx={{ fontSize: 46, color: "#3B82F6" }} />
+                  <BusinessIcon sx={{ fontSize: 46, color: colors.primary }} />
                 </Box>
 
-                <Typography sx={{ fontSize: 24, fontWeight: 800, color: "#0F172A" }}>
+                <Typography sx={{ fontSize: 24, fontWeight: typography.fontWeight.extraBold, color: colors.textMain }}>
                   {brand.brandName}
                 </Typography>
 
-                <Typography sx={{ color: "#64748B", fontSize: 14, mt: 0.5 }}>
+                <Typography sx={{ color: colors.textSecondary, fontSize: typography.fontSize.small, mt: 0.5 }}>
                   {brand.category} • {brand.brandGroup}
                 </Typography>
               </Card>
 
               <SideCard title="Product Statistics">
                 <IconLine
-                  icon={<Inventory2OutlinedIcon />}
+                  icon={<Inventory2OutlinedIcon sx={{ color: colors.primary }} />}
                   text={`Total Products: ${brand.totalProducts ?? 0}`}
                 />
                 <IconLine
-                  icon={<BadgeOutlinedIcon />}
+                  icon={<BadgeOutlinedIcon sx={{ color: colors.primary }} />}
                   text={`Active Products: ${brand.activeProducts ?? 0}`}
                 />
                 <IconLine
-                  icon={<ReceiptLongOutlinedIcon />}
+                  icon={<ReceiptLongOutlinedIcon sx={{ color: colors.primary }} />}
                   text={`Total Orders: ${brand.totalOrders ?? 0}`}
                 />
                 <IconLine
-                  icon={<PaymentsOutlinedIcon />}
+                  icon={<PaymentsOutlinedIcon sx={{ color: colors.primary }} />}
                   text={`Revenue: ₹${brand.revenue ?? 0}`}
                 />
               </SideCard>
 
               <SideCard title="Description">
-                <Typography sx={{ color: "#475569", fontSize: 14, lineHeight: 1.7 }}>
+                <Typography sx={{ color: colors.textMain, fontSize: typography.fontSize.small, lineHeight: 1.7 }}>
                   {brand.description || "No description available"}
                 </Typography>
               </SideCard>
 
               <SideCard title="Notes">
-                <Typography sx={{ color: "#475569", fontSize: 14, lineHeight: 1.7 }}>
+                <Typography sx={{ color: colors.textSecondary, fontSize: typography.fontSize.small, lineHeight: 1.7 }}>
                   {brand.notes || "No notes available"}
                 </Typography>
               </SideCard>
@@ -236,4 +243,3 @@ export default async function BrandViewPage({
     </Box>
   );
 }
-

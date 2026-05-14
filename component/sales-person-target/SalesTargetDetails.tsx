@@ -1,6 +1,5 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import Link from "next/link";
-
 import {
   Box,
   Button,
@@ -12,6 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 
+// Icons
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import BadgeOutlinedIcon from "@mui/icons-material/BadgeOutlined";
@@ -20,10 +20,11 @@ import PaymentsOutlinedIcon from "@mui/icons-material/PaymentsOutlined";
 import TrendingUpOutlinedIcon from "@mui/icons-material/TrendingUpOutlined";
 import PendingActionsOutlinedIcon from "@mui/icons-material/PendingActionsOutlined";
 import AssignmentTurnedInOutlinedIcon from "@mui/icons-material/AssignmentTurnedInOutlined";
-
+import HistoryOutlinedIcon from "@mui/icons-material/HistoryOutlined";
 
 import { salesTargets } from "@/assets/genericdata";
-import { IconLine, InfoLine, SideCard, SummaryLine } from "../common/ViewPage";
+import { IconLine, InfoLine, SideCard, getFadeInStyle } from "../common/ViewPage";
+import { themeConfig } from "@/assets/CommonDesign";
 
 export default async function SalesTargetDetails({
   params,
@@ -31,31 +32,32 @@ export default async function SalesTargetDetails({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-
-  // Updated to look inside salesTargets
   const target = salesTargets.find((item) => item.id === id);
+
+  const { colors, typography, borderRadius } = themeConfig;
 
   if (!target) {
     return (
       <Box
         sx={{
           minHeight: "100vh",
-          bgcolor: "#F8FAFC",
+          bgcolor: colors.bgLight,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          ...getFadeInStyle(0),
         }}
       >
         <Card
           sx={{
             p: 4,
-            borderRadius: "16px",
-            border: "1px solid #E2E8F0",
+            borderRadius: borderRadius.large,
+            border: `1px solid ${colors.border}`,
             boxShadow: "none",
           }}
         >
-          <Typography sx={{ color: "#64748B", fontWeight: 700 }}>
-            Sales person target not found
+          <Typography sx={{ color: colors.textSecondary, fontWeight: typography.fontWeight.bold }}>
+            Sales target record not found
           </Typography>
         </Card>
       </Box>
@@ -64,45 +66,36 @@ export default async function SalesTargetDetails({
 
   const progress =
     target.targetAmount > 0
-      ? Math.min(
-          Math.round((target.achievedAmount / target.targetAmount) * 100),
-          100
-        )
+      ? Math.min(Math.round((target.achievedAmount / target.targetAmount) * 100), 100)
       : 0;
 
   return (
-    <Box sx={{ width: "100%", minHeight: "100vh", bgcolor: "#F8FAFC" }}>
-      <Box
-       
-      >
-        <Container maxWidth="xl">
-          <Link
-            href="/sales-target"
-            passHref
-            style={{ textDecoration: "none" }}
+    <Box sx={{ width: "100%", minHeight: "100vh", bgcolor: colors.bgLight }}>
+      {/* Navigation Header */}
+      <Box sx={{ px: 3, pt: 2, ...getFadeInStyle(0.1) }}>
+        <Link href="/sales-target" style={{ textDecoration: "none" }}>
+          <Button
+            startIcon={<ArrowBackIcon />}
+            sx={{
+              textTransform: "none",
+              fontWeight: typography.fontWeight.medium,
+              color: colors.primary,
+            }}
           >
-            <Button
-              startIcon={<ArrowBackIcon />}
-              sx={{
-                color: "#64748B",
-                textTransform: "none",
-                fontWeight: 600,
-              }}
-            >
-              Back to Sales Targets
-            </Button>
-          </Link>
-        </Container>
+            Back to Targets
+          </Button>
+        </Link>
       </Box>
 
       <Container maxWidth="xl" sx={{ py: 4 }}>
-        <Box sx={{ mb: 4 }}>
-          <Stack direction="row" spacing={1.5}   sx={{alignItems:"center", flexWrap:"wrap"}}>
+        {/* Header Section */}
+        <Box sx={{ mb: 4, ...getFadeInStyle(0.2) }}>
+          <Stack direction="row" spacing={1.5} sx={{ alignItems: "center", flexWrap: "wrap" }}>
             <Typography
               sx={{
-                fontSize: { xs: "1.5rem", md: "1.9rem" },
-                fontWeight: 800,
-                color: "#3B82F6",
+                fontSize: { xs: typography.fontSize.h3, md: "1.9rem" },
+                fontWeight: typography.fontWeight.extraBold,
+                color: colors.primary,
               }}
             >
               Target: {target.salesPersonName}
@@ -112,10 +105,10 @@ export default async function SalesTargetDetails({
               label={target.month}
               size="small"
               sx={{
-                bgcolor: "#EFF6FF",
-                color: "#3B82F6",
-                fontWeight: 700,
-                borderRadius: "8px",
+                bgcolor: colors.primaryLight,
+                color: colors.primary,
+                fontWeight: typography.fontWeight.bold,
+                borderRadius: borderRadius.small,
               }}
             />
 
@@ -123,26 +116,15 @@ export default async function SalesTargetDetails({
               label={target.status}
               size="small"
               sx={{
-                bgcolor:
-                  target.status === "Completed"
-                    ? "#DCFCE7"
-                    : target.status === "Overdue"
-                    ? "#FEE2E2"
-                    : "#FEF3C7",
-                color:
-                  target.status === "Completed"
-                    ? "#15803D"
-                    : target.status === "Overdue"
-                    ? "#B91C1C"
-                    : "#D97706",
-                fontWeight: 700,
-                borderRadius: "8px",
+                bgcolor: target.status === "Completed" ? colors.successBg : target.status === "Overdue" ? colors.errorBg : colors.warningBg,
+                color: target.status === "Completed" ? colors.success : target.status === "Overdue" ? colors.error : colors.warning,
+                fontWeight: typography.fontWeight.bold,
+                borderRadius: borderRadius.small,
               }}
             />
           </Stack>
-
-          <Typography sx={{ mt: 1, color: "#64748B", fontSize: 14 }}>
-            Last Updated: {target.updatedDate}
+          <Typography sx={{ mt: 1, color: colors.textSecondary, fontSize: typography.fontSize.small }}>
+            Last Update: {target.updatedDate}
           </Typography>
         </Box>
 
@@ -154,97 +136,76 @@ export default async function SalesTargetDetails({
             flexDirection: { xs: "column", lg: "row" },
           }}
         >
-          <Box sx={{ width: { xs: "100%", lg: "60%" } }}>
+          {/* Left Content */}
+          <Box sx={{ width: { xs: "100%", lg: "60%" }, ...getFadeInStyle(0.3) }}>
             <Stack spacing={3}>
-              <SideCard title="Target Assignment">
-                <InfoLine label="Target ID" value={target.targetId} />
-                <InfoLine label="Sales Person ID" value={target.salesPersonId} />
-                <InfoLine label="Sales Person Name" value={target.salesPersonName} />
-                <InfoLine label="Target Month" value={target.month} />
-                <InfoLine label="Due Date" value={target.dueDate} />
-                <InfoLine label="Current Status" value={target.status} />
+              <SideCard title="Target Configuration">
+                <InfoLine label="Target Reference" value={target.targetId} />
+                <InfoLine label="Sales Personnel" value={target.salesPersonName} />
+                <InfoLine label="Employee ID" value={target.salesPersonId} />
+                <InfoLine label="Target Period" value={target.month} />
+                <InfoLine label="Deadline Date" value={target.dueDate} />
               </SideCard>
 
-              <SideCard title="Achievement Metrics">
-                <InfoLine
-                  label="Quota Amount"
-                  value={`₹${target.targetAmount.toLocaleString()}`}
-                />
-                <InfoLine
-                  label="Amount Achieved"
-                  value={`₹${target.achievedAmount.toLocaleString()}`}
-                />
-                <InfoLine
-                  label="Balance to Target"
-                  value={`₹${target.remainingAmount.toLocaleString()}`}
-                />
+              <SideCard title="Financial Performance">
+                <InfoLine label="Assigned Quota" value={`₹${target.targetAmount.toLocaleString()}`} />
+                <InfoLine label="Total Achieved" value={`₹${target.achievedAmount.toLocaleString()}`} />
+                <InfoLine label="Remaining Balance" value={`₹${target.remainingAmount.toLocaleString()}`} />
 
-                <Box sx={{ mt: 2 }}>
-                  <Stack
-                    direction="row"
-                    
-                    sx={{ mb: 1, justifyContent: "space-between", alignItems: "center"}}
-                  >
-                    <Typography
-                      sx={{
-                        color: "#64748B",
-                        fontSize: 14,
-                        fontWeight: 600,
-                      }}
-                    >
-                      Completion Progress
+                <Box sx={{ mt: 3 }}>
+                  <Stack direction="row" sx={{ mb: 1.5, justifyContent: "space-between", alignItems: "center" }}>
+                    <Typography sx={{ color: colors.textSecondary, fontSize: typography.fontSize.small, fontWeight: typography.fontWeight.medium }}>
+                      Target Achievement Rate
                     </Typography>
-
-                    <Typography
-                      sx={{
-                        color: "#0F172A",
-                        fontSize: 14,
-                        fontWeight: 800,
-                      }}
-                    >
+                    <Typography sx={{ color: colors.textMain, fontSize: typography.fontSize.small, fontWeight: typography.fontWeight.extraBold }}>
                       {progress}%
                     </Typography>
                   </Stack>
-
                   <LinearProgress
                     variant="determinate"
                     value={progress}
                     sx={{
                       height: 10,
                       borderRadius: "999px",
-                      bgcolor: "#E2E8F0",
+                      bgcolor: colors.border,
                       "& .MuiLinearProgress-bar": {
                         borderRadius: "999px",
-                        bgcolor:
-                          target.status === "Completed"
-                            ? "#15803D"
-                            : target.status === "Overdue"
-                            ? "#B91C1C"
-                            : "#3B82F6",
+                        bgcolor: target.status === "Completed" ? colors.success : colors.primary,
                       },
                     }}
                   />
                 </Box>
               </SideCard>
 
-              <SideCard title="System Audit">
-                <InfoLine label="Record Created" value={target.createdOn} />
-                <InfoLine label="Last Modified" value={target.updatedDate} />
+              <SideCard title="Audit Log">
+                <InfoLine label="Created On" value={target.createdOn} />
+                <InfoLine label="Modified On" value={target.updatedDate} />
                 <InfoLine label="Authorized By" value={target.createdBy} />
               </SideCard>
             </Stack>
           </Box>
 
-          <Box sx={{ width: { xs: "100%", lg: "40%" } }}>
+          {/* Right Content (Sticky) */}
+          <Box
+            sx={{
+              width: { xs: "100%", lg: "40%" },
+              position: { lg: "sticky" },
+              top: 24,
+              alignSelf: "flex-start",
+              ...getFadeInStyle(0.4),
+            }}
+          >
             <Stack spacing={3}>
               <Card
                 sx={{
                   p: 3,
-                  borderRadius: "16px",
+                  borderRadius: borderRadius.large,
                   boxShadow: "none",
-                  border: "1px solid #E2E8F0",
-                  bgcolor: "#FFFFFF",
+                  border: `1px solid ${colors.border}`,
+                  bgcolor: colors.white,
                   textAlign: "center",
+                  transition: "transform 0.3s ease",
+                  "&:hover": { transform: "scale(1.02)" },
                 }}
               >
                 <Box
@@ -253,64 +214,40 @@ export default async function SalesTargetDetails({
                     height: 90,
                     mx: "auto",
                     mb: 2,
-                    borderRadius: "18px",
-                    bgcolor: "#EFF6FF",
+                    borderRadius: borderRadius.xl,
+                    bgcolor: colors.primaryLight,
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                   }}
                 >
-                  <TrendingUpOutlinedIcon
-                    sx={{ fontSize: 46, color: "#3B82F6" }}
-                  />
+                  <TrendingUpOutlinedIcon sx={{ fontSize: 46, color: colors.primary }} />
                 </Box>
-
-                <Typography sx={{ fontSize: 24, fontWeight: 800, color: "#0F172A" }}>
+                <Typography sx={{ fontSize: 24, fontWeight: typography.fontWeight.extraBold, color: colors.textMain }}>
                   ₹{target.achievedAmount.toLocaleString()}
                 </Typography>
-
-                <Typography sx={{ color: "#64748B", fontSize: 14, mt: 0.5 }}>
-                  {target.month} Target Achievement
+                <Typography sx={{ color: colors.textSecondary, fontSize: typography.fontSize.small, mt: 0.5 }}>
+                  Current Achievement Status
                 </Typography>
               </Card>
 
-              <SideCard title="Executive Summary">
-                <IconLine
-                  icon={<PaymentsOutlinedIcon />}
-                  text={`Goal: ₹${target.targetAmount.toLocaleString()}`}
-                />
-                <IconLine
-                  icon={<TrendingUpOutlinedIcon />}
-                  text={`Achieved: ₹${target.achievedAmount.toLocaleString()}`}
-                />
-                <IconLine
-                  icon={<PendingActionsOutlinedIcon />}
-                  text={`Gap: ₹${target.remainingAmount.toLocaleString()}`}
-                />
-                <IconLine
-                  icon={<AssignmentTurnedInOutlinedIcon />}
-                  text={`Phase: ${target.status}`}
-                />
+              <SideCard title="Performance Summary">
+                <IconLine icon={<PaymentsOutlinedIcon sx={{ color: colors.primary }} />} text={`Total Quota: ₹${target.targetAmount.toLocaleString()}`} />
+                <IconLine icon={<TrendingUpOutlinedIcon sx={{ color: colors.primary }} />} text={`Total Realized: ₹${target.achievedAmount.toLocaleString()}`} />
+                <IconLine icon={<PendingActionsOutlinedIcon sx={{ color: colors.primary }} />} text={`Pending Gap: ₹${target.remainingAmount.toLocaleString()}`} />
+                <IconLine icon={<AssignmentTurnedInOutlinedIcon sx={{ color: colors.primary }} />} text={`Status: ${target.status}`} />
               </SideCard>
 
-              <SideCard title="Employee Profile">
-                <IconLine
-                  icon={<PersonOutlineOutlinedIcon />}
-                  text={target.salesPersonName}
-                />
-                <IconLine
-                  icon={<BadgeOutlinedIcon />}
-                  text={`Employee ID: ${target.salesPersonId}`}
-                />
-                <IconLine
-                  icon={<CalendarMonthOutlinedIcon />}
-                  text={`Deadline: ${target.dueDate}`}
-                />
+              <SideCard title="Assignee Profile">
+                <IconLine icon={<PersonOutlineOutlinedIcon sx={{ color: colors.primary }} />} text={target.salesPersonName} />
+                <IconLine icon={<BadgeOutlinedIcon sx={{ color: colors.primary }} />} text={`ID: ${target.salesPersonId}`} />
+                <IconLine icon={<CalendarMonthOutlinedIcon sx={{ color: colors.primary }} />} text={`Target Month: ${target.month}`} />
+                <IconLine icon={<HistoryOutlinedIcon sx={{ color: colors.primary }} />} text={`Deadline: ${target.dueDate}`} />
               </SideCard>
 
-              <SideCard title="Managerial Notes">
-                <Typography sx={{ color: "#475569", fontSize: 14, lineHeight: 1.7 }}>
-                  {target.notes || "No notes provided for this target period."}
+              <SideCard title="Internal Remarks">
+                <Typography sx={{ color: colors.textSecondary, fontSize: typography.fontSize.small, lineHeight: 1.7 }}>
+                  {target.notes || "No additional remarks documented for this target period."}
                 </Typography>
               </SideCard>
             </Stack>

@@ -1,17 +1,17 @@
+import React from "react";
 import Link from "next/link";
-
 import {
   Avatar,
   Box,
   Button,
   Card,
-  Chip,
   Container,
-  Grid,
+  Divider,
   Stack,
   Typography,
 } from "@mui/material";
 
+// Icons
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
 import PaletteOutlinedIcon from "@mui/icons-material/PaletteOutlined";
@@ -19,15 +19,13 @@ import PaymentsOutlinedIcon from "@mui/icons-material/PaymentsOutlined";
 import StraightenOutlinedIcon from "@mui/icons-material/StraightenOutlined";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import WarehouseOutlinedIcon from "@mui/icons-material/WarehouseOutlined";
+import StyleOutlinedIcon from "@mui/icons-material/StyleOutlined";
 
-import {
-  categories,
-  frames,
-  frameVariants,
-} from "@/assets/genericdata";
-import { IconLine, InfoLine, SideCard } from "@/component/common/ViewPage";
-
+import { frames, categories, frameVariants } from "@/assets/genericdata";
+import { themeConfig } from "@/assets/CommonDesign";
+import { getFadeInStyle, IconLine, InfoLine, SideCard } from "@/component/common/ViewPage";
 import StatusChip from "@/component/common/StatusChip";
+
 
 export default async function FrameViewPage({
   params,
@@ -35,663 +33,204 @@ export default async function FrameViewPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
+  const frame = frames.find((item) => item.id === id);
 
-  const frame = frames.find(
-    (item) => item.id === id
-  );
+  const { colors, typography, borderRadius } = themeConfig;
 
   if (!frame) {
     return (
       <Box
         sx={{
           minHeight: "100vh",
-          bgcolor: "#F8FAFC",
+          bgcolor: colors.bgLight,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          ...getFadeInStyle(0),
         }}
       >
         <Card
           sx={{
             p: 4,
-            borderRadius: "16px",
-            border: "1px solid #E2E8F0",
+            borderRadius: borderRadius.large,
+            border: `1px solid ${colors.border}`,
             boxShadow: "none",
           }}
         >
-          <Typography
-            sx={{
-              color: "#64748B",
-              fontWeight: 700,
-            }}
-          >
-            Frame not found
+          <Typography sx={{ color: colors.textSecondary, fontWeight: typography.fontWeight.bold }}>
+            Frame record not found
           </Typography>
         </Card>
       </Box>
     );
   }
 
-  const variants =
-    frameVariants.filter(
-      (item) =>
-        item.frameId === id
-    );
-
-  const category =
-    categories.find(
-      (item) =>
-        item.categoryId ===
-        frame.categoryId
-    );
+  const variants = frameVariants.filter((item) => item.frameId === id);
+  const category = categories.find((item) => item.categoryId === frame.categoryId);
 
   return (
-    <Box
-      sx={{
-        width: "100%",
-        minHeight: "100vh",
-      }}
-    >
-      {/* HEADER */}
-      <Box>
-        <Container maxWidth="xl">
-      <Box>
-        <Link
-          href="/products/frames"
-          style={{
-            textDecoration:
-              "none",
-          }}
-        >
+    <Box sx={{ width: "100%", minHeight: "100vh", bgcolor: colors.bgLight }}>
+      {/* Navigation */}
+      <Box sx={{ px: 3, pt: 2, ...getFadeInStyle(0.1) }}>
+        <Link href="/products/frames" style={{ textDecoration: "none" }}>
           <Button
-            startIcon={
-              <ArrowBackIcon />
-            }
+            startIcon={<ArrowBackIcon />}
             sx={{
-              textTransform:"none",
-              fontWeight:600,
+              textTransform: "none",
+              fontWeight: typography.fontWeight.medium,
+              color: colors.primary,
             }}
           >
-            Back
+            Back to Frames
           </Button>
         </Link>
       </Box>
-        </Container>
-      </Box>
 
-      <Container
-        maxWidth="xl"
-        sx={{ py: 4 }}
-      >
-        {/* PAGE TITLE */}
-        <Box sx={{ mb: 4 }}>
-          <Stack
-            direction="row"
-            spacing={1.5}
-           sx={{alignItems:"center", flexWrap:"wrap"}}
-          >
+      <Container maxWidth="xl" sx={{ py: 4 }}>
+        {/* Header Section */}
+        <Box sx={{ mb: 4, ...getFadeInStyle(0.2) }}>
+          <Stack direction="row" spacing={1.5} sx={{ alignItems: "center", flexWrap: "wrap" }}>
             <Typography
               sx={{
-                fontSize: {
-                  xs: "1.5rem",
-                  md: "1.9rem",
-                },
-
-                fontWeight: 800,
-                color: "#3B82F6",
+                fontSize: { xs: typography.fontSize.h3, md: "1.9rem" },
+                fontWeight: typography.fontWeight.extraBold,
+                color: colors.primary,
               }}
             >
-              Frame:{" "}
-              {frame.frameName}
+              Frame: {frame.frameName}
             </Typography>
 
-            <Chip
-              label={frame.status}
-              size="small"
-              sx={{
-                bgcolor:
-                  frame.status ===
-                  "Active"
-                    ? "#DCFCE7"
-                    : "#FEE2E2",
-
-                color:
-                  frame.status ===
-                  "Active"
-                    ? "#15803D"
-                    : "#B91C1C",
-
-                fontWeight: 700,
-                borderRadius:
-                  "8px",
-              }}
-            />
+            <StatusChip status={frame.status} />
           </Stack>
-
-          <Typography
-            sx={{
-              mt: 1,
-              color: "#64748B",
-              fontSize: 14,
-            }}
-          >
-            Created On:{" "}
-            {frame.createdOn}
+          <Typography sx={{ mt: 1, color: colors.textSecondary, fontSize: typography.fontSize.small }}>
+            Created On: {frame.createdOn}
           </Typography>
         </Box>
 
-        {/* MAIN LAYOUT */}
         <Box
           sx={{
             display: "flex",
             gap: 3,
-
-            alignItems:
-              "flex-start",
-
-            flexDirection: {
-              xs: "column",
-              lg: "row",
-            },
+            alignItems: "flex-start",
+            flexDirection: { xs: "column", lg: "row" },
           }}
         >
-          {/* LEFT SIDE */}
-          <Box
-            sx={{
-              width: {
-                xs: "100%",
-                lg: "60%",
-              },
-            }}
-          >
+          {/* Main Content (Left) */}
+          <Box sx={{ width: { xs: "100%", lg: "60%" }, ...getFadeInStyle(0.3) }}>
             <Stack spacing={3}>
-              {/* BASIC INFO */}
-              <SideCard title="Frame Information">
-                <InfoLine
-                  label="Frame ID"
-                  value={
-                    frame.frameId
-                  }
-                />
-
-                <InfoLine
-                  label="Brand"
-                  value={
-                    frame.brand
-                  }
-                />
-
-                <InfoLine
-                  label="Model No"
-                  value={
-                    frame.modelNo
-                  }
-                />
-
-                <InfoLine
-                  label="Category"
-                  value={
-                    frame.category
-                  }
-                />
-
-                <InfoLine
-                  label="Rim Type"
-                  value={
-                    frame.rimType
-                  }
-                />
-
-                <InfoLine
-                  label="Rim Shape"
-                  value={
-                    frame.rimShape
-                  }
-                />
-
-                <InfoLine
-                  label="Frame Material"
-                  value={
-                    frame.frameMaterial
-                  }
-                />
-
-                <InfoLine
-                  label="Temple Material"
-                  value={
-                    frame.templeMaterial
-                  }
-                />
-
-                <InfoLine
-                  label="Gender"
-                  value={
-                    frame.gender
-                  }
-                />
+              <SideCard title="Frame Core Information">
+                <InfoLine label="Frame ID" value={frame.frameId} />
+                <InfoLine label="Brand Name" value={frame.brand} />
+                <InfoLine label="Model Number" value={frame.modelNo} />
+                <InfoLine label="Frame Material" value={frame.frameMaterial} />
+                <InfoLine label="Temple Material" value={frame.templeMaterial} />
+                <InfoLine label="Gender" value={frame.gender} />
               </SideCard>
 
-              {/* SIZE DETAILS */}
-              <SideCard title="Size Details">
-                <InfoLine
-                  label="Size"
-                  value={frame.size}
-                />
-
-                <InfoLine
-                  label="DBL"
-                  value={frame.dbl}
-                />
-
-                <InfoLine
-                  label="Temple Length"
-                  value={
-                    frame.templeLength
-                  }
-                />
-
-                <InfoLine
-                  label="Frame Width"
-                  value={
-                    frame.frameWidth
-                  }
-                />
-
-                <InfoLine
-                  label="Lens Width"
-                  value={
-                    frame.lensWidth
-                  }
-                />
-
-                <InfoLine
-                  label="Lens Height"
-                  value={
-                    frame.lensHeight
-                  }
-                />
+              <SideCard title="Technical Specifications">
+                <InfoLine label="Frame Size" value={frame.size} />
+                <InfoLine label="Bridge Distance (DBL)" value={frame.dbl} />
+                <InfoLine label="Temple Length" value={frame.templeLength} />
+                <InfoLine label="Frame Width" value={frame.frameWidth} />
+                <InfoLine label="Lens Dimensions" value={`${frame.lensWidth} x ${frame.lensHeight}`} />
               </SideCard>
 
-              {/* COLOR DETAILS */}
-              <SideCard title="Color Details">
-                <InfoLine
-                  label="Colour Code"
-                  value={
-                    frame.colourCode
-                  }
-                />
-
-                <InfoLine
-                  label="Front Color"
-                  value={
-                    frame.frameFrontColor
-                  }
-                />
-
-                <InfoLine
-                  label="Temple Color"
-                  value={
-                    frame.templeColor
-                  }
-                />
-
-                <InfoLine
-                  label="Lens Color"
-                  value={
-                    frame.lensColor
-                  }
-                />
-              </SideCard>
-
-              {/* PRICE */}
               <SideCard title="Pricing & Tax">
-                <InfoLine
-                  label="Purchase Price"
-                  value={`₹${frame.purchasePrice}`}
-                />
-
-                <InfoLine
-                  label="Selling Price"
-                  value={`₹${frame.sellingPrice}`}
-                />
-
-                <InfoLine
-                  label="Discount Price"
-                  value={`₹${frame.discountPrice}`}
-                />
-
-                <InfoLine
-                  label="Tax"
-                  value={`${frame.tax}%`}
-                />
-
-                <InfoLine
-                  label="HSN Code"
-                  value={
-                    frame.hsnCode
-                  }
-                />
+                <InfoLine label="Purchase Price" value={`₹${frame.purchasePrice}`} />
+                <InfoLine label="Selling Price" value={`₹${frame.sellingPrice}`} />
+                <InfoLine label="Discounted Price" value={`₹${frame.discountPrice}`} />
+                <Divider sx={{ my: 1.5, borderColor: colors.border }} />
+                <InfoLine label="Applicable Tax" value={`${frame.tax}%`} />
+                <InfoLine label="HSN Code" value={frame.hsnCode} />
               </SideCard>
 
-              {/* INVENTORY */}
-              <SideCard title="Inventory Details">
-                <InfoLine
-                  label="SKU Code"
-                  value={
-                    frame.skuCode
-                  }
-                />
-
-                <InfoLine
-                  label="Barcode"
-                  value={
-                    frame.barcode
-                  }
-                />
-
-                <InfoLine
-                  label="Stock"
-                  value={
-                    frame.stock
-                  }
-                />
-
-                <InfoLine
-                  label="Warehouse"
-                  value={
-                    frame.warehouseLocation
-                  }
-                />
-              </SideCard>
-
-              {/* DESCRIPTION */}
-              <SideCard title="Description">
-                <Typography
-                  sx={{
-                    color:
-                      "#475569",
-
-                    fontSize: 14,
-
-                    lineHeight: 1.7,
-                  }}
-                >
-                  {
-                    frame.description
-                  }
+              <SideCard title="Product Description">
+                <Typography sx={{ color: colors.textSecondary, fontSize: 14, lineHeight: 1.7 }}>
+                  {frame.description || "No detailed description available for this frame model."}
                 </Typography>
               </SideCard>
             </Stack>
           </Box>
 
-          {/* RIGHT SIDE */}
+          {/* Sidebar (Right) */}
           <Box
             sx={{
-              width: {
-                xs: "100%",
-                lg: "40%",
-              },
+              width: { xs: "100%", lg: "40%" },
+              position: { lg: "sticky" },
+              top: 24,
+              alignSelf: "flex-start",
+              ...getFadeInStyle(0.4),
             }}
           >
             <Stack spacing={3}>
-              {/* TOP CARD */}
               <Card
                 sx={{
                   p: 3,
-                  borderRadius:
-                    "16px",
-
-                  boxShadow:
-                    "none",
-
-                  border:
-                    "1px solid #E2E8F0",
-
-                  bgcolor:
-                    "#FFFFFF",
-
-                  textAlign:
-                    "center",
+                  borderRadius: borderRadius.large,
+                  boxShadow: "none",
+                  border: `1px solid ${colors.border}`,
+                  bgcolor: colors.white,
+                  textAlign: "center",
+                  transition: "transform 0.3s ease",
+                  "&:hover": { transform: "translateY(-4px)" },
                 }}
               >
                 <Avatar
-                  src={
-                    frame.thumbnailImage
-                  }
+                  src={frame.thumbnailImage}
                   variant="rounded"
                   sx={{
                     width: 100,
                     height: 100,
-
                     mx: "auto",
                     mb: 2,
-
-                    borderRadius:
-                      "20px",
+                    borderRadius: borderRadius.large,
+                    bgcolor: colors.bgLight,
+                    border: `1px solid ${colors.border}`,
                   }}
                 />
-
-                <Typography
-                  sx={{
-                    fontSize: 24,
-                    fontWeight: 800,
-                    color:
-                      "#0F172A",
-                  }}
-                >
+                <Typography sx={{ fontSize: 22, fontWeight: typography.fontWeight.extraBold, color: colors.textMain }}>
                   {frame.brand}
                 </Typography>
-
-                <Typography
-                  sx={{
-                    color:
-                      "#64748B",
-
-                    fontSize: 14,
-
-                    mt: 0.5,
-                  }}
-                >
-                  {
-                    frame.modelNo
-                  }{" "}
-                  •{" "}
-                  {
-                    frame.category
-                  }
+                <Typography sx={{ color: colors.textSecondary, fontSize: 14, mt: 0.5 }}>
+                  {frame.modelNo} • {frame.category}
                 </Typography>
-
-                <Box
-                  sx={{
-                    mt: 2,
-                  }}
-                >
-                  <StatusChip
-                    status={
-                      frame.status
-                    }
-                  />
-                </Box>
               </Card>
 
-              {/* SUMMARY */}
-              <SideCard title="Frame Summary">
-                <IconLine
-                  icon={
-                    <VisibilityOutlinedIcon />
-                  }
-                  text={`Frame Type: ${frame.frameType}`}
-                />
-
-                <IconLine
-                  icon={
-                    <StraightenOutlinedIcon />
-                  }
-                  text={`Size: ${frame.size}`}
-                />
-
-                <IconLine
-                  icon={
-                    <PaletteOutlinedIcon />
-                  }
-                  text={`Color: ${frame.frameFrontColor}`}
-                />
-
-                <IconLine
-                  icon={
-                    <Inventory2OutlinedIcon />
-                  }
-                  text={`Stock: ${frame.stock}`}
-                />
-
-                <IconLine
-                  icon={
-                    <PaymentsOutlinedIcon />
-                  }
-                  text={`Price: ₹${frame.sellingPrice}`}
-                />
-
-                <IconLine
-                  icon={
-                    <WarehouseOutlinedIcon />
-                  }
-                  text={
-                    frame.warehouseLocation
-                  }
-                />
+              <SideCard title="Quick Summary">
+                <IconLine icon={<StyleOutlinedIcon sx={{ color: colors.primary }} />} text={`Rim: ${frame.rimType} (${frame.rimShape})`} />
+                <IconLine icon={<PaletteOutlinedIcon sx={{ color: colors.primary }} />} text={`Color: ${frame.frameFrontColor}`} />
+                <IconLine icon={<Inventory2OutlinedIcon sx={{ color: colors.primary }} />} text={`Available Stock: ${frame.stock} units`} />
+                <IconLine icon={<WarehouseOutlinedIcon sx={{ color: colors.primary }} />} text={`Location: ${frame.warehouseLocation}`} />
               </SideCard>
 
-              {/* CATEGORY */}
-              <SideCard title="Category Details">
-                <InfoLine
-                  label="Category"
-                  value={
-                    category?.categoryName
-                  }
-                />
-
-                <InfoLine
-                  label="Category Code"
-                  value={
-                    category?.categoryCode
-                  }
-                />
-
-                <InfoLine
-                  label="Category Type"
-                  value={
-                    category?.categoryType
-                  }
-                />
-
-                <InfoLine
-                  label="Priority"
-                  value={
-                    category?.priorityLevel
-                  }
-                />
+              <SideCard title="Category Context">
+                <InfoLine label="Name" value={category?.categoryName} />
+                <InfoLine label="Code" value={category?.categoryCode} />
+                <InfoLine label="Type" value={category?.categoryType} />
               </SideCard>
 
-              {/* VARIANTS */}
-              <SideCard title="Variants">
-                <Grid
-                  container
-                  spacing={2}
-                >
-                  {variants.map(
-                    (
-                      variant
-                    ) => (
-                      <Grid
-                        key={
-                          variant.id
-                        }
-                        size={{
-                          xs: 12,
-                        }}
-                      >
-                        <Card
-                          sx={{
-                            p: 2,
-                            borderRadius:
-                              "14px",
-
-                            border:
-                              "1px solid #E2E8F0",
-
-                            boxShadow:
-                              "none",
-                          }}
-                        >
-                          <Stack
-                            direction="row"
-                            sx={{justifyContent:"space-between", alignItems:"center"}}
-                          >
-                            <Typography
-                              sx={{
-                                fontWeight: 700,
-                              }}
-                            >
-                              {
-                                variant.color
-                              }
-                            </Typography>
-
-                            <Chip
-                              label={`${variant.stock} pcs`}
-                              size="small"
-                              sx={{
-                                bgcolor:
-                                  variant.stock >
-                                  0
-                                    ? "#DCFCE7"
-                                    : "#FEE2E2",
-
-                                color:
-                                  variant.stock >
-                                  0
-                                    ? "#15803D"
-                                    : "#B91C1C",
-
-                                fontWeight: 700,
-                              }}
-                            />
-                          </Stack>
-
-                          <Typography
-                            sx={{
-                              mt: 1,
-                              color:
-                                "#64748B",
-
-                              fontSize: 13,
-                            }}
-                          >
-                            Size:{" "}
-                            {
-                              variant.size
-                            }
-                          </Typography>
-
-                          <Typography
-                            sx={{
-                              mt: 1,
-                              fontWeight: 700,
-
-                              color:
-                                "#3B82F6",
-                            }}
-                          >
-                            ₹
-                            {
-                              variant.price
-                            }
-                          </Typography>
-                        </Card>
-                      </Grid>
-                    )
-                  )}
-                </Grid>
+              <SideCard title="Available Variants">
+                <Stack spacing={2}>
+                  {variants.map((variant) => (
+                    <Box 
+                      key={variant.id}
+                      sx={{ 
+                        p: 1.5, 
+                        borderRadius: borderRadius.medium, 
+                        border: `1px solid ${colors.border}`,
+                        bgcolor: colors.white
+                      }}
+                    >
+                      <Stack direction="row" sx={{justifyContent: "space-between", alignItems: "center"}}  >
+                        <Typography sx={{ fontWeight: 700, fontSize: 14 }}>{variant.color}</Typography>
+                        <StatusChip status={variant.stock > 0 ? "In Stock" : "Out of Stock"} />
+                      </Stack>
+                      <Typography sx={{ mt: 0.5, color: colors.primary, fontWeight: 700 }}>
+                        ₹{variant.price}
+                      </Typography>
+                    </Box>
+                  ))}
+                </Stack>
               </SideCard>
             </Stack>
           </Box>
@@ -700,133 +239,3 @@ export default async function FrameViewPage({
     </Box>
   );
 }
-
-// function SideCard({
-//   title,
-//   children,
-// }: {
-//   title: string;
-//   children: ReactNode;
-// }) {
-//   return (
-//     <Card
-//       sx={{
-//         p: 2.5,
-
-//         borderRadius: "16px",
-
-//         boxShadow: "none",
-
-//         border:
-//           "1px solid #E2E8F0",
-
-//         bgcolor: "#FFFFFF",
-//       }}
-//     >
-//       <Typography
-//         sx={{
-//           fontSize: 18,
-//           fontWeight: 700,
-
-//           color: "#0F172A",
-
-//           mb: 2,
-//         }}
-//       >
-//         {title}
-//       </Typography>
-
-//       {children}
-//     </Card>
-//   );
-// }
-
-// function InfoLine({
-//   label,
-//   value,
-// }: {
-//   label: string;
-//   value?: string | number;
-// }) {
-//   return (
-//     <Stack
-//       direction="row"
-//       alignItems="center"
-//       justifyContent="space-between"
-//       sx={{
-//         py: 1.5,
-
-//         borderBottom:
-//           "1px solid #E2E8F0",
-//       }}
-//     >
-//       <Typography
-//         sx={{
-//           width: "180px",
-
-//           flexShrink: 0,
-
-//           color: "#64748B",
-
-//           fontSize: "14px",
-
-//           fontWeight: 500,
-//         }}
-//       >
-//         {label}
-//       </Typography>
-
-//       <Typography
-//         sx={{
-//           flex: 1,
-
-//           textAlign: "right",
-
-//           color: "#0F172A",
-
-//           fontSize: "14px",
-
-//           fontWeight: 700,
-//         }}
-//       >
-//         {value || "N/A"}
-//       </Typography>
-//     </Stack>
-//   );
-// }
-
-// function IconLine({
-//   icon,
-//   text,
-// }: {
-//   icon: ReactNode;
-//   text?: string;
-// }) {
-//   return (
-//     <Stack
-//       direction="row"
-//       spacing={1}
-//       alignItems="center"
-//       sx={{ mb: 1.3 }}
-//     >
-//       <Box
-//         sx={{
-//           display: "flex",
-//           color: "#64748B",
-//         }}
-//       >
-//         {icon}
-//       </Box>
-
-//       <Typography
-//         sx={{
-//           color: "#334155",
-//           fontSize: 14,
-//           fontWeight: 500,
-//         }}
-//       >
-//         {text || "N/A"}
-//       </Typography>
-//     </Stack>
-//   );
-// }

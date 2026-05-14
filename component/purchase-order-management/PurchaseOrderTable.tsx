@@ -1,13 +1,8 @@
 "use client";
 
-import {
-  PurchaseOrder,
-} from "@/assets/types";
-
+import { PurchaseOrder } from "@/assets/types";
 import EditIcon from "@mui/icons-material/Edit";
-
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
-
 import {
   Box,
   Chip,
@@ -21,463 +16,196 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-
 import { useRouter } from "next/navigation";
+import { themeConfig } from "@/assets/CommonDesign";
+// Import your theme configuration
+ 
 
 interface Props {
-
-  purchaseOrders:
-    PurchaseOrder[];
+  purchaseOrders: PurchaseOrder[];
 }
 
-export default function PurchaseOrderTable({
-  purchaseOrders,
-}: Props) {
-
-  const router =
-    useRouter();
+export default function PurchaseOrderTable({ purchaseOrders }: Props) {
+  const router = useRouter();
+  const { colors, typography, borderRadius } = themeConfig;
 
   return (
     <TableContainer
       sx={{
         mt: 2,
-
-        borderRadius:
-          "24px",
-
-        background:
-          "#FFFFFF",
-
-        border:
-          "1px solid #E2E8F0",
-
-        overflow:
-          "hidden",
+        borderRadius: borderRadius.large, // Using theme token
+        background: colors.white,        // Using theme token
+        border: `1px solid ${colors.border}`,
+        overflow: "hidden",
       }}
     >
       <Table
         sx={{
           minWidth: 1000,
-
-          "& .MuiTableCell-root":
-            {
-              py: 2.2,
-
-              borderColor:
-                "#F1F5F9",
-            },
+          "& .MuiTableCell-root": {
+            py: 2.2,
+            borderColor: colors.bgLight,
+          },
         }}
       >
         {/* TABLE HEAD */}
         <TableHead>
-
           <TableRow
             sx={{
-              background:
-                "#F8FAFC",
+              background: colors.bgLight,
             }}
           >
-            <TableCell>
-
-              <Typography
-                sx={{
-                  fontWeight:
-                    700,
-                }}
-              >
-                Purchase No
-              </Typography>
-
-            </TableCell>
-
-            <TableCell>
-
-              <Typography
-                sx={{
-                  fontWeight:
-                    700,
-                }}
-              >
-                Vendor
-              </Typography>
-
-            </TableCell>
-
-            <TableCell>
-
-              <Typography
-                sx={{
-                  fontWeight:
-                    700,
-                }}
-              >
-                Product
-              </Typography>
-
-            </TableCell>
-
-            <TableCell>
-
-              <Typography
-                sx={{
-                  fontWeight:
-                    700,
-                }}
-              >
-                Amount
-              </Typography>
-
-            </TableCell>
-
-            <TableCell>
-
-              <Typography
-                sx={{
-                  fontWeight:
-                    700,
-                }}
-              >
-                Payment
-              </Typography>
-
-            </TableCell>
-
-            <TableCell>
-
-              <Typography
-                sx={{
-                  fontWeight:
-                    700,
-                }}
-              >
-                Status
-              </Typography>
-
-            </TableCell>
-
-            <TableCell>
-
-              <Typography
-                sx={{
-                  fontWeight:
-                    700,
-                }}
-              >
-                Actions
-              </Typography>
-
-            </TableCell>
-
+            {["Purchase No", "Vendor", "Product", "Amount", "Payment", "Status", "Actions"].map((head) => (
+              <TableCell key={head}>
+                <Typography
+                  sx={{
+                    fontWeight: typography.fontWeight.bold,
+                    fontSize: typography.fontSize.small,
+                    color: colors.textMuted,
+                  }}
+                >
+                  {head}
+                </Typography>
+              </TableCell>
+            ))}
           </TableRow>
-
         </TableHead>
 
         {/* TABLE BODY */}
         <TableBody>
-
-          {purchaseOrders.map(
-            (
-              po
-            ) => (
-
-              <TableRow
-                key={po.id}
-                hover
-                sx={{
-                  "&:hover":
-                    {
-                      background:
-                        "#F8FAFC",
-                    },
-                }}
-              >
-                {/* PURCHASE NO */}
-                <TableCell>
-
-                  <Box>
-
-                    <Typography
-                      sx={{
-                        color:
-                          "#2563EB",
-
-                        fontWeight:
-                          700,
-                      }}
-                    >
-                      {
-                        po.purchaseNo
-                      }
-                    </Typography>
-
-                    <Typography
-                      sx={{
-                        fontSize:
-                          "13px",
-
-                        color:
-                          "#64748B",
-                      }}
-                    >
-                      {
-                        po.orderDate
-                      }
-                    </Typography>
-
-                  </Box>
-
-                </TableCell>
-
-                {/* VENDOR */}
-                <TableCell>
-
+          {purchaseOrders.map((po) => (
+            <TableRow
+              key={po.id}
+              hover
+              sx={{
+                "&:hover": {
+                  background: colors.bgLight,
+                },
+              }}
+            >
+              {/* PURCHASE NO */}
+              <TableCell>
+                <Box>
                   <Typography
                     sx={{
-                      fontWeight:
-                        600,
-
-                      color:
-                        "#475569",
+                      color: colors.primary,
+                      fontWeight: typography.fontWeight.bold,
                     }}
                   >
-                    {
-                      po.vendorName
-                    }
+                    {po.purchaseNo}
                   </Typography>
-
-                </TableCell>
-
-                {/* PRODUCT */}
-                <TableCell>
-
-                  <Box>
-
-                    <Typography
-                      sx={{
-                        fontWeight:
-                          600,
-                      }}
-                    >
-                      {
-                        po.productName
-                      }
-                    </Typography>
-
-                    <Typography
-                      sx={{
-                        fontSize:
-                          "13px",
-
-                        color:
-                          "#64748B",
-                      }}
-                    >
-                      {
-                        po.brand
-                      }
-                    </Typography>
-
-                  </Box>
-
-                </TableCell>
-
-                {/* AMOUNT */}
-                <TableCell>
-
                   <Typography
                     sx={{
-                      fontWeight:
-                        700,
-
-                      color:
-                        "#16A34A",
+                      fontSize: "13px",
+                      color: colors.textSecondary,
                     }}
                   >
-                    ₹{" "}
-                    {
-                      po.grandTotal.toLocaleString()
-                    }
+                    {po.orderDate}
                   </Typography>
+                </Box>
+              </TableCell>
 
-                </TableCell>
+              {/* VENDOR */}
+              <TableCell>
+                <Typography
+                  sx={{
+                    fontWeight: typography.fontWeight.medium,
+                    color: colors.textMuted,
+                  }}
+                >
+                  {po.vendorName}
+                </Typography>
+              </TableCell>
 
-                {/* PAYMENT */}
-                <TableCell>
-
-                  <Chip
-                    label={
-                      po.paymentStatus
-                    }
-                    size="small"
+              {/* PRODUCT */}
+              <TableCell>
+                <Box>
+                  <Typography sx={{ fontWeight: typography.fontWeight.medium }}>
+                    {po.productName}
+                  </Typography>
+                  <Typography
                     sx={{
-                      bgcolor:
-                        po.paymentStatus ===
-                        "Paid"
-
-                          ? "#DCFCE7"
-
-                          : po.paymentStatus ===
-                            "Pending"
-
-                          ? "#FEF3C7"
-
-                          : po.paymentStatus ===
-                            "Partial"
-
-                          ? "#DBEAFE"
-
-                          : "#FEE2E2",
-
-                      color:
-                        po.paymentStatus ===
-                        "Paid"
-
-                          ? "#15803D"
-
-                          : po.paymentStatus ===
-                            "Pending"
-
-                          ? "#B45309"
-
-                          : po.paymentStatus ===
-                            "Partial"
-
-                          ? "#2563EB"
-
-                          : "#DC2626",
-
-                      fontWeight:
-                        700,
-                    }}
-                  />
-
-                </TableCell>
-
-                {/* STATUS */}
-                <TableCell>
-
-                  <Chip
-                    label={
-                      po.status
-                    }
-                    size="small"
-                    sx={{
-                      bgcolor:
-                        po.status ===
-                        "Received"
-
-                          ? "#DCFCE7"
-
-                          : po.status ===
-                            "Ordered"
-
-                          ? "#DBEAFE"
-
-                          : "#FEF3C7",
-
-                      color:
-                        po.status ===
-                        "Received"
-
-                          ? "#15803D"
-
-                          : po.status ===
-                            "Ordered"
-
-                          ? "#2563EB"
-
-                          : "#B45309",
-
-                      fontWeight:
-                        700,
-                    }}
-                  />
-
-                </TableCell>
-
-                {/* ACTIONS */}
-                <TableCell>
-
-                  <Box
-                    sx={{
-                      display:
-                        "flex",
-
-                      gap: 1,
+                      fontSize: "13px",
+                      color: colors.textSecondary,
                     }}
                   >
-                    {/* VIEW */}
-                    <Tooltip title="View">
+                    {po.brand}
+                  </Typography>
+                </Box>
+              </TableCell>
 
-                      <IconButton
-                        sx={{
-                          background:
-                            "#EFF6FF",
+              {/* AMOUNT */}
+              <TableCell>
+                <Typography
+                  sx={{
+                    fontWeight: typography.fontWeight.bold,
+                    color: colors.success,
+                  }}
+                >
+                  ₹ {po.grandTotal.toLocaleString()}
+                </Typography>
+              </TableCell>
 
-                          "&:hover":
-                            {
-                              background:
-                                "#DBEAFE",
-                            },
-                        }}
-                        onClick={() =>
-                          router.push(
-                            `/purchase-orders/view/${po.id}`
-                          )
-                        }
-                      >
-                        <RemoveRedEyeOutlinedIcon
-                          sx={{
-                            color:
-                              "#2563EB",
-                          }}
-                        />
-                      </IconButton>
+              {/* PAYMENT STATUS */}
+              <TableCell>
+                <Chip
+                  label={po.paymentStatus}
+                  size="small"
+                  sx={{
+                    bgcolor: po.paymentStatus === "Paid" ? colors.successBg : po.paymentStatus === "Pending" ? colors.warningBg : colors.errorBg,
+                    color: po.paymentStatus === "Paid" ? colors.success : po.paymentStatus === "Pending" ? colors.warning : colors.error,
+                    fontWeight: typography.fontWeight.bold,
+                    borderRadius: borderRadius.small,
+                  }}
+                />
+              </TableCell>
 
-                    </Tooltip>
+              {/* ORDER STATUS */}
+              <TableCell>
+                <Chip
+                  label={po.status}
+                  size="small"
+                  sx={{
+                    bgcolor: po.status === "Received" ? colors.successBg : colors.primaryLight,
+                    color: po.status === "Received" ? colors.success : colors.primary,
+                    fontWeight: typography.fontWeight.bold,
+                    borderRadius: borderRadius.small,
+                  }}
+                />
+              </TableCell>
 
-                    {/* EDIT */}
-                    <Tooltip title="Edit">
+              {/* ACTIONS */}
+              <TableCell>
+                <Box sx={{ display: "flex", gap: 1 }}>
+                  <Tooltip title="View">
+                    <IconButton
+                      sx={{
+                        background: colors.primaryLight,
+                        "&:hover": { background: colors.border },
+                      }}
+                      onClick={() => router.push(`/purchase-orders/view/${po.id}`)}
+                    >
+                      <RemoveRedEyeOutlinedIcon sx={{ color: colors.primary }} />
+                    </IconButton>
+                  </Tooltip>
 
-                      <IconButton
-                        sx={{
-                          background:
-                            "#F8FAFC",
-
-                          "&:hover":
-                            {
-                              background:
-                                "#E2E8F0",
-                            },
-                        }}
-                        onClick={() =>
-                          router.push(
-                            `/purchase-orders/edit/${po.id}`
-                          )
-                        }
-                      >
-                        <EditIcon
-                          sx={{
-                            color:
-                              "#0F172A",
-                          }}
-                        />
-                      </IconButton>
-
-                    </Tooltip>
-
-                  </Box>
-
-                </TableCell>
-
-              </TableRow>
-            )
-          )}
-
+                  <Tooltip title="Edit">
+                    <IconButton
+                      sx={{
+                        background: colors.bgLight,
+                        "&:hover": { background: colors.border },
+                      }}
+                      onClick={() => router.push(`/purchase-orders/edit/${po.id}`)}
+                    >
+                      <EditIcon sx={{ color: colors.textMain }} />
+                    </IconButton>
+                  </Tooltip>
+                </Box>
+              </TableCell>
+            </TableRow>
+          ))}
         </TableBody>
-
       </Table>
-
     </TableContainer>
   );
 }

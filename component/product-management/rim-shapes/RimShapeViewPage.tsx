@@ -1,17 +1,13 @@
 import Link from "next/link";
-
 import {
   Box,
   Button,
   Card,
-  Chip,
   Container,
   Stack,
   Typography,
 } from "@mui/material";
 
-import { rimShapes } from "@/assets/genericdata";
-import { IconLine, InfoLine, SideCard } from "@/component/common/ViewPage";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import BadgeOutlinedIcon from "@mui/icons-material/BadgeOutlined";
 import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
@@ -19,41 +15,41 @@ import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
 import ReceiptLongOutlinedIcon from "@mui/icons-material/ReceiptLongOutlined";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 
+import { rimShapes } from "@/assets/genericdata";
+import StatusChip from "@/component/common/StatusChip";
+import { IconLine, InfoLine, SideCard, getFadeInStyle } from "@/component/common/ViewPage";
+import { themeConfig } from "@/assets/CommonDesign";
+
 export default async function RimShapeViewPage({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-
-  const rimShape = rimShapes.find(
-    (item) => item.id === id
-  );
+  const rimShape = rimShapes.find((item) => item.id === id);
+  const { colors, typography, borderRadius } = themeConfig;
 
   if (!rimShape) {
     return (
       <Box
         sx={{
           minHeight: "100vh",
+          bgcolor: colors.bgLight,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          ...getFadeInStyle(0.1),
         }}
       >
         <Card
           sx={{
             p: 4,
-            borderRadius: "16px",
-            border: "1px solid #E2E8F0",
+            borderRadius: borderRadius.large,
+            border: `1px solid ${colors.border}`,
             boxShadow: "none",
           }}
         >
-          <Typography
-            sx={{
-              color: "#64748B",
-              fontWeight: 700,
-            }}
-          >
+          <Typography sx={{ color: colors.textSecondary, fontWeight: typography.fontWeight.bold }}>
             Rim Shape not found
           </Typography>
         </Card>
@@ -62,215 +58,102 @@ export default async function RimShapeViewPage({
   }
 
   return (
-    <Box
-      sx={{
-        width: "100%",
-        minHeight: "100vh",
-      }}
-    >
-      {/* TOP BAR */}
-      <Box >
+    <Box sx={{ width: "100%", bgcolor: colors.bgLight }}>
+      {/* Navigation Header */}
+      <Box sx={{ pt: 2, ...getFadeInStyle(0.1) }}>
         <Container maxWidth="xl">
-          <Box>
-        <Link
-          href="/products/rim-shapes"
-          style={{
-            textDecoration:
-              "none",
-          }}
-        >
-          <Button
-            startIcon={
-              <ArrowBackIcon />
-            }
-            sx={{
-              textTransform:"none",
-              fontWeight:600,
-            }}
-          >
-            Back
-          </Button>
-        </Link>
-      </Box>
+          <Link href="/products/rim-shapes" style={{ textDecoration: "none" }}>
+            <Button
+              startIcon={<ArrowBackIcon />}
+              sx={{
+                textTransform: "none",
+                fontWeight: typography.fontWeight.medium,
+                color: colors.primary,
+              }}
+            >
+              Back to Rim Shapes
+            </Button>
+          </Link>
         </Container>
       </Box>
 
-      {/* PAGE CONTENT */}
-      <Container
-        maxWidth="xl"
-        sx={{ py: 4 }}
-      >
-        {/* TITLE */}
-        <Box sx={{ mb: 4 }}>
-          <Stack
-            direction="row"
-            spacing={1.5}
-            sx={{alignItems:"center", flexWrap:"wrap"}}>
+      <Container maxWidth="xl" sx={{ py: 4 }}>
+        {/* Header Section */}
+        <Box sx={{ mb: 4, ...getFadeInStyle(0.2) }}>
+          <Stack direction="row" spacing={1.5} sx={{ alignItems: "center", flexWrap: "wrap" }}>
             <Typography
               sx={{
-                fontSize: {
-                  xs: "1.5rem",
-                  md: "1.9rem",
-                },
-                fontWeight: 800,
-                color: "#3B82F6",
+                fontSize: { xs: typography.fontSize.h3, md: "1.9rem" },
+                fontWeight: typography.fontWeight.extraBold,
+                color: colors.primary,
               }}
             >
               Rim Shape: {rimShape.shapeName}
             </Typography>
-
-            <Chip
-              label={rimShape.status}
-              size="small"
-              sx={{
-                bgcolor:
-                  rimShape.status === "Active"
-                    ? "#DCFCE7"
-                    : "#FEE2E2",
-
-                color:
-                  rimShape.status === "Active"
-                    ? "#15803D"
-                    : "#B91C1C",
-
-                fontWeight: 700,
-                borderRadius: "8px",
-              }}
-            />
+            <StatusChip status={rimShape.status} />
           </Stack>
-
-          <Typography
-            sx={{
-              mt: 1,
-              color: "#64748B",
-              fontSize: 14,
-            }}
-          >
+          <Typography sx={{ mt: 1, color: colors.textSecondary, fontSize: typography.fontSize.small }}>
             Created On: {rimShape.createdOn}
           </Typography>
         </Box>
 
-        {/* MAIN LAYOUT */}
         <Box
           sx={{
             display: "flex",
             gap: 3,
             alignItems: "flex-start",
-
-            flexDirection: {
-              xs: "column",
-              lg: "row",
-            },
+            flexDirection: { xs: "column", lg: "row" },
           }}
         >
-          {/* LEFT SIDE */}
-          <Box
-            sx={{
-              width: {
-                xs: "100%",
-                lg: "60%",
-              },
-            }}
-          >
+          {/* Left Column: Detailed Information */}
+          <Box sx={{ width: { xs: "100%", lg: "60%" }, ...getFadeInStyle(0.3) }}>
             <Stack spacing={3}>
-              {/* RIM SHAPE INFO */}
               <SideCard title="Rim Shape Information">
-                <InfoLine
-                  label="Rim Shape ID"
-                  value={rimShape.rimShapeId}
-                />
-
-                <InfoLine
-                  label="Rim Shape Code"
-                  value={rimShape.rimShapeCode}
-                />
-
-                <InfoLine
-                  label="Shape Name"
-                  value={rimShape.shapeName}
-                />
-
-                <InfoLine
-                  label="Shape Category"
-                  value={rimShape.shapeCategory}
-                />
-
-                <InfoLine
-                  label="Applicable For"
-                  value={rimShape.applicableFor}
-                />
-
-                <InfoLine
-                  label="Status"
-                  value={rimShape.status}
-                />
+                <InfoLine label="Rim Shape ID" value={rimShape.rimShapeId} />
+                <InfoLine label="Rim Shape Code" value={rimShape.rimShapeCode} />
+                <InfoLine label="Shape Name" value={rimShape.shapeName} />
+                <InfoLine label="Shape Category" value={rimShape.shapeCategory} />
+                <InfoLine label="Applicable For" value={rimShape.applicableFor} />
+                <InfoLine label="Status" value={rimShape.status} />
               </SideCard>
 
-              {/* PRODUCT INFORMATION */}
               <SideCard title="Product Information">
-                <InfoLine
-                  label="Total Products"
-                  value={rimShape.totalProducts}
-                />
-
-                <InfoLine
-                  label="Created By"
-                  value={rimShape.createdBy}
-                />
+                <InfoLine label="Total Products" value={rimShape.totalProducts} />
+                <InfoLine label="Created By" value={rimShape.createdBy} />
               </SideCard>
 
-              {/* DESCRIPTION */}
               <SideCard title="Description">
-                <Typography
-                  sx={{
-                    color: "#475569",
-                    fontSize: 14,
-                    lineHeight: 1.7,
-                  }}
-                >
-                  {rimShape.description ||
-                    "No description available"}
+                <Typography sx={{ color: colors.textMain, fontSize: typography.fontSize.small, lineHeight: 1.7 }}>
+                  {rimShape.description || "No description available"}
                 </Typography>
               </SideCard>
 
-              {/* SYSTEM INFO */}
               <SideCard title="System Information">
-                <InfoLine
-                  label="Created On"
-                  value={rimShape.createdOn}
-                />
-
-                <InfoLine
-                  label="Updated Date"
-                  value={rimShape.updatedDate}
-                />
-
-                <InfoLine
-                  label="Created By"
-                  value={rimShape.createdBy}
-                />
+                <InfoLine label="Created On" value={rimShape.createdOn} />
+                <InfoLine label="Updated Date" value={rimShape.updatedDate} />
+                <InfoLine label="Created By" value={rimShape.createdBy} />
               </SideCard>
             </Stack>
           </Box>
 
-          {/* RIGHT SIDE */}
+          {/* Right Column: Sticky Summary */}
           <Box
             sx={{
-              width: {
-                xs: "100%",
-                lg: "40%",
-              },
+              width: { xs: "100%", lg: "40%" },
+              position: { lg: "sticky" },
+              top: 24,
+              alignSelf: "flex-start",
+              ...getFadeInStyle(0.4),
             }}
           >
             <Stack spacing={3}>
-              {/* SUMMARY CARD */}
               <Card
                 sx={{
                   p: 3,
-                  borderRadius: "16px",
+                  borderRadius: borderRadius.large,
                   boxShadow: "none",
-                  border: "1px solid #E2E8F0",
-                  bgcolor: "#FFFFFF",
+                  border: `1px solid ${colors.border}`,
+                  bgcolor: colors.white,
                   textAlign: "center",
                 }}
               >
@@ -280,77 +163,45 @@ export default async function RimShapeViewPage({
                     height: 90,
                     mx: "auto",
                     mb: 2,
-                    borderRadius: "18px",
-                    bgcolor: "#EFF6FF",
-
+                    borderRadius: borderRadius.xl,
+                    bgcolor: colors.primaryLight,
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                   }}
                 >
-                  <CategoryOutlinedIcon
-                    sx={{
-                      fontSize: 46,
-                      color: "#3B82F6",
-                    }}
-                  />
+                  <CategoryOutlinedIcon sx={{ fontSize: 46, color: colors.primary }} />
                 </Box>
-
-                <Typography
-                  sx={{
-                    fontSize: 24,
-                    fontWeight: 800,
-                    color: "#0F172A",
-                  }}
-                >
+                <Typography sx={{ fontSize: 24, fontWeight: typography.fontWeight.extraBold, color: colors.textMain }}>
                   {rimShape.shapeName}
                 </Typography>
-
-                <Typography
-                  sx={{
-                    color: "#64748B",
-                    fontSize: 14,
-                    mt: 0.5,
-                  }}
-                >
+                <Typography sx={{ color: colors.textSecondary, fontSize: typography.fontSize.small, mt: 0.5 }}>
                   {rimShape.applicableFor}
                 </Typography>
               </Card>
 
-              {/* SUMMARY */}
               <SideCard title="Rim Shape Summary">
                 <IconLine
-                  icon={<Inventory2OutlinedIcon />}
+                  icon={<Inventory2OutlinedIcon sx={{ color: colors.primary }} />}
                   text={`Total Products: ${rimShape.totalProducts}`}
                 />
-
                 <IconLine
-                  icon={<BadgeOutlinedIcon />}
+                  icon={<BadgeOutlinedIcon sx={{ color: colors.primary }} />}
                   text={`Status: ${rimShape.status}`}
                 />
-
                 <IconLine
-                  icon={<ReceiptLongOutlinedIcon />}
+                  icon={<ReceiptLongOutlinedIcon sx={{ color: colors.primary }} />}
                   text={`Code: ${rimShape.rimShapeCode}`}
                 />
-
                 <IconLine
-                  icon={<VisibilityOutlinedIcon />}
+                  icon={<VisibilityOutlinedIcon sx={{ color: colors.primary }} />}
                   text={`Category: ${rimShape.shapeCategory}`}
                 />
               </SideCard>
 
-              {/* NOTES */}
               <SideCard title="Notes">
-                <Typography
-                  sx={{
-                    color: "#475569",
-                    fontSize: 14,
-                    lineHeight: 1.7,
-                  }}
-                >
-                  {rimShape.notes ||
-                    "No notes available"}
+                <Typography sx={{ color: colors.textMain, fontSize: typography.fontSize.small, lineHeight: 1.7 }}>
+                  {rimShape.notes || "No notes available"}
                 </Typography>
               </SideCard>
             </Stack>
@@ -360,4 +211,3 @@ export default async function RimShapeViewPage({
     </Box>
   );
 }
-
