@@ -1,5 +1,5 @@
+import React from "react";
 import Link from "next/link";
-
 import {
   Box,
   Button,
@@ -10,6 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 
+// Icons
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import AssignmentIndOutlinedIcon from "@mui/icons-material/AssignmentIndOutlined";
 import BadgeOutlinedIcon from "@mui/icons-material/BadgeOutlined";
@@ -23,37 +24,41 @@ import ReceiptLongOutlinedIcon from "@mui/icons-material/ReceiptLongOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 
 import { users } from "@/assets/genericdata";
-import { IconLine, InfoLine, SideCard } from "../common/ViewPage";
+import { IconLine, InfoLine, SideCard, getFadeInStyle } from "../common/ViewPage";
+import { themeConfig } from "@/assets/CommonDesign";
+
 export default async function UserDetails({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-
   const user = users.find((item) => item.id === id);
+
+  const { colors, typography, borderRadius } = themeConfig;
 
   if (!user) {
     return (
       <Box
         sx={{
           minHeight: "100vh",
-          bgcolor: "#F8FAFC",
+          bgcolor: colors.bgLight,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          ...getFadeInStyle(0),
         }}
       >
         <Card
           sx={{
             p: 4,
-            borderRadius: "16px",
-            border: "1px solid #E2E8F0",
+            borderRadius: borderRadius.large,
+            border: `1px solid ${colors.border}`,
             boxShadow: "none",
           }}
         >
-          <Typography sx={{ color: "#64748B", fontWeight: 700 }}>
-            User not found
+          <Typography sx={{ color: colors.textSecondary, fontWeight: typography.fontWeight.bold }}>
+            User record not found
           </Typography>
         </Card>
       </Box>
@@ -61,45 +66,32 @@ export default async function UserDetails({
   }
 
   return (
-    <Box sx={{ width: "100%", minHeight: "100vh" }}>
-      <Box
-        sx={{
-          py: 2,
-        }}
-      >
-        <Container maxWidth="xl">
-      <Box >
-        <Link
-          href="/users"
-          style={{
-            textDecoration:
-              "none",
-          }}
-        >
+    <Box sx={{ width: "100%", minHeight: "100vh", bgcolor: colors.bgLight }}>
+      {/* Navigation Header */}
+      <Box sx={{ px: 3, pt: 2, ...getFadeInStyle(0.1) }}>
+        <Link href="/users" style={{ textDecoration: "none" }}>
           <Button
-            startIcon={
-              <ArrowBackIcon />
-            }
+            startIcon={<ArrowBackIcon />}
             sx={{
-              textTransform:"none",
-              fontWeight:600,
+              textTransform: "none",
+              fontWeight: typography.fontWeight.medium,
+              color: colors.primary,
             }}
           >
             Back to Users
           </Button>
         </Link>
       </Box>
-        </Container>
-      </Box>
 
       <Container maxWidth="xl" sx={{ py: 4 }}>
-        <Box sx={{ mb: 4 }}>
-          <Stack direction="row" spacing={1.5} sx={{alignItems:"center", flexWrap:"wrap"}}  >
+        {/* Header Section */}
+        <Box sx={{ mb: 4, ...getFadeInStyle(0.2) }}>
+          <Stack direction="row" spacing={1.5} sx={{ alignItems: "center", flexWrap: "wrap" }}>
             <Typography
               sx={{
-                fontSize: { xs: "1.5rem", md: "1.9rem" },
-                fontWeight: 800,
-                color: "#3B82F6",
+                fontSize: { xs: typography.fontSize.h3, md: "1.9rem" },
+                fontWeight: typography.fontWeight.extraBold,
+                color: colors.primary,
               }}
             >
               User: {user.fullName}
@@ -109,10 +101,10 @@ export default async function UserDetails({
               label={user.role}
               size="small"
               sx={{
-                bgcolor: "#EFF6FF",
-                color: "#3B82F6",
-                fontWeight: 700,
-                borderRadius: "8px",
+                bgcolor: colors.primaryLight,
+                color: colors.primary,
+                fontWeight: typography.fontWeight.bold,
+                borderRadius: borderRadius.small,
               }}
             />
 
@@ -120,16 +112,15 @@ export default async function UserDetails({
               label={user.status}
               size="small"
               sx={{
-                bgcolor: user.status === "Active" ? "#DCFCE7" : "#FEE2E2",
-                color: user.status === "Active" ? "#15803D" : "#B91C1C",
-                fontWeight: 700,
-                borderRadius: "8px",
+                bgcolor: user.status === "Active" ? colors.successBg : colors.errorBg,
+                color: user.status === "Active" ? colors.success : colors.error,
+                fontWeight: typography.fontWeight.bold,
+                borderRadius: borderRadius.small,
               }}
             />
           </Stack>
-
-          <Typography sx={{ mt: 1, color: "#64748B", fontSize: 14 }}>
-            Created On: {user.createdOn}
+          <Typography sx={{ mt: 1, color: colors.textSecondary, fontSize: typography.fontSize.small }}>
+            Account Created: {user.createdOn}
           </Typography>
         </Box>
 
@@ -141,73 +132,77 @@ export default async function UserDetails({
             flexDirection: { xs: "column", lg: "row" },
           }}
         >
-          <Box sx={{ width: { xs: "100%", lg: "60%" } }}>
+          {/* Left Content */}
+          <Box sx={{ width: { xs: "100%", lg: "60%" }, ...getFadeInStyle(0.3) }}>
             <Stack spacing={3}>
-              <SideCard title="User Information">
-                <InfoLine label="User ID" value={user.userId} />
-                <InfoLine label="Full Name" value={user.fullName} />
-                <InfoLine label="Username" value={user.username} />
-                <InfoLine label="Email" value={user.email} />
-                <InfoLine label="Phone Number" value={user.phone} />
-                <InfoLine label="Status" value={user.status} />
+              <SideCard title="Personal Details">
+                <InfoLine label="Internal ID" value={user.userId} />
+                <InfoLine label="Full Legal Name" value={user.fullName} />
+                <InfoLine label="System Username" value={user.username} />
+                <InfoLine label="Primary Email" value={user.email} />
+                <InfoLine label="Contact Number" value={user.phone} />
+                <InfoLine label="Account Status" value={user.status} />
               </SideCard>
 
-              <SideCard title="Role & Permission Information">
-                <InfoLine label="Role" value={user.role} />
-                <InfoLine label="Department" value={user.department} />
-                <InfoLine label="Access Level" value={user.accessLevel} />
+              <SideCard title="Permissions & Workgroup">
+                <InfoLine label="Assigned Role" value={user.role} />
+                <InfoLine label="Department" value={user.department || "General"} />
+                <InfoLine label="Security Level" value={user.accessLevel || "Standard"} />
                 <InfoLine
-                  label="Permissions"
-                  value={
-                    Array.isArray(user.permissions)
-                      ? user.permissions.join(", ")
-                      : "N/A"
-                  }
+                  label="Specific Permissions"
+                  value={Array.isArray(user.permissions) ? user.permissions.join(", ") : "None"}
                 />
               </SideCard>
 
-              <SideCard title="Account Information">
-                <InfoLine label="Password" value="********" />
-                <InfoLine label="Login Status" value={user.loginStatus} />
-                <InfoLine label="Last Login" value={user.lastLogin} />
-                <InfoLine
-                  label="Two Factor Auth"
-                  value={user.twoFactorEnabled ? "Enabled" : "Disabled"}
-                />
+              <SideCard title="Security & Authentication">
+                <InfoLine label="Security Protocol" value={user.twoFactorEnabled ? "2FA Active" : "Standard"} />
+                <InfoLine label="Current Session" value={user.loginStatus || "Inactive"} />
+                <InfoLine label="Last Known Login" value={user.lastLogin || "Never"} />
               </SideCard>
 
-              <SideCard title="Address Information">
-                <InfoLine label="Address" value={user.address} />
-                <InfoLine label="City" value={user.city} />
-                <InfoLine label="State" value={user.state} />
-                <InfoLine label="Country" value={user.country} />
+              <SideCard title="Geographic Information">
+                <InfoLine label="Street Address" value={user.address} />
+                <InfoLine label="City / Region" value={user.city} />
+                <InfoLine label="State / Province" value={user.state} />
+                <InfoLine label="Country Code" value={user.country} />
 
-                <Stack direction="row" spacing={1} sx={{ mt: 2, alignItems:"center"}}>
-                  <LocationOnOutlinedIcon sx={{ color: "#3B82F6", fontSize: 18 }} />
-                  <Typography sx={{ color: "#3B82F6", fontWeight: 600 }}>
-                    View Map
+                <Stack direction="row" spacing={1} sx={{ mt: 2, alignItems: "center", cursor: "pointer" }}>
+                  <LocationOnOutlinedIcon sx={{ color: colors.primary, fontSize: 18 }} />
+                  <Typography sx={{ color: colors.primary, fontWeight: typography.fontWeight.bold }}>
+                    View Office Location
                   </Typography>
                 </Stack>
               </SideCard>
 
-              <SideCard title="System Information">
-                <InfoLine label="Created On" value={user.createdOn} />
-                <InfoLine label="Updated Date" value={user.updatedDate} />
+              <SideCard title="Administrative Records">
+                <InfoLine label="Database Creation" value={user.createdOn} />
+                <InfoLine label="Last Modified" value={user.updatedDate} />
                 <InfoLine label="Created By" value={user.createdBy} />
               </SideCard>
             </Stack>
           </Box>
 
-          <Box sx={{ width: { xs: "100%", lg: "40%" } }}>
+          {/* Right Content (Sticky) */}
+          <Box
+            sx={{
+              width: { xs: "100%", lg: "40%" },
+              position: { lg: "sticky" },
+              top: 24,
+              alignSelf: "flex-start",
+              ...getFadeInStyle(0.4),
+            }}
+          >
             <Stack spacing={3}>
               <Card
                 sx={{
                   p: 3,
-                  borderRadius: "16px",
+                  borderRadius: borderRadius.large,
                   boxShadow: "none",
-                  border: "1px solid #E2E8F0",
-                  bgcolor: "#FFFFFF",
+                  border: `1px solid ${colors.border}`,
+                  bgcolor: colors.white,
                   textAlign: "center",
+                  transition: "transform 0.3s ease",
+                  "&:hover": { transform: "scale(1.02)" },
                 }}
               >
                 <Box
@@ -216,65 +211,39 @@ export default async function UserDetails({
                     height: 90,
                     mx: "auto",
                     mb: 2,
-                    borderRadius: "18px",
-                    bgcolor: "#EFF6FF",
+                    borderRadius: borderRadius.xl,
+                    bgcolor: colors.primaryLight,
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                   }}
                 >
-                  <PersonOutlineOutlinedIcon sx={{ fontSize: 46, color: "#3B82F6" }} />
+                  <PersonOutlineOutlinedIcon sx={{ fontSize: 46, color: colors.primary }} />
                 </Box>
-
-                <Typography sx={{ fontSize: 24, fontWeight: 800, color: "#0F172A" }}>
+                <Typography sx={{ fontSize: 24, fontWeight: typography.fontWeight.extraBold, color: colors.textMain }}>
                   {user.fullName}
                 </Typography>
-
-                <Typography sx={{ color: "#64748B", fontSize: 14, mt: 0.5 }}>
-                  {user.role} • {user.department || "Department N/A"}
+                <Typography sx={{ color: colors.textSecondary, fontSize: typography.fontSize.small, mt: 0.5 }}>
+                  {user.role} • {user.department || "No Dept"}
                 </Typography>
               </Card>
 
-              <SideCard title="Contact Summary">
-                <IconLine icon={<MailOutlineOutlinedIcon />} text={user.email} />
-                <IconLine icon={<PhoneOutlinedIcon />} text={user.phone} />
-                <IconLine icon={<PersonOutlineOutlinedIcon />} text={user.username} />
+              <SideCard title="Contact Profile">
+                <IconLine icon={<MailOutlineOutlinedIcon sx={{ color: colors.primary }} />} text={user.email} />
+                <IconLine icon={<PhoneOutlinedIcon sx={{ color: colors.primary }} />} text={user.phone} />
+                <IconLine icon={<BadgeOutlinedIcon sx={{ color: colors.primary }} />} text={`User ID: ${user.userId}`} />
               </SideCard>
 
-              <SideCard title="Access Summary">
-                <IconLine icon={<BadgeOutlinedIcon />} text={`Role: ${user.role}`} />
-                <IconLine
-                  icon={<SecurityOutlinedIcon />}
-                  text={`Access Level: ${user.accessLevel || "N/A"}`}
-                />
-                <IconLine
-                  icon={<SecurityOutlinedIcon />}
-                  text={`2FA: ${user.twoFactorEnabled ? "Enabled" : "Disabled"}`}
-                />
+              <SideCard title="Operational Metrics">
+                <IconLine icon={<ReceiptLongOutlinedIcon sx={{ color: colors.primary }} />} text={`Orders Managed: ${user.totalOrdersManaged ?? 0}`} />
+                <IconLine icon={<GroupsOutlinedIcon sx={{ color: colors.primary }} />} text={`Assigned Clients: ${user.assignedCustomers ?? 0}`} />
+                <IconLine icon={<LoginOutlinedIcon sx={{ color: colors.primary }} />} text={`Last Sync: ${user.lastLogin || "N/A"}`} />
+                <IconLine icon={<AssignmentIndOutlinedIcon sx={{ color: colors.primary }} />} text={`Recent Activity: ${user.lastActivity || "None"}`} />
               </SideCard>
 
-              <SideCard title="Activity Information">
-                <IconLine
-                  icon={<LoginOutlinedIcon />}
-                  text={`Last Login: ${user.lastLogin || "N/A"}`}
-                />
-                <IconLine
-                  icon={<ReceiptLongOutlinedIcon />}
-                  text={`Orders Managed: ${user.totalOrdersManaged ?? 0}`}
-                />
-                <IconLine
-                  icon={<GroupsOutlinedIcon />}
-                  text={`Assigned Customers: ${user.assignedCustomers ?? 0}`}
-                />
-                <IconLine
-                  icon={<AssignmentIndOutlinedIcon />}
-                  text={`Last Activity: ${user.lastActivity || "N/A"}`}
-                />
-              </SideCard>
-
-              <SideCard title="Notes">
-                <Typography sx={{ color: "#475569", fontSize: 14, lineHeight: 1.7 }}>
-                  {user.notes || "No notes available"}
+              <SideCard title="Managerial Notes">
+                <Typography sx={{ color: colors.textSecondary, fontSize: typography.fontSize.small, lineHeight: 1.7 }}>
+                  {user.notes || "No additional records provided for this user account."}
                 </Typography>
               </SideCard>
             </Stack>
@@ -284,4 +253,3 @@ export default async function UserDetails({
     </Box>
   );
 }
-

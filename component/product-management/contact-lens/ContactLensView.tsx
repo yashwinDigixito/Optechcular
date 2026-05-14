@@ -1,5 +1,4 @@
 import Link from "next/link";
-
 import {
   Avatar,
   Box,
@@ -8,7 +7,7 @@ import {
   Chip,
   Container,
   Stack,
-  Typography
+  Typography,
 } from "@mui/material";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -22,7 +21,8 @@ import WarehouseOutlinedIcon from "@mui/icons-material/WarehouseOutlined";
 
 import { contactLenses } from "@/assets/genericdata";
 import StatusChip from "@/component/common/StatusChip";
-import { IconLine, InfoLine, SideCard } from "@/component/common/ViewPage";
+import { IconLine, InfoLine, SideCard, getFadeInStyle } from "@/component/common/ViewPage";
+import { themeConfig } from "@/assets/CommonDesign";
 
 export default async function ContactLensViewPage({
   params,
@@ -30,36 +30,31 @@ export default async function ContactLensViewPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
+  const lens = contactLenses.find((item) => item.id === id);
 
-  const lens = contactLenses.find(
-    (item) => item.id === id
-  );
+  const { colors, typography, borderRadius } = themeConfig;
 
   if (!lens) {
     return (
       <Box
         sx={{
           minHeight: "100vh",
-          bgcolor: "#F8FAFC",
+          bgcolor: colors.bgLight,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          ...getFadeInStyle(0.1),
         }}
       >
         <Card
           sx={{
             p: 4,
-            borderRadius: "16px",
-            border: "1px solid #E2E8F0",
+            borderRadius: borderRadius.large,
+            border: `1px solid ${colors.border}`,
             boxShadow: "none",
           }}
         >
-          <Typography
-            sx={{
-              color: "#64748B",
-              fontWeight: 700,
-            }}
-          >
+          <Typography sx={{ color: colors.textSecondary, fontWeight: typography.fontWeight.bold }}>
             Contact Lens not found
           </Typography>
         </Card>
@@ -71,54 +66,39 @@ export default async function ContactLensViewPage({
     <Box
       sx={{
         width: "100%",
-        minHeight: "100vh",
+        
+        bgcolor: colors.bgLight,
+        scrollBehavior: "smooth",
+     
       }}
     >
-      {/* TOP BAR */}
-      <Box>
+      {/* Navigation Header */}
+      <Box sx={{ pt: 2, ...getFadeInStyle(0.1) }}>
         <Container maxWidth="xl">
-      <Box>
-        <Link
-          href="/products/contact-lens"
-          style={{
-            textDecoration:
-              "none",
-          }}
-        >
-          <Button
-            startIcon={
-              <ArrowBackIcon />
-            }
-            sx={{
-              textTransform:"none",
-              fontWeight:600,
-            }}
-          >
-            Back
-          </Button>
-        </Link>
-      </Box>
+          <Link href="/products/contact-lens" style={{ textDecoration: "none" }}>
+            <Button
+              startIcon={<ArrowBackIcon />}
+              sx={{
+                textTransform: "none",
+                fontWeight: typography.fontWeight.medium,
+                color: colors.primary,
+              }}
+            >
+              Back to Contact Lenses
+            </Button>
+          </Link>
         </Container>
       </Box>
 
       <Container maxWidth="xl" sx={{ py: 4 }}>
-        {/* PAGE TITLE */}
-        <Box sx={{ mb: 4 }}>
-          <Stack
-            direction="row"
-            spacing={1.5}
-
-            sx={{alignItems:"center", flexWrap:"wrap"}}
-           
-          >
+        {/* Header Section */}
+        <Box sx={{ mb: 4, ...getFadeInStyle(0.2) }}>
+          <Stack direction="row" spacing={1.5} sx={{ alignItems: "center", flexWrap: "wrap" }}>
             <Typography
               sx={{
-                fontSize: {
-                  xs: "1.5rem",
-                  md: "1.9rem",
-                },
-                fontWeight: 800,
-                color: "#3B82F6",
+                fontSize: { xs: typography.fontSize.h3, md: "1.9rem" },
+                fontWeight: typography.fontWeight.extraBold,
+                color: colors.primary,
               }}
             >
               Contact Lens: {lens.lensName}
@@ -128,222 +108,98 @@ export default async function ContactLensViewPage({
               label={lens.status}
               size="small"
               sx={{
-                bgcolor:
-                  lens.status === "Active"
-                    ? "#DCFCE7"
-                    : "#FEE2E2",
-
-                color:
-                  lens.status === "Active"
-                    ? "#15803D"
-                    : "#B91C1C",
-
-                fontWeight: 700,
-                borderRadius: "8px",
+                bgcolor: lens.status === "Active" ? colors.successBg : colors.errorBg,
+                color: lens.status === "Active" ? colors.success : colors.error,
+                fontWeight: typography.fontWeight.bold,
+                borderRadius: borderRadius.small,
               }}
             />
           </Stack>
 
-          <Typography
-            sx={{
-              mt: 1,
-              color: "#64748B",
-              fontSize: 14,
-            }}
-          >
+          <Typography sx={{ mt: 1, color: colors.textSecondary, fontSize: typography.fontSize.small }}>
             Created On: {lens.createdOn}
           </Typography>
         </Box>
 
-        {/* MAIN LAYOUT */}
         <Box
           sx={{
             display: "flex",
             gap: 3,
             alignItems: "flex-start",
-
-            flexDirection: {
-              xs: "column",
-              lg: "row",
-            },
+            flexDirection: { xs: "column", lg: "row" },
           }}
         >
-          {/* LEFT SIDE */}
-          <Box
-            sx={{
-              width: {
-                xs: "100%",
-                lg: "60%",
-              },
-            }}
-          >
+          {/* Main Info Column */}
+          <Box sx={{ width: { xs: "100%", lg: "60%" }, ...getFadeInStyle(0.3) }}>
             <Stack spacing={3}>
-              {/* BASIC INFO */}
               <SideCard title="Contact Lens Information">
-                <InfoLine
-                  label="Lens ID"
-                  value={lens.lensId}
-                />
-
-                <InfoLine
-                  label="Product Code"
-                  value={lens.productCode}
-                />
-
-                <InfoLine
-                  label="Brand"
-                  value={lens.brand}
-                />
-
-                <InfoLine
-                  label="Lens Name"
-                  value={lens.lensName}
-                />
-
-                <InfoLine
-                  label="Product Type"
-                  value={lens.productType}
-                />
-
-                <InfoLine
-                  label="Power Type"
-                  value={lens.powerType}
-                />
-
-                <InfoLine
-                  label="Modality"
-                  value={lens.modality}
-                />
-
-                <InfoLine
-                  label="Material"
-                  value={lens.material}
-                />
+                <InfoLine label="Lens ID" value={lens.lensId} />
+                <InfoLine label="Product Code" value={lens.productCode} />
+                <InfoLine label="Brand" value={lens.brand} />
+                <InfoLine label="Lens Name" value={lens.lensName} />
+                <InfoLine label="Product Type" value={lens.productType} />
+                <InfoLine label="Power Type" value={lens.powerType} />
+                <InfoLine label="Modality" value={lens.modality} />
+                <InfoLine label="Material" value={lens.material} />
               </SideCard>
 
-              {/* SPECIFICATIONS */}
               <SideCard title="Lens Specifications">
-                <InfoLine
-                  label="Base Curve"
-                  value={lens.baseCurve}
-                />
-
-                <InfoLine
-                  label="Diameter"
-                  value={lens.diameter}
-                />
-
-                <InfoLine
-                  label="Spherical Power"
-                  value={lens.sphericalPower}
-                />
-
-                <InfoLine
-                  label="Cylindrical Power"
-                  value={lens.cylindricalPower}
-                />
-
-                <InfoLine
-                  label="Axis"
-                  value={lens.axis}
-                />
-
-                <InfoLine
-                  label="Additional Power"
-                  value={lens.additionalPower}
-                />
-
-                <InfoLine
-                  label="Color"
-                  value={lens.color}
-                />
+                <InfoLine label="Base Curve" value={lens.baseCurve} />
+                <InfoLine label="Diameter" value={lens.diameter} />
+                <InfoLine label="Spherical Power" value={lens.sphericalPower} />
+                <InfoLine label="Cylindrical Power" value={lens.cylindricalPower} />
+                <InfoLine label="Axis" value={lens.axis} />
+                <InfoLine label="Additional Power" value={lens.additionalPower} />
+                <InfoLine label="Color" value={lens.color} />
               </SideCard>
 
-              {/* PRICING */}
               <SideCard title="Pricing & Tax">
-                <InfoLine
-                  label="MRP"
-                  value={`₹${lens.mrp}`}
-                />
-
-                <InfoLine
-                  label="Selling Price"
-                  value={`₹${lens.sellingPrice}`}
-                />
-
-                <InfoLine
-                  label="Discount Price"
-                  value={`₹${lens.discountPrice}`}
-                />
-
-                <InfoLine
-                  label="Tax"
-                  value={`${lens.tax}%`}
-                />
-
-                <InfoLine
-                  label="HSN Code"
-                  value={lens.hsnCode}
-                />
+                <InfoLine label="MRP" value={`₹${lens.mrp}`} />
+                <InfoLine label="Selling Price" value={`₹${lens.sellingPrice}`} />
+                <InfoLine label="Discount Price" value={`₹${lens.discountPrice}`} />
+                <InfoLine label="Tax" value={`${lens.tax}%`} />
+                <InfoLine label="HSN Code" value={lens.hsnCode} />
               </SideCard>
 
-              {/* INVENTORY */}
               <SideCard title="Inventory Details">
-                <InfoLine
-                  label="SKU Code"
-                  value={lens.skuCode}
-                />
-
-                <InfoLine
-                  label="Barcode"
-                  value={lens.barcode}
-                />
-
-                <InfoLine
-                  label="Stock Quantity"
-                  value={lens.stock}
-                />
-
-                <InfoLine
-                  label="Warehouse Location"
-                  value={lens.warehouseLocation}
-                />
+                <InfoLine label="SKU Code" value={lens.skuCode} />
+                <InfoLine label="Barcode" value={lens.barcode} />
+                <InfoLine label="Stock Quantity" value={lens.stock} />
+                <InfoLine label="Warehouse Location" value={lens.warehouseLocation} />
               </SideCard>
 
-              {/* DESCRIPTION */}
               <SideCard title="Description">
-                <Typography
-                  sx={{
-                    color: "#475569",
-                    fontSize: 14,
-                    lineHeight: 1.7,
-                  }}
-                >
-                  {lens.description}
+                <Typography sx={{ color: colors.textMain, fontSize: typography.fontSize.small, lineHeight: 1.7 }}>
+                  {lens.description || "No description available"}
                 </Typography>
               </SideCard>
             </Stack>
           </Box>
 
-          {/* RIGHT SIDE */}
+          {/* Sticky Sidebar Column */}
           <Box
             sx={{
-              width: {
-                xs: "100%",
-                lg: "40%",
-              },
+              width: { xs: "100%", lg: "40%" },
+              position: { lg: "sticky" },
+              top: 24,
+              alignSelf: "flex-start",
+              ...getFadeInStyle(0.4),
             }}
           >
             <Stack spacing={3}>
-              {/* PRODUCT CARD */}
               <Card
                 sx={{
                   p: 3,
-                  borderRadius: "16px",
+                  borderRadius: borderRadius.large,
                   boxShadow: "none",
-                  border: "1px solid #E2E8F0",
-                  bgcolor: "#FFFFFF",
+                  border: `1px solid ${colors.border}`,
+                  bgcolor: colors.white,
                   textAlign: "center",
+                  transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                  "&:hover": {
+                    transform: "translateY(-4px)",
+                    boxShadow: "0 12px 24px -10px rgba(0,0,0,0.1)",
+                  },
                 }}
               >
                 <Avatar
@@ -354,97 +210,60 @@ export default async function ContactLensViewPage({
                     height: 100,
                     mx: "auto",
                     mb: 2,
-                    borderRadius: "20px",
+                    borderRadius: borderRadius.xl,
+                    bgcolor: colors.primaryLight,
                   }}
                 />
 
-                <Typography
-                  sx={{
-                    fontSize: 24,
-                    fontWeight: 800,
-                    color: "#0F172A",
-                  }}
-                >
+                <Typography sx={{ fontSize: 24, fontWeight: typography.fontWeight.extraBold, color: colors.textMain }}>
                   {lens.brand}
                 </Typography>
 
-                <Typography
-                  sx={{
-                    color: "#64748B",
-                    fontSize: 14,
-                    mt: 0.5,
-                  }}
-                >
+                <Typography sx={{ color: colors.textSecondary, fontSize: typography.fontSize.small, mt: 0.5 }}>
                   {lens.lensName} • {lens.modality}
                 </Typography>
 
-                <Box sx={{ mt: 2 }}>
-                  <StatusChip
-                    status={lens.status}
-                  />
+                <Box sx={{ mt: 2, display: "flex", justifyContent: "center" }}>
+                  <StatusChip status={lens.status} />
                 </Box>
               </Card>
 
-              {/* SUMMARY */}
               <SideCard title="Lens Summary">
                 <IconLine
-                  icon={<VisibilityOutlinedIcon />}
-                  text={`Power Type: ${lens.powerType}`}
+                  icon={<VisibilityOutlinedIcon sx={{ color: colors.primary }} />}
+                  text={`Power: ${lens.powerType}`}
                 />
-
                 <IconLine
-                  icon={<RemoveRedEyeOutlinedIcon />}
+                  icon={<RemoveRedEyeOutlinedIcon sx={{ color: colors.primary }} />}
                   text={`Base Curve: ${lens.baseCurve}`}
                 />
-
                 <IconLine
-                  icon={<ColorLensOutlinedIcon />}
+                  icon={<ColorLensOutlinedIcon sx={{ color: colors.primary }} />}
                   text={`Color: ${lens.color}`}
                 />
-
                 <IconLine
-                  icon={<Inventory2OutlinedIcon />}
+                  icon={<Inventory2OutlinedIcon sx={{ color: colors.primary }} />}
                   text={`Stock: ${lens.stock}`}
                 />
-
                 <IconLine
-                  icon={<PaymentsOutlinedIcon />}
+                  icon={<PaymentsOutlinedIcon sx={{ color: colors.primary }} />}
                   text={`Price: ₹${lens.sellingPrice}`}
                 />
-
-                <IconLine
-                  icon={<WarehouseOutlinedIcon />}
-                  text={lens.warehouseLocation}
-                />
               </SideCard>
 
-              {/* INVENTORY SUMMARY */}
               <SideCard title="Inventory Summary">
                 <IconLine
-                  icon={<QrCode2OutlinedIcon />}
+                  icon={<QrCode2OutlinedIcon sx={{ color: colors.primary }} />}
                   text={`SKU: ${lens.skuCode}`}
                 />
-
                 <IconLine
-                  icon={<Inventory2OutlinedIcon />}
-                  text={`Available Stock: ${lens.stock}`}
-                />
-
-                <IconLine
-                  icon={<WarehouseOutlinedIcon />}
+                  icon={<WarehouseOutlinedIcon sx={{ color: colors.primary }} />}
                   text={lens.warehouseLocation}
                 />
               </SideCard>
 
-              {/* NOTES */}
               <SideCard title="Notes">
-                <Typography
-                  sx={{
-                    color: "#475569",
-                    fontSize: 14,
-                    lineHeight: 1.7,
-                  }}
-                >
+                <Typography sx={{ color: colors.textSecondary, fontSize: typography.fontSize.small, lineHeight: 1.7 }}>
                   {lens.notes || "No notes available"}
                 </Typography>
               </SideCard>
@@ -455,116 +274,3 @@ export default async function ContactLensViewPage({
     </Box>
   );
 }
-
-// function SideCard({
-//   title,
-//   children,
-// }: {
-//   title: string;
-//   children: ReactNode;
-// }) {
-//   return (
-//     <Card
-//       sx={{
-//         p: 2.5,
-//         borderRadius: "16px",
-//         boxShadow: "none",
-//         border: "1px solid #E2E8F0",
-//         bgcolor: "#FFFFFF",
-//       }}
-//     >
-//       <Typography
-//         sx={{
-//           fontSize: 18,
-//           fontWeight: 700,
-//           color: "#0F172A",
-//           mb: 2,
-//         }}
-//       >
-//         {title}
-//       </Typography>
-
-//       {children}
-//     </Card>
-//   );
-// }
-
-// function InfoLine({
-//   label,
-//   value,
-// }: {
-//   label: string;
-//   value?: string | number;
-// }) {
-//   return (
-//     <Stack
-//       direction="row"
-//       alignItems="center"
-//       justifyContent="space-between"
-//       sx={{
-//         py: 1.5,
-//         borderBottom: "1px solid #E2E8F0",
-//       }}
-//     >
-//       <Typography
-//         sx={{
-//           width: "180px",
-//           flexShrink: 0,
-//           color: "#64748B",
-//           fontSize: "14px",
-//           fontWeight: 500,
-//         }}
-//       >
-//         {label}
-//       </Typography>
-
-//       <Typography
-//         sx={{
-//           flex: 1,
-//           textAlign: "right",
-//           color: "#0F172A",
-//           fontSize: "14px",
-//           fontWeight: 700,
-//         }}
-//       >
-//         {value || "N/A"}
-//       </Typography>
-//     </Stack>
-//   );
-// }
-
-// function IconLine({
-//   icon,
-//   text,
-// }: {
-//   icon: ReactNode;
-//   text?: string;
-// }) {
-//   return (
-//     <Stack
-//       direction="row"
-//       spacing={1}
-//       alignItems="center"
-//       sx={{ mb: 1.3 }}
-//     >
-//       <Box
-//         sx={{
-//           display: "flex",
-//           color: "#64748B",
-//         }}
-//       >
-//         {icon}
-//       </Box>
-
-//       <Typography
-//         sx={{
-//           color: "#334155",
-//           fontSize: 14,
-//           fontWeight: 500,
-//         }}
-//       >
-//         {text || "N/A"}
-//       </Typography>
-//     </Stack>
-//   );
-// }

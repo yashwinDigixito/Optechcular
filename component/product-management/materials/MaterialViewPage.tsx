@@ -1,17 +1,13 @@
 import Link from "next/link";
-
 import {
   Box,
   Button,
   Card,
-  Chip,
   Container,
   Stack,
   Typography,
 } from "@mui/material";
 
-import { materials } from "@/assets/genericdata";
-import { IconLine, InfoLine, SideCard } from "@/component/common/ViewPage";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import BadgeOutlinedIcon from "@mui/icons-material/BadgeOutlined";
 import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
@@ -21,42 +17,42 @@ import ReceiptLongOutlinedIcon from "@mui/icons-material/ReceiptLongOutlined";
 import WarehouseOutlinedIcon from "@mui/icons-material/WarehouseOutlined";
 import WarningAmberOutlinedIcon from "@mui/icons-material/WarningAmberOutlined";
 
+import { materials } from "@/assets/genericdata";
+
+import { IconLine, InfoLine, SideCard, getFadeInStyle } from "@/component/common/ViewPage";
+import { themeConfig } from "@/assets/CommonDesign";
+import StatusChip from "@/component/common/StatusChip";
+
 export default async function MaterialViewPage({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-
-  const material = materials.find(
-    (item) => item.id === id
-  );
+  const material = materials.find((item) => item.id === id);
+  const { colors, typography, borderRadius } = themeConfig;
 
   if (!material) {
     return (
       <Box
         sx={{
           minHeight: "100vh",
-          bgcolor: "#F8FAFC",
+          bgcolor: colors.bgLight,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          ...getFadeInStyle(0.1),
         }}
       >
         <Card
           sx={{
             p: 4,
-            borderRadius: "16px",
-            border: "1px solid #E2E8F0",
+            borderRadius: borderRadius.large,
+            border: `1px solid ${colors.border}`,
             boxShadow: "none",
           }}
         >
-          <Typography
-            sx={{
-              color: "#64748B",
-              fontWeight: 700,
-            }}
-          >
+          <Typography sx={{ color: colors.textSecondary, fontWeight: typography.fontWeight.bold }}>
             Material not found
           </Typography>
         </Card>
@@ -65,251 +61,111 @@ export default async function MaterialViewPage({
   }
 
   return (
-    <Box
-      sx={{
-        width: "100%",
-        minHeight: "100vh",
-      }}
-    >
-      {/* TOP BAR */}
-      <Box>
+    <Box sx={{ width: "100%", bgcolor: colors.bgLight }}>
+      {/* Navigation Header */}
+      <Box sx={{ pt: 2, ...getFadeInStyle(0.1) }}>
         <Container maxWidth="xl">
-      <Box>
-        <Link
-          href="/products/materials"
-          style={{
-            textDecoration:
-              "none",
-          }}
-        >
-          <Button
-            startIcon={
-              <ArrowBackIcon />
-            }
-            sx={{
-              textTransform:"none",
-              fontWeight:600,
-            }}
-          >
-            Back
-          </Button>
-        </Link>
-      </Box>
+          <Link href="/products/materials" style={{ textDecoration: "none" }}>
+            <Button
+              startIcon={<ArrowBackIcon />}
+              sx={{
+                textTransform: "none",
+                fontWeight: typography.fontWeight.medium,
+                color: colors.primary,
+              }}
+            >
+              Back to Materials
+            </Button>
+          </Link>
         </Container>
       </Box>
 
-      {/* PAGE CONTENT */}
-      <Container
-        maxWidth="xl"
-        sx={{ py: 4 }}
-      >
-        {/* TITLE */}
-        <Box sx={{ mb: 4 }}>
-          <Stack
-            direction="row"
-            spacing={1.5}
-            sx ={{alignItems:"center", flexWrap:"wrap"}}
-          >
+      <Container maxWidth="xl" sx={{ py: 4 }}>
+        {/* Header Section */}
+        <Box sx={{ mb: 4, ...getFadeInStyle(0.2) }}>
+          <Stack direction="row" spacing={1.5} sx={{ alignItems: "center", flexWrap: "wrap" }}>
             <Typography
               sx={{
-                fontSize: {
-                  xs: "1.5rem",
-                  md: "1.9rem",
-                },
-                fontWeight: 800,
-                color: "#3B82F6",
+                fontSize: { xs: typography.fontSize.h3, md: "1.9rem" },
+                fontWeight: typography.fontWeight.extraBold,
+                color: colors.primary,
               }}
             >
               Material: {material.materialName}
             </Typography>
-
-            <Chip
-              label={material.status}
-              size="small"
-              sx={{
-                bgcolor:
-                  material.status === "Active"
-                    ? "#DCFCE7"
-                    : "#FEE2E2",
-
-                color:
-                  material.status === "Active"
-                    ? "#15803D"
-                    : "#B91C1C",
-
-                fontWeight: 700,
-                borderRadius: "8px",
-              }}
-            />
+            <StatusChip status={material.status} />
           </Stack>
-
-          <Typography
-            sx={{
-              mt: 1,
-              color: "#64748B",
-              fontSize: 14,
-            }}
-          >
+          <Typography sx={{ mt: 1, color: colors.textSecondary, fontSize: typography.fontSize.small }}>
             Created On: {material.createdOn}
           </Typography>
         </Box>
 
-        {/* MAIN LAYOUT */}
         <Box
           sx={{
             display: "flex",
             gap: 3,
             alignItems: "flex-start",
-
-            flexDirection: {
-              xs: "column",
-              lg: "row",
-            },
+            flexDirection: { xs: "column", lg: "row" },
           }}
         >
-          {/* LEFT SIDE */}
-          <Box
-            sx={{
-              width: {
-                xs: "100%",
-                lg: "60%",
-              },
-            }}
-          >
+          {/* Left Column: Detailed Information */}
+          <Box sx={{ width: { xs: "100%", lg: "60%" }, ...getFadeInStyle(0.3) }}>
             <Stack spacing={3}>
-              {/* MATERIAL INFO */}
               <SideCard title="Material Information">
-                <InfoLine
-                  label="Material ID"
-                  value={material.materialId}
-                />
-
-                <InfoLine
-                  label="Material Code"
-                  value={material.materialCode}
-                />
-
-                <InfoLine
-                  label="Material Name"
-                  value={material.materialName}
-                />
-
-                <InfoLine
-                  label="Applicable For"
-                  value={material.applicableFor}
-                />
-
-                <InfoLine
-                  label="Status"
-                  value={material.status}
-                />
+                <InfoLine label="Material ID" value={material.materialId} />
+                <InfoLine label="Material Code" value={material.materialCode} />
+                <InfoLine label="Material Name" value={material.materialName} />
+                <InfoLine label="Applicable For" value={material.applicableFor} />
+                <InfoLine label="Status" value={material.status} />
               </SideCard>
 
-              {/* PRICING */}
               <SideCard title="Pricing Information">
-                <InfoLine
-                  label="Purchase Price"
-                  value={`₹${material.purchasePrice}`}
-                />
-
-                <InfoLine
-                  label="Selling Price"
-                  value={`₹${material.sellingPrice}`}
-                />
-
-                <InfoLine
-                  label="Tax %"
-                  value={`${material.tax}%`}
-                />
-
-                <InfoLine
-                  label="HSN Code"
-                  value={material.hsnCode}
-                />
+                <InfoLine label="Purchase Price" value={`₹${material.purchasePrice}`} />
+                <InfoLine label="Selling Price" value={`₹${material.sellingPrice}`} />
+                <InfoLine label="Tax %" value={`${material.tax}%`} />
+                <InfoLine label="HSN Code" value={material.hsnCode} />
               </SideCard>
 
-              {/* INVENTORY */}
               <SideCard title="Inventory Details">
-                <InfoLine
-                  label="Stock Quantity"
-                  value={material.stockQuantity}
-                />
-
-                <InfoLine
-                  label="Minimum Stock"
-                  value={material.minimumStockLevel}
-                />
-
-                <InfoLine
-                  label="Warehouse Location"
-                  value={material.warehouseLocation}
-                />
-
-                <InfoLine
-                  label="Supplier Name"
-                  value={material.supplierName}
-                />
+                <InfoLine label="Stock Quantity" value={material.stockQuantity} />
+                <InfoLine label="Minimum Stock" value={material.minimumStockLevel} />
+                <InfoLine label="Warehouse Location" value={material.warehouseLocation} />
+                <InfoLine label="Supplier Name" value={material.supplierName} />
               </SideCard>
 
-              {/* DESCRIPTION */}
               <SideCard title="Description">
-                <Typography
-                  sx={{
-                    color: "#475569",
-                    fontSize: 14,
-                    lineHeight: 1.7,
-                  }}
-                >
-                  {material.description ||
-                    "No description available"}
+                <Typography sx={{ color: colors.textMain, fontSize: typography.fontSize.small, lineHeight: 1.7 }}>
+                  {material.description || "No description available"}
                 </Typography>
               </SideCard>
 
-              {/* SYSTEM INFO */}
               <SideCard title="System Information">
-                <InfoLine
-                  label="Created On"
-                  value={material.createdOn}
-                />
-
-                <InfoLine
-                  label="Updated Date"
-                  value={material.updatedDate}
-                />
-
-                <InfoLine
-                  label="Created By"
-                  value={material.createdBy}
-                />
-
-                <InfoLine
-                  label="Last Modified By"
-                  value={
-                    material.lastModifiedBy
-                  }
-                />
+                <InfoLine label="Created On" value={material.createdOn} />
+                <InfoLine label="Updated Date" value={material.updatedDate} />
+                <InfoLine label="Created By" value={material.createdBy} />
+                <InfoLine label="Last Modified By" value={material.lastModifiedBy} />
               </SideCard>
             </Stack>
           </Box>
 
-          {/* RIGHT SIDE */}
+          {/* Right Column: Sticky Summary */}
           <Box
             sx={{
-              width: {
-                xs: "100%",
-                lg: "40%",
-              },
+              width: { xs: "100%", lg: "40%" },
+              position: { lg: "sticky" },
+              top: 24,
+              alignSelf: "flex-start",
+              ...getFadeInStyle(0.4),
             }}
           >
             <Stack spacing={3}>
-              {/* SUMMARY CARD */}
               <Card
                 sx={{
                   p: 3,
-                  borderRadius: "16px",
+                  borderRadius: borderRadius.large,
                   boxShadow: "none",
-                  border: "1px solid #E2E8F0",
-                  bgcolor: "#FFFFFF",
+                  border: `1px solid ${colors.border}`,
+                  bgcolor: colors.white,
                   textAlign: "center",
                 }}
               >
@@ -319,109 +175,60 @@ export default async function MaterialViewPage({
                     height: 90,
                     mx: "auto",
                     mb: 2,
-                    borderRadius: "18px",
-                    bgcolor: "#EFF6FF",
-
+                    borderRadius: borderRadius.xl,
+                    bgcolor: colors.primaryLight,
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                   }}
                 >
-                  <CategoryOutlinedIcon
-                    sx={{
-                      fontSize: 46,
-                      color: "#3B82F6",
-                    }}
-                  />
+                  <CategoryOutlinedIcon sx={{ fontSize: 46, color: colors.primary }} />
                 </Box>
-
-                <Typography
-                  sx={{
-                    fontSize: 24,
-                    fontWeight: 800,
-                    color: "#0F172A",
-                  }}
-                >
+                <Typography sx={{ fontSize: 24, fontWeight: typography.fontWeight.extraBold, color: colors.textMain }}>
                   {material.materialName}
                 </Typography>
-
-                <Typography
-                  sx={{
-                    color: "#64748B",
-                    fontSize: 14,
-                    mt: 0.5,
-                  }}
-                >
+                <Typography sx={{ color: colors.textSecondary, fontSize: typography.fontSize.small, mt: 0.5 }}>
                   {material.applicableFor}
                 </Typography>
               </Card>
 
-              {/* MATERIAL SUMMARY */}
               <SideCard title="Material Summary">
                 <IconLine
-                  icon={
-                    <Inventory2OutlinedIcon />
-                  }
+                  icon={<Inventory2OutlinedIcon sx={{ color: colors.primary }} />}
                   text={`Stock Quantity: ${material.stockQuantity}`}
                 />
-
                 <IconLine
-                  icon={<BadgeOutlinedIcon />}
+                  icon={<BadgeOutlinedIcon sx={{ color: colors.primary }} />}
                   text={`Minimum Stock: ${material.minimumStockLevel}`}
                 />
-
                 <IconLine
-                  icon={
-                    <PaymentsOutlinedIcon />
-                  }
+                  icon={<PaymentsOutlinedIcon sx={{ color: colors.primary }} />}
                   text={`Selling Price: ₹${material.sellingPrice}`}
                 />
-
                 <IconLine
-                  icon={
-                    <ReceiptLongOutlinedIcon />
-                  }
+                  icon={<ReceiptLongOutlinedIcon sx={{ color: colors.primary }} />}
                   text={`Tax: ${material.tax}%`}
                 />
               </SideCard>
 
-              {/* INVENTORY SUMMARY */}
               <SideCard title="Inventory Summary">
                 <IconLine
-                  icon={
-                    <WarehouseOutlinedIcon />
-                  }
-                  text={
-                    material.warehouseLocation
-                  }
+                  icon={<WarehouseOutlinedIcon sx={{ color: colors.primary }} />}
+                  text={material.warehouseLocation}
                 />
-
                 <IconLine
-                  icon={
-                    <WarningAmberOutlinedIcon />
-                  }
+                  icon={<WarningAmberOutlinedIcon sx={{ color: colors.primary }} />}
                   text={`Minimum Stock Alert: ${material.minimumStockLevel}`}
                 />
-
                 <IconLine
-                  icon={
-                    <Inventory2OutlinedIcon />
-                  }
+                  icon={<Inventory2OutlinedIcon sx={{ color: colors.primary }} />}
                   text={`Current Stock: ${material.stockQuantity}`}
                 />
               </SideCard>
 
-              {/* NOTES */}
               <SideCard title="Notes">
-                <Typography
-                  sx={{
-                    color: "#475569",
-                    fontSize: 14,
-                    lineHeight: 1.7,
-                  }}
-                >
-                  {material.notes ||
-                    "No notes available"}
+                <Typography sx={{ color: colors.textMain, fontSize: typography.fontSize.small, lineHeight: 1.7 }}>
+                  {material.notes || "No notes available"}
                 </Typography>
               </SideCard>
             </Stack>
@@ -431,4 +238,3 @@ export default async function MaterialViewPage({
     </Box>
   );
 }
-

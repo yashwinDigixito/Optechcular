@@ -1,31 +1,31 @@
 import Link from "next/link";
-
 import {
   Box,
   Button,
   Card,
   Chip,
   Container,
-  Divider,
   Stack,
   Typography,
 } from "@mui/material";
 
-import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
+
+
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import BadgeOutlinedIcon from "@mui/icons-material/BadgeOutlined";
 import BusinessOutlinedIcon from "@mui/icons-material/BusinessOutlined";
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
-import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
+
 import MailOutlineOutlinedIcon from "@mui/icons-material/MailOutlineOutlined";
 import PaymentsOutlinedIcon from "@mui/icons-material/PaymentsOutlined";
 import PhoneOutlinedIcon from "@mui/icons-material/PhoneOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import WarehouseOutlinedIcon from "@mui/icons-material/WarehouseOutlined";
+
 
 import { purchaseOrders } from "@/assets/genericdata";
 import { IconLine, InfoLine, SideCard, SummaryLine } from "../common/ViewPage";
+import { themeConfig } from "@/assets/CommonDesign";
+import { getFadeInStyle } from "../common/ViewPage"; 
 
 export default async function PurchaseOrderViewPage({
   params,
@@ -33,29 +33,31 @@ export default async function PurchaseOrderViewPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-
   const purchase = purchaseOrders.find((item) => item.id === id);
+  
+  const { colors, typography, borderRadius } = themeConfig;
 
   if (!purchase) {
     return (
       <Box
         sx={{
           minHeight: "100vh",
-          bgcolor: "#F8FAFC",
+          bgcolor: colors.bgLight,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          ...getFadeInStyle(0), 
         }}
       >
         <Card
           sx={{
             p: 4,
-            borderRadius: "16px",
-            border: "1px solid #E2E8F0",
+            borderRadius: borderRadius.large,
+            border: `1px solid ${colors.border}`,
             boxShadow: "none",
           }}
         >
-          <Typography sx={{ color: "#64748B", fontWeight: 700 }}>
+          <Typography sx={{ color: colors.textSecondary, fontWeight: typography.fontWeight.bold }}>
             Purchase order not found
           </Typography>
         </Card>
@@ -64,41 +66,36 @@ export default async function PurchaseOrderViewPage({
   }
 
   return (
-    <Box sx={{ width: "100%", minHeight: "100vh" }}>
-      <Box>
+    <Box sx={{ width: "100%", minHeight: "100vh", bgcolor: colors.bgLight }}>
+     
+      <Box sx={getFadeInStyle(0.1)}>
         <Container maxWidth="xl">
-          <Box>
-        <Link
-          href="/purchase-orders"
-          style={{
-            textDecoration:
-              "none",
-          }}
-        >
-          <Button
-            startIcon={
-              <ArrowBackIcon />
-            }
-            sx={{
-              textTransform:"none",
-              fontWeight:600,
-            }}
-          >
-            Back
-          </Button>
-        </Link>
-      </Box>
+          <Box sx={{ pt: 2 }}>
+            <Link href="/purchase-orders" style={{ textDecoration: "none" }}>
+              <Button
+                startIcon={<ArrowBackIcon />}
+                sx={{ textTransform: "none", fontWeight: typography.fontWeight.medium, color: colors.primary }}
+              >
+                Back
+              </Button>
+            </Link>
+          </Box>
         </Container>
       </Box>
 
-      <Container maxWidth="xl" sx={{ py: 4 }}>
-        <Box sx={{ mb: 4 }}>
-          <Stack direction="row" spacing={1.5} sx={{alignItems:"center",flexWrap:"wrap"}}>
+      <Container maxWidth="xl" sx={{ py: 2 }}>
+        {/* Title & Chips Section */}
+        <Box sx={{ mb: 4, ...getFadeInStyle(0.2) }}>
+          <Stack
+            direction="row"
+            spacing={1.5}
+            sx={{ alignItems: "center", flexWrap: "wrap" }}
+          >
             <Typography
               sx={{
-                fontSize: { xs: "1.5rem", md: "1.9rem" },
-                fontWeight: 800,
-                color: "#3B82F6",
+                fontSize: { xs: typography.fontSize.h3, md: typography.fontSize.h3 },
+                fontWeight: typography.fontWeight.medium,
+                color: colors.primary,
               }}
             >
               Purchase Order: {purchase.purchaseNo}
@@ -108,20 +105,10 @@ export default async function PurchaseOrderViewPage({
               label={purchase.purchaseStatus ?? purchase.status}
               size="small"
               sx={{
-                bgcolor:
-                  purchase.purchaseStatus === "Received"
-                    ? "#DCFCE7"
-                    : purchase.purchaseStatus === "Cancelled"
-                    ? "#FEE2E2"
-                    : "#FEF3C7",
-                color:
-                  purchase.purchaseStatus === "Received"
-                    ? "#15803D"
-                    : purchase.purchaseStatus === "Cancelled"
-                    ? "#B91C1C"
-                    : "#D97706",
-                fontWeight: 700,
-                borderRadius: "8px",
+                bgcolor: purchase.purchaseStatus === "Received" ? colors.successBg : purchase.purchaseStatus === "Cancelled" ? colors.errorBg : colors.warningBg,
+                color: purchase.purchaseStatus === "Received" ? colors.success : purchase.purchaseStatus === "Cancelled" ? colors.error : colors.warning,
+                fontWeight: typography.fontWeight.bold,
+                borderRadius: borderRadius.small,
               }}
             />
 
@@ -129,25 +116,15 @@ export default async function PurchaseOrderViewPage({
               label={purchase.paymentStatus}
               size="small"
               sx={{
-                bgcolor:
-                  purchase.paymentStatus === "Paid"
-                    ? "#DCFCE7"
-                    : purchase.paymentStatus === "Overdue"
-                    ? "#FEE2E2"
-                    : "#FEF3C7",
-                color:
-                  purchase.paymentStatus === "Paid"
-                    ? "#15803D"
-                    : purchase.paymentStatus === "Overdue"
-                    ? "#B91C1C"
-                    : "#D97706",
-                fontWeight: 700,
-                borderRadius: "8px",
+                bgcolor: purchase.paymentStatus === "Paid" ? colors.successBg : purchase.paymentStatus === "Overdue" ? colors.errorBg : colors.warningBg,
+                color: purchase.paymentStatus === "Paid" ? colors.success : purchase.paymentStatus === "Overdue" ? colors.error : colors.warning,
+                fontWeight: typography.fontWeight.bold,
+                borderRadius: borderRadius.small,
               }}
             />
           </Stack>
 
-          <Typography sx={{ mt: 1, color: "#64748B", fontSize: 14 }}>
+          <Typography sx={{ mt: 1, color: colors.textSecondary, fontSize: typography.fontSize.small }}>
             PO Date: {purchase.poDate ?? purchase.purchaseDate}
           </Typography>
         </Box>
@@ -160,7 +137,13 @@ export default async function PurchaseOrderViewPage({
             flexDirection: { xs: "column", lg: "row" },
           }}
         >
-          <Box sx={{ width: { xs: "100%", lg: "60%" } }}>
+          {/* LEFT SECTION */}
+          <Box 
+            sx={{ 
+              width: { xs: "100%", lg: "60%" },
+              ...getFadeInStyle(0.3)
+            }}
+          >
             <Stack spacing={3}>
               <SideCard title="Purchase Order Information">
                 <InfoLine label="Purchase ID" value={purchase.purchaseId} />
@@ -174,207 +157,82 @@ export default async function PurchaseOrderViewPage({
               </SideCard>
 
               <SideCard title="Vendor / Supplier Information">
-                <IconLine icon={<BusinessOutlinedIcon />} text={purchase.vendorName ?? purchase.supplierName} />
-                <IconLine icon={<MailOutlineOutlinedIcon />} text={purchase.email} />
-                <IconLine icon={<PhoneOutlinedIcon />} text={purchase.mobile ?? purchase.phone} />
+                <IconLine icon={<BusinessOutlinedIcon sx={{ color: colors.primary }} />} text={purchase.vendorName ?? purchase.supplierName} />
+                <IconLine icon={<MailOutlineOutlinedIcon sx={{ color: colors.primary }} />} text={purchase.email} />
+                <IconLine icon={<PhoneOutlinedIcon sx={{ color: colors.primary }} />} text={purchase.mobile ?? purchase.phone} />
                 <InfoLine label="GST Number" value={purchase.gstNumber} />
                 <InfoLine label="Billing Address" value={purchase.billingAddress} />
               </SideCard>
 
               <SideCard title="Product Details">
-                <Stack
-                  direction={{ xs: "column", md: "row" }}
-                  
-                  spacing={2}
-                  sx={{alignItems:"center", justifyContent:"center"}}
-                >
-                  <Stack direction="row" spacing={2} sx={{alignItems:"center"}}>
-                    <Box
-                      sx={{
-                        width: 90,
-                        height: 70,
-                        borderRadius: "10px",
-                        bgcolor: "#F8FAFC",
-                        border: "1px solid #E2E8F0",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        flexShrink: 0,
-                      }}
-                    >
-                      <Inventory2OutlinedIcon sx={{ fontSize: 36, color: "#3B82F6" }} />
+                <Stack direction={{ xs: "column", md: "row" }} spacing={2} sx={{ alignItems: "center", justifyContent: "space-between" }}>
+                  <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
+                    <Box sx={{ width: 90, height: 70, borderRadius: borderRadius.medium, bgcolor: colors.bgLight, border: `1px solid ${colors.border}`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                      <Inventory2OutlinedIcon sx={{ fontSize: 36, color: colors.primary }} />
                     </Box>
-
                     <Box>
-                      <Typography sx={{ color: "#64748B", fontSize: 14 }}>
-                        Product Type: {purchase.productType}
-                      </Typography>
-
-                      <Typography
-                        sx={{
-                          fontSize: 20,
-                          fontWeight: 700,
-                          color: "#0F172A",
-                        }}
-                      >
-                        {purchase.productName}
-                      </Typography>
-
-                      <Stack direction="row" spacing={1}  sx={{ mt: 1, flexWrap: "wrap", alignItems:"center" }}>
-                        <Typography sx={{ color: "#64748B", fontSize: 14 }}>
-                          Brand: {purchase.brand || "N/A"}
-                        </Typography>
-
-                        <Typography sx={{ color: "#64748B", fontSize: 14 }}>
-                          Barcode: {purchase.barcode || "N/A"}
-                        </Typography>
-
-                        <Typography sx={{ color: "#64748B", fontSize: 14 }}>
-                          Details: {purchase.selectProductDetails || "N/A"}
-                        </Typography>
-                      </Stack>
+                      <Typography sx={{ color: colors.textSecondary, fontSize: typography.fontSize.small }}>Product Type: {purchase.productType}</Typography>
+                      <Typography sx={{ fontSize: 20, fontWeight: typography.fontWeight.bold, color: colors.textMain }}>{purchase.productName}</Typography>
                     </Box>
                   </Stack>
-
-                  <Stack direction="row" spacing={3} sx={{alignItems:"center"}}>
-                    <Box
-                      sx={{
-                        px: 2,
-                        py: 1,
-                        border: "1px solid #E2E8F0",
-                        borderRadius: "10px",
-                        fontWeight: 600,
-                        fontSize: 14,
-                        color: "#0F172A",
-                      }}
-                    >
+                  <Stack direction="row" spacing={3} sx={{ alignItems: "center" }}>
+                    <Box sx={{ px: 2, py: 1, border: `1px solid ${colors.border}`, borderRadius: borderRadius.medium, fontWeight: typography.fontWeight.medium, fontSize: typography.fontSize.small, color: colors.textMain }}>
                       {purchase.quantity} x ₹{purchase.unitCost}
                     </Box>
-
-                    <Typography sx={{ fontWeight: 700, color: "#0F172A" }}>
-                      ₹{purchase.lineTotal}
-                    </Typography>
+                    <Typography sx={{ fontWeight: typography.fontWeight.bold, color: colors.textMain }}>₹{purchase.lineTotal}</Typography>
                   </Stack>
-                </Stack>
-
-                <Stack sx={{ mt: 2 }}>
-                  <InfoLine label="Total Quantity" value={purchase.totalQty ?? purchase.quantity} />
-                  <InfoLine label="Subtopic" value={purchase.subtopic} />
-                  <InfoLine label="Tax" value={`${purchase.tax}%`} />
-                  <InfoLine label="Discount" value={`₹${purchase.discount}`} />
                 </Stack>
               </SideCard>
 
               <SideCard title="Payment Summary">
                 <SummaryLine label="Subtotal" value={`₹${purchase.subtotal}`} />
-                <SummaryLine label="Discount Amount" value={`-₹${purchase.discountAmount}`} />
-                <SummaryLine label="Tax Amount" value={`₹${purchase.taxAmount}`} />
-                <SummaryLine label="Shipping Charge" value={`₹${purchase.shippingCharge}`} />
-
-                <Divider sx={{ my: 1.5 }} />
-
                 <SummaryLine label="Grand Total" value={`₹${purchase.grandTotal}`} bold />
-                <SummaryLine label="Paid Amount" value={`₹${purchase.paidAmount}`} />
                 <SummaryLine label="Balance Due" value={`₹${purchase.balanceDue}`} bold />
-              </SideCard>
-
-              <SideCard title="Inventory Information">
-                <InfoLine label="Warehouse Location" value={purchase.warehouseLocation} />
-                <InfoLine label="Received Quantity" value={purchase.receivedQuantity} />
-                <InfoLine label="Pending Quantity" value={purchase.pendingQuantity} />
-                <InfoLine label="Received Date" value={purchase.receivedDate || "N/A"} />
-              </SideCard>
-
-              <SideCard title="System Information">
-                <InfoLine label="Created On" value={purchase.createdOn} />
-                <InfoLine label="Updated Date" value={purchase.updatedDate} />
-                <InfoLine label="Created By" value={purchase.createdBy} />
               </SideCard>
             </Stack>
           </Box>
 
-          <Box sx={{ width: { xs: "100%", lg: "40%" } }}>
+          {/* RIGHT SECTION (Sticky) */}
+          <Box
+            sx={{
+              width: { xs: "100%", lg: "40%" },
+              position: { lg: "sticky" },
+              top: 24,
+              ...getFadeInStyle(0.4)
+            }}
+          >
             <Stack spacing={3}>
               <Card
                 sx={{
                   p: 3,
-                  borderRadius: "16px",
+                  borderRadius: borderRadius.large,
                   boxShadow: "none",
-                  border: "1px solid #E2E8F0",
-                  bgcolor: "#FFFFFF",
+                  border: `1px solid ${colors.border}`,
+                  bgcolor: colors.white,
                   textAlign: "center",
+                  transition: "transform 0.3s ease",
+                  "&:hover": { transform: "scale(1.02)" }
                 }}
               >
-                <Box
-                  sx={{
-                    width: 90,
-                    height: 90,
-                    mx: "auto",
-                    mb: 2,
-                    borderRadius: "18px",
-                    bgcolor: "#EFF6FF",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <ShoppingCartOutlinedIcon sx={{ fontSize: 46, color: "#3B82F6" }} />
+                <Box sx={{ width: 90, height: 90, mx: "auto", mb: 2, borderRadius: borderRadius.xl, bgcolor: colors.primaryLight, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <ShoppingCartOutlinedIcon sx={{ fontSize: 46, color: colors.primary }} />
                 </Box>
-
-                <Typography sx={{ fontSize: 24, fontWeight: 800, color: "#0F172A" }}>
+                <Typography sx={{ fontSize: 24, fontWeight: typography.fontWeight.extraBold, color: colors.textMain }}>
                   {purchase.purchaseNo}
                 </Typography>
-
-                <Typography sx={{ color: "#64748B", fontSize: 14, mt: 0.5 }}>
+                <Typography sx={{ color: colors.textSecondary, fontSize: typography.fontSize.small, mt: 0.5 }}>
                   {purchase.vendorName ?? purchase.supplierName} • ₹{purchase.grandTotal}
                 </Typography>
               </Card>
 
               <SideCard title="Purchase Summary">
-                <IconLine icon={<ShoppingCartOutlinedIcon />} text={`PO No: ${purchase.purchaseNo}`} />
-                <IconLine icon={<BadgeOutlinedIcon />} text={`Reference No: ${purchase.referenceNo || "N/A"}`} />
-                <IconLine icon={<CalendarMonthOutlinedIcon />} text={`Due Date: ${purchase.dueDate}`} />
-                <IconLine icon={<PaymentsOutlinedIcon />} text={`Payment: ${purchase.paymentStatus}`} />
-              </SideCard>
-
-              <SideCard title="Vendor Summary">
-                <IconLine icon={<BusinessOutlinedIcon />} text={purchase.vendorName ?? purchase.supplierName} />
-                <IconLine icon={<PhoneOutlinedIcon />} text={purchase.mobile ?? purchase.phone} />
-                <IconLine icon={<MailOutlineOutlinedIcon />} text={purchase.email} />
-              </SideCard>
-
-              <SideCard title="Payment Information">
-                <IconLine
-                  icon={<PaymentsOutlinedIcon />}
-                  text={`Method: ${purchase.paymentMethod || "N/A"}`}
-                />
-                <IconLine
-                  icon={<BadgeOutlinedIcon />}
-                  text={`Transaction ID: ${purchase.transactionId || "N/A"}`}
-                />
-                <IconLine
-                  icon={<AccountBalanceWalletOutlinedIcon />}
-                  text={`Balance Due: ₹${purchase.balanceDue}`}
-                />
-              </SideCard>
-
-              <SideCard title="Inventory Summary">
-                <IconLine
-                  icon={<WarehouseOutlinedIcon />}
-                  text={purchase.warehouseLocation || "N/A"}
-                />
-                <IconLine
-                  icon={<LocalShippingOutlinedIcon />}
-                  text={`Received Qty: ${purchase.receivedQuantity ?? 0}`}
-                />
-                <IconLine
-                  icon={<Inventory2OutlinedIcon />}
-                  text={`Pending Qty: ${purchase.pendingQuantity ?? 0}`}
-                />
+                <IconLine icon={<ShoppingCartOutlinedIcon sx={{ color: colors.primary }} />} text={`PO No: ${purchase.purchaseNo}`} />
+                <IconLine icon={<CalendarMonthOutlinedIcon sx={{ color: colors.primary }} />} text={`Due Date: ${purchase.dueDate}`} />
+                <IconLine icon={<PaymentsOutlinedIcon sx={{ color: colors.primary }} />} text={`Payment: ${purchase.paymentStatus}`} />
               </SideCard>
 
               <SideCard title="Notes">
-                <Typography sx={{ color: "#475569", fontSize: 14, lineHeight: 1.7 }}>
+                <Typography sx={{ color: colors.textMuted, fontSize: typography.fontSize.small, lineHeight: 1.7 }}>
                   {purchase.notes || "No notes available"}
                 </Typography>
               </SideCard>
@@ -385,4 +243,3 @@ export default async function PurchaseOrderViewPage({
     </Box>
   );
 }
-

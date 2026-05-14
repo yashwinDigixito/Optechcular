@@ -1,5 +1,4 @@
 import Link from "next/link";
-
 import {
   Box,
   Button,
@@ -21,7 +20,8 @@ import PhoneOutlinedIcon from "@mui/icons-material/PhoneOutlined";
 import ReceiptLongOutlinedIcon from "@mui/icons-material/ReceiptLongOutlined";
 
 import { brandGroups } from "@/assets/genericdata";
-import { IconLine, InfoLine, SideCard } from "@/component/common/ViewPage";
+import { IconLine, InfoLine, SideCard, getFadeInStyle } from "@/component/common/ViewPage";
+import { themeConfig } from "@/assets/CommonDesign";
 
 export default async function BrandGroupViewPage({
   params,
@@ -29,29 +29,31 @@ export default async function BrandGroupViewPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-
   const group = brandGroups.find((item) => item.id === id);
+
+  const { colors, typography, borderRadius } = themeConfig;
 
   if (!group) {
     return (
       <Box
         sx={{
           minHeight: "100vh",
-          bgcolor: "#F8FAFC",
+          bgcolor: colors.bgLight,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          ...getFadeInStyle(0.1)
         }}
       >
         <Card
           sx={{
             p: 4,
-            borderRadius: "16px",
-            border: "1px solid #E2E8F0",
+            borderRadius: borderRadius.large,
+            border: `1px solid ${colors.border}`,
             boxShadow: "none",
           }}
         >
-          <Typography sx={{ color: "#64748B", fontWeight: 700 }}>
+          <Typography sx={{ color: colors.textSecondary, fontWeight: typography.fontWeight.bold }}>
             Brand Group not found
           </Typography>
         </Card>
@@ -60,39 +62,34 @@ export default async function BrandGroupViewPage({
   }
 
   return (
-    <Box sx={{ width: "100%", minHeight: "100vh" }}>
+    <Box sx={{ width: "100%", minHeight: "100vh", bgcolor: colors.bgLight }}>
+      {/* Navigation Header */}
+      <Box sx={{ pt: 2, ...getFadeInStyle(0.1) }}>
         <Container maxWidth="xl">
-      <Box>
-        <Link
-          href="/products/brand-groups"
-          style={{
-            textDecoration:
-              "none",
-          }}
-        >
-          <Button
-            startIcon={
-              <ArrowBackIcon />
-            }
-            sx={{
-              textTransform:"none",
-              fontWeight:600,
-            }}
-          >
-            Back
-          </Button>
-        </Link>
-      </Box>
+          <Link href="/products/brand-groups" style={{ textDecoration: "none" }}>
+            <Button
+              startIcon={<ArrowBackIcon />}
+              sx={{
+                textTransform: "none",
+                fontWeight: typography.fontWeight.medium,
+                color: colors.primary,
+              }}
+            >
+              Back to Brand Groups
+            </Button>
+          </Link>
         </Container>
+      </Box>
 
       <Container maxWidth="xl" sx={{ py: 4 }}>
-        <Box sx={{ mb: 4 }}>
-          <Stack direction="row" spacing={1.5} sx={{alignItems:"center", flexWrap:"wrap"}}>
+        {/* Header Section */}
+        <Box sx={{ mb: 4, ...getFadeInStyle(0.2) }}>
+          <Stack direction="row" spacing={1.5} sx={{ alignItems: "center", flexWrap: "wrap" }}>
             <Typography
               sx={{
-                fontSize: { xs: "1.5rem", md: "1.9rem" },
-                fontWeight: 800,
-                color: "#3B82F6",
+                fontSize: { xs: typography.fontSize.h3, md: "1.9rem" },
+                fontWeight: typography.fontWeight.extraBold,
+                color: colors.primary,
               }}
             >
               Brand Group: {group.groupName}
@@ -102,15 +99,15 @@ export default async function BrandGroupViewPage({
               label={group.status}
               size="small"
               sx={{
-                bgcolor: group.status === "Active" ? "#DCFCE7" : "#FEE2E2",
-                color: group.status === "Active" ? "#15803D" : "#B91C1C",
-                fontWeight: 700,
-                borderRadius: "8px",
+                bgcolor: group.status === "Active" ? colors.successBg : colors.errorBg,
+                color: group.status === "Active" ? colors.success : colors.error,
+                fontWeight: typography.fontWeight.bold,
+                borderRadius: borderRadius.small,
               }}
             />
           </Stack>
 
-          <Typography sx={{ mt: 1, color: "#64748B", fontSize: 14 }}>
+          <Typography sx={{ mt: 1, color: colors.textSecondary, fontSize: typography.fontSize.small }}>
             Created On: {group.createdOn}
           </Typography>
         </Box>
@@ -123,7 +120,8 @@ export default async function BrandGroupViewPage({
             flexDirection: { xs: "column", lg: "row" },
           }}
         >
-          <Box sx={{ width: { xs: "100%", lg: "60%" } }}>
+          {/* Main Info Column (Scrollable) */}
+          <Box sx={{ width: { xs: "100%", lg: "60%" }, ...getFadeInStyle(0.3) }}>
             <Stack spacing={3}>
               <SideCard title="Brand Group Information">
                 <InfoLine label="Group ID" value={group.groupId} />
@@ -136,7 +134,7 @@ export default async function BrandGroupViewPage({
               </SideCard>
 
               <SideCard title="Description">
-                <Typography sx={{ color: "#475569", fontSize: 14, lineHeight: 1.7 }}>
+                <Typography sx={{ color: colors.textMain, fontSize: typography.fontSize.small, lineHeight: 1.7 }}>
                   {group.description || "No description available"}
                 </Typography>
               </SideCard>
@@ -159,16 +157,27 @@ export default async function BrandGroupViewPage({
             </Stack>
           </Box>
 
-          <Box sx={{ width: { xs: "100%", lg: "40%" } }}>
+          {/* Sticky Sidebar Column */}
+          <Box
+            sx={{
+              width: { xs: "100%", lg: "40%" },
+              position: { lg: "sticky" },
+              top: 24, // Sticks to top with margin when scrolling
+              alignSelf: "flex-start",
+              ...getFadeInStyle(0.4),
+            }}
+          >
             <Stack spacing={3}>
               <Card
                 sx={{
                   p: 3,
-                  borderRadius: "16px",
+                  borderRadius: borderRadius.large,
                   boxShadow: "none",
-                  border: "1px solid #E2E8F0",
-                  bgcolor: "#FFFFFF",
+                  border: `1px solid ${colors.border}`,
+                  bgcolor: colors.white,
                   textAlign: "center",
+                  transition: "transform 0.3s ease",
+                  "&:hover": { transform: "scale(1.02)" }
                 }}
               >
                 <Box
@@ -177,52 +186,52 @@ export default async function BrandGroupViewPage({
                     height: 90,
                     mx: "auto",
                     mb: 2,
-                    borderRadius: "18px",
-                    bgcolor: "#EFF6FF",
+                    borderRadius: borderRadius.xl,
+                    bgcolor: colors.primaryLight,
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                   }}
                 >
-                  <CategoryOutlinedIcon sx={{ fontSize: 46, color: "#3B82F6" }} />
+                  <CategoryOutlinedIcon sx={{ fontSize: 46, color: colors.primary }} />
                 </Box>
 
-                <Typography sx={{ fontSize: 24, fontWeight: 800, color: "#0F172A" }}>
+                <Typography sx={{ fontSize: 24, fontWeight: typography.fontWeight.extraBold, color: colors.textMain }}>
                   {group.groupName}
                 </Typography>
 
-                <Typography sx={{ color: "#64748B", fontSize: 14, mt: 0.5 }}>
+                <Typography sx={{ color: colors.textSecondary, fontSize: typography.fontSize.small, mt: 0.5 }}>
                   {group.groupType} • {group.parentCategory}
                 </Typography>
               </Card>
 
               <SideCard title="Group Summary">
                 <IconLine
-                  icon={<Inventory2OutlinedIcon />}
+                  icon={<Inventory2OutlinedIcon sx={{ color: colors.primary }} />}
                   text={`Total Products: ${group.totalProducts ?? 0}`}
                 />
                 <IconLine
-                  icon={<BadgeOutlinedIcon />}
+                  icon={<BadgeOutlinedIcon sx={{ color: colors.primary }} />}
                   text={`Active Brands: ${group.activeBrands ?? 0}`}
                 />
                 <IconLine
-                  icon={<ReceiptLongOutlinedIcon />}
+                  icon={<ReceiptLongOutlinedIcon sx={{ color: colors.primary }} />}
                   text={`Total Brands: ${group.totalBrands ?? 0}`}
                 />
                 <IconLine
-                  icon={<PaymentsOutlinedIcon />}
+                  icon={<PaymentsOutlinedIcon sx={{ color: colors.primary }} />}
                   text={`Revenue: ₹${group.revenueContribution ?? 0}`}
                 />
               </SideCard>
 
               <SideCard title="Manager Information">
-                <IconLine icon={<PersonOutlineOutlinedIcon />} text={group.managerName} />
-                <IconLine icon={<MailOutlineOutlinedIcon />} text={group.managerEmail} />
-                <IconLine icon={<PhoneOutlinedIcon />} text={group.managerPhone} />
+                <IconLine icon={<PersonOutlineOutlinedIcon sx={{ color: colors.primary }} />} text={group.managerName} />
+                <IconLine icon={<MailOutlineOutlinedIcon sx={{ color: colors.primary }} />} text={group.managerEmail} />
+                <IconLine icon={<PhoneOutlinedIcon sx={{ color: colors.primary }} />} text={group.managerPhone} />
               </SideCard>
 
               <SideCard title="Notes">
-                <Typography sx={{ color: "#475569", fontSize: 14, lineHeight: 1.7 }}>
+                <Typography sx={{ color: colors.textSecondary, fontSize: typography.fontSize.small, lineHeight: 1.7 }}>
                   {group.notes || "No notes available"}
                 </Typography>
               </SideCard>
@@ -233,86 +242,3 @@ export default async function BrandGroupViewPage({
     </Box>
   );
 }
-
-// function ViewCard({ title, children }: { title: string; children: ReactNode }) {
-//   return (
-//     <Card
-//       sx={{
-//         p: 2.5,
-//         borderRadius: "16px",
-//         boxShadow: "none",
-//         border: "1px solid #E2E8F0",
-//         bgcolor: "#FFFFFF",
-//       }}
-//     >
-//       <Typography
-//         sx={{
-//           fontSize: 18,
-//           fontWeight: 700,
-//           color: "#0F172A",
-//           mb: 2,
-//         }}
-//       >
-//         {title}
-//       </Typography>
-
-//       {children}
-//     </Card>
-//   );
-// }
-
-// function InfoLine({
-//   label,
-//   value,
-// }: {
-//   label: string;
-//   value?: string | number;
-// }) {
-//   return (
-//     <Stack
-//       direction="row"
-//       alignItems="center"
-//       justifyContent="space-between"
-//       sx={{
-//         py: 1.5,
-//         borderBottom: "1px solid #E2E8F0",
-//       }}
-//     >
-//       <Typography
-//         sx={{
-//           width: "180px",
-//           flexShrink: 0,
-//           color: "#64748B",
-//           fontSize: "14px",
-//           fontWeight: 500,
-//         }}
-//       >
-//         {label}
-//       </Typography>
-
-//       <Typography
-//         sx={{
-//           flex: 1,
-//           textAlign: "right",
-//           color: "#0F172A",
-//           fontSize: "14px",
-//           fontWeight: 700,
-//         }}
-//       >
-//         {value || "N/A"}
-//       </Typography>
-//     </Stack>
-//   );
-// }
-
-// function IconLine({ icon, text }: { icon: ReactNode; text?: string }) {
-//   return (
-//     <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 1.3 }}>
-//       <Box sx={{ display: "flex", color: "#64748B" }}>{icon}</Box>
-
-//       <Typography sx={{ color: "#334155", fontSize: 14, fontWeight: 500 }}>
-//         {text || "N/A"}
-//       </Typography>
-//     </Stack>
-//   );
-// }
