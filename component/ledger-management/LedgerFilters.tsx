@@ -3,227 +3,265 @@
 import SearchIcon from "@mui/icons-material/Search";
 
 import {
+  Autocomplete,
+  Badge,
   Box,
   InputAdornment,
-  MenuItem,
+  Tab,
+  Tabs,
   TextField,
+  Typography,
 } from "@mui/material";
 
-interface Props {
+interface Props{
+search:string;
+setSearch:(value:string)=>void;
 
-  search: string;
+status:string;
+setStatus:(value:string)=>void;
 
-  setSearch: (
-    value: string
-  ) => void;
+ledgerGroup:string;
+setLedgerGroup:(value:string)=>void;
 
-  status: string;
-
-  setStatus: (
-    value: string
-  ) => void;
-
-  ledgerGroup: string;
-
-  setLedgerGroup: (
-    value: string
-  ) => void;
+ledgerCount?:{
+all:number;
+active:number;
+inactive:number;
+};
 }
 
 export default function LedgerFilters({
-  search,
-  setSearch,
-  status,
-  setStatus,
-  ledgerGroup,
-  setLedgerGroup,
-}: Props) {
+search,
+setSearch,
+status,
+setStatus,
+ledgerGroup,
+setLedgerGroup,
+ledgerCount,
+}:Props){
 
-  return (
-    <Box
-      sx={{
-        display:
-          "flex",
+const tabs=[
 
-        gap: 2,
+{
+label:"All",
+value:"",
+count:ledgerCount?.all||0,
+},
 
-        mb: 3,
+{
+label:"Active",
+value:"Active",
+count:ledgerCount?.active||0,
+},
 
-        flexWrap:
-          "wrap",
-      }}
-    >
-      {/* SEARCH */}
-      <TextField
-        placeholder="Search ledger..."
-        value={search}
-        onChange={(e) =>
-          setSearch(
-            e.target.value
-          )
-        }
-        sx={{
-          minWidth:
-            "280px",
+{
+label:"Inactive",
+value:"Inactive",
+count:ledgerCount?.inactive||0,
+},
+];
 
-          "& .MuiOutlinedInput-root":
-            {
-              borderRadius:
-                "14px",
+return(
+<Box>
 
-              background:
-                "#FFFFFF",
-            },
-        }}
-        slotProps={{
-          input: {
-            startAdornment:
-              (
-                <InputAdornment position="start">
-                  <SearchIcon
-                    sx={{
-                      color:
-                        "#94A3B8",
-                    }}
-                  />
-                </InputAdornment>
-              ),
-          },
-        }}
-      />
+{/* STATUS TABS */}
+<Box
+sx={{
+px:3,
+pt:2,
+borderBottom:"1px solid #E2E8F0",
+}}
+>
 
-      {/* STATUS */}
-      <TextField
-        select
-        value={status}
-        onChange={(e) =>
-          setStatus(
-            e.target.value
-          )
-        }
-        sx={{
-          minWidth:
-            "220px",
+<Tabs
+value={status}
+onChange={(_,value)=>
+setStatus(value)
+}
+sx={{
+minHeight:"54px",
 
-          "& .MuiOutlinedInput-root":
-            {
-              borderRadius:
-                "14px",
+"& .MuiTabs-indicator":{
+height:"3px",
+borderRadius:"999px",
 
-              background:
-                "#FFFFFF",
-            },
-        }}
-        slotProps={{
-          select: {
-            displayEmpty:
-              true,
+background:
+status==="Active"
+?"#16A34A"
+:status==="Inactive"
+?"#DC2626"
+:"#0F172A",
+},
+}}
+>
 
-            renderValue: (
-              selected
-            ) => {
+{tabs.map((tab)=>(
 
-              if (!selected) {
+<Tab
+key={tab.label}
+value={tab.value}
+disableRipple
 
-                return (
-                  <Box
-                    sx={{
-                      color:
-                        "#94A3B8",
-                    }}
-                  >
-                    Sort by Status
-                  </Box>
-                );
-              }
+label={
+<Box
+sx={{
+display:"flex",
+alignItems:"center",
+gap:1,
+}}
+>
 
-              return selected as string;
-            },
-          },
-        }}
-      >
-        <MenuItem value="">
-          All Status
-        </MenuItem>
+<Typography
+sx={{
+textTransform:"none",
+fontWeight:600,
 
-        <MenuItem value="Active">
-          Active
-        </MenuItem>
+color:
+status===tab.value
+?tab.value==="Active"
+?"#16A34A"
+:tab.value==="Inactive"
+?"#DC2626"
+:"#0F172A"
+:"#64748B",
 
-        <MenuItem value="Inactive">
-          Inactive
-        </MenuItem>
+fontSize:"15px",
+}}
+>
+{tab.label}
+</Typography>
 
-      </TextField>
+<Badge
+badgeContent={tab.count}
 
-      {/* GROUP */}
-      <TextField
-        select
-        value={ledgerGroup}
-        onChange={(e) =>
-          setLedgerGroup(
-            e.target.value
-          )
-        }
-        sx={{
-          minWidth:
-            "220px",
+sx={{
+"& .MuiBadge-badge":{
 
-          "& .MuiOutlinedInput-root":
-            {
-              borderRadius:
-                "14px",
+position:"static",
+transform:"none",
 
-              background:
-                "#FFFFFF",
-            },
-        }}
-        slotProps={{
-          select: {
-            displayEmpty:
-              true,
+background:
+status===tab.value
+?tab.value==="Active"
+?"#16A34A"
+:tab.value==="Inactive"
+?"#DC2626"
+:"#0F172A"
+:"#F1F5F9",
 
-            renderValue: (
-              selected
-            ) => {
+color:
+status===tab.value
+?"#FFFFFF"
+:"#475569",
 
-              if (!selected) {
+borderRadius:"8px",
+minWidth:"24px",
+height:"24px",
+fontWeight:700,
+fontSize:"12px",
+},
+}}
+/>
 
-                return (
-                  <Box
-                    sx={{
-                      color:
-                        "#94A3B8",
-                    }}
-                  >
-                    Sort by Group
-                  </Box>
-                );
-              }
+</Box>
+}
 
-              return selected as string;
-            },
-          },
-        }}
-      >
-        <MenuItem value="">
-          All Groups
-        </MenuItem>
+sx={{
+minHeight:"54px",
+px:0,
+mr:5,
+}}
+/>
 
-        <MenuItem value="Administrative">
-          Administrative
-        </MenuItem>
+))}
 
-        <MenuItem value="Utilities">
-          Utilities
-        </MenuItem>
+</Tabs>
 
-        <MenuItem value="Revenue">
-          Revenue
-        </MenuItem>
+</Box>
 
-      </TextField>
+{/* FILTERS */}
+<Box
+sx={{
+p:3,
+display:"flex",
+gap:2,
+flexWrap:"wrap",
+borderBottom:"1px solid #E2E8F0",
+}}
+>
 
-    </Box>
-  );
+<Autocomplete
+options={[
+"Administrative",
+"Utilities",
+"Revenue",
+]}
+value={ledgerGroup||null}
+onChange={(_,value)=>
+setLedgerGroup(
+value||""
+)
+}
+
+sx={{
+minWidth:"240px",
+
+"& .MuiOutlinedInput-root":{
+borderRadius:"16px",
+background:"#FFFFFF",
+height:"56px",
+},
+}}
+renderInput={(params) => (
+
+            <TextField
+              {...params}
+              label="Sort By Group"
+            />
+          )}
+/>
+
+<TextField
+placeholder="Search ledger..."
+value={search}
+onChange={(e)=>
+setSearch(
+e.target.value
+)
+}
+
+sx={{
+flex:1,
+minWidth:"320px",
+
+"& .MuiOutlinedInput-root":{
+borderRadius:"16px",
+background:"#FFFFFF",
+height:"56px",
+},
+
+"& input":{
+color:"#64748B",
+},
+}}
+
+slotProps={{
+input:{
+startAdornment:(
+<InputAdornment position="start">
+<SearchIcon
+sx={{
+color:"#94A3B8",
+}}
+/>
+</InputAdornment>
+),
+},
+}}
+/>
+
+</Box>
+
+</Box>
+);
 }

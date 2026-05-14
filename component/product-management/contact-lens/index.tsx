@@ -1,6 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import {
+  useState,
+} from "react";
 
 import AddIcon from "@mui/icons-material/Add";
 
@@ -16,9 +18,12 @@ import {
   contactLenses,
 } from "@/assets/genericdata";
 
-import TableContainerCard from "@/component/common/TableContainerCard";
+import {
+  ContactLens,
+} from "@/assets/types";
 
 import ContactLensFilters from "./ContactLensFilters";
+
 import ContactLensTable from "./ContactLensTable";
 
 export default function ContactLensManagementPage() {
@@ -29,25 +34,75 @@ export default function ContactLensManagementPage() {
   const [search, setSearch] =
     useState("");
 
+  const [brand, setBrand] =
+    useState("");
+  const [date, setDate] =
+    useState("");
+
   const [status, setStatus] =
     useState("");
 
+  const [contactLensData,
+    setContactLensData] =
+      useState<
+        ContactLens[]
+      >(
+        contactLenses
+      );
+
+  /* COUNTS */
+  const contactLensCount = {
+
+    all:
+      contactLensData.length,
+
+    active:
+      contactLensData.filter(
+        (lens) =>
+          lens.status ===
+          "Active"
+      ).length,
+
+    inactive:
+      contactLensData.filter(
+        (lens) =>
+          lens.status ===
+          "Inactive"
+      ).length,
+
+    outOfStock:
+      contactLensData.filter(
+        (lens) =>
+          lens.status ===
+          "Out of Stock"
+      ).length,
+  };
+
+  /* FILTERED DATA */
   const filteredLenses =
-    contactLenses.filter(
+    contactLensData.filter(
       (lens) => {
 
         const matchesSearch =
-          lens.productName
-            .toLowerCase()
-            .includes(
-              search.toLowerCase()
-            ) ||
+          !search ||
 
-          lens.productCode
+          lens.lensName
             .toLowerCase()
             .includes(
               search.toLowerCase()
             );
+
+        const matchesBrand =
+          !brand ||
+
+          lens.brand ===
+            brand;
+
+        const matchesDate =
+          !date ||
+
+          lens.createdOn ===
+            date;
 
         const matchesStatus =
           status
@@ -57,30 +112,55 @@ export default function ContactLensManagementPage() {
 
         return (
           matchesSearch &&
+          matchesBrand &&
+          matchesDate &&
           matchesStatus
         );
       }
     );
 
   return (
-    <Box sx={{ p: 3,pt:1.5 }}>
+    <Box
+      sx={{
+        p: 3,
+        pt: 1.5,
+        minHeight:
+          "100vh",
+        background:
+          "#F8FAFC",
+      }}
+    >
 
       {/* HEADER */}
       <Box
         sx={{
           display: "flex",
+
           justifyContent:
             "space-between",
 
-          alignItems: "center",
+          alignItems:
+            "center",
 
           mb: 3,
+
+          flexWrap:
+            "wrap",
+
+          gap: 2,
         }}
       >
+
         <Typography
           sx={{
-            fontSize: "32px",
-            fontWeight: 700,
+            fontSize:
+              "32px",
+
+            fontWeight:
+              700,
+
+            color:
+              "#0F172A",
           }}
         >
           Contact Lens Management
@@ -95,49 +175,107 @@ export default function ContactLensManagementPage() {
             )
           }
           sx={{
-            height: "48px",
-            borderRadius: "12px",
-            textTransform: "none",
+            height:
+              "50px",
+
+            borderRadius:
+              "14px",
+
+            textTransform:
+              "none",
+
             px: 3,
+
+            fontWeight:
+              700,
+
+            boxShadow:
+              "none",
           }}
         >
           Add Contact Lens
         </Button>
+
       </Box>
 
-      <ContactLensFilters
-        search={search}
-        setSearch={setSearch}
-        status={status}
-        setStatus={setStatus}
-      />
+      {/* MAIN CARD */}
+      <Box
+        sx={{
+          background:
+            "#FFFFFF",
 
-      <TableContainerCard>
+          border:
+            "1px solid #E2E8F0",
 
+          borderRadius:
+            "24px",
+
+          overflow:
+            "hidden",
+        }}
+      >
+
+        {/* FILTERS */}
+        <ContactLensFilters
+          search={search}
+          setSearch={setSearch}
+
+          brand={brand}
+          setBrand={setBrand}
+
+          date={date}
+          setDate={setDate}
+
+          status={status}
+          setStatus={setStatus}
+
+          contactLensCount={
+            contactLensCount
+          }
+        />
+
+        {/* TABLE */}
         <Box sx={{ p: 3 }}>
 
-          <Typography
-            sx={{
-              mb: 2,
-              color: "#64748B",
-              fontWeight: 600,
-            }}
-          >
-            {
-              filteredLenses.length
-            }{" "}
-            results found
-          </Typography>
+          {(
+            search ||
+            brand ||
+            date ||
+            status
+          ) && (
+
+            <Typography
+              sx={{
+                mb: 2,
+
+                color:
+                  "#64748B",
+
+                fontWeight:
+                  600,
+              }}
+            >
+              {
+                filteredLenses.length
+              }{" "}
+              results found
+            </Typography>
+
+          )}
 
           <ContactLensTable
             contactLenses={
               filteredLenses
             }
+            setContactLensData={
+              setContactLensData
+            }
           />
 
         </Box>
 
-      </TableContainerCard>
+      </Box>
+
     </Box>
   );
 }

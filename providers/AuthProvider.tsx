@@ -14,12 +14,12 @@ children: React.ReactNode;
     useEffect(() => {
     const isLoggedIn = localStorage.getItem("isLoggedIn");
 
-    if (!isLoggedIn && pathname !== "/login") {
-    router.replace("/login");
+    if (!isLoggedIn && pathname !== "/") {
+    router.replace("/");
     }
 
-    if (isLoggedIn && pathname === "/login") {
-    router.replace("/");
+    if (isLoggedIn && pathname === "/") {
+    router.replace("/dashboard");
     }
     }, [pathname, router]);
 

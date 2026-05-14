@@ -16,9 +16,12 @@ import {
   brandGroups,
 } from "@/assets/genericdata";
 
-import TableContainerCard from "@/component/common/TableContainerCard";
+import {
+  BrandGroup,
+} from "@/assets/types";
 
 import BrandGroupFilters from "./BrandGroupFilters";
+
 import BrandGroupTable from "./BrandGroupTable";
 
 export default function BrandGroupManagementPage() {
@@ -32,10 +35,39 @@ export default function BrandGroupManagementPage() {
   const [status, setStatus] =
     useState("");
 
+  const [groupData, setGroupData] =
+    useState<BrandGroup[]>(
+      brandGroups
+    );
+
+  /* COUNTS */
+  const brandGroupCount = {
+
+    all:
+      groupData.length,
+
+    active:
+      groupData.filter(
+        (group) =>
+          group.status ===
+          "Active"
+      ).length,
+
+    inactive:
+      groupData.filter(
+        (group) =>
+          group.status ===
+          "Inactive"
+      ).length,
+  };
+
+  /* FILTERED GROUPS */
   const filteredGroups =
-    brandGroups.filter((group) => {
+    groupData.filter((group) => {
 
       const matchesSearch =
+        !search ||
+
         group.groupName
           .toLowerCase()
           .includes(
@@ -58,21 +90,33 @@ export default function BrandGroupManagementPage() {
     <Box
       sx={{
         p: 3,
+        minHeight:
+          "100vh",
+        background:
+          "#F8FAFC",
       }}
     >
+
       {/* HEADER */}
       <Box
         sx={{
           display: "flex",
-          justifyContent:"space-between",
+          justifyContent:
+            "space-between",
           alignItems: "center",
           mb: 3,
+          flexWrap:
+            "wrap",
+          gap: 2,
         }}
       >
+
         <Typography
           sx={{
             fontSize: "32px",
             fontWeight: 700,
+            color:
+              "#0F172A",
           }}
         >
           Brand Group Management
@@ -87,49 +131,80 @@ export default function BrandGroupManagementPage() {
             )
           }
           sx={{
-            height: "48px",
-            borderRadius: "12px",
+            height: "50px",
+            borderRadius: "14px",
             textTransform: "none",
             px: 3,
+            fontWeight: 700,
+            boxShadow: "none",
           }}
         >
           Add Group
         </Button>
+
       </Box>
 
-      {/* FILTERS */}
-      <BrandGroupFilters
-        search={search}
-        setSearch={setSearch}
-        status={status}
-        setStatus={setStatus}
-      />
+      {/* MAIN CARD */}
+      <Box
+        sx={{
+          background:
+            "#FFFFFF",
+          border:
+            "1px solid #E2E8F0",
+          borderRadius:
+            "24px",
+          overflow:
+            "hidden",
+        }}
+      >
 
-      {/* TABLE */}
-      <TableContainerCard>
+        {/* FILTERS */}
+        <BrandGroupFilters
+          search={search}
+          setSearch={setSearch}
+          status={status}
+          setStatus={setStatus}
+          brandGroupCount={
+            brandGroupCount
+          }
+        />
 
+        {/* TABLE */}
         <Box sx={{ p: 3 }}>
 
-          <Typography
-            sx={{
-              mb: 2,
-              color: "#64748B",
-              fontWeight: 600,
-            }}
-          >
-            {
-              filteredGroups.length
-            }{" "}
-            results found
-          </Typography>
+          {(
+            search ||
+            status
+          ) && (
+
+            <Typography
+              sx={{
+                mb: 2,
+                color: "#64748B",
+                fontWeight: 600,
+              }}
+            >
+              {
+                filteredGroups.length
+              }{" "}
+              results found
+            </Typography>
+
+          )}
 
           <BrandGroupTable
-            groups={filteredGroups}
+            groups={
+              filteredGroups
+            }
+            setGroupData={
+              setGroupData
+            }
           />
 
         </Box>
 
-      </TableContainerCard>
+      </Box>
+
     </Box>
   );
 }

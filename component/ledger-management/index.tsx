@@ -1,12 +1,10 @@
 "use client";
 
-import {
-  ledgers,
-} from "@/assets/genericdata";
+import { useState } from "react";
 
-import {
-  Ledger,
-} from "@/assets/types";
+import { ledgers } from "@/assets/genericdata";
+
+import { Ledger } from "@/assets/types";
 
 import AddIcon from "@mui/icons-material/Add";
 
@@ -18,201 +16,185 @@ import {
 
 import { useRouter } from "next/navigation";
 
-import {
-  useState,
-} from "react";
-
-import TableContainerCard from "@/component/common/TableContainerCard";
-
 import LedgerFilters from "./LedgerFilters";
 
 import LedgerTable from "./LedgerTable";
 
-export default function LedgerManagementPage() {
+export default function LedgerManagementPage(){
 
-  const router =
-    useRouter();
+const router=useRouter();
 
-  const [search, setSearch] =
-    useState("");
+const [search,setSearch]=useState("");
 
-  const [status, setStatus] =
-    useState("");
+const [status,setStatus]=useState("");
 
-  const [ledgerGroup,
-    setLedgerGroup] =
-      useState("");
+const [ledgerGroup,setLedgerGroup]=useState("");
 
-  const [ledgerData] =
-    useState<
-      Ledger[]
-    >(
-      ledgers
-    );
+const [ledgerData,setLedgerData]=useState<Ledger[]>(ledgers);
 
-  const filteredLedgers =
-    ledgerData.filter(
-      (ledger) => {
+/* COUNTS */
+const ledgerCount={
 
-        const matchesSearch =
-          search
-            ? ledger.ledgerName
-                .toLowerCase()
-                .includes(
-                  search.toLowerCase()
-                )
-            : true;
+all:ledgerData.length,
 
-        const matchesStatus =
-          status
-            ? ledger.status ===
-              status
-            : true;
+active:ledgerData.filter(
+(ledger)=>
+ledger.status==="Active"
+).length,
 
-        const matchesGroup =
-          ledgerGroup
-            ? ledger.ledgerGroup ===
-              ledgerGroup
-            : true;
+inactive:ledgerData.filter(
+(ledger)=>
+ledger.status==="Inactive"
+).length,
+};
 
-        return (
-          matchesSearch &&
-          matchesStatus &&
-          matchesGroup
-        );
-      }
-    );
+/* FILTERED DATA */
+const filteredLedgers=
+ledgerData.filter((ledger)=>{
 
-  return (
-    <Box
-      sx={{
-        p: 3,
+const matchesSearch=
+!search||
 
-        minHeight:
-          "100vh",
-      }}
-    >
-      {/* HEADER */}
-      <Box
-        sx={{
-          display:
-            "flex",
+ledger.ledgerName
+.toLowerCase()
+.includes(
+search.toLowerCase()
+);
 
-          justifyContent:
-            "space-between",
+const matchesStatus=
+status
+?ledger.status===status
+:true;
 
-          alignItems:
-            "center",
+const matchesGroup=
+ledgerGroup
+?ledger.ledgerGroup===ledgerGroup
+:true;
 
-          mb: 3,
+return(
+matchesSearch&&
+matchesStatus&&
+matchesGroup
+);
+});
 
-          flexWrap:
-            "wrap",
+return(
+<Box
+sx={{
+p:3,
+minHeight:"100vh",
+background:"#F8FAFC",
+}}
+>
 
-          gap: 2,
-        }}
-      >
-        <Box>
+{/* HEADER */}
+<Box
+sx={{
+display:"flex",
+justifyContent:"space-between",
+alignItems:"center",
+mb:3,
+flexWrap:"wrap",
+gap:2,
+}}
+>
 
-          <Typography
-            sx={{
-              fontSize:
-                "32px",
+<Box>
 
-              fontWeight:
-                700,
+<Typography
+sx={{
+fontSize:"32px",
+fontWeight:700,
+color:"#0F172A",
+}}
+>
+Ledger Management
+</Typography>
 
-              color:
-                "#0F172A",
-            }}
-          >
-            Ledger Management
-          </Typography>
+<Typography
+sx={{
+color:"#64748B",
+mt:0.5,
+}}
+>
+Manage ledger accounts and balances
+</Typography>
 
-          <Typography
-            sx={{
-              color:
-                "#64748B",
+</Box>
 
-              mt: 0.5,
-            }}
-          >
-            Manage ledger accounts and balances
-          </Typography>
+<Button
+variant="contained"
+startIcon={<AddIcon/>}
+onClick={()=>
+router.push(
+"/ledgers/add"
+)
+}
+sx={{
+borderRadius:"14px",
+px:3,
+height:"50px",
+textTransform:"none",
+fontWeight:700,
+boxShadow:"none",
+}}
+>
+Add Ledger
+</Button>
 
-        </Box>
+</Box>
 
-        <Button
-          variant="contained"
-          startIcon={<AddIcon />}
-          onClick={() =>
-            router.push(
-              "/ledgers/add"
-            )
-          }
-          sx={{
-            borderRadius:
-              "12px",
+{/* MAIN CARD */}
+<Box
+sx={{
+background:"#FFFFFF",
+border:"1px solid #E2E8F0",
+borderRadius:"24px",
+overflow:"hidden",
+}}
+>
 
-            px: 3,
+{/* FILTERS */}
+<LedgerFilters
+search={search}
+setSearch={setSearch}
+status={status}
+setStatus={setStatus}
+ledgerGroup={ledgerGroup}
+setLedgerGroup={setLedgerGroup}
+ledgerCount={ledgerCount}
+/>
 
-            height:
-              "48px",
+{/* TABLE */}
+<Box sx={{p:3}}>
 
-            textTransform:
-              "none",
+{(
+search||
+status||
+ledgerGroup
+)&&(
 
-            fontWeight:
-              600,
-          }}
-        >
-          Add Ledger
-        </Button>
+<Typography
+sx={{
+mb:2,
+color:"#64748B",
+fontWeight:500,
+}}
+>
+{filteredLedgers.length} results found
+</Typography>
 
-      </Box>
+)}
 
-      {/* FILTERS */}
-      <LedgerFilters
-        search={search}
-        setSearch={setSearch}
-        status={status}
-        setStatus={setStatus}
-        ledgerGroup={ledgerGroup}
-        setLedgerGroup={setLedgerGroup}
-      />
+<LedgerTable
+ledgers={filteredLedgers}
+setLedgerData={setLedgerData}
+/>
 
-      {/* TABLE */}
-      <TableContainerCard>
+</Box>
 
-        <Box sx={{ p: 3 }}>
+</Box>
 
-          <Typography
-            sx={{
-              mb: 2,
-
-              color:
-                "#64748B",
-
-              fontWeight:
-                500,
-            }}
-          >
-            {
-              filteredLedgers.length
-            }{" "}
-            results found
-          </Typography>
-
-          <LedgerTable
-            ledgers={
-              filteredLedgers
-            }
-          />
-
-        </Box>
-
-      </TableContainerCard>
-
-    </Box>
-  );
+</Box>
+);
 }

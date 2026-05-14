@@ -21,20 +21,24 @@ import {
   ExpandMore,
   Description as FileText,
   Layers,
-  Inventory as Package,
   AdminPanelSettings as ShieldCheck,
   ShoppingCart,
   AdsClick as Target,
   AccountCircle as UserCircle,
-  People as Users,
+  People as Users
 } from "@mui/icons-material";
+import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
 import {
   usePathname,
 } from "next/navigation";
 
 const sidebarMenus = [
-
+  {
+    title: "Dashboard",
+    icon: <DashboardOutlinedIcon/>,
+    path: "/dashboard",
+  },
     {
     title: "Customer Management",
     icon: <UserCircle />,
@@ -106,14 +110,14 @@ const sidebarMenus = [
     icon: <Inventory2OutlinedIcon />,
     path:"/inventory"
   },
-  {
-    title:
-      "Purchase Order Management",
+  // {
+  //   title:
+  //     "Purchase Order Management",
 
-    icon: <Package />,
+  //   icon: <Package />,
 
-    path: "/purchase-orders",
-  },
+  //   path: "/purchase-orders",
+  // },
   {
     title: "Order Management",
     icon: <ShoppingCart />,
@@ -295,7 +299,7 @@ const SidebarMenu = ({
       >
         {collapsed ? (
           <Link
-              href="/"
+              href="/dashboard"
               style={{
                 textDecoration:
                   "none",
@@ -339,7 +343,7 @@ const SidebarMenu = ({
         ) : (
           <>
             <Link
-              href="/"
+              href="/dashboard"
               style={{
                 textDecoration:
                   "none",

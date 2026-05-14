@@ -3,10 +3,14 @@
 import SearchIcon from "@mui/icons-material/Search";
 
 import {
-    Box,
-    InputAdornment,
-    MenuItem,
-    TextField,
+  Autocomplete,
+  Badge,
+  Box,
+  InputAdornment,
+  Tab,
+  Tabs,
+  TextField,
+  Typography,
 } from "@mui/material";
 
 interface Props {
@@ -28,6 +32,12 @@ interface Props {
   setCustomerType: (
     value: string
   ) => void;
+
+  customersCount?: {
+    all: number;
+    active: number;
+    inactive: number;
+  };
 }
 
 export default function CustomerFilters({
@@ -37,181 +47,314 @@ export default function CustomerFilters({
   setStatus,
   customerType,
   setCustomerType,
+  customersCount,
 }: Props) {
 
+  const tabs = [
+
+    {
+      label: "All",
+      value: "",
+      count:
+        customersCount?.all || 0,
+    },
+
+    {
+      label: "Active",
+      value: "Active",
+      count:
+        customersCount?.active || 0,
+    },
+
+    {
+      label: "Inactive",
+      value: "Inactive",
+      count:
+        customersCount?.inactive || 0,
+    },
+  ];
+
   return (
-    <Box
-      sx={{
-        display: "flex",
-
-        gap: 2,
-
-        mb: 3,
-
-        flexWrap: "wrap",
-      }}
-    >
-      {/* SEARCH */}
-      <TextField
-        placeholder="Search customer..."
-        value={search}
-        onChange={(e) =>
-          setSearch(
-            e.target.value
-          )
-        }
+    <Box>
+      {/* TABS */}
+      <Box
         sx={{
-          minWidth: "260px",
+          px: 3,
 
-          "& .MuiOutlinedInput-root":
-            {
-              borderRadius:
-                "14px",
+          pt: 2,
 
-              background:
-                "#FFFFFF",
-            },
-        }}
-        slotProps={{
-          input: {
-            startAdornment: (
-              <InputAdornment position="start">
-                <SearchIcon
-                  sx={{
-                    color:
-                      "#94A3B8",
-                  }}
-                />
-              </InputAdornment>
-            ),
-          },
-        }}
-      />
-
-      {/* CUSTOMER TYPE */}
-      <TextField
-        select
-        value={customerType}
-        onChange={(e) =>
-          setCustomerType(
-            e.target.value
-          )
-        }
-        sx={{
-          minWidth: "220px",
-
-          "& .MuiOutlinedInput-root":
-            {
-              borderRadius:
-                "14px",
-
-              background:
-                "#FFFFFF",
-            },
-        }}
-        slotProps={{
-          select: {
-            displayEmpty: true,
-
-            renderValue: (
-              selected
-            ) => {
-
-              if (!selected) {
-
-                return (
-                  <Box
-                    sx={{
-                      color:
-                        "#94A3B8",
-                    }}
-                  >
-                    Sort by Customer Type
-                  </Box>
-                );
-              }
-
-              return selected as string;
-            },
-          },
+          borderBottom:
+            "1px solid #E2E8F0",
         }}
       >
-        <MenuItem value="">
-          All Types
-        </MenuItem>
+        <Tabs
+          value={status}
+          onChange={(
+            _,
+            value
+          ) =>
+            setStatus(value)
+          }
+          sx={{
+            minHeight:
+              "54px",
 
-        <MenuItem value="B2B">
-          B2B
-        </MenuItem>
+            "& .MuiTabs-indicator":
+              {
+                height:
+                  "3px",
 
-        <MenuItem value="B2C">
-          B2C
-        </MenuItem>
+                borderRadius:
+                  "999px",
 
-      </TextField>
+                background:
+                  status ===
+                  "Active"
 
-      {/* STATUS */}
-      <TextField
-        select
-        value={status}
-        onChange={(e) =>
-          setStatus(
-            e.target.value
-          )
-        }
-        sx={{
-          minWidth: "220px",
+                    ? "#16A34A"
 
-          "& .MuiOutlinedInput-root":
-            {
-              borderRadius:
-                "14px",
+                    : status ===
+                      "Inactive"
 
-              background:
-                "#FFFFFF",
-            },
-        }}
-        slotProps={{
-          select: {
-            displayEmpty: true,
+                    ? "#DC2626"
 
-            renderValue: (
-              selected
-            ) => {
+                    : "#0F172A",
+              },
+          }}
+        >
+          {tabs.map(
+            (tab) => (
 
-              if (!selected) {
+              <Tab
+                key={
+                  tab.label
+                }
+                value={
+                  tab.value
+                }
+                disableRipple
+                label={
 
-                return (
                   <Box
                     sx={{
-                      color:
-                        "#94A3B8",
+                      display:
+                        "flex",
+
+                      alignItems:
+                        "center",
+
+                      gap: 1,
                     }}
                   >
-                    Sort by Status
-                  </Box>
-                );
-              }
+                    <Typography
+                      sx={{
+                        textTransform:
+                          "none",
 
-              return selected as string;
-            },
-          },
+                        fontWeight:
+                          600,
+
+                        color:
+                          status ===
+                          tab.value
+
+                            ? tab.value ===
+                              "Active"
+
+                              ? "#16A34A"
+
+                              : tab.value ===
+                                "Inactive"
+
+                              ? "#DC2626"
+
+                              : "#0F172A"
+
+                            : "#64748B",
+
+                        fontSize:
+                          "15px",
+                      }}
+                    >
+                      {
+                        tab.label
+                      }
+                    </Typography>
+
+                    <Badge
+                      badgeContent={
+                        tab.count
+                      }
+                      sx={{
+                        "& .MuiBadge-badge":
+                          {
+                            position:
+                              "static",
+
+                            transform:
+                              "none",
+
+                            background:
+                              status ===
+                              tab.value
+
+                                ? tab.value ===
+                                  "Active"
+
+                                  ? "#16A34A"
+
+                                  : tab.value ===
+                                    "Inactive"
+
+                                  ? "#DC2626"
+
+                                  : "#0F172A"
+
+                                : "#F1F5F9",
+
+                            color:
+                              status ===
+                              tab.value
+
+                                ? "#FFFFFF"
+
+                                : "#475569",
+
+                            borderRadius:
+                              "8px",
+
+                            minWidth:
+                              "24px",
+
+                            height:
+                              "24px",
+
+                            fontWeight:
+                              700,
+
+                            fontSize:
+                              "12px",
+                          },
+                      }}
+                    />
+                  </Box>
+                }
+                sx={{
+                  minHeight:
+                    "54px",
+
+                  px: 0,
+
+                  mr: 5,
+                }}
+              />
+            )
+          )}
+
+        </Tabs>
+
+      </Box>
+
+      {/* FILTERS */}
+      <Box
+        sx={{
+          p: 3,
+
+          display:
+            "flex",
+
+          gap: 2,
+
+          flexWrap:
+            "wrap",
+
+          borderBottom:
+            "1px solid #E2E8F0",
         }}
       >
-        <MenuItem value="">
-          All Status
-        </MenuItem>
+        {/* CUSTOMER TYPE */}
+        <Autocomplete
+          options={[
+            "Individual",
+            "Business",
+          ]}
+          value={
+            customerType ||
+            null
+          }
+          onChange={(
+            _,
+            value
+          ) =>
+            setCustomerType(
+              value || ""
+            )
+          }
+          sx={{
+            minWidth:
+              "280px",
 
-        <MenuItem value="Active">
-          Active
-        </MenuItem>
+            "& .MuiOutlinedInput-root":
+              {
+                borderRadius:
+                  "16px",
 
-        <MenuItem value="Inactive">
-          Inactive
-        </MenuItem>
+                background:
+                  "#FFFFFF",
 
-      </TextField>
+                height:
+                  "56px",
+              },
+          }}
+          renderInput={(
+            params
+          ) =>  <TextField {...params} label="Customer Type" />}
+        />
 
+        {/* SEARCH */}
+        <TextField
+          placeholder="Search..."
+          value={search}
+          onChange={(e) =>
+            setSearch(
+              e.target.value
+            )
+          }
+          sx={{
+            flex: 1,
+
+            minWidth:
+              "320px",
+
+            "& .MuiOutlinedInput-root":
+              {
+                borderRadius:
+                  "16px",
+
+                background:
+                  "#FFFFFF",
+
+                height:
+                  "56px",
+              },
+          }}
+          slotProps={{
+            input: {
+              startAdornment:
+                (
+                  <InputAdornment position="start">
+                    <SearchIcon
+                      sx={{
+                        color:
+                          "#94A3B8",
+                      }}
+                    />
+                  </InputAdornment>
+                ),
+            },
+          }}
+        />
+      </Box>
     </Box>
   );
 }

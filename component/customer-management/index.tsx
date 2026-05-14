@@ -1,26 +1,29 @@
 "use client";
 
 import {
-    useState,
+  useState,
 } from "react";
 
 import {
-    customers,
+  Customer,
+} from "@/assets/types";
+
+import {
+  customers,
 } from "@/assets/genericdata";
 
 import AddIcon from "@mui/icons-material/Add";
 
 import {
-    Box,
-    Button,
-    Typography,
+  Box,
+  Button,
+  Typography,
 } from "@mui/material";
 
 import { useRouter } from "next/navigation";
 
-import TableContainerCard from "@/component/common/TableContainerCard";
-
 import CustomerFilters from "./CustomerFilters";
+
 import CustomerTable from "./CustomerTable";
 
 export default function CustomerManagementPage() {
@@ -34,27 +37,53 @@ export default function CustomerManagementPage() {
   const [status, setStatus] =
     useState("");
 
-  const [customerType,
-    setCustomerType] =
-      useState("");
+  const [
+    customerType,
+    setCustomerType,
+  ] = useState("");
 
-  const [customerData,
-    setCustomerData] =
-      useState(customers);
+  const [
+    customerData,
+    setCustomerData,
+  ] = useState<Customer[]>(
+    customers
+  );
 
+  /* COUNTS */
+  const customersCount = {
+
+    all:
+      customerData.length,
+
+    active:
+      customerData.filter(
+        (customer) =>
+          customer.status ===
+          "Active"
+      ).length,
+
+    inactive:
+      customerData.filter(
+        (customer) =>
+          customer.status ===
+          "Inactive"
+      ).length,
+  };
+
+  /* FILTERED CUSTOMERS */
   const filteredCustomers =
     customerData.filter(
       (customer) => {
 
         const matchesSearch =
           search
-            ? customer.fullName
+            ? customer.customerName
                 .toLowerCase()
                 .includes(
                   search.toLowerCase()
                 ) ||
 
-              customer.phoneNumber.includes(
+              customer.phone.includes(
                 search
               )
             : true;
@@ -86,12 +115,16 @@ export default function CustomerManagementPage() {
 
         minHeight:
           "100vh",
+
+        background:
+          "#F8FAFC",
       }}
     >
       {/* HEADER */}
       <Box
         sx={{
-          display: "flex",
+          display:
+            "flex",
 
           justifyContent:
             "space-between",
@@ -100,6 +133,11 @@ export default function CustomerManagementPage() {
             "center",
 
           mb: 3,
+
+          flexWrap:
+            "wrap",
+
+          gap: 2,
         }}
       >
         <Typography
@@ -107,7 +145,8 @@ export default function CustomerManagementPage() {
             fontSize:
               "32px",
 
-            fontWeight: 700,
+            fontWeight:
+              700,
 
             color:
               "#0F172A",
@@ -118,7 +157,9 @@ export default function CustomerManagementPage() {
 
         <Button
           variant="contained"
-          startIcon={<AddIcon />}
+          startIcon={
+            <AddIcon />
+          }
           onClick={() =>
             router.push(
               "/customers/add"
@@ -126,17 +167,21 @@ export default function CustomerManagementPage() {
           }
           sx={{
             borderRadius:
-              "12px",
+              "14px",
 
             px: 3,
 
             height:
-              "48px",
+              "50px",
 
             textTransform:
               "none",
 
-            fontWeight: 600,
+            fontWeight:
+              700,
+
+            boxShadow:
+              "none",
           }}
         >
           Add Customer
@@ -144,37 +189,69 @@ export default function CustomerManagementPage() {
 
       </Box>
 
-      {/* FILTERS */}
-      <CustomerFilters
-        search={search}
-        setSearch={setSearch}
-        status={status}
-        setStatus={setStatus}
-        customerType={customerType}
-        setCustomerType={setCustomerType}
-      />
+      {/* MAIN CARD */}
+      <Box
+        sx={{
+          background:
+            "#FFFFFF",
 
-      {/* TABLE CARD */}
-      <TableContainerCard>
+          border:
+            "1px solid #E2E8F0",
 
-        <Box sx={{ p: 3 }}>
+          borderRadius:
+            "24px",
 
+          overflow:
+            "hidden",
+        }}
+      >
+        {/* FILTERS */}
+        <CustomerFilters
+          search={search}
+          setSearch={setSearch}
+          status={status}
+          setStatus={setStatus}
+          customerType={
+            customerType
+          }
+          setCustomerType={
+            setCustomerType
+          }
+          customersCount={
+            customersCount
+          }
+        />
+
+        {/* TABLE SECTION */}
+        <Box
+          sx={{
+            p: 3,
+          }}
+        >
           {/* RESULTS */}
-          <Typography
-            sx={{
-              color:
-                "#475569",
+          {(
+            search ||
+            status ||
+            customerType
+          ) && (
 
-              fontWeight: 500,
+            <Typography
+              sx={{
+                color:
+                  "#475569",
 
-              mb: 2,
-            }}
-          >
-            {
-              filteredCustomers.length
-            }{" "}
-            results found
-          </Typography>
+                fontWeight:
+                  500,
+
+                mb: 2,
+              }}
+            >
+              {
+                filteredCustomers.length
+              }{" "}
+              results found
+            </Typography>
+          )}
 
           {/* TABLE */}
           <CustomerTable
@@ -188,7 +265,7 @@ export default function CustomerManagementPage() {
 
         </Box>
 
-      </TableContainerCard>
+      </Box>
 
     </Box>
   );

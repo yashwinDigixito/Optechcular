@@ -5,20 +5,23 @@ import { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 
 import {
-    Box,
-    Button,
-    Typography,
+  Box,
+  Button,
+  Typography,
 } from "@mui/material";
 
 import { useRouter } from "next/navigation";
 
 import {
-    brands,
+  brands,
 } from "@/assets/genericdata";
 
-import TableContainerCard from "@/component/common/TableContainerCard";
+import {
+  Brand,
+} from "@/assets/types";
 
 import BrandFilters from "./BrandFilters";
+
 import Brandtable from "./Brandtable";
 
 export default function BrandManagementPage() {
@@ -38,10 +41,37 @@ export default function BrandManagementPage() {
   const [brandGroup, setBrandGroup] =
     useState("");
 
+  const [brandData, setBrandData] =
+    useState<Brand[]>(brands);
+
+  /* COUNTS */
+  const brandCount = {
+
+    all:
+      brandData.length,
+
+    active:
+      brandData.filter(
+        (brand) =>
+          brand.status ===
+          "Active"
+      ).length,
+
+    inactive:
+      brandData.filter(
+        (brand) =>
+          brand.status ===
+          "Inactive"
+      ).length,
+  };
+
+  /* FILTERED BRANDS */
   const filteredBrands =
-    brands.filter((brand) => {
+    brandData.filter((brand) => {
 
       const matchesSearch =
+        !search ||
+
         brand.brandName
           .toLowerCase()
           .includes(
@@ -78,8 +108,13 @@ export default function BrandManagementPage() {
     <Box
       sx={{
         p: 3,
+        minHeight:
+          "100vh",
+        background:
+          "#F8FAFC",
       }}
     >
+
       {/* HEADER */}
       <Box
         sx={{
@@ -88,12 +123,18 @@ export default function BrandManagementPage() {
             "space-between",
           alignItems: "center",
           mb: 3,
+          flexWrap:
+            "wrap",
+          gap: 2,
         }}
       >
+
         <Typography
           sx={{
             fontSize: "32px",
             fontWeight: 700,
+            color:
+              "#0F172A",
           }}
         >
           Brand Management
@@ -108,57 +149,88 @@ export default function BrandManagementPage() {
             )
           }
           sx={{
-            height: "48px",
-            borderRadius: "12px",
+            height: "50px",
+            borderRadius: "14px",
             textTransform: "none",
             px: 3,
+            fontWeight: 700,
+            boxShadow: "none",
           }}
         >
           Add Brand
         </Button>
+
       </Box>
 
-      {/* FILTERS */}
-      <BrandFilters
-        search={search}
-        setSearch={setSearch}
-        category={category}
-        setCategory={setCategory}
-        status={status}
-        setStatus={setStatus}
-        brandGroup={brandGroup}
-        setBrandGroup={
-          setBrandGroup
-        }
-      />
+      {/* MAIN CARD */}
+      <Box
+        sx={{
+          background:
+            "#FFFFFF",
+          border:
+            "1px solid #E2E8F0",
+          borderRadius:
+            "24px",
+          overflow:
+            "hidden",
+        }}
+      >
 
-      {/* TABLE */}
-      <TableContainerCard>
+        {/* FILTERS */}
+        <BrandFilters
+          search={search}
+          setSearch={setSearch}
+          category={category}
+          setCategory={setCategory}
+          status={status}
+          setStatus={setStatus}
+          brandGroup={brandGroup}
+          setBrandGroup={
+            setBrandGroup
+          }
+          brandCount={
+            brandCount
+          }
+        />
 
+        {/* TABLE */}
         <Box sx={{ p: 3 }}>
 
-          <Typography
-            sx={{
-              mb: 2,
-              color: "#64748B",
-              fontWeight: 600,
-            }}
-          >
-            {
-              filteredBrands.length
-            }{" "}
-            results found
-          </Typography>
+          {(
+            search ||
+            category ||
+            status ||
+            brandGroup
+          ) && (
+
+            <Typography
+              sx={{
+                mb: 2,
+                color: "#64748B",
+                fontWeight: 600,
+              }}
+            >
+              {
+                filteredBrands.length
+              }{" "}
+              results found
+            </Typography>
+
+          )}
 
           <Brandtable
             brands={
               filteredBrands
             }
+            setBrandData={
+              setBrandData
+            }
           />
 
         </Box>
 
-      </TableContainerCard>
+      </Box>
+
     </Box>
   );
 }

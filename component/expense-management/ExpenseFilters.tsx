@@ -3,31 +3,34 @@
 import SearchIcon from "@mui/icons-material/Search";
 
 import {
-    Box,
-    InputAdornment,
-    MenuItem,
-    TextField,
+  Autocomplete,
+  Badge,
+  Box,
+  InputAdornment,
+  Tab,
+  Tabs,
+  TextField,
+  Typography,
 } from "@mui/material";
 
 interface Props {
-
   search: string;
-
-  setSearch: (
-    value: string
-  ) => void;
+  setSearch: (value: string) => void;
 
   status: string;
+  setStatus: (value: string) => void;
 
-  setStatus: (
-    value: string
-  ) => void;
+  dateRange: string;
+  setDateRange: (value: string) => void;
 
-  ledger: string;
+  fromDate: string;
+  setFromDate: (value: string) => void;
 
-  setLedger: (
-    value: string
-  ) => void;
+  expenseCount?: {
+    all: number;
+    approved: number;
+    pending: number;
+  };
 }
 
 export default function ExpenseFilters({
@@ -35,195 +38,349 @@ export default function ExpenseFilters({
   setSearch,
   status,
   setStatus,
-  ledger,
-  setLedger,
+  dateRange,
+  setDateRange,
+  fromDate,
+  setFromDate,
+  expenseCount,
 }: Props) {
 
+  const tabs = [
+    {
+      label: "All",
+      value: "",
+      count:
+        expenseCount?.all || 0,
+    },
+
+    {
+      label: "Approved",
+      value: "Approved",
+      count:
+        expenseCount?.approved || 0,
+    },
+
+    {
+      label: "Pending",
+      value: "Pending",
+      count:
+        expenseCount?.pending || 0,
+    },
+  ];
+
   return (
-    <Box
-      sx={{
-        display:
-          "flex",
-
-        gap: 2,
-
-        mb: 3,
-
-        flexWrap:
-          "wrap",
-      }}
-    >
-      {/* SEARCH */}
-      <TextField
-        placeholder="Search expense..."
-        value={search}
-        onChange={(e) =>
-          setSearch(
-            e.target.value
-          )
-        }
+    <Box>
+      {/* STATUS TABS */}
+      <Box
         sx={{
-          minWidth:
-            "280px",
-
-          "& .MuiOutlinedInput-root":
-            {
-              borderRadius:
-                "14px",
-
-              background:
-                "#FFFFFF",
-            },
+          px: 3,
+          pt: 2,
+          borderBottom:
+            "1px solid #E2E8F0",
         }}
-        slotProps={{
-          input: {
-            startAdornment:
-              (
-                <InputAdornment position="start">
-                  <SearchIcon
+      >
+        <Tabs
+          value={status}
+          onChange={(_, value) =>
+            setStatus(value)
+          }
+          sx={{
+            minHeight:
+              "54px",
+
+            "& .MuiTabs-indicator":
+              {
+                height:
+                  "3px",
+
+                borderRadius:
+                  "999px",
+
+                background:
+                  status ===
+                  "Approved"
+
+                    ? "#16A34A"
+
+                    : status ===
+                      "Pending"
+
+                    ? "#F59E0B"
+
+                    : "#0F172A",
+              },
+          }}
+        >
+          {tabs.map((tab) => (
+
+            <Tab
+              key={tab.label}
+              value={tab.value}
+              disableRipple
+              label={
+                <Box
+                  sx={{
+                    display:
+                      "flex",
+
+                    alignItems:
+                      "center",
+
+                    gap: 1,
+                  }}
+                >
+                  <Typography
                     sx={{
+                      textTransform:
+                        "none",
+
+                      fontWeight:
+                        600,
+
                       color:
-                        "#94A3B8",
+                        status ===
+                        tab.value
+
+                          ? tab.value ===
+                            "Approved"
+
+                            ? "#16A34A"
+
+                            : tab.value ===
+                              "Pending"
+
+                            ? "#F59E0B"
+
+                            : "#0F172A"
+
+                          : "#64748B",
+
+                      fontSize:
+                        "15px",
+                    }}
+                  >
+                    {tab.label}
+                  </Typography>
+
+                  <Badge
+                    badgeContent={
+                      tab.count
+                    }
+                    sx={{
+                      "& .MuiBadge-badge":
+                        {
+                          position:
+                            "static",
+
+                          transform:
+                            "none",
+
+                          background:
+                            status ===
+                            tab.value
+
+                              ? tab.value ===
+                                "Approved"
+
+                                ? "#16A34A"
+
+                                : tab.value ===
+                                  "Pending"
+
+                                ? "#F59E0B"
+
+                                : "#0F172A"
+
+                              : "#F1F5F9",
+
+                          color:
+                            status ===
+                            tab.value
+
+                              ? "#FFFFFF"
+
+                              : "#475569",
+
+                          borderRadius:
+                            "8px",
+
+                          minWidth:
+                            "24px",
+
+                          height:
+                            "24px",
+
+                          fontWeight:
+                            700,
+
+                          fontSize:
+                            "12px",
+                        },
                     }}
                   />
-                </InputAdornment>
-              ),
-          },
-        }}
-      />
-
-      {/* STATUS */}
-      <TextField
-        select
-        value={status}
-        onChange={(e) =>
-          setStatus(
-            e.target.value
-          )
-        }
-        sx={{
-          minWidth:
-            "220px",
-
-          "& .MuiOutlinedInput-root":
-            {
-              borderRadius:
-                "14px",
-
-              background:
-                "#FFFFFF",
-            },
-        }}
-        slotProps={{
-          select: {
-            displayEmpty:
-              true,
-
-            renderValue: (
-              selected
-            ) => {
-
-              if (!selected) {
-
-                return (
-                  <Box
-                    sx={{
-                      color:
-                        "#94A3B8",
-                    }}
-                  >
-                    Sort by Status
-                  </Box>
-                );
+                </Box>
               }
+              sx={{
+                minHeight:
+                  "54px",
 
-              return selected as string;
-            },
-          },
+                px: 0,
+
+                mr: 5,
+              }}
+            />
+          ))}
+
+        </Tabs>
+      </Box>
+
+      {/* FILTERS */}
+      <Box
+        sx={{
+          p: 3,
+
+          display:
+            "flex",
+
+          gap: 2,
+
+          flexWrap:
+            "wrap",
+
+          borderBottom:
+            "1px solid #E2E8F0",
         }}
       >
-        <MenuItem value="">
-          All Status
-        </MenuItem>
+        {/* DATE RANGE */}
+        <Autocomplete
+          options={[
+            "Today",
+            "Last 7 Days",
+            "Last 30 Days",
+            "This Month",
+            "This Year",
+          ]}
+          value={
+            dateRange || null
+          }
+          onChange={(_, value) =>
+            setDateRange(
+              value || ""
+            )
+          }
+          sx={{
+            minWidth:
+              "220px",
 
-        <MenuItem value="Paid">
-          Paid
-        </MenuItem>
+            "& .MuiOutlinedInput-root":
+              {
+                borderRadius:
+                  "16px",
 
-        <MenuItem value="Pending">
-          Pending
-        </MenuItem>
+                background:
+                  "#FFFFFF",
 
-      </TextField>
+                height:
+                  "56px",
+              },
+          }}
+          renderInput={(params) => (
 
-      {/* LEDGER */}
-      <TextField
-        select
-        value={ledger}
-        onChange={(e) =>
-          setLedger(
-            e.target.value
-          )
-        }
-        sx={{
-          minWidth:
-            "220px",
+            <TextField
+              {...params}
+              label="Date Range"
+            />
+          )}
+        />
 
-          "& .MuiOutlinedInput-root":
-            {
-              borderRadius:
-                "14px",
+        {/* DATE */}
+        <TextField
+  type="date"
+  value={fromDate}
+  onChange={(e) =>
+    setFromDate(
+      e.target.value
+    )
+  }
+  sx={{
+    minWidth:
+      "220px",
 
-              background:
-                "#FFFFFF",
+    "& .MuiOutlinedInput-root":
+      {
+        borderRadius:
+          "16px",
+
+        background:
+          "#FFFFFF",
+
+        height:
+          "56px",
+      },
+
+    "& input":
+      {
+        color:
+          "#64748B",
+      },
+
+    "& input::-webkit-calendar-picker-indicator":
+      {
+        opacity: 1,
+
+        cursor:
+          "pointer",
+
+        filter:
+          "invert(64%) sepia(11%) saturate(401%) hue-rotate(176deg) brightness(91%) contrast(88%)",
+      },
+  }}
+/>
+
+        {/* SEARCH */}
+        <TextField
+          placeholder="Search by expense name..."
+          value={search}
+          onChange={(e) =>
+            setSearch(
+              e.target.value
+            )
+          }
+          sx={{
+            flex: 1,
+
+            minWidth:
+              "320px",
+
+            "& .MuiOutlinedInput-root":
+              {
+                borderRadius:
+                  "16px",
+
+                background:
+                  "#FFFFFF",
+
+                height:
+                  "56px",
+              },
+          }}
+          slotProps={{
+            input: {
+              startAdornment:
+                (
+                  <InputAdornment position="start">
+                    <SearchIcon
+                      sx={{
+                        color:
+                          "#94A3B8",
+                      }}
+                    />
+                  </InputAdornment>
+                ),
             },
-        }}
-        slotProps={{
-          select: {
-            displayEmpty:
-              true,
-
-            renderValue: (
-              selected
-            ) => {
-
-              if (!selected) {
-
-                return (
-                  <Box
-                    sx={{
-                      color:
-                        "#94A3B8",
-                    }}
-                  >
-                    Sort by Ledger
-                  </Box>
-                );
-              }
-
-              return selected as string;
-            },
-          },
-        }}
-      >
-        <MenuItem value="">
-          All Ledgers
-        </MenuItem>
-
-        <MenuItem value="Administrative Expense">
-          Administrative Expense
-        </MenuItem>
-
-        <MenuItem value="Utility Expense">
-          Utility Expense
-        </MenuItem>
-
-        <MenuItem value="Payroll">
-          Payroll
-        </MenuItem>
-
-      </TextField>
-
+          }}
+        />
+      </Box>
     </Box>
   );
 }

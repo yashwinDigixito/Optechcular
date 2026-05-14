@@ -103,7 +103,8 @@ export interface Brand {
   brandName: string;
   brandLogo?: string;
   brandType?: string;
-
+  brandGroup:string;
+  category:string;
   status: string;
 
   contactPerson: string;
@@ -346,7 +347,7 @@ export interface Invoice {
   tax: number;
   discount: number;
   lineTotal: number;
-
+  category:string;
   subtotal: number;
   taxAmount: number;
   discountAmount: number;
@@ -429,31 +430,21 @@ export interface Ledger {
   status: string;
 
   notes: string;
-}
-export interface Frame {
+}export interface Frame {
   id: string;
-
- 
   frameId: string;
   frameName: string;
-  sku: string;
+  skuCode: string;
   barcode?: string;
-
- 
   categoryId: string;
-  categoryName?: string;
-
- 
+  category?: string;
   brand: string;
   modelNumber?: string;
-
- 
-  frameType:
+  rimType:
     | "Full Rim"
     | "Half Rim"
     | "Rimless";
-
-  frameShape:
+  rimShape:
     | "Round"
     | "Square"
     | "Rectangle"
@@ -461,25 +452,33 @@ export interface Frame {
     | "Cat Eye"
     | "Oval"
     | "Wayfarer";
-
   gender:
     | "Men"
     | "Women"
     | "Unisex"
     | "Kids";
-
   ageGroup?:
     | "Adult"
     | "Teen"
     | "Kids";
-
-
   frameSize?: string;
   lensWidth?: number;
   bridgeWidth?: number;
   templeLength?: number;
-
- 
+  /* NEW FIELDS */
+  dbl?: number;
+  templeMaterial?: string;
+  frameWidth?: number;
+  lensHeight?: number;
+  colorCode?: string;
+  frameFrontColor?: string;
+  lensColor?: string;
+  hsnCode?: string;
+  frameType?:
+    | "Optical"
+    | "Sunglasses"
+    | "Computer Glasses"
+    | "Reading Glasses";
   frameMaterial?:
     | "Metal"
     | "Plastic"
@@ -494,6 +493,7 @@ export interface Frame {
   lowStockLimit?: number;
   warehouseLocation?: string;
   purchasePrice?: number;
+  tax?: number;
   sellingPrice: number;
   discountPrice?: number;
   gstPercentage?: number;
@@ -638,4 +638,33 @@ export interface Inventory {
   updatedDate: string;
   createdBy: string;
   notes: string;
+}
+
+export interface RimShape {
+
+  id: string;
+
+  rimShapeId: string;
+
+  rimShapeCode: string;
+
+  shapeName: string;
+
+  shapeCategory: string;
+
+  applicableFor: string;
+
+  totalProducts: number;
+
+  status:string;
+
+  description: string;
+
+  notes: string;
+
+  createdOn: string;
+
+  updatedDate?: string;
+
+  createdBy?: string;
 }

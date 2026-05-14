@@ -8,25 +8,22 @@ import {
   Category,
 } from "@/assets/types";
 
-import StatusChip from "@/component/common/StatusChip";
-
-import BlockIcon from "@mui/icons-material/Block";
-
 import EditIcon from "@mui/icons-material/Edit";
-
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 
 import {
-  Box,
   IconButton,
+  Menu,
+  MenuItem,
+  Select,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  Tooltip,
-  Typography,
+  Typography
 } from "@mui/material";
 
 import { useRouter } from "next/navigation";
@@ -35,84 +32,102 @@ interface CategoryTableProps {
 
   categories:
     Category[];
+
+  setCategoryData:
+    React.Dispatch<
+      React.SetStateAction<
+        Category[]
+      >
+    >;
 }
 
 export default function CategoryTable({
   categories,
+  setCategoryData,
 }: CategoryTableProps) {
 
   const router =
     useRouter();
 
-  const [statusMap, setStatusMap] =
-    useState<
-      Record<string, string>
-    >({});
+  const [anchorEl, setAnchorEl] =
+    useState<null | HTMLElement>(null);
 
-  const handleToggleStatus = (
+  const [selectedCategoryId, setSelectedCategoryId] =
+    useState<string | null>(null);
+
+  const handleMenuOpen = (
+    event: React.MouseEvent<HTMLElement>,
     id: string
   ) => {
 
-    setStatusMap((prev) => ({
+    setAnchorEl(
+      event.currentTarget
+    );
 
-      ...prev,
+    setSelectedCategoryId(id);
+  };
 
-      [id]:
-        (
-          prev[id] ||
+  const handleMenuClose = () => {
 
-          categories.find(
-            (category) =>
-              category.id === id
-          )?.status
-        ) === "Active"
+    setAnchorEl(null);
 
-          ? "Inactive"
+    setSelectedCategoryId(null);
+  };
 
-          : "Active",
-    }));
+  const handleStatusChange = (
+    id: string,
+    value:
+      | "Active"
+      | "Inactive"
+  ) => {
+
+    setCategoryData((prev) =>
+      prev.map((category) =>
+        category.id === id
+          ? {
+              ...category,
+              status: value,
+            }
+          : category
+      )
+    );
   };
 
   return (
     <TableContainer
       sx={{
-        mt: 2,
-
         borderRadius:
-          "24px",
-
-        background:
-          "#FFFFFF",
-
-        border:
-          "1px solid #E2E8F0",
+          "20px",
 
         overflow:
           "hidden",
+
+        background:
+          "#FFFFFF",
       }}
     >
+
       <Table
         sx={{
-          minWidth: 900,
-
-          "& .MuiTableCell-root":
-            {
-              py: 2.2,
-
-              borderColor:
-                "#F1F5F9",
-            },
+          "& .MuiTableCell-root": {
+            py: 2,
+            borderColor: "#F1F5F9",
+          },
         }}
       >
-        {/* TABLE HEAD */}
+
         <TableHead>
 
           <TableRow
             sx={{
               background:
                 "#F8FAFC",
+
+              borderBottom:
+                "1px solid #E2E8F0",
             }}
           >
+
             <TableCell>
 
               <Typography
@@ -152,7 +167,7 @@ export default function CategoryTable({
 
             </TableCell>
 
-            <TableCell>
+            <TableCell align="center">
 
               <Typography
                 sx={{
@@ -165,7 +180,7 @@ export default function CategoryTable({
 
             </TableCell>
 
-            <TableCell>
+            <TableCell align="center">
 
               <Typography
                 sx={{
@@ -178,7 +193,7 @@ export default function CategoryTable({
 
             </TableCell>
 
-            <TableCell>
+            <TableCell align="center">
 
               <Typography
                 sx={{
@@ -195,243 +210,298 @@ export default function CategoryTable({
 
         </TableHead>
 
-        {/* TABLE BODY */}
         <TableBody>
 
           {categories.map(
             (
               category
-            ) => {
+            ) => (
 
-              const currentStatus =
-
-                statusMap[
+              <TableRow
+                key={
                   category.id
-                ] ||
+                }
+                hover
+                sx={{
+                  "&:hover":
+                    {
+                      background:
+                        "#F8FAFC",
+                    },
+                }}
+              >
 
-                category.status;
+                {/* CATEGORY */}
+                <TableCell>
 
-              return (
+                  <Typography
+                    sx={{
+                      fontWeight:
+                        700,
 
-                <TableRow
-                  key={
-                    category.id
-                  }
-                  hover
-                  sx={{
-                    "&:hover":
-                      {
-                        background:
-                          "#F8FAFC",
-                      },
-                  }}
-                >
-                  {/* CATEGORY */}
-                  <TableCell>
+                      color:
+                        "#2563EB",
 
-                    <Box>
+                      fontSize:
+                        "14px",
+                    }}
+                  >
+                    {
+                      category.categoryName
+                    }
+                  </Typography>
 
-                      <Typography
-                        sx={{
-                          fontWeight:
-                            700,
+                </TableCell>
 
-                          color:
-                            "#2563EB",
-                        }}
-                      >
+                {/* CATEGORY TYPE */}
+                <TableCell>
+
+                  <Typography
+                    sx={{
+                      color:
+                        "#475569",
+
+                      fontWeight:
+                        600,
+
+                      fontSize:
+                        "14px",
+                    }}
+                  >
+                    {
+                      category.categoryType
+                    }
+                  </Typography>
+
+                </TableCell>
+
+                {/* PARENT CATEGORY */}
+                <TableCell>
+
+                  <Typography
+                    sx={{
+                      color:
+                        "#475569",
+
+                      fontSize:
+                        "14px",
+                    }}
+                  >
+                    {
+                      category.parentCategory ||
+                      "-"
+                    }
+                  </Typography>
+
+                </TableCell>
+
+                {/* STATUS */}
+                <TableCell align="center">
+
+                  <Select
+                    size="small"
+                    value={category.status}
+                    onChange={(e) =>
+                      handleStatusChange(
+                        category.id,
+                        e.target.value as
+                          | "Active"
+                          | "Inactive"
+                      )
+                    }
+                    sx={{
+                      minWidth:
+                        "120px",
+
+                      borderRadius:
+                        "10px",
+
+                      fontWeight:
+                        600,
+
+                      background:
+                        category.status ===
+                        "Active"
+
+                          ? "#DCFCE7"
+
+                          : "#FEE2E2",
+
+                      color:
+                        category.status ===
+                        "Active"
+
+                          ? "#15803D"
+
+                          : "#DC2626",
+
+                      ".MuiOutlinedInput-notchedOutline":
                         {
-                          category.categoryName
-                        }
-                      </Typography>
+                          border:
+                            "none",
+                        },
 
-                    </Box>
+                      ".MuiSelect-icon":
+                        {
+                          color:
+                            category.status ===
+                            "Active"
 
-                  </TableCell>
+                              ? "#15803D"
 
-                  {/* CATEGORY TYPE */}
-                  <TableCell>
+                              : "#DC2626",
+                        },
+                    }}
+                  >
 
-                    <Typography
-                      sx={{
-                        color:
-                          "#475569",
+                    <MenuItem value="Active">
+                      Active
+                    </MenuItem>
 
-                        fontWeight:
-                          600,
-                      }}
-                    >
-                      {
-                        category.categoryType
-                      }
-                    </Typography>
+                    <MenuItem value="Inactive">
+                      Inactive
+                    </MenuItem>
 
-                  </TableCell>
+                  </Select>
 
-                  {/* PARENT CATEGORY */}
-                  <TableCell>
+                </TableCell>
 
-                    <Typography
-                      sx={{
-                        color:
-                          "#475569",
-                      }}
-                    >
-                      {
-                        category.parentCategory || "-"
-                      }
-                    </Typography>
+                {/* CREATED DATE */}
+                <TableCell align="center">
 
-                  </TableCell>
+                  <Typography
+                    sx={{
+                      color:
+                        "#64748B",
 
-                  {/* STATUS */}
-                  <TableCell>
+                      fontWeight:
+                        500,
 
-                    <StatusChip
-                      status={
-                        currentStatus
-                      }
-                    />
+                      fontSize:
+                        "14px",
+                    }}
+                  >
+                    {
+                      category.createdOn
+                    }
+                  </Typography>
 
-                  </TableCell>
+                </TableCell>
 
-                  {/* CREATED DATE */}
-                  <TableCell>
+                {/* ACTIONS */}
+                <TableCell align="center">
 
-                    <Typography
+                  <IconButton
+                    onClick={(e) =>
+                      handleMenuOpen(
+                        e,
+                        category.id
+                      )
+                    }
+                    sx={{
+                      background:
+                        "#F8FAFC",
+
+                      width: 38,
+
+                      height: 38,
+
+                      "&:hover": {
+                        background:
+                          "#E2E8F0",
+                      },
+                    }}
+                  >
+
+                    <MoreVertIcon
                       sx={{
                         color:
                           "#64748B",
                       }}
-                    >
-                      {
-                        category.createdOn
-                      }
-                    </Typography>
+                    />
 
-                  </TableCell>
+                  </IconButton>
 
-                  {/* ACTIONS */}
-                  <TableCell>
+                  <Menu
+                    anchorEl={anchorEl}
+                    open={
+                      Boolean(anchorEl) &&
+                      selectedCategoryId ===
+                        category.id
+                    }
+                    onClose={
+                      handleMenuClose
+                    }
+                    slotProps={{
+                      paper: {
+                        sx: {
+                          borderRadius:
+                            "14px",
 
-                    <Box
-                      sx={{
-                        display:
-                          "flex",
+                          minWidth:
+                            "150px",
 
-                        alignItems:
-                          "center",
+                          boxShadow:
+                            "0px 10px 30px rgba(15,23,42,0.08)",
+                        },
+                      },
+                    }}
+                  >
 
-                        gap: 1,
+                    <MenuItem
+                      onClick={() => {
+
+                        router.push(
+                          `/products/categories/view/${category.id}`
+                        );
+
+                        handleMenuClose();
                       }}
                     >
-                      {/* VIEW */}
-                      <Tooltip title="View">
 
-                        <IconButton
-                          sx={{
-                            background:
-                              "#EFF6FF",
+                      <RemoveRedEyeOutlinedIcon
+                        sx={{
+                          mr: 1,
 
-                            "&:hover":
-                              {
-                                background:
-                                  "#DBEAFE",
-                              },
-                          }}
-                          onClick={() =>
-                            router.push(
-                              `/products/categories/view/${category.id}`
-                            )
-                          }
-                        >
-                          <RemoveRedEyeOutlinedIcon
-                            sx={{
-                              color:
-                                "#2563EB",
-                            }}
-                          />
-                        </IconButton>
+                          color:
+                            "#2563EB",
+                        }}
+                      />
 
-                      </Tooltip>
+                      View
 
-                      {/* EDIT */}
-                      <Tooltip title="Edit">
+                    </MenuItem>
 
-                        <IconButton
-                          sx={{
-                            background:
-                              "#F8FAFC",
+                    <MenuItem
+                      onClick={() => {
 
-                            "&:hover":
-                              {
-                                background:
-                                  "#E2E8F0",
-                              },
-                          }}
-                          onClick={() =>
-                            router.push(
-                              `/products/categories/edit/${category.id}`
-                            )
-                          }
-                        >
-                          <EditIcon
-                            sx={{
-                              color:
-                                "#0F172A",
-                            }}
-                          />
-                        </IconButton>
+                        router.push(
+                          `/products/categories/edit/${category.id}`
+                        );
 
-                      </Tooltip>
+                        handleMenuClose();
+                      }}
+                    >
 
-                      {/* STATUS */}
-                      <Tooltip
-                        title={
-                          currentStatus ===
-                          "Active"
-                            ? "Deactivate"
-                            : "Activate"
-                        }
-                      >
-                        <IconButton
-                          sx={{
-                            background:
-                              currentStatus ===
-                              "Active"
+                      <EditIcon
+                        sx={{
+                          mr: 1,
 
-                                ? "#FEF2F2"
+                          color:
+                            "#0F172A",
+                        }}
+                      />
 
-                                : "#DCFCE7",
-                          }}
-                          onClick={() =>
-                            handleToggleStatus(
-                              category.id
-                            )
-                          }
-                        >
-                          <BlockIcon
-                            sx={{
-                              color:
-                                currentStatus ===
-                                "Active"
+                      Edit
 
-                                  ? "#DC2626"
+                    </MenuItem>
 
-                                  : "#16A34A",
-                            }}
-                          />
-                        </IconButton>
+                  </Menu>
 
-                      </Tooltip>
+                </TableCell>
 
-                    </Box>
-
-                  </TableCell>
-
-                </TableRow>
-              );
-            }
+              </TableRow>
+            )
           )}
 
         </TableBody>

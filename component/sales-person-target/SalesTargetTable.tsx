@@ -1,320 +1,431 @@
 "use client";
 
-import {
-  SalesTarget,
-} from "@/assets/types";
+import { useState } from "react";
+
+import { SalesTarget } from "@/assets/types";
 
 import EditIcon from "@mui/icons-material/Edit";
-
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 
 import {
-  Box,
-  Chip,
   IconButton,
+  Menu,
+  MenuItem,
+  Select,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  Tooltip,
-  Typography,
+  Typography
 } from "@mui/material";
 
 import { useRouter } from "next/navigation";
 
-interface Props {
-
-  salesTargets:
-    SalesTarget[];
+interface Props{
+salesTargets:SalesTarget[];
+setSalesTargetData:React.Dispatch<React.SetStateAction<SalesTarget[]>>;
 }
 
 export default function SalesTargetTable({
-  salesTargets,
-}: Props) {
+salesTargets,
+setSalesTargetData,
+}:Props){
 
-  const router =
-    useRouter();
+const router=useRouter();
 
-  return (
-    <TableContainer
-      sx={{
-        borderRadius:
-          "24px",
+const [anchorEl,setAnchorEl]=useState<null|HTMLElement>(null);
 
-        border:
-          "1px solid #E2E8F0",
+const [selectedTargetId,setSelectedTargetId]=useState<string|null>(null);
 
-        overflow:
-          "hidden",
+const handleMenuOpen=(
+event:React.MouseEvent<HTMLElement>,
+id:string
+)=>{
+setAnchorEl(event.currentTarget);
+setSelectedTargetId(id);
+};
 
-        background:
-          "#FFFFFF",
-      }}
-    >
-      <Table>
+const handleMenuClose=()=>{
+setAnchorEl(null);
+setSelectedTargetId(null);
+};
 
-        <TableHead>
+const handleStatusChange=(
+id:string,
+value:"Completed"|"In Progress"|"Pending"|"Overdue"
+)=>{
 
-          <TableRow
-            sx={{
-              background:
-                "#F8FAFC",
-            }}
-          >
-            <TableCell>
-              <Typography sx={{fontWeight:700}}>
-                Sales Person
-              </Typography>
-            </TableCell>
+setSalesTargetData((prev)=>
+prev.map((target)=>
+target.id===id
+?{
+...target,
+status:value,
+}
+:target
+)
+);
+};
 
-            <TableCell>
-              <Typography sx={{fontWeight:700}}>
-                Target
-              </Typography>
-            </TableCell>
+return(
+<TableContainer
+sx={{
+borderRadius:"20px",
+overflow:"hidden",
+background:"#FFFFFF",
+}}
+>
 
-            <TableCell>
-              <Typography sx={{fontWeight:700}}>
-                Achieved
-              </Typography>
-            </TableCell>
+<Table
+sx={{
+"& .MuiTableCell-root":{
+py:2,
+borderColor:"#F1F5F9",
+},
+}}
+>
 
-            <TableCell>
-              <Typography sx={{fontWeight:700}}>
-                Remaining
-              </Typography>
-            </TableCell>
+<TableHead>
 
-            <TableCell>
-              <Typography sx={{fontWeight:700}}>
-                Due Date
-              </Typography>
-            </TableCell>
+<TableRow
+sx={{
+background:"#F8FAFC",
+borderBottom:"1px solid #E2E8F0",
+}}
+>
 
-            <TableCell>
-              <Typography sx={{fontWeight:700}}>
-                Month
-              </Typography>
-            </TableCell>
+<TableCell>
+<Typography sx={{fontWeight:700}}>
+Sales Person
+</Typography>
+</TableCell>
 
-            <TableCell>
-              <Typography sx={{fontWeight:700}}>
-                Status
-              </Typography>
-            </TableCell>
+<TableCell align="center">
+<Typography sx={{fontWeight:700}}>
+Target
+</Typography>
+</TableCell>
 
-            <TableCell>
-              <Typography sx={{fontWeight:700}}>
-                Actions
-              </Typography>
-            </TableCell>
+<TableCell align="center">
+<Typography sx={{fontWeight:700}}>
+Achieved
+</Typography>
+</TableCell>
 
-          </TableRow>
+<TableCell align="center">
+<Typography sx={{fontWeight:700}}>
+Remaining
+</Typography>
+</TableCell>
 
-        </TableHead>
+<TableCell align="center">
+<Typography sx={{fontWeight:700}}>
+Due Date
+</Typography>
+</TableCell>
 
-        <TableBody>
+<TableCell align="center">
+<Typography sx={{fontWeight:700}}>
+Month
+</Typography>
+</TableCell>
 
-          {salesTargets.map(
-            (
-              target
-            ) => (
+<TableCell align="center">
+<Typography sx={{fontWeight:700}}>
+Status
+</Typography>
+</TableCell>
 
-              <TableRow
-                key={
-                  target.id
-                }
-                hover
-              >
-                <TableCell>
+<TableCell align="center">
+<Typography sx={{fontWeight:700}}>
+Actions
+</Typography>
+</TableCell>
 
-                  <Typography
-                    sx={{
-                      fontWeight:
-                        700,
+</TableRow>
 
-                      color:
-                        "#2563EB",
-                    }}
-                  >
-                    {
-                      target.salesPersonName
-                    }
-                  </Typography>
+</TableHead>
 
-                </TableCell>
+<TableBody>
 
-                <TableCell>
-                  ₹
-                  {
-                    target.targetAmount.toLocaleString()
-                  }
-                </TableCell>
+{salesTargets.map((target)=>(
 
-                <TableCell>
-                  ₹
-                  {
-                    target.achievedAmount.toLocaleString()
-                  }
-                </TableCell>
+<TableRow
+key={target.id}
+hover
+sx={{
+"&:hover":{
+background:"#F8FAFC",
+},
+}}
+>
 
-                <TableCell>
+<TableCell>
 
-                  <Typography
-                    sx={{
-                      fontWeight:
-                        700,
+<Typography
+sx={{
+fontWeight:700,
+color:"#2563EB",
+fontSize:"14px",
+}}
+>
+{target.salesPersonName}
+</Typography>
 
-                      color:
-                        "#DC2626",
-                    }}
-                  >
-                    ₹
-                    {
-                      target.remainingAmount.toLocaleString()
-                    }
-                  </Typography>
+</TableCell>
 
-                </TableCell>
+<TableCell align="center">
 
-                <TableCell>
-                  {
-                    target.dueDate
-                  }
-                </TableCell>
+<Typography
+sx={{
+fontWeight:700,
+fontSize:"14px",
+}}
+>
+₹{target.targetAmount.toLocaleString()}
+</Typography>
 
-                <TableCell>
-                  {
-                    target.month
-                  }
-                </TableCell>
+</TableCell>
 
-                <TableCell>
+<TableCell align="center">
 
-                  <Chip
-                    label={
-                      target.status
-                    }
-                    size="small"
-                    sx={{
-                      background:
-                        target.status ===
-                        "Completed"
+<Typography
+sx={{
+fontWeight:700,
+fontSize:"14px",
+color:"#16A34A",
+}}
+>
+₹{target.achievedAmount.toLocaleString()}
+</Typography>
 
-                          ? "#DCFCE7"
+</TableCell>
 
-                          : target.status ===
-                            "Pending"
+<TableCell align="center">
 
-                          ? "#FEE2E2"
+<Typography
+sx={{
+fontWeight:700,
+fontSize:"14px",
+color:"#DC2626",
+}}
+>
+₹{target.remainingAmount.toLocaleString()}
+</Typography>
 
-                          : "#FEF3C7",
+</TableCell>
 
-                      color:
-                        target.status ===
-                        "Completed"
+<TableCell align="center">
 
-                          ? "#15803D"
+<Typography
+sx={{
+color:"#64748B",
+fontWeight:500,
+fontSize:"14px",
+}}
+>
+{new Date(target.dueDate).toLocaleDateString(
+"en-GB",
+{
+day:"2-digit",
+month:"2-digit",
+year:"numeric",
+}
+)}
+</Typography>
 
-                          : target.status ===
-                            "Pending"
+</TableCell>
 
-                          ? "#DC2626"
+<TableCell align="center">
 
-                          : "#B45309",
+<Typography
+sx={{
+fontWeight:600,
+fontSize:"14px",
+color:"#475569",
+}}
+>
+{target.month}
+</Typography>
 
-                      fontWeight:
-                        700,
-                    }}
-                  />
+</TableCell>
 
-                </TableCell>
+<TableCell align="center">
 
-                {/* ACTIONS */}
-                <TableCell>
+<Select
+size="small"
+value={target.status}
+onChange={(e)=>
+handleStatusChange(
+target.id,
+e.target.value as
+|"Completed"
+|"In Progress"
+|"Pending"
+|"Overdue"
+)
+}
+sx={{
+minWidth:"145px",
+borderRadius:"10px",
+fontWeight:600,
 
-                  <Box
-                    sx={{
-                      display:
-                        "flex",
+background:
+target.status==="Completed"
+?"#DCFCE7"
+:target.status==="Pending"
+?"#FEE2E2"
+:target.status==="Overdue"
+?"#FEE2E2"
+:"#DBEAFE",
 
-                      gap: 1,
-                    }}
-                  >
-                    {/* VIEW */}
-                    <Tooltip title="View">
+color:
+target.status==="Completed"
+?"#15803D"
+:target.status==="Pending"
+?"#EA580C"
+:target.status==="Overdue"
+?"#DC2626"
+:"#2563EB",
 
-                      <IconButton
-                        sx={{
-                          background:
-                            "#EFF6FF",
+".MuiOutlinedInput-notchedOutline":{
+border:"none",
+},
 
-                          "&:hover":
-                            {
-                              background:
-                                "#DBEAFE",
-                            },
-                        }}
-                        onClick={() =>
-                          router.push(
-                            `/sales-target/view/${target.id}`
-                          )
-                        }
-                      >
-                        <RemoveRedEyeOutlinedIcon
-                          sx={{
-                            color:
-                              "#2563EB",
-                          }}
-                        />
-                      </IconButton>
+".MuiSelect-icon":{
+color:
+target.status==="Completed"
+?"#15803D"
+:target.status==="Pending"
+?"#EA580C"
+:target.status==="Overdue"
+?"#DC2626"
+:"#2563EB",
+},
+}}
+>
 
-                    </Tooltip>
+<MenuItem value="Completed">
+Completed
+</MenuItem>
 
-                    {/* EDIT */}
-                    <Tooltip title="Edit">
+<MenuItem value="In Progress">
+In Progress
+</MenuItem>
 
-                      <IconButton
-                        sx={{
-                          background:
-                            "#F8FAFC",
+<MenuItem value="Pending">
+Pending
+</MenuItem>
 
-                          "&:hover":
-                            {
-                              background:
-                                "#E2E8F0",
-                            },
-                        }}
-                        onClick={() =>
-                          router.push(
-                            `/sales-target/edit/${target.id}`
-                          )
-                        }
-                      >
-                        <EditIcon
-                          sx={{
-                            color:
-                              "#0F172A",
-                          }}
-                        />
-                      </IconButton>
+<MenuItem value="Overdue">
+Overdue
+</MenuItem>
 
-                    </Tooltip>
+</Select>
 
-                  </Box>
+</TableCell>
 
-                </TableCell>
+<TableCell align="center">
 
-              </TableRow>
-            )
-          )}
+<IconButton
+onClick={(e)=>
+handleMenuOpen(
+e,
+target.id
+)
+}
+sx={{
+background:"#F8FAFC",
+width:38,
+height:38,
 
-        </TableBody>
+"&:hover":{
+background:"#E2E8F0",
+},
+}}
+>
 
-      </Table>
+<MoreVertIcon
+sx={{
+color:"#64748B",
+}}
+/>
 
-    </TableContainer>
-  );
+</IconButton>
+
+<Menu
+anchorEl={anchorEl}
+open={
+Boolean(anchorEl)&&
+selectedTargetId===target.id
+}
+onClose={handleMenuClose}
+slotProps={{
+paper:{
+sx:{
+borderRadius:"14px",
+minWidth:"150px",
+boxShadow:"0px 10px 30px rgba(15,23,42,0.08)",
+},
+},
+}}
+>
+
+<MenuItem
+onClick={()=>{
+router.push(
+`/sales-target/view/${target.id}`
+);
+handleMenuClose();
+}}
+>
+
+<RemoveRedEyeOutlinedIcon
+sx={{
+mr:1,
+color:"#2563EB",
+}}
+/>
+
+View
+
+</MenuItem>
+
+<MenuItem
+onClick={()=>{
+router.push(
+`/sales-target/edit/${target.id}`
+);
+handleMenuClose();
+}}
+>
+
+<EditIcon
+sx={{
+mr:1,
+color:"#0F172A",
+}}
+/>
+
+Edit
+
+</MenuItem>
+
+</Menu>
+
+</TableCell>
+
+</TableRow>
+
+))}
+
+</TableBody>
+
+</Table>
+
+</TableContainer>
+);
 }

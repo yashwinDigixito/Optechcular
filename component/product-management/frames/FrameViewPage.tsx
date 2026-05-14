@@ -224,7 +224,7 @@ export default async function FrameViewPage({
                 <InfoLine
                   label="Model No"
                   value={
-                    frame.modelNo
+                    frame.modelNumber
                   }
                 />
 
@@ -275,7 +275,7 @@ export default async function FrameViewPage({
               <SideCard title="Size Details">
                 <InfoLine
                   label="Size"
-                  value={frame.size}
+                  value={frame.frameSize}
                 />
 
                 <InfoLine
@@ -317,7 +317,7 @@ export default async function FrameViewPage({
                 <InfoLine
                   label="Colour Code"
                   value={
-                    frame.colourCode
+                    frame.colorCode
                   }
                 />
 
@@ -392,7 +392,7 @@ export default async function FrameViewPage({
                 <InfoLine
                   label="Stock"
                   value={
-                    frame.stock
+                    frame.stockQuantity
                   }
                 />
 
@@ -493,7 +493,7 @@ export default async function FrameViewPage({
                   }}
                 >
                   {
-                    frame.modelNo
+                    frame.modelNumber
                   }{" "}
                   •{" "}
                   {
@@ -527,7 +527,7 @@ export default async function FrameViewPage({
                   icon={
                     <StraightenOutlinedIcon />
                   }
-                  text={`Size: ${frame.size}`}
+                  text={`Size: ${frame.frameSize}`}
                 />
 
                 <IconLine
@@ -541,7 +541,7 @@ export default async function FrameViewPage({
                   icon={
                     <Inventory2OutlinedIcon />
                   }
-                  text={`Stock: ${frame.stock}`}
+                  text={`Stock: ${frame.stockQuantity}`}
                 />
 
                 <IconLine

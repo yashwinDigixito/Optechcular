@@ -8,26 +8,24 @@ import {
   Frame,
 } from "@/assets/types";
 
-import StatusChip from "@/component/common/StatusChip";
-
-import BlockIcon from "@mui/icons-material/Block";
-
 import EditIcon from "@mui/icons-material/Edit";
-
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 
 import {
   Box,
   Chip,
   IconButton,
+  Menu,
+  MenuItem,
+  Select,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  Tooltip,
-  Typography,
+  Typography
 } from "@mui/material";
 
 import { useRouter } from "next/navigation";
@@ -36,84 +34,116 @@ interface Props {
 
   frames:
     Frame[];
+
+  setFrameData:
+    React.Dispatch<
+      React.SetStateAction<
+        Frame[]
+      >
+    >;
 }
 
 export default function FrameTable({
   frames,
+  setFrameData,
 }: Props) {
 
   const router =
     useRouter();
 
-  const [statusMap, setStatusMap] =
-    useState<
-      Record<string, string>
-    >({});
+  const [anchorEl, setAnchorEl] =
+    useState<null | HTMLElement>(null);
 
-  const handleToggleStatus = (
+  const [selectedFrameId, setSelectedFrameId] =
+    useState<string | null>(null);
+
+  const handleMenuOpen = (
+    event: React.MouseEvent<HTMLElement>,
     id: string
   ) => {
 
-    setStatusMap((prev) => ({
+    setAnchorEl(
+      event.currentTarget
+    );
 
-      ...prev,
+    setSelectedFrameId(id);
+  };
 
-      [id]:
-        (
-          prev[id] ||
+  const handleMenuClose = () => {
 
-          frames.find(
-            (frame) =>
-              frame.id === id
-          )?.status
-        ) === "Active"
+    setAnchorEl(null);
 
-          ? "Inactive"
+    setSelectedFrameId(null);
+  };
 
-          : "Active",
-    }));
+  const handleStatusChange = (
+    id: string,
+    value:
+      | "Active"
+      | "Inactive"
+      | "Out of Stock"
+  ) => {
+
+    setFrameData((prev) =>
+      prev.map((frame) =>
+        frame.id === id
+          ? {
+              ...frame,
+              status: value,
+            }
+          : frame
+      )
+    );
   };
 
   return (
     <TableContainer
       sx={{
-        mt: 2,
-
         borderRadius:
-          "24px",
-
-        background:
-          "#FFFFFF",
-
-        border:
-          "1px solid #E2E8F0",
+          "20px",
 
         overflow:
           "hidden",
+
+        background:
+          "#FFFFFF",
       }}
     >
+
       <Table
         sx={{
-          minWidth: 950,
-
-          "& .MuiTableCell-root":
-            {
-              py: 2.2,
-
-              borderColor:
-                "#F1F5F9",
-            },
+          "& .MuiTableCell-root": {
+            py: 2,
+            borderColor: "#F1F5F9",
+          },
         }}
       >
-        {/* TABLE HEAD */}
+
         <TableHead>
 
           <TableRow
             sx={{
               background:
                 "#F8FAFC",
+
+              borderBottom:
+                "1px solid #E2E8F0",
             }}
           >
+
+            <TableCell>
+
+              <Typography
+                sx={{
+                  fontWeight:
+                    700,
+                }}
+              >
+                Frame
+              </Typography>
+
+            </TableCell>
+
             <TableCell>
 
               <Typography
@@ -127,6 +157,7 @@ export default function FrameTable({
 
             </TableCell>
 
+
             <TableCell>
 
               <Typography
@@ -135,7 +166,7 @@ export default function FrameTable({
                     700,
                 }}
               >
-                Frame Type
+                Category
               </Typography>
 
             </TableCell>
@@ -153,7 +184,20 @@ export default function FrameTable({
 
             </TableCell>
 
-            <TableCell>
+            <TableCell align="center">
+
+              <Typography
+                sx={{
+                  fontWeight:
+                    700,
+                }}
+              >
+                Stock
+              </Typography>
+
+            </TableCell>
+
+            <TableCell align="center">
 
               <Typography
                 sx={{
@@ -166,7 +210,7 @@ export default function FrameTable({
 
             </TableCell>
 
-            <TableCell>
+            <TableCell align="center">
 
               <Typography
                 sx={{
@@ -179,7 +223,20 @@ export default function FrameTable({
 
             </TableCell>
 
-            <TableCell>
+            <TableCell align="center">
+
+              <Typography
+                sx={{
+                  fontWeight:
+                    700,
+                }}
+              >
+                Created
+              </Typography>
+
+            </TableCell>
+
+            <TableCell align="center">
 
               <Typography
                 sx={{
@@ -196,40 +253,41 @@ export default function FrameTable({
 
         </TableHead>
 
-        {/* TABLE BODY */}
         <TableBody>
 
           {frames.map(
             (
               frame
-            ) => {
+            ) => (
 
-              const currentStatus =
-
-                statusMap[
+              <TableRow
+                key={
                   frame.id
-                ] ||
+                }
+                hover
+                sx={{
+                  "&:hover":
+                    {
+                      background:
+                        "#F8FAFC",
+                    },
+                }}
+              >
 
-                frame.status;
+                {/* FRAME */}
+                <TableCell>
 
-              return (
+                  <Box
+                    sx={{
+                      display:
+                        "flex",
 
-                <TableRow
-                  key={
-                    frame.id
-                  }
-                  hover
-                  sx={{
-                    "&:hover":
-                      {
-                        background:
-                          "#F8FAFC",
-                      },
-                  }}
-                >
-                  {/* BRAND */}
-                  <TableCell>
+                      alignItems:
+                        "center",
 
+                      gap: 2,
+                    }}
+                  >
                     <Box>
 
                       <Typography
@@ -239,10 +297,13 @@ export default function FrameTable({
 
                           color:
                             "#2563EB",
+
+                          fontSize:
+                            "14px",
                         }}
                       >
                         {
-                          frame.brand
+                          frame.frameName
                         }
                       </Typography>
 
@@ -262,196 +323,345 @@ export default function FrameTable({
 
                     </Box>
 
-                  </TableCell>
+                  </Box>
 
-                  {/* FRAME TYPE */}
-                  <TableCell>
+                </TableCell>
 
-                    <Chip
-                      label={
-                        frame.frameType
-                      }
-                      sx={{
+                {/* BRAND */}
+                <TableCell>
+
+                  <Typography
+                    sx={{
+                      color:
+                        "#0F172A",
+
+                      fontWeight:
+                        600,
+
+                      fontSize:
+                        "14px",
+                    }}
+                  >
+                    {
+                      frame.brand
+                    }
+                  </Typography>
+
+                </TableCell>
+
+                {/* CATEGORY */}
+                <TableCell>
+
+                  <Chip
+                    label={
+                      frame.category
+                    }
+                    sx={{
+                      background:
+                        "#EFF6FF",
+
+                      color:
+                        "#2563EB",
+
+                      fontWeight:
+                        600,
+                    }}
+                  />
+
+                </TableCell>
+
+                {/* GENDER */}
+                <TableCell>
+
+                  <Typography
+                    sx={{
+                      color:
+                        "#475569",
+
+                      fontWeight:
+                        500,
+                    }}
+                  >
+                    {
+                      frame.gender
+                    }
+                  </Typography>
+
+                </TableCell>
+
+                {/* STOCK */}
+                <TableCell align="center">
+
+                  <Typography
+                    sx={{
+                      fontWeight:
+                        700,
+
+                      color:
+                        frame.stockQuantity &&
+                        frame.stockQuantity <=
+                          (
+                            frame.lowStockLimit ||
+                            0
+                          )
+
+                          ? "#EA580C"
+
+                          : "#16A34A",
+                    }}
+                  >
+                    {
+                      frame.stockQuantity || 0
+                    }
+                  </Typography>
+
+                </TableCell>
+
+                {/* PRICE */}
+                <TableCell align="center">
+
+                  <Typography
+                    sx={{
+                      fontWeight:
+                        700,
+
+                      color:
+                        "#16A34A",
+                    }}
+                  >
+                    ₹
+                    {
+                      frame.sellingPrice.toLocaleString()
+                    }
+                  </Typography>
+
+                </TableCell>
+
+                {/* STATUS */}
+                <TableCell align="center">
+
+                  <Select
+                    size="small"
+                    value={frame.status}
+                    onChange={(e) =>
+                      handleStatusChange(
+                        frame.id,
+                        e.target.value as
+                          | "Active"
+                          | "Inactive"
+                          | "Out of Stock"
+                      )
+                    }
+                    sx={{
+                      minWidth:
+                        "120px",
+
+                      borderRadius:
+                        "10px",
+
+                      fontWeight:
+                        600,
+
+                      background:
+                        frame.status ===
+                        "Active"
+
+                          ? "#DCFCE7"
+
+                          : frame.status ===
+                            "Inactive"
+
+                            ? "#FEE2E2"
+
+                            : "#FFF7ED",
+
+                      color:
+                        frame.status ===
+                        "Active"
+
+                          ? "#15803D"
+
+                          : frame.status ===
+                            "Inactive"
+
+                            ? "#DC2626"
+
+                            : "#EA580C",
+
+                      ".MuiOutlinedInput-notchedOutline":
+                        {
+                          border:
+                            "none",
+                        },
+
+                      ".MuiSelect-icon":
+                        {
+                          color:
+                            frame.status ===
+                            "Active"
+
+                              ? "#15803D"
+
+                              : frame.status ===
+                                "Inactive"
+
+                                ? "#DC2626"
+
+                                : "#EA580C",
+                        },
+                    }}
+                  >
+
+                    <MenuItem value="Active">
+                      Active
+                    </MenuItem>
+
+                    <MenuItem value="Inactive">
+                      Inactive
+                    </MenuItem>
+
+                    <MenuItem value="Out of Stock">
+                      Out of Stock
+                    </MenuItem>
+
+                  </Select>
+
+                </TableCell>
+
+                {/* CREATED */}
+                <TableCell align="center">
+
+                  <Typography
+                    sx={{
+                      color:
+                        "#64748B",
+
+                      fontWeight:
+                        500,
+
+                      fontSize:
+                        "14px",
+                    }}
+                  >
+                    {
+                      frame.createdOn
+                    }
+                  </Typography>
+
+                </TableCell>
+
+                {/* ACTIONS */}
+                <TableCell align="center">
+
+                  <IconButton
+                    onClick={(e) =>
+                      handleMenuOpen(
+                        e,
+                        frame.id
+                      )
+                    }
+                    sx={{
+                      background:
+                        "#F8FAFC",
+
+                      width: 38,
+
+                      height: 38,
+
+                      "&:hover": {
                         background:
-                          "#EFF6FF",
+                          "#E2E8F0",
+                      },
+                    }}
+                  >
 
+                    <MoreVertIcon
+                      sx={{
                         color:
-                          "#2563EB",
-
-                        fontWeight:
-                          600,
+                          "#64748B",
                       }}
                     />
 
-                  </TableCell>
+                  </IconButton>
 
-                  {/* GENDER */}
-                  <TableCell>
+                  <Menu
+                    anchorEl={anchorEl}
+                    open={
+                      Boolean(anchorEl) &&
+                      selectedFrameId ===
+                        frame.id
+                    }
+                    onClose={
+                      handleMenuClose
+                    }
+                    slotProps={{
+                      paper: {
+                        sx: {
+                          borderRadius:
+                            "14px",
 
-                    <Typography
-                      sx={{
-                        color:
-                          "#475569",
+                          minWidth:
+                            "150px",
+
+                          boxShadow:
+                            "0px 10px 30px rgba(15,23,42,0.08)",
+                        },
+                      },
+                    }}
+                  >
+
+                    <MenuItem
+                      onClick={() => {
+
+                        router.push(
+                          `/products/frames/view/${frame.id}`
+                        );
+
+                        handleMenuClose();
                       }}
                     >
-                      {
-                        frame.gender
-                      }
-                    </Typography>
 
-                  </TableCell>
+                      <RemoveRedEyeOutlinedIcon
+                        sx={{
+                          mr: 1,
+                          color:
+                            "#2563EB",
+                        }}
+                      />
 
-                  {/* PRICE */}
-                  <TableCell>
+                      View
 
-                    <Typography
-                      sx={{
-                        fontWeight:
-                          700,
+                    </MenuItem>
 
-                        color:
-                          "#16A34A",
+                    <MenuItem
+                      onClick={() => {
+
+                        router.push(
+                          `/products/frames/edit/${frame.id}`
+                        );
+
+                        handleMenuClose();
                       }}
                     >
-                      ₹{" "}
-                      {
-                        (
-                          frame.sellingPrice || 0
-                        ).toLocaleString()
-                      }
-                    </Typography>
 
-                  </TableCell>
+                      <EditIcon
+                        sx={{
+                          mr: 1,
+                          color:
+                            "#0F172A",
+                        }}
+                      />
 
-                  {/* STATUS */}
-                  <TableCell>
+                      Edit
 
-                    <StatusChip
-                      status={
-                        currentStatus
-                      }
-                    />
+                    </MenuItem>
 
-                  </TableCell>
+                  </Menu>
 
-                  {/* ACTIONS */}
-                  <TableCell>
+                </TableCell>
 
-                    <Box
-                      sx={{
-                        display:
-                          "flex",
-
-                        gap: 1,
-                      }}
-                    >
-                      {/* VIEW */}
-                      <Tooltip title="View">
-
-                        <IconButton
-                          sx={{
-                            background:
-                              "#EFF6FF",
-
-                            "&:hover":
-                              {
-                                background:
-                                  "#DBEAFE",
-                              },
-                          }}
-                          onClick={() =>
-                            router.push(
-                              `/products/frames/view/${frame.id}`
-                            )
-                          }
-                        >
-                          <RemoveRedEyeOutlinedIcon
-                            sx={{
-                              color:
-                                "#2563EB",
-                            }}
-                          />
-                        </IconButton>
-
-                      </Tooltip>
-
-                      {/* EDIT */}
-                      <Tooltip title="Edit">
-
-                        <IconButton
-                          sx={{
-                            background:
-                              "#F8FAFC",
-
-                            "&:hover":
-                              {
-                                background:
-                                  "#E2E8F0",
-                              },
-                          }}
-                          onClick={() =>
-                            router.push(
-                              `/products/frames/edit/${frame.id}`
-                            )
-                          }
-                        >
-                          <EditIcon
-                            sx={{
-                              color:
-                                "#0F172A",
-                            }}
-                          />
-                        </IconButton>
-
-                      </Tooltip>
-
-                      {/* STATUS */}
-                      <Tooltip
-                        title={
-                          currentStatus ===
-                          "Active"
-                            ? "Deactivate"
-                            : "Activate"
-                        }
-                      >
-                        <IconButton
-                          sx={{
-                            background:
-                              currentStatus ===
-                              "Active"
-
-                                ? "#FEF2F2"
-
-                                : "#DCFCE7",
-                          }}
-                          onClick={() =>
-                            handleToggleStatus(
-                              frame.id
-                            )
-                          }
-                        >
-                          <BlockIcon
-                            sx={{
-                              color:
-                                currentStatus ===
-                                "Active"
-
-                                  ? "#DC2626"
-
-                                  : "#16A34A",
-                            }}
-                          />
-                        </IconButton>
-
-                      </Tooltip>
-
-                    </Box>
-
-                  </TableCell>
-
-                </TableRow>
-              );
-            }
+              </TableRow>
+            )
           )}
 
         </TableBody>

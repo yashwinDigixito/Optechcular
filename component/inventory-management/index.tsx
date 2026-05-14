@@ -1,28 +1,26 @@
 "use client";
 
 import {
-    inventories,
+  inventories,
 } from "@/assets/genericdata";
 
 import {
-    Inventory,
+  Inventory,
 } from "@/assets/types";
 
 import AddIcon from "@mui/icons-material/Add";
 
 import {
-    Box,
-    Button,
-    Typography,
+  Box,
+  Button,
+  Typography,
 } from "@mui/material";
 
 import { useRouter } from "next/navigation";
 
 import {
-    useState,
+  useState,
 } from "react";
-
-import TableContainerCard from "@/component/common/TableContainerCard";
 
 import InventoryFilters from "./InventoryFilters";
 
@@ -36,21 +34,54 @@ export default function InventoryManagementPage() {
   const [search, setSearch] =
     useState("");
 
-  const [category,
-    setCategory] =
-      useState("");
+  const [
+    category,
+    setCategory,
+  ] = useState("");
 
-  const [status,
-    setStatus] =
-      useState("");
+  const [
+    status,
+    setStatus,
+  ] = useState("");
 
-  const [inventoryData] =
-    useState<
-      Inventory[]
-    >(
-      inventories
-    );
+  const [
+    inventoryData,
+    setInventoryData,
+  ] = useState<
+    Inventory[]
+  >(
+    inventories
+  );
 
+  /* COUNTS */
+  const inventoryCount = {
+
+    all:
+      inventoryData.length,
+
+    inStock:
+      inventoryData.filter(
+        (item) =>
+          item.status ===
+          "In Stock"
+      ).length,
+
+    lowStock:
+      inventoryData.filter(
+        (item) =>
+          item.status ===
+          "Low Stock"
+      ).length,
+
+    outOfStock:
+      inventoryData.filter(
+        (item) =>
+          item.status ===
+          "Out of Stock"
+      ).length,
+  };
+
+  /* FILTERED DATA */
   const filteredInventory =
     inventoryData.filter(
       (item) => {
@@ -58,6 +89,18 @@ export default function InventoryManagementPage() {
         const matchesSearch =
           search
             ? item.productName
+                .toLowerCase()
+                .includes(
+                  search.toLowerCase()
+                ) ||
+
+              item.brand
+                .toLowerCase()
+                .includes(
+                  search.toLowerCase()
+                ) ||
+
+              item.sku
                 .toLowerCase()
                 .includes(
                   search.toLowerCase()
@@ -85,8 +128,17 @@ export default function InventoryManagementPage() {
     );
 
   return (
-    <Box sx={{ p: 3 }}>
+    <Box
+      sx={{
+        p: 3,
 
+        minHeight:
+          "100vh",
+
+        background:
+          "#F8FAFC",
+      }}
+    >
       {/* HEADER */}
       <Box
         sx={{
@@ -100,6 +152,11 @@ export default function InventoryManagementPage() {
             "center",
 
           mb: 3,
+
+          flexWrap:
+            "wrap",
+
+          gap: 2,
         }}
       >
         <Typography
@@ -109,6 +166,9 @@ export default function InventoryManagementPage() {
 
             fontWeight:
               700,
+
+            color:
+              "#0F172A",
           }}
         >
           Inventory Management
@@ -116,7 +176,9 @@ export default function InventoryManagementPage() {
 
         <Button
           variant="contained"
-          startIcon={<AddIcon />}
+          startIcon={
+            <AddIcon />
+          }
           onClick={() =>
             router.push(
               "/inventory/add"
@@ -124,9 +186,20 @@ export default function InventoryManagementPage() {
           }
           sx={{
             borderRadius:
-              "12px",
+              "14px",
+
+            px: 3,
+
+            height:
+              "50px",
 
             textTransform:
+              "none",
+
+            fontWeight:
+              700,
+
+            boxShadow:
               "none",
           }}
         >
@@ -135,44 +208,79 @@ export default function InventoryManagementPage() {
 
       </Box>
 
-      {/* FILTERS */}
-      <InventoryFilters
-        search={search}
-        setSearch={setSearch}
-        category={category}
-        setCategory={setCategory}
-        status={status}
-        setStatus={setStatus}
-      />
+      {/* MAIN CARD */}
+      <Box
+        sx={{
+          background:
+            "#FFFFFF",
 
-      {/* TABLE */}
-      <TableContainerCard>
+          border:
+            "1px solid #E2E8F0",
 
-        <Box sx={{ p: 3 }}>
+          borderRadius:
+            "24px",
 
-          <Typography
-            sx={{
-              mb: 2,
+          overflow:
+            "hidden",
+        }}
+      >
+        {/* FILTERS */}
+        <InventoryFilters
+          search={search}
+          setSearch={setSearch}
+          category={category}
+          setCategory={setCategory}
+          status={status}
+          setStatus={setStatus}
+          inventoryCount={
+            inventoryCount
+          }
+        />
 
-              color:
-                "#64748B",
-            }}
-          >
-            {
-              filteredInventory.length
-            }{" "}
-            results found
-          </Typography>
+        {/* TABLE SECTION */}
+        <Box
+          sx={{
+            p: 3,
+          }}
+        >
+          {/* RESULTS */}
+          {(
+            search ||
+            category ||
+            status
+          ) && (
 
+            <Typography
+              sx={{
+                mb: 2,
+
+                color:
+                  "#64748B",
+
+                fontWeight:
+                  500,
+              }}
+            >
+              {
+                filteredInventory.length
+              }{" "}
+              results found
+            </Typography>
+          )}
+
+          {/* TABLE */}
           <InventoryTable
             inventories={
               filteredInventory
+            }
+            setInventoryData={
+              setInventoryData
             }
           />
 
         </Box>
 
-      </TableContainerCard>
+      </Box>
 
     </Box>
   );

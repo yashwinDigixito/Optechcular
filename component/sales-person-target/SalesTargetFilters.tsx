@@ -3,249 +3,306 @@
 import SearchIcon from "@mui/icons-material/Search";
 
 import {
-    Box,
-    InputAdornment,
-    MenuItem,
-    TextField,
+  Autocomplete,
+  Badge,
+  Box,
+  InputAdornment,
+  Tab,
+  Tabs,
+  TextField,
+  Typography,
 } from "@mui/material";
 
-interface Props {
+interface Props{
+search:string;
+setSearch:(value:string)=>void;
 
-  search: string;
+month:string;
+setMonth:(value:string)=>void;
 
-  setSearch: (
-    value: string
-  ) => void;
+status:string;
+setStatus:(value:string)=>void;
 
-  month: string;
-
-  setMonth: (
-    value: string
-  ) => void;
-
-  status: string;
-
-  setStatus: (
-    value: string
-  ) => void;
+salesTargetCount?:{
+all:number;
+completed:number;
+inProgress:number;
+pending:number;
+overdue:number;
+};
 }
 
 export default function SalesTargetFilters({
-  search,
-  setSearch,
-  month,
-  setMonth,
-  status,
-  setStatus,
-}: Props) {
+search,
+setSearch,
+month,
+setMonth,
+status,
+setStatus,
+salesTargetCount,
+}:Props){
 
-  return (
-    <Box
-      sx={{
-        display:
-          "flex",
+const tabs=[
 
-        gap: 2,
+{
+label:"All",
+value:"",
+count:salesTargetCount?.all||0,
+},
 
-        mb: 3,
+{
+label:"Completed",
+value:"Completed",
+count:salesTargetCount?.completed||0,
+},
 
-        flexWrap:
-          "wrap",
-      }}
-    >
-      {/* SEARCH */}
-      <TextField
-        placeholder="Search sales person..."
-        value={search}
-        onChange={(e) =>
-          setSearch(
-            e.target.value
-          )
-        }
-        sx={{
-          minWidth:
-            "280px",
+{
+label:"In Progress",
+value:"In Progress",
+count:salesTargetCount?.inProgress||0,
+},
 
-          "& .MuiOutlinedInput-root":
-            {
-              borderRadius:
-                "14px",
+{
+label:"Pending",
+value:"Pending",
+count:salesTargetCount?.pending||0,
+},
 
-              background:
-                "#FFFFFF",
-            },
-        }}
-        slotProps={{
-          input: {
-            startAdornment:
-              (
-                <InputAdornment position="start">
-                  <SearchIcon
-                    sx={{
-                      color:
-                        "#94A3B8",
-                    }}
-                  />
-                </InputAdornment>
-              ),
-          },
-        }}
-      />
+{
+label:"Overdue",
+value:"Overdue",
+count:salesTargetCount?.overdue||0,
+},
+];
 
-      {/* MONTH */}
-      <TextField
-        select
-        value={month}
-        onChange={(e) =>
-          setMonth(
-            e.target.value
-          )
-        }
-        sx={{
-          minWidth:
-            "220px",
+return(
+<Box>
 
-          "& .MuiOutlinedInput-root":
-            {
-              borderRadius:
-                "14px",
+<Box
+sx={{
+px:3,
+pt:2,
+borderBottom:"1px solid #E2E8F0",
+}}
+>
 
-              background:
-                "#FFFFFF",
-            },
-        }}
-        slotProps={{
-          select: {
-            displayEmpty:
-              true,
+<Tabs
+value={status}
+onChange={(_,value)=>
+setStatus(value)
+}
+variant="scrollable"
+scrollButtons="auto"
 
-            renderValue:
-              (
-                selected
-              ) => {
+sx={{
+minHeight:"54px",
 
-                if (
-                  !selected
-                ) {
+"& .MuiTabs-indicator":{
+height:"3px",
+borderRadius:"999px",
 
-                  return (
-                    <Box
-                      sx={{
-                        color:
-                          "#94A3B8",
-                      }}
-                    >
-                      Filter by Month
-                    </Box>
-                  );
-                }
+background:
+status==="Completed"
+?"#16A34A"
+:status==="In Progress"
+?"#2563EB"
+:status==="Pending"
+?"#EA580C"
+:status==="Overdue"
+?"#DC2626"
+:"#0F172A",
+},
+}}
+>
 
-                return selected as string;
-              },
-          },
-        }}
-      >
-        <MenuItem value="">
-          All Months
-        </MenuItem>
+{tabs.map((tab)=>(
 
-        <MenuItem value="January">
-          January
-        </MenuItem>
+<Tab
+key={tab.label}
+value={tab.value}
+disableRipple
 
-        <MenuItem value="February">
-          February
-        </MenuItem>
+label={
+<Box
+sx={{
+display:"flex",
+alignItems:"center",
+gap:1,
+}}
+>
 
-        <MenuItem value="March">
-          March
-        </MenuItem>
+<Typography
+sx={{
+textTransform:"none",
+fontWeight:600,
 
-        <MenuItem value="April">
-          April
-        </MenuItem>
+color:
+status===tab.value
+?tab.value==="Completed"
+?"#16A34A"
+:tab.value==="In Progress"
+?"#2563EB"
+:tab.value==="Pending"
+?"#EA580C"
+:tab.value==="Overdue"
+?"#DC2626"
+:"#0F172A"
+:"#64748B",
 
-        <MenuItem value="May">
-          May
-        </MenuItem>
+fontSize:"15px",
+}}
+>
+{tab.label}
+</Typography>
 
-        <MenuItem value="June">
-          June
-        </MenuItem>
+<Badge
+badgeContent={tab.count}
 
-      </TextField>
+sx={{
+"& .MuiBadge-badge":{
 
-      {/* STATUS */}
-      <TextField
-        select
-        value={status}
-        onChange={(e) =>
-          setStatus(
-            e.target.value
-          )
-        }
-        sx={{
-          minWidth:
-            "220px",
+position:"static",
+transform:"none",
 
-          "& .MuiOutlinedInput-root":
-            {
-              borderRadius:
-                "14px",
+background:
+status===tab.value
+?tab.value==="Completed"
+?"#16A34A"
+:tab.value==="In Progress"
+?"#2563EB"
+:tab.value==="Pending"
+?"#EA580C"
+:tab.value==="Overdue"
+?"#DC2626"
+:"#0F172A"
+:"#F1F5F9",
 
-              background:
-                "#FFFFFF",
-            },
-        }}
-        slotProps={{
-          select: {
-            displayEmpty:
-              true,
+color:
+status===tab.value
+?"#FFFFFF"
+:"#475569",
 
-            renderValue:
-              (
-                selected
-              ) => {
+borderRadius:"8px",
+minWidth:"24px",
+height:"24px",
+fontWeight:700,
+fontSize:"12px",
+},
+}}
+/>
 
-                if (
-                  !selected
-                ) {
+</Box>
+}
 
-                  return (
-                    <Box
-                      sx={{
-                        color:
-                          "#94A3B8",
-                      }}
-                    >
-                      Filter by Status
-                    </Box>
-                  );
-                }
+sx={{
+minHeight:"54px",
+px:0,
+mr:5,
+}}
+/>
 
-                return selected as string;
-              },
-          },
-        }}
-      >
-        <MenuItem value="">
-          All Status
-        </MenuItem>
+))}
 
-        <MenuItem value="Completed">
-          Completed
-        </MenuItem>
+</Tabs>
 
-        <MenuItem value="In Progress">
-          In Progress
-        </MenuItem>
+</Box>
 
-        <MenuItem value="Pending">
-          Pending
-        </MenuItem>
+<Box
+sx={{
+p:3,
+display:"flex",
+gap:2,
+flexWrap:"wrap",
+borderBottom:"1px solid #E2E8F0",
+}}
+>
 
-      </TextField>
+<Autocomplete
+options={[
+"January",
+"February",
+"March",
+"April",
+"May",
+"June",
+"July",
+"August",
+"September",
+"October",
+"November",
+"December",
+]}
 
-    </Box>
-  );
+value={month||null}
+
+onChange={(_,value)=>
+setMonth(
+value||""
+)
+}
+
+sx={{
+minWidth:"240px",
+
+"& .MuiOutlinedInput-root":{
+borderRadius:"16px",
+background:"#FFFFFF",
+height:"56px",
+},
+}}
+
+renderInput={(params)=>(
+
+<TextField
+{...params}
+placeholder="Filter by Month"
+/>
+
+)}
+/>
+
+<TextField
+placeholder="Search sales person..."
+value={search}
+
+onChange={(e)=>
+setSearch(
+e.target.value
+)
+}
+
+sx={{
+flex:1,
+minWidth:"320px",
+
+"& .MuiOutlinedInput-root":{
+borderRadius:"16px",
+background:"#FFFFFF",
+height:"56px",
+},
+
+"& input":{
+color:"#64748B",
+},
+}}
+
+slotProps={{
+input:{
+startAdornment:(
+<InputAdornment position="start">
+<SearchIcon
+sx={{
+color:"#94A3B8",
+}}
+/>
+</InputAdornment>
+),
+},
+}}
+/>
+
+</Box>
+
+</Box>
+);
 }

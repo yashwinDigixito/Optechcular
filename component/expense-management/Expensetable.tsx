@@ -1,264 +1,377 @@
 "use client";
 
-import {
-  Expense,
-} from "@/assets/types";
+import { Expense } from "@/assets/types";
+import { useState } from "react";
 
+import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
 import EditIcon from "@mui/icons-material/Edit";
-
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import PrintOutlinedIcon from "@mui/icons-material/PrintOutlined";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 
 import {
-  Box,
-  Chip,
   IconButton,
+  Menu,
+  MenuItem,
+  Select,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  Tooltip,
   Typography,
 } from "@mui/material";
 
 import { useRouter } from "next/navigation";
 
-interface Props {
-
-  expenses:
-    Expense[];
+interface Props{
+expenses:Expense[];
+setExpenseData:React.Dispatch<React.SetStateAction<Expense[]>>;
 }
 
 export default function ExpenseTable({
-  expenses,
-}: Props) {
+expenses,
+setExpenseData,
+}:Props){
 
-  const router =
-    useRouter();
+const router=useRouter();
 
-  return (
-    <TableContainer
-      sx={{
-        borderRadius:
-          "20px",
+const [anchorEl,setAnchorEl]=useState<null|HTMLElement>(null);
 
-        border:
-          "1px solid #E2E8F0",
-      }}
-    >
-      <Table>
+const [selectedExpenseId,setSelectedExpenseId]=useState<string|null>(null);
 
-        <TableHead>
+const handleMenuOpen=(
+event:React.MouseEvent<HTMLElement>,
+id:string
+)=>{
+setAnchorEl(event.currentTarget);
+setSelectedExpenseId(id);
+};
 
-          <TableRow
-            sx={{
-              background:
-                "#F8FAFC",
-            }}
-          >
-            <TableCell>
-              <Typography sx={{fontWeight:700}}>
-                Expense Name
-              </Typography>
-            </TableCell>
+const handleMenuClose=()=>{
+setAnchorEl(null);
+setSelectedExpenseId(null);
+};
 
-            <TableCell>
-              <Typography sx={{fontWeight:700}}>
-                Ledger
-              </Typography>
-            </TableCell>
+const handleStatusChange=(
+id:string,
+value:"Approved"|"Pending"
+)=>{
 
-            <TableCell>
-              <Typography sx={{fontWeight:700}}>
-                Amount
-              </Typography>
-            </TableCell>
+setExpenseData((prev)=>
+prev.map((expense)=>
+expense.id===id
+?{
+...expense,
+status:value,
+}
+:expense
+)
+);
+};
 
-            <TableCell>
-              <Typography sx={{fontWeight:700}}>
-                Date
-              </Typography>
-            </TableCell>
+return(
+<TableContainer
+sx={{
+borderRadius:"20px",
+overflow:"hidden",
+background:"#FFFFFF",
+}}
+>
 
-            <TableCell>
-              <Typography sx={{fontWeight:700}}>
-                Status
-              </Typography>
-            </TableCell>
+<Table
+sx={{
+"& .MuiTableCell-root":{
+py:2,
+borderColor:"#F1F5F9",
+},
+}}
+>
 
-            <TableCell>
-              <Typography sx={{fontWeight:700}}>
-                Actions
-              </Typography>
-            </TableCell>
+<TableHead>
 
-          </TableRow>
+<TableRow
+sx={{
+background:"#F8FAFC",
+borderBottom:"1px solid #E2E8F0",
+}}
+>
 
-        </TableHead>
+<TableCell>
+<Typography sx={{fontWeight:700}}>
+Expense Name
+</Typography>
+</TableCell>
 
-        <TableBody>
+<TableCell>
+<Typography sx={{fontWeight:700}}>
+Ledger
+</Typography>
+</TableCell>
 
-          {expenses.map(
-            (expense) => (
+<TableCell align="center">
+<Typography sx={{fontWeight:700}}>
+Amount
+</Typography>
+</TableCell>
 
-              <TableRow
-                key={expense.id}
-                hover
-              >
-                <TableCell>
+<TableCell align="center">
+<Typography sx={{fontWeight:700}}>
+Date
+</Typography>
+</TableCell>
 
-                  <Typography
-                    sx={{
-                      color:
-                        "#2563EB",
+<TableCell align="center">
+<Typography sx={{fontWeight:700}}>
+Status
+</Typography>
+</TableCell>
 
-                      fontWeight:
-                        700,
-                    }}
-                  >
-                    {
-                      expense.expenseName
-                    }
-                  </Typography>
+<TableCell align="center">
+<Typography sx={{fontWeight:700}}>
+Actions
+</Typography>
+</TableCell>
 
-                </TableCell>
+</TableRow>
 
-                <TableCell>
-                  {
-                    expense.ledger
-                  }
-                </TableCell>
+</TableHead>
 
-                <TableCell>
+<TableBody>
 
-                  <Typography
-                    sx={{fontWeight:700}}
-                  >
-                    ₹
-                    {
-                      expense.amount.toLocaleString()
-                    }
-                  </Typography>
+{expenses.map((expense)=>(
 
-                </TableCell>
+<TableRow
+key={expense.id}
+hover
+sx={{
+"&:hover":{
+background:"#F8FAFC",
+},
+}}
+>
 
-                <TableCell>
-                  {
-                    expense.expenseDate
-                  }
-                </TableCell>
+<TableCell>
+<Typography
+sx={{
+color:"#2563EB",
+fontWeight:700,
+fontSize:"14px",
+}}
+>
+{expense.expenseName}
+</Typography>
+</TableCell>
 
-                <TableCell>
+<TableCell>
+<Typography
+sx={{
+color:"#475569",
+fontSize:"14px",
+}}
+>
+{expense.ledger}
+</Typography>
+</TableCell>
 
-                  <Chip
-                    label={
-                      expense.status
-                    }
-                    size="small"
-                    sx={{
-                      bgcolor:
-                        expense.status ===
-                        "Paid"
+<TableCell align="center">
+<Typography
+sx={{
+fontWeight:700,
+fontSize:"14px",
+}}
+>
+₹{expense.amount.toLocaleString()}
+</Typography>
+</TableCell>
 
-                          ? "#DCFCE7"
+<TableCell align="center">
+<Typography
+sx={{
+color:"#64748B",
+fontWeight:500,
+fontSize:"14px",
+}}
+>
+{new Date(expense.expenseDate).toLocaleDateString(
+"en-GB",
+{
+day:"2-digit",
+month:"2-digit",
+year:"numeric",
+}
+)}
+</Typography>
+</TableCell>
 
-                          : "#FEF3C7",
+<TableCell align="center">
 
-                      color:
-                        expense.status ===
-                        "Paid"
+<Select
+size="small"
+value={expense.status}
+onChange={(e)=>
+handleStatusChange(
+expense.id,
+e.target.value as
+|"Approved"
+|"Pending"
+)
+}
+sx={{
+minWidth:"130px",
+borderRadius:"10px",
+fontWeight:600,
+background:
+expense.status==="Approved"
+?"#DCFCE7"
+:"#FEF3C7",
 
-                          ? "#15803D"
+color:
+expense.status==="Approved"
+?"#15803D"
+:"#B45309",
 
-                          : "#B45309",
+".MuiOutlinedInput-notchedOutline":{
+border:"none",
+},
 
-                      fontWeight:
-                        700,
-                    }}
-                  />
+".MuiSelect-icon":{
+color:
+expense.status==="Approved"
+?"#15803D"
+:"#B45309",
+},
+}}
+>
 
-                </TableCell>
+<MenuItem value="Approved">
+Approved
+</MenuItem>
 
-               <TableCell>
+<MenuItem value="Pending">
+Pending
+</MenuItem>
 
-                  <Box
-                    sx={{
-                      display:
-                        "flex",
+</Select>
 
-                      gap: 1,
-                    }}
-                  >
-                    {/* VIEW */}
-                    <Tooltip title="View">
+</TableCell>
 
-                      <IconButton
-                        sx={{
-                          background:
-                            "#EFF6FF",
+<TableCell align="center">
 
-                          "&:hover":
-                            {
-                              background:
-                                "#DBEAFE",
-                            },
-                        }}
-                        onClick={() =>
-                          router.push(
-                            `/expenses/view/${expense.id}`
-                          )
-                        }
-                      >
-                        <RemoveRedEyeOutlinedIcon
-                          sx={{
-                            color:
-                              "#2563EB",
-                          }}
-                        />
-                      </IconButton>
+<IconButton
+onClick={(e)=>
+handleMenuOpen(
+e,
+expense.id
+)
+}
+sx={{
+background:"#F8FAFC",
+width:38,
+height:38,
 
-                    </Tooltip>
+"&:hover":{
+background:"#E2E8F0",
+},
+}}
+>
 
-                    {/* EDIT */}
-                    <Tooltip title="Edit">
+<MoreVertIcon
+sx={{
+color:"#64748B",
+}}
+/>
 
-                      <IconButton
-                        sx={{
-                          background:
-                            "#F8FAFC",
+</IconButton>
 
-                          "&:hover":
-                            {
-                              background:
-                                "#E2E8F0",
-                            },
-                        }}
-                        onClick={() =>
-                          router.push(
-                            `/expenses/edit/${expense.id}`
-                          )
-                        }
-                      >
-                        <EditIcon
-                          sx={{
-                            color:
-                              "#0F172A",
-                          }}
-                        />
-                      </IconButton>
-                    </Tooltip>
-                  </Box>
-                </TableCell>
+<Menu
+anchorEl={anchorEl}
+open={
+Boolean(anchorEl)&&
+selectedExpenseId===expense.id
+}
+onClose={handleMenuClose}
+slotProps={{
+paper:{
+sx:{
+borderRadius:"14px",
+minWidth:"160px",
+boxShadow:"0px 10px 30px rgba(15,23,42,0.08)",
+},
+},
+}}
+>
 
-              </TableRow>
-            )
-          )}
+<MenuItem
+onClick={()=>{
+router.push(
+`/expenses/view/${expense.id}`
+);
+handleMenuClose();
+}}
+>
 
-        </TableBody>
+<RemoveRedEyeOutlinedIcon
+sx={{
+mr:1,
+color:"#2563EB",
+}}
+/>
 
-      </Table>
+View
 
-    </TableContainer>
-  );
+</MenuItem>
+
+<MenuItem
+onClick={()=>{
+router.push(
+`/expenses/edit/${expense.id}`
+);
+handleMenuClose();
+}}
+>
+
+<EditIcon
+sx={{
+mr:1,
+color:"#0F172A",
+}}
+/>
+
+Edit
+
+</MenuItem>
+
+<MenuItem>
+
+<PrintOutlinedIcon
+sx={{
+mr:1,
+color:"#059669",
+}}
+/>
+
+Print
+
+</MenuItem>
+
+<MenuItem>
+
+<DownloadOutlinedIcon
+sx={{
+mr:1,
+color:"#DC2626",
+}}
+/>
+Download
+</MenuItem>
+</Menu>
+</TableCell>
+</TableRow>
+))}
+</TableBody>
+</Table>
+</TableContainer>
+);
 }

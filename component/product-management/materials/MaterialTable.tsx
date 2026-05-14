@@ -8,9 +8,7 @@ import {
   Material,
 } from "@/assets/types";
 
-import StatusChip from "@/component/common/StatusChip";
-
-import BlockIcon from "@mui/icons-material/Block";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 import EditIcon from "@mui/icons-material/Edit";
 
@@ -20,13 +18,15 @@ import {
   Box,
   Chip,
   IconButton,
+  Menu,
+  MenuItem,
+  Select,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  Tooltip,
   Typography,
 } from "@mui/material";
 
@@ -36,42 +36,75 @@ interface Props {
 
   materials:
     Material[];
+
+  setMaterialData:
+    React.Dispatch<
+      React.SetStateAction<
+        Material[]
+      >
+    >;
 }
 
 export default function MaterialTable({
   materials,
+  setMaterialData,
 }: Props) {
 
   const router =
     useRouter();
 
-  const [statusMap, setStatusMap] =
-    useState<
-      Record<string, string>
-    >({});
+  const [anchorEl, setAnchorEl] =
+    useState<null | HTMLElement>(null);
 
-  const handleToggleStatus = (
+  const [selectedMaterialId,
+    setSelectedMaterialId] =
+      useState<string | null>(
+        null
+      );
+
+  const handleMenuOpen = (
+    event: React.MouseEvent<HTMLElement>,
     id: string
   ) => {
 
-    setStatusMap((prev) => ({
+    setAnchorEl(
+      event.currentTarget
+    );
 
-      ...prev,
+    setSelectedMaterialId(
+      id
+    );
+  };
 
-      [id]:
-        (
-          prev[id] ||
+  const handleMenuClose = () => {
 
-          materials.find(
-            (material) =>
-              material.id === id
-          )?.status
-        ) === "Active"
+    setAnchorEl(null);
 
-          ? "Inactive"
+    setSelectedMaterialId(
+      null
+    );
+  };
 
-          : "Active",
-    }));
+  const handleStatusChange = (
+    id: string,
+    value:
+      | "Active"
+      | "Inactive"
+      | "Out of Stock"
+  ) => {
+
+    setMaterialData((prev) =>
+      prev.map((material) =>
+        material.id === id
+
+          ? {
+              ...material,
+              status: value,
+            }
+
+          : material
+      )
+    );
   };
 
   return (
@@ -92,9 +125,10 @@ export default function MaterialTable({
           "hidden",
       }}
     >
+
       <Table
         sx={{
-          minWidth: 950,
+          minWidth: 1000,
 
           "& .MuiTableCell-root":
             {
@@ -105,6 +139,7 @@ export default function MaterialTable({
             },
         }}
       >
+
         {/* TABLE HEAD */}
         <TableHead>
 
@@ -114,6 +149,7 @@ export default function MaterialTable({
                 "#F8FAFC",
             }}
           >
+
             <TableCell>
 
               <Typography
@@ -140,7 +176,7 @@ export default function MaterialTable({
 
             </TableCell>
 
-            <TableCell>
+            <TableCell align="center">
 
               <Typography
                 sx={{
@@ -148,12 +184,25 @@ export default function MaterialTable({
                     700,
                 }}
               >
-                Selling Price
+                Stock
               </Typography>
 
             </TableCell>
 
-            <TableCell>
+            <TableCell align="center">
+
+              <Typography
+                sx={{
+                  fontWeight:
+                    700,
+                }}
+              >
+                Price
+              </Typography>
+
+            </TableCell>
+
+            <TableCell align="center">
 
               <Typography
                 sx={{
@@ -166,7 +215,7 @@ export default function MaterialTable({
 
             </TableCell>
 
-            <TableCell>
+            <TableCell align="center">
 
               <Typography
                 sx={{
@@ -189,91 +238,111 @@ export default function MaterialTable({
           {materials.map(
             (
               material
-            ) => {
+            ) => (
 
-              const currentStatus =
-
-                statusMap[
+              <TableRow
+                key={
                   material.id
-                ] ||
+                }
+                hover
+                sx={{
+                  "&:hover":
+                    {
+                      background:
+                        "#F8FAFC",
+                    },
+                }}
+              >
 
-                material.status;
+                {/* MATERIAL */}
+                <TableCell>
 
-              return (
+                  <Box>
 
-                <TableRow
-                  key={
-                    material.id
-                  }
-                  hover
-                  sx={{
-                    "&:hover":
-                      {
-                        background:
-                          "#F8FAFC",
-                      },
-                  }}
-                >
-                  {/* MATERIAL */}
-                  <TableCell>
-
-                    <Box>
-
-                      <Typography
-                        sx={{
-                          fontWeight:
-                            700,
-
-                          color:
-                            "#2563EB",
-                        }}
-                      >
-                        {
-                          material.materialName
-                        }
-                      </Typography>
-
-                      <Typography
-                        sx={{
-                          fontSize:
-                            "13px",
-
-                          color:
-                            "#64748B",
-                        }}
-                      >
-                        {
-                          material.materialCode
-                        }
-                      </Typography>
-
-                    </Box>
-
-                  </TableCell>
-
-                  {/* APPLICABLE FOR */}
-                  <TableCell>
-
-                    <Chip
-                      label={
-                        material.applicableFor
-                      }
+                    <Typography
                       sx={{
-                        background:
-                          "#EFF6FF",
+                        fontWeight:
+                          700,
 
                         color:
                           "#2563EB",
 
-                        fontWeight:
-                          600,
+                        fontSize:
+                          "14px",
                       }}
-                    />
+                    >
+                      {
+                        material.materialName
+                      }
+                    </Typography>
 
-                  </TableCell>
+                    <Typography
+                      sx={{
+                        fontSize:
+                          "13px",
 
-                  {/* PRICE */}
-                  <TableCell>
+                        color:
+                          "#64748B",
+                      }}
+                    >
+                      {
+                        material.materialCode
+                      }
+                    </Typography>
+
+                  </Box>
+
+                </TableCell>
+
+                {/* APPLICABLE FOR */}
+                <TableCell>
+
+                  <Chip
+                    label={
+                      material.applicableFor
+                    }
+                    sx={{
+                      background:
+                        "#EFF6FF",
+
+                      color:
+                        "#2563EB",
+
+                      fontWeight:
+                        600,
+                    }}
+                  />
+
+                </TableCell>
+
+                {/* STOCK */}
+                <TableCell align="center">
+
+                  <Typography
+                    sx={{
+                      fontWeight:
+                        700,
+
+                      color:
+                        material.stockQuantity <=
+                        material.minimumStockLevel
+
+                          ? "#EA580C"
+
+                          : "#16A34A",
+                    }}
+                  >
+                    {
+                      material.stockQuantity
+                    }
+                  </Typography>
+
+                </TableCell>
+
+                {/* PRICE */}
+                <TableCell align="center">
+
+                  <Box>
 
                     <Typography
                       sx={{
@@ -284,143 +353,220 @@ export default function MaterialTable({
                           "#16A34A",
                       }}
                     >
-                      ₹{" "}
+                      ₹
                       {
                         material.sellingPrice.toLocaleString()
                       }
                     </Typography>
+                  </Box>
 
-                  </TableCell>
+                </TableCell>
 
-                  {/* STATUS */}
-                  <TableCell>
+                {/* STATUS */}
+                <TableCell align="center">
 
-                    <StatusChip
-                      status={
-                        currentStatus
-                      }
+                  <Select
+                    size="small"
+                    value={
+                      material.status
+                    }
+                    onChange={(e) =>
+                      handleStatusChange(
+                        material.id,
+                        e.target.value as
+                          | "Active"
+                          | "Inactive"
+                          | "Out of Stock"
+                      )
+                    }
+                    sx={{
+                      minWidth:
+                        "140px",
+
+                      borderRadius:
+                        "10px",
+
+                      fontWeight:
+                        600,
+
+                      background:
+                        material.status ===
+                        "Active"
+
+                          ? "#DCFCE7"
+
+                          : material.status ===
+                            "Inactive"
+
+                            ? "#FEE2E2"
+
+                            : "#FFF7ED",
+
+                      color:
+                        material.status ===
+                        "Active"
+
+                          ? "#15803D"
+
+                          : material.status ===
+                            "Inactive"
+
+                            ? "#DC2626"
+
+                            : "#EA580C",
+
+                      ".MuiOutlinedInput-notchedOutline":
+                        {
+                          border:
+                            "none",
+                        },
+
+                      ".MuiSelect-icon":
+                        {
+                          color:
+                            material.status ===
+                            "Active"
+
+                              ? "#15803D"
+
+                              : material.status ===
+                                "Inactive"
+
+                                ? "#DC2626"
+
+                                : "#EA580C",
+                        },
+                    }}
+                  >
+
+                    <MenuItem value="Active">
+                      Active
+                    </MenuItem>
+
+                    <MenuItem value="Inactive">
+                      Inactive
+                    </MenuItem>
+
+                    <MenuItem value="Out of Stock">
+                      Out of Stock
+                    </MenuItem>
+
+                  </Select>
+
+                </TableCell>
+
+                {/* ACTIONS */}
+                <TableCell align="center">
+
+                  <IconButton
+                    onClick={(e) =>
+                      handleMenuOpen(
+                        e,
+                        material.id
+                      )
+                    }
+                    sx={{
+                      background:
+                        "#F8FAFC",
+
+                      width: 38,
+
+                      height: 38,
+
+                      "&:hover": {
+                        background:
+                          "#E2E8F0",
+                      },
+                    }}
+                  >
+
+                    <MoreVertIcon
+                      sx={{
+                        color:
+                          "#64748B",
+                      }}
                     />
 
-                  </TableCell>
+                  </IconButton>
 
-                  {/* ACTIONS */}
-                  <TableCell>
+                  <Menu
+                    anchorEl={anchorEl}
+                    open={
+                      Boolean(anchorEl) &&
+                      selectedMaterialId ===
+                        material.id
+                    }
+                    onClose={
+                      handleMenuClose
+                    }
+                    slotProps={{
+                      paper: {
+                        sx: {
+                          borderRadius:
+                            "14px",
 
-                    <Box
-                      sx={{
-                        display:
-                          "flex",
+                          minWidth:
+                            "150px",
 
-                        gap: 1,
+                          boxShadow:
+                            "0px 10px 30px rgba(15,23,42,0.08)",
+                        },
+                      },
+                    }}
+                  >
+
+                    <MenuItem
+                      onClick={() => {
+
+                        router.push(
+                          `/products/materials/view/${material.id}`
+                        );
+
+                        handleMenuClose();
                       }}
                     >
-                      {/* VIEW */}
-                      <Tooltip title="View">
 
-                        <IconButton
-                          sx={{
-                            background:
-                              "#EFF6FF",
+                      <RemoveRedEyeOutlinedIcon
+                        sx={{
+                          mr: 1,
+                          color:
+                            "#2563EB",
+                        }}
+                      />
 
-                            "&:hover":
-                              {
-                                background:
-                                  "#DBEAFE",
-                              },
-                          }}
-                          onClick={() =>
-                            router.push(
-                              `/products/materials/view/${material.id}`
-                            )
-                          }
-                        >
-                          <RemoveRedEyeOutlinedIcon
-                            sx={{
-                              color:
-                                "#2563EB",
-                            }}
-                          />
-                        </IconButton>
+                      View
 
-                      </Tooltip>
+                    </MenuItem>
 
-                      {/* EDIT */}
-                      <Tooltip title="Edit">
+                    <MenuItem
+                      onClick={() => {
 
-                        <IconButton
-                          sx={{
-                            background:
-                              "#F8FAFC",
+                        router.push(
+                          `/products/materials/edit/${material.id}`
+                        );
 
-                            "&:hover":
-                              {
-                                background:
-                                  "#E2E8F0",
-                              },
-                          }}
-                          onClick={() =>
-                            router.push(
-                              `/products/materials/edit/${material.id}`
-                            )
-                          }
-                        >
-                          <EditIcon
-                            sx={{
-                              color:
-                                "#0F172A",
-                            }}
-                          />
-                        </IconButton>
+                        handleMenuClose();
+                      }}
+                    >
 
-                      </Tooltip>
+                      <EditIcon
+                        sx={{
+                          mr: 1,
+                          color:
+                            "#0F172A",
+                        }}
+                      />
 
-                      {/* STATUS */}
-                      <Tooltip
-                        title={
-                          currentStatus ===
-                          "Active"
-                            ? "Deactivate"
-                            : "Activate"
-                        }
-                      >
-                        <IconButton
-                          sx={{
-                            background:
-                              currentStatus ===
-                              "Active"
+                      Edit
 
-                                ? "#FEF2F2"
+                    </MenuItem>
 
-                                : "#DCFCE7",
-                          }}
-                          onClick={() =>
-                            handleToggleStatus(
-                              material.id
-                            )
-                          }
-                        >
-                          <BlockIcon
-                            sx={{
-                              color:
-                                currentStatus ===
-                                "Active"
+                  </Menu>
 
-                                  ? "#DC2626"
+                </TableCell>
 
-                                  : "#16A34A",
-                            }}
-                          />
-                        </IconButton>
-
-                      </Tooltip>
-
-                    </Box>
-
-                  </TableCell>
-
-                </TableRow>
-              );
-            }
+              </TableRow>
+            )
           )}
 
         </TableBody>

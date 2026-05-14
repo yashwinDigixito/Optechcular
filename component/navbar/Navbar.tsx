@@ -51,7 +51,7 @@ const Navbar = ({
     "isLoggedIn"
   );
   handleClose();
-  router.replace("/login");
+  router.replace("/");
 };
   return (
     <Box>

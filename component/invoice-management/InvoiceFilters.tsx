@@ -3,10 +3,14 @@
 import SearchIcon from "@mui/icons-material/Search";
 
 import {
-    Box,
-    InputAdornment,
-    MenuItem,
-    TextField,
+  Autocomplete,
+  Badge,
+  Box,
+  InputAdornment,
+  Tab,
+  Tabs,
+  TextField,
+  Typography,
 } from "@mui/material";
 
 interface Props {
@@ -34,6 +38,13 @@ interface Props {
   setCategory: (
     value: string
   ) => void;
+
+  invoicesCount?: {
+    all: number;
+    completed: number;
+    pending: number;
+    processing: number;
+  };
 }
 
 export default function InvoiceFilters({
@@ -45,255 +56,279 @@ export default function InvoiceFilters({
   setInvoiceStatus,
   category,
   setCategory,
+  invoicesCount,
 }: Props) {
 
+  const tabs = [
+
+    {
+      label: "All",
+      value: "",
+      count:
+        invoicesCount?.all || 0,
+    },
+
+    {
+      label: "Sent",
+      value: "Sent",
+      count:
+        invoicesCount?.completed || 0,
+    },
+
+    {
+      label: "Draft",
+      value: "Draft",
+      count:
+        invoicesCount?.pending || 0,
+    },
+
+    {
+      label: "Cancelled",
+      value: "Cancelled",
+      count:
+        invoicesCount?.processing || 0,
+    },
+  ];
+
   return (
-    <Box
-      sx={{
-        display: "flex",
-
-        gap: 2,
-
-        mb: 3,
-
-        flexWrap: "wrap",
-      }}
-    >
-      {/* SEARCH */}
-      <TextField
-        placeholder="Search invoice or customer..."
-        value={search}
-        onChange={(e) =>
-          setSearch(
-            e.target.value
-          )
-        }
+    <Box>
+      {/* TABS */}
+      <Box
         sx={{
-          minWidth: "280px",
+          px: 3,
 
-          "& .MuiOutlinedInput-root":
-            {
-              borderRadius:
-                "14px",
+          pt: 2,
 
-              background:
-                "#FFFFFF",
-            },
-        }}
-        slotProps={{
-          input: {
-            startAdornment: (
-              <InputAdornment position="start">
-                <SearchIcon
-                  sx={{
-                    color:
-                      "#94A3B8",
-                  }}
-                />
-              </InputAdornment>
-            ),
-          },
-        }}
-      />
-
-      {/* PAYMENT STATUS */}
-      <TextField
-        select
-        value={paymentStatus}
-        onChange={(e) =>
-          setPaymentStatus(
-            e.target.value
-          )
-        }
-        sx={{
-          minWidth: "220px",
-
-          "& .MuiOutlinedInput-root":
-            {
-              borderRadius:
-                "14px",
-
-              background:
-                "#FFFFFF",
-            },
-        }}
-        slotProps={{
-          select: {
-            displayEmpty: true,
-
-            renderValue: (
-              selected
-            ) => {
-
-              if (!selected) {
-
-                return (
-                  <Box
-                    sx={{
-                      color:
-                        "#94A3B8",
-                    }}
-                  >
-                    Sort by Payment
-                  </Box>
-                );
-              }
-
-              return selected as string;
-            },
-          },
+          borderBottom:
+            "1px solid #E2E8F0",
         }}
       >
-        <MenuItem value="">
-          All Payments
-        </MenuItem>
+        <Tabs
+          value={invoiceStatus}
+          onChange={(
+            _,
+            value
+          ) =>
+            setInvoiceStatus(
+              value
+            )
+          }
+          sx={{
+            minHeight:
+              "54px",
 
-        <MenuItem value="Paid">
-          Paid
-        </MenuItem>
+            "& .MuiTabs-indicator":
+              {
+                height:
+                  "3px",
 
-        <MenuItem value="Pending">
-          Pending
-        </MenuItem>
+                borderRadius:
+                  "999px",
 
-        <MenuItem value="Partial">
-          Partial
-        </MenuItem>
+                background:
+                  invoiceStatus ===
+                  "Sent"
 
-      </TextField>
+                    ? "#16A34A"
 
-      {/* INVOICE STATUS */}
-      <TextField
-        select
-        value={invoiceStatus}
-        onChange={(e) =>
-          setInvoiceStatus(
-            e.target.value
-          )
-        }
-        sx={{
-          minWidth: "220px",
+                    : invoiceStatus ===
+                      "Draft"
 
-          "& .MuiOutlinedInput-root":
-            {
-              borderRadius:
-                "14px",
+                    ? "#F59E0B"
 
-              background:
-                "#FFFFFF",
-            },
-        }}
-        slotProps={{
-          select: {
-            displayEmpty: true,
+                    : invoiceStatus ===
+                      "Cancelled"
 
-            renderValue: (
-              selected
-            ) => {
+                    ? "#DC2626"
 
-              if (!selected) {
+                    : "#0F172A",
+              },
+          }}
+        >
+          {tabs.map(
+            (tab) => (
 
-                return (
+              <Tab
+                key={
+                  tab.label
+                }
+                value={
+                  tab.value
+                }
+                disableRipple
+                label={
+
                   <Box
                     sx={{
-                      color:
-                        "#94A3B8",
+                      display:
+                        "flex",
+
+                      alignItems:
+                        "center",
+
+                      gap: 1,
                     }}
                   >
-                    Sort by Invoice Status
+                    <Typography
+                      sx={{
+                        textTransform:
+                          "none",
+
+                        fontWeight:
+                          600,
+
+                        color:
+                          invoiceStatus ===
+                          tab.value
+
+                            ? tab.value ===
+                              "Sent"
+
+                              ? "#16A34A"
+
+                              : tab.value ===
+                                "Draft"
+
+                              ? "#F59E0B"
+
+                              : tab.value ===
+                                "Cancelled"
+
+                              ? "#DC2626"
+
+                              : "#0F172A"
+
+                            : "#64748B",
+
+                        fontSize:
+                          "15px",
+                      }}
+                    >
+                      {
+                        tab.label
+                      }
+                    </Typography>
+
+                    <Badge
+                      badgeContent={
+                        tab.count
+                      }
+                      sx={{
+                        "& .MuiBadge-badge":
+                          {
+                            position: "static",
+                            transform: "none",
+                            background: invoiceStatus === tab.value
+                                ? tab.value === "Sent" ? "#16A34A"
+                                  : tab.value === "Draft" ? "#F59E0B"
+                                  : tab.value === "Cancelled" ? "#DC2626" : "#0F172A" : "#F1F5F9",
+                            color: invoiceStatus === tab.value ? "#FFFFFF" : "#475569",
+                            borderRadius: "8px",
+                            minWidth:"24px",
+                            height:"24px",
+                            fontWeight:700,
+                            fontSize:"12px",
+                          },
+                      }}
+                    />
                   </Box>
-                );
-              }
-
-              return selected as string;
-            },
-          },
-        }}
-      >
-        <MenuItem value="">
-          All Invoice Status
-        </MenuItem>
-
-        <MenuItem value="Completed">
-          Completed
-        </MenuItem>
-
-        <MenuItem value="Pending">
-          Pending
-        </MenuItem>
-
-        <MenuItem value="Processing">
-          Processing
-        </MenuItem>
-
-      </TextField>
-
-      {/* CATEGORY */}
-      <TextField
-        select
-        value={category}
-        onChange={(e) =>
-          setCategory(
-            e.target.value
-          )
-        }
+                }
+                sx={{
+                  minHeight: "54px",
+                  px: 0,
+                  mr: 5,
+                }}
+              />
+            )
+          )}
+        </Tabs>
+      </Box>
+      <Box
         sx={{
-          minWidth: "220px",
-
-          "& .MuiOutlinedInput-root":
-            {
-              borderRadius:
-                "14px",
-
-              background:
-                "#FFFFFF",
-            },
-        }}
-        slotProps={{
-          select: {
-            displayEmpty: true,
-
-            renderValue: (
-              selected
-            ) => {
-
-              if (!selected) {
-
-                return (
-                  <Box
-                    sx={{
-                      color:
-                        "#94A3B8",
-                    }}
-                  >
-                    Sort by Category
-                  </Box>
-                );
-              }
-
-              return selected as string;
-            },
-          },
+          p: 3,
+          display: "flex",
+          gap: 2,
+          flexWrap: "wrap",
+          borderBottom: "1px solid #E2E8F0",
         }}
       >
-        <MenuItem value="">
-          All Categories
-        </MenuItem>
+        {/* PAYMENT STATUS */}
+        <Autocomplete
+          options={[
+            "Paid",
+            "Pending",
+            "Partial",
+          ]}
+          value={ paymentStatus || null }
+          onChange={( _, value) =>
+            setPaymentStatus(value || "")
+          }
+          sx={{
+            minWidth: "240px",
+            "& .MuiOutlinedInput-root":
+              {
+                borderRadius: "16px",
+                background: "#FFFFFF",
+                height:"56px",
+              },
+          }}
+          renderInput={( params) => ( <TextField {...params}  label="Payment Status"/>)}/>
 
-        <MenuItem value="Frame">
-          Frame
-        </MenuItem>
+        {/* CATEGORY */}
+        <Autocomplete
+          options={[
+            "Frame",
+            "Contact Lens",
+            "Optical Lens",
+          ]}
+          value={category || null}
+          onChange={( _, value) =>
+            setCategory( value || "")
+          }
+          sx={{
+            minWidth: "240px",
+            "& .MuiOutlinedInput-root":
+              {
+                borderRadius: "16px",
+                background: "#FFFFFF",
+                height: "56px",
+              },
+          }}
+          renderInput={( params) => ( <TextField {...params}  label="Category"/>)}
+        />
 
-        <MenuItem value="Contact Lens">
-          Contact Lens
-        </MenuItem>
+        {/* SEARCH */}
+        <TextField
+          placeholder="Search invoice or customer..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          sx={{
+            flex: 1,
+            minWidth:"320px",
+            "& .MuiOutlinedInput-root":
+              {
+                borderRadius:"16px",
+                background:"#FFFFFF",
 
-        <MenuItem value="Optical Lens">
-          Optical Lens
-        </MenuItem>
-
-      </TextField>
-
+                height:"56px",
+              },
+          }}
+          slotProps={{
+            input: {
+              startAdornment:
+                (
+                  <InputAdornment position="start">
+                    <SearchIcon
+                      sx={{
+                        color:"#94A3B8",
+                      }}
+                    />
+                  </InputAdornment>
+                ),
+            },
+          }}
+        />
+      </Box>
     </Box>
   );
 }

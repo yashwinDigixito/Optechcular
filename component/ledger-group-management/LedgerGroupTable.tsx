@@ -1,236 +1,353 @@
 "use client";
 
-import {
-  LedgerGroup,
-} from "@/assets/types";
+import { useState } from "react";
+
+import { LedgerGroup } from "@/assets/types";
 
 import EditIcon from "@mui/icons-material/Edit";
-
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 
 import {
-  Box,
-  Chip,
   IconButton,
+  Menu,
+  MenuItem,
+  Select,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  Tooltip,
   Typography,
 } from "@mui/material";
 
 import { useRouter } from "next/navigation";
 
-interface Props {
-
-  ledgerGroups:
-    LedgerGroup[];
+interface Props{
+ledgerGroups:LedgerGroup[];
+setLedgerGroupData:React.Dispatch<React.SetStateAction<LedgerGroup[]>>;
 }
 
 export default function LedgerGroupTable({
-  ledgerGroups,
-}: Props) {
+ledgerGroups,
+setLedgerGroupData,
+}:Props){
 
-  const router =
-    useRouter();
+const router=useRouter();
 
-  return (
-    <TableContainer
-      sx={{
-        borderRadius:
-          "20px",
+const [anchorEl,setAnchorEl]=useState<null|HTMLElement>(null);
 
-        border:
-          "1px solid #E2E8F0",
-      }}
-    >
-      <Table>
+const [selectedLedgerId,setSelectedLedgerId]=useState<string|null>(null);
 
-        <TableHead>
+const handleMenuOpen=(
+event:React.MouseEvent<HTMLElement>,
+id:string
+)=>{
+setAnchorEl(event.currentTarget);
+setSelectedLedgerId(id);
+};
 
-          <TableRow
-            sx={{
-              background:
-                "#F8FAFC",
-            }}
-          >
-            <TableCell>
-              <Typography sx={{fontWeight:700}}>
-                Group Name
-              </Typography>
-            </TableCell>
+const handleMenuClose=()=>{
+setAnchorEl(null);
+setSelectedLedgerId(null);
+};
 
-            <TableCell>
-              <Typography sx={{fontWeight:700}}>
-                Created At
-              </Typography>
-            </TableCell>
+const handleStatusChange=(
+id:string,
+value:"Active"|"Inactive"
+)=>{
 
-            <TableCell>
-              <Typography sx={{fontWeight:700}}>
-                Status
-              </Typography>
-            </TableCell>
+setLedgerGroupData((prev)=>
+prev.map((ledger)=>
+ledger.id===id
+?{
+...ledger,
+status:value,
+}
+:ledger
+)
+);
+};
 
-            <TableCell>
-              <Typography sx={{fontWeight:700}}>
-                Actions
-              </Typography>
-            </TableCell>
+return(
+<TableContainer
+sx={{
+borderRadius:"20px",
+overflow:"hidden",
+background:"#FFFFFF",
+}}
+>
 
-          </TableRow>
+<Table
+sx={{
+"& .MuiTableCell-root":{
+py:2,
+borderColor:"#F1F5F9",
+},
+}}
+>
 
-        </TableHead>
+<TableHead>
 
-        <TableBody>
+<TableRow
+sx={{
+background:"#F8FAFC",
+borderBottom:"1px solid #E2E8F0",
+}}
+>
 
-          {ledgerGroups.map(
-            (group) => (
+<TableCell>
+<Typography sx={{fontWeight:700}}>
+Group Name
+</Typography>
+</TableCell>
 
-              <TableRow
-                key={group.id}
-                hover
-              >
-                <TableCell>
+<TableCell align="center">
+<Typography sx={{fontWeight:700}}>
+Created At
+</Typography>
+</TableCell>
 
-                  <Typography
-                    sx={{
-                      color:
-                        "#2563EB",
+<TableCell>
+<Typography sx={{fontWeight:700}}>
+Notes
+</Typography>
+</TableCell>
 
-                      fontWeight:
-                        700,
-                    }}
-                  >
-                    {
-                      group.groupName
-                    }
-                  </Typography>
+<TableCell align="center">
+<Typography sx={{fontWeight:700}}>
+Status
+</Typography>
+</TableCell>
 
-                </TableCell>
+<TableCell align="center">
+<Typography sx={{fontWeight:700}}>
+Actions
+</Typography>
+</TableCell>
 
-                <TableCell>
-                  {
-                    group.createdAt
-                  }
-                </TableCell>
+</TableRow>
 
-                <TableCell>
+</TableHead>
 
-                  <Chip
-                    label={
-                      group.status
-                    }
-                    size="small"
-                    sx={{
-                      bgcolor:
-                        group.status ===
-                        "Active"
+<TableBody>
 
-                          ? "#DCFCE7"
+{ledgerGroups.map((ledger)=>(
 
-                          : "#FEE2E2",
+<TableRow
+key={ledger.id}
+hover
+sx={{
+"&:hover":{
+background:"#F8FAFC",
+},
+}}
+>
 
-                      color:
-                        group.status ===
-                        "Active"
+<TableCell>
 
-                          ? "#15803D"
+<Typography
+sx={{
+color:"#2563EB",
+fontWeight:700,
+fontSize:"14px",
+}}
+>
+{ledger.groupName}
+</Typography>
 
-                          : "#DC2626",
+</TableCell>
 
-                      fontWeight:
-                        700,
-                    }}
-                  />
+<TableCell align="center">
 
-                </TableCell>
+<Typography
+sx={{
+color:"#64748B",
+fontWeight:500,
+fontSize:"14px",
+}}
+>
+{new Date(ledger.createdAt).toLocaleDateString(
+"en-GB",
+{
+day:"2-digit",
+month:"2-digit",
+year:"numeric",
+}
+)}
+</Typography>
 
-                <TableCell>
+</TableCell>
 
-                  <Box
-                    sx={{
-                      display:
-                        "flex",
+<TableCell>
 
-                      gap: 1,
-                    }}
-                  >
-                    {/* VIEW */}
-                    <Tooltip title="View">
+<Typography
+sx={{
+color:"#475569",
+fontSize:"14px",
+maxWidth:"250px",
+whiteSpace:"nowrap",
+overflow:"hidden",
+textOverflow:"ellipsis",
+}}
+>
+{ledger.notes}
+</Typography>
 
-                      <IconButton
-                        sx={{
-                          background:
-                            "#EFF6FF",
+</TableCell>
 
-                          "&:hover":
-                            {
-                              background:
-                                "#DBEAFE",
-                            },
-                        }}
-                        onClick={() =>
-                          router.push(
-                            `/ledger-groups/view/${group.id}`
-                          )
-                        }
-                      >
-                        <RemoveRedEyeOutlinedIcon
-                          sx={{
-                            color:
-                              "#2563EB",
-                          }}
-                        />
-                      </IconButton>
+<TableCell align="center">
 
-                    </Tooltip>
+<Select
+size="small"
+value={ledger.status}
+onChange={(e)=>
+handleStatusChange(
+ledger.id,
+e.target.value as
+|"Active"
+|"Inactive"
+)
+}
+sx={{
+minWidth:"120px",
+borderRadius:"10px",
+fontWeight:600,
 
-                    {/* EDIT */}
-                    <Tooltip title="Edit">
+background:
+ledger.status==="Active"
+?"#DCFCE7"
+:"#FEE2E2",
 
-                      <IconButton
-                        sx={{
-                          background:
-                            "#F8FAFC",
+color:
+ledger.status==="Active"
+?"#15803D"
+:"#DC2626",
 
-                          "&:hover":
-                            {
-                              background:
-                                "#E2E8F0",
-                            },
-                        }}
-                        onClick={() =>
-                          router.push(
-                            `/ledger-groups/edit/${group.id}`
-                          )
-                        }
-                      >
-                        <EditIcon
-                          sx={{
-                            color:
-                              "#0F172A",
-                          }}
-                        />
-                      </IconButton>
+".MuiOutlinedInput-notchedOutline":{
+border:"none",
+},
 
-                    </Tooltip>
+".MuiSelect-icon":{
+color:
+ledger.status==="Active"
+?"#15803D"
+:"#DC2626",
+},
+}}
+>
 
-                  </Box>
+<MenuItem value="Active">
+Active
+</MenuItem>
 
-                </TableCell>
+<MenuItem value="Inactive">
+Inactive
+</MenuItem>
 
-              </TableRow>
-            )
-          )}
+</Select>
 
-        </TableBody>
+</TableCell>
 
-      </Table>
+<TableCell align="center">
 
-    </TableContainer>
-  );
+<IconButton
+onClick={(e)=>
+handleMenuOpen(
+e,
+ledger.id
+)
+}
+sx={{
+background:"#F8FAFC",
+width:38,
+height:38,
+
+"&:hover":{
+background:"#E2E8F0",
+},
+}}
+>
+
+<MoreVertIcon
+sx={{
+color:"#64748B",
+}}
+/>
+
+</IconButton>
+
+<Menu
+anchorEl={anchorEl}
+open={
+Boolean(anchorEl)&&
+selectedLedgerId===ledger.id
+}
+onClose={handleMenuClose}
+slotProps={{
+paper:{
+sx:{
+borderRadius:"14px",
+minWidth:"150px",
+boxShadow:"0px 10px 30px rgba(15,23,42,0.08)",
+},
+},
+}}
+>
+
+<MenuItem
+onClick={()=>{
+router.push(
+`/ledger-groups/view/${ledger.id}`
+);
+handleMenuClose();
+}}
+>
+
+<RemoveRedEyeOutlinedIcon
+sx={{
+mr:1,
+color:"#2563EB",
+}}
+/>
+
+View
+
+</MenuItem>
+
+<MenuItem
+onClick={()=>{
+router.push(
+`/ledger-groups/edit/${ledger.id}`
+);
+handleMenuClose();
+}}
+>
+
+<EditIcon
+sx={{
+mr:1,
+color:"#0F172A",
+}}
+/>
+
+Edit
+
+</MenuItem>
+
+</Menu>
+
+</TableCell>
+
+</TableRow>
+
+))}
+
+</TableBody>
+
+</Table>
+
+</TableContainer>
+);
 }

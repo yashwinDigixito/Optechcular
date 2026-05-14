@@ -52,7 +52,7 @@ const LoginPage = () => {
       toast.success("Login successful");
 
       setTimeout(() => {
-        router.replace('/');
+        router.replace('/dashboard');
       }, 1000);
     } else {
       toast.error("Invalid credentials");

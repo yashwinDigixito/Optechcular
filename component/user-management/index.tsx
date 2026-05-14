@@ -22,90 +22,237 @@ import {
     useState,
 } from "react";
 
-import TableContainerCard from "@/component/common/TableContainerCard";
-
 import UserFilters from "./UserFilters";
 
 import UserTable from "./UserTable";
 
 export default function UserManagementPage() {
 
-    const router =useRouter();
-    const [search, setSearch] =useState("");
-    const [role, setRole] =useState("");
-    const [status, setStatus] =useState("");
-    const [userData] =useState<User[]>(users);
+    const router =
+        useRouter();
+
+    const [search, setSearch] =
+        useState("");
+
+    const [role, setRole] =
+        useState("");
+
+    const [status, setStatus] =
+        useState("");
+
+    const [userData, setUserData] =
+        useState<User[]>(users);
+
+    /* COUNTS */
+    const userCount = {
+
+        all:
+            userData.length,
+
+        active:
+            userData.filter(
+                (user) =>
+                    user.status ===
+                    "Active"
+            ).length,
+
+        inactive:
+            userData.filter(
+                (user) =>
+                    user.status ===
+                    "Inactive"
+            ).length,
+
+        suspended:
+            userData.filter(
+                (user) =>
+                    user.status ===
+                    "Suspended"
+            ).length,
+    };
+
+    /* FILTERED USERS */
     const filteredUsers =
-    userData.filter(
-    (user) => {
-        const matchesSearch = search ? user.fullName.toLowerCase().includes(search.toLowerCase()) : true;
-        const matchesRole = role ? user.role === role : true;
-        const matchesStatus = status ? user.status === status : true;
-        return (
-        matchesSearch &&
-        matchesRole &&
-        matchesStatus
+        userData.filter(
+            (user) => {
+
+                const matchesSearch =
+                    !search ||
+
+                    user.fullName
+                        .toLowerCase()
+                        .includes(
+                            search.toLowerCase()
+                        );
+
+                const matchesRole =
+                    role
+                        ? user.role ===
+                          role
+                        : true;
+
+                const matchesStatus =
+                    status
+                        ? user.status ===
+                          status
+                        : true;
+
+                return (
+                    matchesSearch &&
+                    matchesRole &&
+                    matchesStatus
+                );
+            }
         );
-    }
-    );
 
-return (
-    <Box sx={{ p: 3 }}>
-    <Box
-        sx={{
-        display:"flex",
-        justifyContent:"space-between",
-        alignItems:"center",
-        mb: 3,
-        }}
-    >
-        <Typography
-        sx={{
-            fontSize:"32px",
-            fontWeight:700,
-        }}
-        >
-        User Management
-        </Typography>
-
-        <Button
-        variant="contained"
-        startIcon={<AddIcon />}
-        onClick={() =>
-            router.push("/users/add")
-        }
-        sx={{
-            borderRadius:"12px",
-            textTransform:"none",
-        }}
-        >
-        Add User
-        </Button>
-    </Box>
-    <UserFilters
-        search={search}
-        setSearch={setSearch}
-        role={role}
-        setRole={setRole}
-        status={status}
-        setStatus={setStatus}
-    />
-    <TableContainerCard>
-        <Box sx={{ p: 3 }}>
-        <Typography
+    return (
+        <Box
             sx={{
-            mb: 2,
-            color:"#64748B",
+                p: 3,
+                minHeight:
+                    "100vh",
+                background:
+                    "#F8FAFC",
             }}
         >
-            {
-            filteredUsers.length
-            }{" "}
-            results found
-        </Typography>
-        <UserTable users={filteredUsers}/>
+
+            {/* HEADER */}
+            <Box
+                sx={{
+                    display:
+                        "flex",
+
+                    justifyContent:
+                        "space-between",
+
+                    alignItems:
+                        "center",
+
+                    mb: 3,
+
+                    flexWrap:
+                        "wrap",
+
+                    gap: 2,
+                }}
+            >
+
+                <Typography
+                    sx={{
+                        fontSize:
+                            "32px",
+
+                        fontWeight:
+                            700,
+
+                        color:
+                            "#0F172A",
+                    }}
+                >
+                    User Management
+                </Typography>
+
+                <Button
+                    variant="contained"
+                    startIcon={
+                        <AddIcon />
+                    }
+                    onClick={() =>
+                        router.push(
+                            "/users/add"
+                        )
+                    }
+                    sx={{
+                        borderRadius:
+                            "14px",
+
+                        px: 3,
+
+                        height:
+                            "50px",
+
+                        textTransform:
+                            "none",
+
+                        fontWeight:
+                            700,
+
+                        boxShadow:
+                            "none",
+                    }}
+                >
+                    Add User
+                </Button>
+
+            </Box>
+
+            {/* MAIN CARD */}
+            <Box
+                sx={{
+                    background:
+                        "#FFFFFF",
+
+                    border:
+                        "1px solid #E2E8F0",
+
+                    borderRadius:
+                        "24px",
+
+                    overflow:
+                        "hidden",
+                }}
+            >
+
+                {/* FILTERS */}
+                <UserFilters
+                    search={search}
+                    setSearch={setSearch}
+                    role={role}
+                    setRole={setRole}
+                    status={status}
+                    setStatus={setStatus}
+                    userCount={userCount}
+                />
+
+                {/* TABLE */}
+                <Box sx={{ p: 3 }}>
+
+                    {(
+                        search ||
+                        role ||
+                        status
+                    ) && (
+
+                        <Typography
+                            sx={{
+                                mb: 2,
+                                color:
+                                    "#64748B",
+                                fontWeight:
+                                    500,
+                            }}
+                        >
+                            {
+                                filteredUsers.length
+                            }{" "}
+                            results found
+                        </Typography>
+
+                    )}
+
+                    <UserTable
+                        users={
+                            filteredUsers
+                        }
+                        setUserData={
+                            setUserData
+                        }
+                    />
+
+                </Box>
+
+            </Box>
+
         </Box>
-    </TableContainerCard>
-    </Box>
-);
+    );
 }

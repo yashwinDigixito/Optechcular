@@ -1,25 +1,27 @@
 "use client";
 
+import { useState } from "react";
+
 import {
-    User,
+  User,
 } from "@/assets/types";
 
 import EditIcon from "@mui/icons-material/Edit";
-
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 
 import {
-    Box,
-    Chip,
-    IconButton,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
-    Tooltip,
-    Typography,
+  IconButton,
+  Menu,
+  MenuItem,
+  Select,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
 } from "@mui/material";
 
 import { useRouter } from "next/navigation";
@@ -28,23 +30,70 @@ interface Props {
 
   users:
     User[];
+
+  setUserData:
+    React.Dispatch<
+      React.SetStateAction<
+        User[]
+      >
+    >;
 }
 
 export default function UserTable({
   users,
+  setUserData,
 }: Props) {
 
   const router =
     useRouter();
 
+  const [anchorEl, setAnchorEl] =
+    useState<null | HTMLElement>(null);
+
+  const [selectedUserId, setSelectedUserId] =
+    useState<string | null>(null);
+
+  const handleMenuOpen = (
+    event: React.MouseEvent<HTMLElement>,
+    id: string
+  ) => {
+
+    setAnchorEl(
+      event.currentTarget
+    );
+
+    setSelectedUserId(id);
+  };
+
+  const handleMenuClose = () => {
+
+    setAnchorEl(null);
+
+    setSelectedUserId(null);
+  };
+
+  const handleStatusChange = (
+    id: string,
+    value: "Active" | "Inactive"
+  ) => {
+
+    setUserData((prev) =>
+      prev.map((user) =>
+        user.id === id
+          ? {
+              ...user,
+              status: value,
+            }
+          : user
+      )
+    );
+  };
+
   return (
     <TableContainer
       sx={{
         borderRadius:
-          "24px",
-
-        border:
-          "1px solid #E2E8F0",
+          "20px",
 
         overflow:
           "hidden",
@@ -53,7 +102,15 @@ export default function UserTable({
           "#FFFFFF",
       }}
     >
-      <Table>
+
+      <Table
+        sx={{
+          "& .MuiTableCell-root": {
+            py: 2,
+            borderColor: "#F1F5F9",
+          },
+        }}
+      >
 
         <TableHead>
 
@@ -61,40 +118,44 @@ export default function UserTable({
             sx={{
               background:
                 "#F8FAFC",
+
+              borderBottom:
+                "1px solid #E2E8F0",
             }}
           >
+
             <TableCell>
-              <Typography sx={{fontWeight:700}}>
+              <Typography sx={{ fontWeight: 700 }}>
                 Full Name
               </Typography>
             </TableCell>
 
             <TableCell>
-              <Typography sx={{fontWeight:700}}>
+              <Typography sx={{ fontWeight: 700 }}>
                 Email
               </Typography>
             </TableCell>
 
             <TableCell>
-              <Typography sx={{fontWeight:700}}>
+              <Typography sx={{ fontWeight: 700 }}>
                 Phone Number
               </Typography>
             </TableCell>
 
             <TableCell>
-              <Typography sx={{fontWeight:700}}>
+              <Typography sx={{ fontWeight: 700 }}>
                 Role
               </Typography>
             </TableCell>
 
-            <TableCell>
-              <Typography sx={{fontWeight:700}}>
+            <TableCell align="center">
+              <Typography sx={{ fontWeight: 700 }}>
                 Status
               </Typography>
             </TableCell>
 
-            <TableCell>
-              <Typography sx={{fontWeight:700}}>
+            <TableCell align="center">
+              <Typography sx={{ fontWeight: 700 }}>
                 Actions
               </Typography>
             </TableCell>
@@ -111,7 +172,15 @@ export default function UserTable({
               <TableRow
                 key={user.id}
                 hover
+                sx={{
+                  "&:hover": {
+                    background:
+                      "#F8FAFC",
+                  },
+                }}
               >
+
+                {/* NAME */}
                 <TableCell>
 
                   <Typography
@@ -121,6 +190,9 @@ export default function UserTable({
 
                       color:
                         "#2563EB",
+
+                      fontSize:
+                        "14px",
                     }}
                   >
                     {
@@ -130,22 +202,55 @@ export default function UserTable({
 
                 </TableCell>
 
+                {/* EMAIL */}
                 <TableCell>
-                  {user.email}
+
+                  <Typography
+                    sx={{
+                      color:
+                        "#475569",
+
+                      fontSize:
+                        "14px",
+                    }}
+                  >
+                    {user.email}
+                  </Typography>
+
                 </TableCell>
 
+                {/* PHONE */}
                 <TableCell>
-                  {
-                    user.phoneNumber
-                  }
+
+                  <Typography
+                    sx={{
+                      color:
+                        "#475569",
+
+                      fontSize:
+                        "14px",
+                    }}
+                  >
+                    {
+                      user.phone
+                    }
+                  </Typography>
+
                 </TableCell>
 
+                {/* ROLE */}
                 <TableCell>
 
                   <Typography
                     sx={{
                       fontWeight:
                         600,
+
+                      color:
+                        "#0F172A",
+
+                      fontSize:
+                        "14px",
                     }}
                   >
                     {user.role}
@@ -153,14 +258,30 @@ export default function UserTable({
 
                 </TableCell>
 
-                <TableCell>
+                {/* STATUS */}
+                <TableCell align="center">
 
-                  <Chip
-                    label={
-                      user.status
-                    }
+                  <Select
                     size="small"
+                    value={user.status}
+                    onChange={(e) =>
+                      handleStatusChange(
+                        user.id,
+                        e.target.value as
+                          | "Active"
+                          | "Inactive"
+                      )
+                    }
                     sx={{
+                      minWidth:
+                        "120px",
+
+                      borderRadius:
+                        "10px",
+
+                      fontWeight:
+                        600,
+
                       background:
                         user.status ===
                         "Active"
@@ -177,85 +298,146 @@ export default function UserTable({
 
                           : "#DC2626",
 
-                      fontWeight:
-                        700,
+                      ".MuiOutlinedInput-notchedOutline":
+                        {
+                          border:
+                            "none",
+                        },
+
+                      ".MuiSelect-icon":
+                        {
+                          color:
+                            user.status ===
+                            "Active"
+
+                              ? "#15803D"
+
+                              : "#DC2626",
+                        },
                     }}
-                  />
+                  >
+
+                    <MenuItem value="Active">
+                      Active
+                    </MenuItem>
+
+                    <MenuItem value="Inactive">
+                      Inactive
+                    </MenuItem>
+
+                  </Select>
 
                 </TableCell>
 
                 {/* ACTIONS */}
-                <TableCell>
+                <TableCell align="center">
 
-                  <Box
+                  <IconButton
+                    onClick={(e) =>
+                      handleMenuOpen(
+                        e,
+                        user.id
+                      )
+                    }
                     sx={{
-                      display:
-                        "flex",
+                      background:
+                        "#F8FAFC",
 
-                      gap: 1,
+                      width: 38,
+
+                      height: 38,
+
+                      "&:hover": {
+                        background:
+                          "#E2E8F0",
+                      },
                     }}
                   >
-                    {/* VIEW */}
-                    <Tooltip title="View">
 
-                      <IconButton
+                    <MoreVertIcon
+                      sx={{
+                        color:
+                          "#64748B",
+                      }}
+                    />
+
+                  </IconButton>
+
+                  <Menu
+                    anchorEl={anchorEl}
+                    open={
+                      Boolean(anchorEl) &&
+                      selectedUserId ===
+                        user.id
+                    }
+                    onClose={
+                      handleMenuClose
+                    }
+                    slotProps={{
+                      paper: {
+                        sx: {
+                          borderRadius:
+                            "14px",
+
+                          minWidth:
+                            "150px",
+
+                          boxShadow:
+                            "0px 10px 30px rgba(15,23,42,0.08)",
+                        },
+                      },
+                    }}
+                  >
+
+                    <MenuItem
+                      onClick={() => {
+
+                        router.push(
+                          `/users/view/${user.id}`
+                        );
+
+                        handleMenuClose();
+                      }}
+                    >
+
+                      <RemoveRedEyeOutlinedIcon
                         sx={{
-                          background:
-                            "#EFF6FF",
+                          mr: 1,
 
-                          "&:hover":
-                            {
-                              background:
-                                "#DBEAFE",
-                            },
+                          color:
+                            "#2563EB",
                         }}
-                        onClick={() =>
-                          router.push(
-                            `/users/view/${user.id}`
-                          )
-                        }
-                      >
-                        <RemoveRedEyeOutlinedIcon
-                          sx={{
-                            color:
-                              "#2563EB",
-                          }}
-                        />
-                      </IconButton>
+                      />
 
-                    </Tooltip>
+                      View
 
-                    {/* EDIT */}
-                    <Tooltip title="Edit">
+                    </MenuItem>
 
-                      <IconButton
+                    <MenuItem
+                      onClick={() => {
+
+                        router.push(
+                          `/users/edit/${user.id}`
+                        );
+
+                        handleMenuClose();
+                      }}
+                    >
+
+                      <EditIcon
                         sx={{
-                          background:
-                            "#F8FAFC",
+                          mr: 1,
 
-                          "&:hover":
-                            {
-                              background:
-                                "#E2E8F0",
-                            },
+                          color:
+                            "#0F172A",
                         }}
-                        onClick={() =>
-                          router.push(
-                            `/users/edit/${user.id}`
-                          )
-                        }
-                      >
-                        <EditIcon
-                          sx={{
-                            color:
-                              "#0F172A",
-                          }}
-                        />
-                      </IconButton>
+                      />
 
-                    </Tooltip>
+                      Edit
 
-                  </Box>
+                    </MenuItem>
+
+                  </Menu>
 
                 </TableCell>
 

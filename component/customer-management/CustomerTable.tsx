@@ -1,32 +1,35 @@
 "use client";
 
 import {
+  useState,
+} from "react";
+
+import {
   Customer,
 } from "@/assets/types";
 
-import BlockIcon from "@mui/icons-material/Block";
-
 import EditIcon from "@mui/icons-material/Edit";
+
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 
 import {
-  Box,
   Chip,
   IconButton,
+  Menu,
+  MenuItem,
+  Select,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  Tooltip,
   Typography,
 } from "@mui/material";
 
 import { useRouter } from "next/navigation";
-
-import StatusChip from "@/component/common/StatusChip";
 
 interface Props {
 
@@ -49,8 +52,47 @@ export default function CustomerTable({
   const router =
     useRouter();
 
-  const handleToggleStatus = (
+  const [
+    anchorEl,
+    setAnchorEl,
+  ] = useState<
+    null | HTMLElement
+  >(null);
+
+  const [
+    selectedCustomerId,
+    setSelectedCustomerId,
+  ] = useState<
+    string | null
+  >(null);
+
+  const handleMenuOpen = (
+    event:
+      React.MouseEvent<HTMLElement>,
     id: string
+  ) => {
+
+    setAnchorEl(
+      event.currentTarget
+    );
+
+    setSelectedCustomerId(
+      id
+    );
+  };
+
+  const handleMenuClose = () => {
+
+    setAnchorEl(null);
+
+    setSelectedCustomerId(
+      null
+    );
+  };
+
+  const handleStatusChange = (
+    id: string,
+    value: string
   ) => {
 
     setCustomerData((prev) =>
@@ -58,12 +100,7 @@ export default function CustomerTable({
         customer.id === id
           ? {
               ...customer,
-
-              status:
-                customer.status ===
-                "Active"
-                  ? "Inactive"
-                  : "Active",
+              status: value,
             }
           : customer
       )
@@ -74,10 +111,7 @@ export default function CustomerTable({
     <TableContainer
       sx={{
         borderRadius:
-          "24px",
-
-        border:
-          "1px solid #E2E8F0",
+          "20px",
 
         overflow:
           "hidden",
@@ -104,6 +138,9 @@ export default function CustomerTable({
             sx={{
               background:
                 "#F8FAFC",
+
+              borderBottom:
+                "1px solid #E2E8F0",
             }}
           >
             <TableCell>
@@ -112,6 +149,9 @@ export default function CustomerTable({
                 sx={{
                   fontWeight:
                     700,
+
+                  color:
+                    "#0F172A",
                 }}
               >
                 Customer Name
@@ -125,6 +165,9 @@ export default function CustomerTable({
                 sx={{
                   fontWeight:
                     700,
+
+                  color:
+                    "#0F172A",
                 }}
               >
                 Customer Type
@@ -138,9 +181,12 @@ export default function CustomerTable({
                 sx={{
                   fontWeight:
                     700,
+
+                  color:
+                    "#0F172A",
                 }}
               >
-                Phone Number
+                Phone
               </Typography>
 
             </TableCell>
@@ -151,6 +197,9 @@ export default function CustomerTable({
                 sx={{
                   fontWeight:
                     700,
+
+                  color:
+                    "#0F172A",
                 }}
               >
                 Email
@@ -164,6 +213,9 @@ export default function CustomerTable({
                 sx={{
                   fontWeight:
                     700,
+
+                  color:
+                    "#0F172A",
                 }}
               >
                 Location
@@ -171,12 +223,15 @@ export default function CustomerTable({
 
             </TableCell>
 
-            <TableCell>
+            <TableCell align="center">
 
               <Typography
                 sx={{
                   fontWeight:
                     700,
+
+                  color:
+                    "#0F172A",
                 }}
               >
                 Status
@@ -184,25 +239,15 @@ export default function CustomerTable({
 
             </TableCell>
 
-            <TableCell>
+            <TableCell align="center">
 
               <Typography
                 sx={{
                   fontWeight:
                     700,
-                }}
-              >
-                Created On
-              </Typography>
 
-            </TableCell>
-
-            <TableCell>
-
-              <Typography
-                sx={{
-                  fontWeight:
-                    700,
+                  color:
+                    "#0F172A",
                 }}
               >
                 Actions
@@ -245,6 +290,9 @@ export default function CustomerTable({
 
                       color:
                         "#2563EB",
+
+                      fontSize:
+                        "16px",
                     }}
                   >
                     {
@@ -265,7 +313,7 @@ export default function CustomerTable({
                     sx={{
                       background:
                         customer.customerType ===
-                        "B2B"
+                        "Individual"
 
                           ? "#EFF6FF"
 
@@ -273,7 +321,7 @@ export default function CustomerTable({
 
                       color:
                         customer.customerType ===
-                        "B2B"
+                        "Business"
 
                           ? "#2563EB"
 
@@ -336,144 +384,184 @@ export default function CustomerTable({
                 </TableCell>
 
                 {/* STATUS */}
-                <TableCell>
+                <TableCell align="center">
 
-                  <StatusChip
-                    status={
+                  <Select
+                    size="small"
+                    value={
                       customer.status
                     }
-                  />
-
-                </TableCell>
-
-                {/* CREATED ON */}
-                <TableCell>
-
-                  <Typography
+                    onChange={(e) =>
+                      handleStatusChange(
+                        customer.id,
+                        e.target.value
+                      )
+                    }
                     sx={{
+                      minWidth:
+                        "110px",
+
+                      borderRadius:
+                        "10px",
+
+                      fontWeight:
+                        600,
+
+                      background:
+                        customer.status ===
+                        "Active"
+
+                          ? "#DCFCE7"
+
+                          : "#FEE2E2",
+
                       color:
-                        "#64748B",
+                        customer.status ===
+                        "Active"
+
+                          ? "#15803D"
+
+                          : "#DC2626",
+
+                      ".MuiOutlinedInput-notchedOutline":
+                        {
+                          border:
+                            "none",
+                        },
+
+                      ".MuiSelect-icon":
+                        {
+                          color:
+                            customer.status ===
+                            "Active"
+
+                              ? "#15803D"
+
+                              : "#DC2626",
+                        },
                     }}
                   >
-                    {
-                      customer.createdOn
-                    }
-                  </Typography>
+                    <MenuItem value="Active">
+                      Active
+                    </MenuItem>
+
+                    <MenuItem value="Inactive">
+                      Inactive
+                    </MenuItem>
+
+                  </Select>
 
                 </TableCell>
 
                 {/* ACTIONS */}
-                <TableCell>
+                <TableCell align="center">
 
-                  <Box
+                  <IconButton
+                    onClick={(e) =>
+                      handleMenuOpen(
+                        e,
+                        customer.id
+                      )
+                    }
                     sx={{
-                      display:
-                        "flex",
+                      background:
+                        "#F8FAFC",
 
-                      gap: 1,
+                      width: 38,
+
+                      height: 38,
+
+                      "&:hover":
+                        {
+                          background:
+                            "#E2E8F0",
+                        },
+                    }}
+                  >
+                    <MoreVertIcon
+                      sx={{
+                        color:
+                          "#64748B",
+                      }}
+                    />
+                  </IconButton>
+
+                  <Menu
+                    anchorEl={
+                      anchorEl
+                    }
+                    open={
+                      Boolean(
+                        anchorEl
+                      ) &&
+                      selectedCustomerId ===
+                        customer.id
+                    }
+                    onClose={
+                      handleMenuClose
+                    }
+                    slotProps={{
+                      paper: {
+                        sx: {
+                          borderRadius:
+                            "14px",
+
+                          minWidth:
+                            "120px",
+
+                          boxShadow:
+                            "0px 10px 30px rgba(15,23,42,0.08)",
+                        },
+                      },
                     }}
                   >
                     {/* VIEW */}
-                    <Tooltip title="View">
+                    <MenuItem
+                      onClick={() => {
 
-                      <IconButton
+                        router.push(
+                          `/customers/view/${customer.id}`
+                        );
+
+                        handleMenuClose();
+                      }}
+                    >
+                      <RemoveRedEyeOutlinedIcon
                         sx={{
-                          background:
-                            "#EFF6FF",
+                          mr: 1,
 
-                          "&:hover":
-                            {
-                              background:
-                                "#DBEAFE",
-                            },
+                          color:
+                            "#2563EB",
                         }}
-                        onClick={() =>
-                          router.push(
-                            `/customers/view/${customer.id}`
-                          )
-                        }
-                      >
-                        <RemoveRedEyeOutlinedIcon
-                          sx={{
-                            color:
-                              "#2563EB",
-                          }}
-                        />
-                      </IconButton>
+                      />
 
-                    </Tooltip>
+                      View
+                    </MenuItem>
 
                     {/* EDIT */}
-                    <Tooltip title="Edit">
+                    <MenuItem
+                      onClick={() => {
 
-                      <IconButton
-                        sx={{
-                          background:
-                            "#F8FAFC",
+                        router.push(
+                          `/customers/edit/${customer.id}`
+                        );
 
-                          "&:hover":
-                            {
-                              background:
-                                "#E2E8F0",
-                            },
-                        }}
-                        onClick={() =>
-                          router.push(
-                            `/customers/edit/${customer.id}`
-                          )
-                        }
-                      >
-                        <EditIcon
-                          sx={{
-                            color:
-                              "#0F172A",
-                          }}
-                        />
-                      </IconButton>
-
-                    </Tooltip>
-
-                    {/* STATUS */}
-                    <Tooltip
-                      title={
-                        customer.status ===
-                        "Active"
-                          ? "Deactivate"
-                          : "Activate"
-                      }
+                        handleMenuClose();
+                      }}
                     >
-                      <IconButton
+                      <EditIcon
                         sx={{
-                          background:
-                            customer.status ===
-                            "Active"
+                          mr: 1,
 
-                              ? "#FEF2F2"
-
-                              : "#DCFCE7",
+                          color:
+                            "#0F172A",
                         }}
-                        onClick={() =>
-                          handleToggleStatus(
-                            customer.id
-                          )
-                        }
-                      >
-                        <BlockIcon
-                          sx={{
-                            color:
-                              customer.status ===
-                              "Active"
+                      />
 
-                                ? "#DC2626"
+                      Edit
+                    </MenuItem>
 
-                                : "#16A34A",
-                          }}
-                        />
-                      </IconButton>
-
-                    </Tooltip>
-
-                  </Box>
+                  </Menu>
 
                 </TableCell>
 

@@ -8,481 +8,547 @@ import {
   Brand,
 } from "@/assets/types";
 
-import BlockIcon from "@mui/icons-material/Block";
-
 import EditIcon from "@mui/icons-material/Edit";
-
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 
 import {
   Avatar,
   Box,
   IconButton,
+  Menu,
+  MenuItem,
+  Select,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  Tooltip,
   Typography,
 } from "@mui/material";
 
 import { useRouter } from "next/navigation";
 
-import StatusChip from "@/component/common/StatusChip";
-
 interface BrandTableProps {
 
   brands:
     Brand[];
+
+  setBrandData:
+    React.Dispatch<
+      React.SetStateAction<
+        Brand[]
+      >
+    >;
 }
 
 export default function BrandTable({
   brands,
+  setBrandData,
 }: BrandTableProps) {
 
   const router =
     useRouter();
 
-  const [statusMap, setStatusMap] =
-    useState<
-      Record<string, string>
-    >({});
+  const [anchorEl, setAnchorEl] =
+    useState<null | HTMLElement>(null);
 
-  const handleToggleStatus = (
+  const [selectedBrandId, setSelectedBrandId] =
+    useState<string | null>(null);
+
+  const handleMenuOpen = (
+    event: React.MouseEvent<HTMLElement>,
     id: string
   ) => {
 
-    setStatusMap((prev) => ({
+    setAnchorEl(
+      event.currentTarget
+    );
 
-      ...prev,
+    setSelectedBrandId(id);
+  };
 
-      [id]:
-        (
-          prev[id] ||
+  const handleMenuClose = () => {
 
-          brands.find(
-            (brand) =>
-              brand.id === id
-          )?.status
-        ) === "Active"
+    setAnchorEl(null);
 
-          ? "Inactive"
+    setSelectedBrandId(null);
+  };
 
-          : "Active",
-    }));
+  const handleStatusChange = (
+    id: string,
+    value:
+      | "Active"
+      | "Inactive"
+  ) => {
+
+    setBrandData((prev) =>
+      prev.map((brand) =>
+        brand.id === id
+          ? {
+              ...brand,
+              status: value,
+            }
+          : brand
+      )
+    );
   };
 
   return (
     <TableContainer
       sx={{
-        mt: 2,
-
         borderRadius:
-          "24px",
-
-        background:
-          "#FFFFFF",
-
-        border:
-          "1px solid #E2E8F0",
+          "20px",
 
         overflow:
           "hidden",
+
+        background:
+          "#FFFFFF",
       }}
     >
+
       <Table
         sx={{
-          minWidth: 850,
-
-          "& .MuiTableCell-root":
-            {
-              py: 2.2,
-
-              borderColor:
-                "#F1F5F9",
-            },
+          "& .MuiTableCell-root": {
+            py: 2,
+            borderColor: "#F1F5F9",
+          },
         }}
       >
-        {/* TABLE HEAD */}
+
         <TableHead>
 
           <TableRow
             sx={{
               background:
                 "#F8FAFC",
+
+              borderBottom:
+                "1px solid #E2E8F0",
             }}
           >
-            <TableCell>
 
-              <Typography
-                sx={{
-                  fontWeight:
-                    700,
-                }}
-              >
+            <TableCell>
+              <Typography sx={{ fontWeight: 700 }}>
                 Brand
               </Typography>
-
             </TableCell>
 
             <TableCell>
-
-              <Typography
-                sx={{
-                  fontWeight:
-                    700,
-                }}
-              >
-                Type
+              <Typography sx={{ fontWeight: 700 }}>
+                Category
               </Typography>
-
             </TableCell>
 
             <TableCell>
+              <Typography sx={{ fontWeight: 700 }}>
+                Brand Group
+              </Typography>
+            </TableCell>
 
-              <Typography
-                sx={{
-                  fontWeight:
-                    700,
-                }}
-              >
+            <TableCell>
+              <Typography sx={{ fontWeight: 700 }}>
                 Phone
               </Typography>
-
             </TableCell>
 
-            <TableCell>
-
-              <Typography
-                sx={{
-                  fontWeight:
-                    700,
-                }}
-              >
+            <TableCell align="center">
+              <Typography sx={{ fontWeight: 700 }}>
                 Status
               </Typography>
-
             </TableCell>
 
-            <TableCell>
-
-              <Typography
-                sx={{
-                  fontWeight:
-                    700,
-                }}
-              >
+            <TableCell align="center">
+              <Typography sx={{ fontWeight: 700 }}>
                 Created
               </Typography>
-
             </TableCell>
 
-            <TableCell>
-
-              <Typography
-                sx={{
-                  fontWeight:
-                    700,
-                }}
-              >
+            <TableCell align="center">
+              <Typography sx={{ fontWeight: 700 }}>
                 Actions
               </Typography>
-
             </TableCell>
 
           </TableRow>
 
         </TableHead>
 
-        {/* TABLE BODY */}
         <TableBody>
 
           {brands.map(
             (
               brand
-            ) => {
+            ) => (
 
-              const currentStatus =
-
-                statusMap[
+              <TableRow
+                key={
                   brand.id
-                ] ||
+                }
+                hover
+                sx={{
+                  "&:hover":
+                    {
+                      background:
+                        "#F8FAFC",
+                    },
+                }}
+              >
 
-                brand.status;
+                {/* BRAND */}
+                <TableCell>
 
-              return (
+                  <Box
+                    sx={{
+                      display:
+                        "flex",
 
-                <TableRow
-                  key={
-                    brand.id
-                  }
-                  hover
-                  sx={{
-                    "&:hover":
-                      {
-                        background:
-                          "#F8FAFC",
-                      },
-                  }}
-                >
-                  {/* BRAND */}
-                  <TableCell>
+                      alignItems:
+                        "center",
 
-                    <Box
+                      gap: 2,
+                    }}
+                  >
+
+                    <Avatar
+                      src={
+                        brand.brandLogo
+                      }
                       sx={{
-                        display:
-                          "flex",
+                        width: 42,
 
-                        alignItems:
-                          "center",
+                        height: 42,
 
-                        gap: 2,
+                        bgcolor:
+                          "#EFF6FF",
+
+                        color:
+                          "#2563EB",
+
+                        fontWeight:
+                          700,
                       }}
                     >
-                      <Avatar
-                        src={
-                          brand.brandLogo
-                        }
+                      {
+                        brand.brandName?.charAt(
+                          0
+                        )
+                      }
+                    </Avatar>
+
+                    <Box>
+
+                      <Typography
                         sx={{
-                          width: 42,
-
-                          height: 42,
-
-                          bgcolor:
-                            "#EFF6FF",
+                          fontWeight:
+                            700,
 
                           color:
                             "#2563EB",
 
-                          fontWeight:
-                            700,
+                          fontSize:
+                            "14px",
                         }}
                       >
                         {
-                          brand.brandName?.charAt(
-                            0
-                          )
+                          brand.brandName
                         }
-                      </Avatar>
+                      </Typography>
 
-                      <Box>
+                      <Typography
+                        sx={{
+                          fontSize:
+                            "13px",
 
-                        <Typography
-                          sx={{
-                            fontWeight:
-                              700,
-
-                            color:
-                              "#2563EB",
-                          }}
-                        >
-                          {
-                            brand.brandName
-                          }
-                        </Typography>
-
-                        <Typography
-                          sx={{
-                            fontSize:
-                              "13px",
-
-                            color:
-                              "#64748B",
-                          }}
-                        >
-                          {
-                            brand.brandId
-                          }
-                        </Typography>
-
-                      </Box>
+                          color:
+                            "#64748B",
+                        }}
+                      >
+                        {
+                          brand.brandId
+                        }
+                      </Typography>
 
                     </Box>
 
-                  </TableCell>
+                  </Box>
 
-                  {/* TYPE */}
-                  <TableCell>
+                </TableCell>
 
-                    <Typography
-                      sx={{
-                        color:
-                          "#475569",
+                {/* CATEGORY */}
+                <TableCell>
 
-                        fontWeight:
-                          600,
-                      }}
-                    >
-                      {
-                        brand.brandType || "-"
-                      }
-                    </Typography>
+                  <Typography
+                    sx={{
+                      color:
+                        "#475569",
 
-                  </TableCell>
+                      fontWeight:
+                        600,
 
-                  {/* PHONE */}
-                  <TableCell>
+                      fontSize:
+                        "14px",
+                    }}
+                  >
+                    {
+                      brand.category ||
+                      "-"
+                    }
+                  </Typography>
 
-                    <Typography
-                      sx={{
-                        color:
-                          "#475569",
-                      }}
-                    >
-                      {
-                        brand.phone
-                      }
-                    </Typography>
+                </TableCell>
 
-                  </TableCell>
+                {/* GROUP */}
+                <TableCell>
 
-                  {/* STATUS */}
-                  <TableCell>
+                  <Typography
+                    sx={{
+                      color:
+                        "#0F172A",
 
-                    <StatusChip
-                      status={
-                        currentStatus
-                      }
-                    />
+                      fontWeight:
+                        600,
 
-                  </TableCell>
+                      fontSize:
+                        "14px",
+                    }}
+                  >
+                    {
+                      brand.brandGroup ||
+                      "-"
+                    }
+                  </Typography>
 
-                  {/* CREATED */}
-                  <TableCell>
+                </TableCell>
 
-                    <Typography
+                {/* PHONE */}
+                <TableCell>
+
+                  <Typography
+                    sx={{
+                      color:
+                        "#475569",
+
+                      fontSize:
+                        "14px",
+                    }}
+                  >
+                    {
+                      brand.phone
+                    }
+                  </Typography>
+
+                </TableCell>
+
+                {/* STATUS */}
+                <TableCell align="center">
+
+                  <Select
+                    size="small"
+                    value={brand.status}
+                    onChange={(e) =>
+                      handleStatusChange(
+                        brand.id,
+                        e.target.value as
+                          | "Active"
+                          | "Inactive"
+                      )
+                    }
+                    sx={{
+                      minWidth:
+                        "120px",
+
+                      borderRadius:
+                        "10px",
+
+                      fontWeight:
+                        600,
+
+                      background:
+                        brand.status ===
+                        "Active"
+
+                          ? "#DCFCE7"
+
+                          : "#FEE2E2",
+
+                      color:
+                        brand.status ===
+                        "Active"
+
+                          ? "#15803D"
+
+                          : "#DC2626",
+
+                      ".MuiOutlinedInput-notchedOutline":
+                        {
+                          border:
+                            "none",
+                        },
+
+                      ".MuiSelect-icon":
+                        {
+                          color:
+                            brand.status ===
+                            "Active"
+
+                              ? "#15803D"
+
+                              : "#DC2626",
+                        },
+                    }}
+                  >
+
+                    <MenuItem value="Active">
+                      Active
+                    </MenuItem>
+
+                    <MenuItem value="Inactive">
+                      Inactive
+                    </MenuItem>
+
+                  </Select>
+
+                </TableCell>
+
+                {/* CREATED */}
+                <TableCell align="center">
+
+                  <Typography
+                    sx={{
+                      color:
+                        "#64748B",
+
+                      fontWeight:
+                        500,
+
+                      fontSize:
+                        "14px",
+                    }}
+                  >
+                    {
+                      brand.createdDate
+                    }
+                  </Typography>
+
+                </TableCell>
+
+                {/* ACTIONS */}
+                <TableCell align="center">
+
+                  <IconButton
+                    onClick={(e) =>
+                      handleMenuOpen(
+                        e,
+                        brand.id
+                      )
+                    }
+                    sx={{
+                      background:
+                        "#F8FAFC",
+
+                      width: 38,
+
+                      height: 38,
+
+                      "&:hover": {
+                        background:
+                          "#E2E8F0",
+                      },
+                    }}
+                  >
+
+                    <MoreVertIcon
                       sx={{
                         color:
                           "#64748B",
                       }}
-                    >
-                      {
-                        brand.createdDate
-                      }
-                    </Typography>
+                    />
 
-                  </TableCell>
+                  </IconButton>
 
-                  {/* ACTIONS */}
-                  <TableCell>
+                  <Menu
+                    anchorEl={anchorEl}
+                    open={
+                      Boolean(anchorEl) &&
+                      selectedBrandId ===
+                        brand.id
+                    }
+                    onClose={
+                      handleMenuClose
+                    }
+                    slotProps={{
+                      paper: {
+                        sx: {
+                          borderRadius:
+                            "14px",
 
-                    <Box
-                      sx={{
-                        display:
-                          "flex",
+                          minWidth:
+                            "150px",
 
-                        gap: 1,
+                          boxShadow:
+                            "0px 10px 30px rgba(15,23,42,0.08)",
+                        },
+                      },
+                    }}
+                  >
+
+                    <MenuItem
+                      onClick={() => {
+
+                        router.push(
+                          `/products/brands/view/${brand.id}`
+                        );
+
+                        handleMenuClose();
                       }}
                     >
-                      {/* VIEW */}
-                      <Tooltip title="View">
 
-                        <IconButton
-                          sx={{
-                            background:
-                              "#EFF6FF",
+                      <RemoveRedEyeOutlinedIcon
+                        sx={{
+                          mr: 1,
 
-                            "&:hover":
-                              {
-                                background:
-                                  "#DBEAFE",
-                              },
-                          }}
-                          onClick={() =>
-                            router.push(
-                              `/products/brands/view/${brand.id}`
-                            )
-                          }
-                        >
-                          <RemoveRedEyeOutlinedIcon
-                            sx={{
-                              color:
-                                "#2563EB",
-                            }}
-                          />
-                        </IconButton>
+                          color:
+                            "#2563EB",
+                        }}
+                      />
 
-                      </Tooltip>
+                      View
 
-                      {/* EDIT */}
-                      <Tooltip title="Edit">
+                    </MenuItem>
 
-                        <IconButton
-                          sx={{
-                            background:
-                              "#F8FAFC",
+                    <MenuItem
+                      onClick={() => {
 
-                            "&:hover":
-                              {
-                                background:
-                                  "#E2E8F0",
-                              },
-                          }}
-                          onClick={() =>
-                            router.push(
-                              `/products/brands/edit/${brand.id}`
-                            )
-                          }
-                        >
-                          <EditIcon
-                            sx={{
-                              color:
-                                "#0F172A",
-                            }}
-                          />
-                        </IconButton>
+                        router.push(
+                          `/products/brands/edit/${brand.id}`
+                        );
 
-                      </Tooltip>
+                        handleMenuClose();
+                      }}
+                    >
 
-                      {/* STATUS */}
-                      <Tooltip
-                        title={
-                          currentStatus ===
-                          "Active"
-                            ? "Deactivate"
-                            : "Activate"
-                        }
-                      >
-                        <IconButton
-                          sx={{
-                            background:
-                              currentStatus ===
-                              "Active"
+                      <EditIcon
+                        sx={{
+                          mr: 1,
 
-                                ? "#FEF2F2"
+                          color:
+                            "#0F172A",
+                        }}
+                      />
 
-                                : "#DCFCE7",
-                          }}
-                          onClick={() =>
-                            handleToggleStatus(
-                              brand.id
-                            )
-                          }
-                        >
-                          <BlockIcon
-                            sx={{
-                              color:
-                                currentStatus ===
-                                "Active"
+                      Edit
 
-                                  ? "#DC2626"
+                    </MenuItem>
 
-                                  : "#16A34A",
-                            }}
-                          />
-                        </IconButton>
+                  </Menu>
 
-                      </Tooltip>
+                </TableCell>
 
-                    </Box>
-
-                  </TableCell>
-
-                </TableRow>
-              );
-            }
+              </TableRow>
+            )
           )}
 
         </TableBody>

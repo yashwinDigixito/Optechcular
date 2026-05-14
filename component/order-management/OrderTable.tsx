@@ -1,21 +1,28 @@
 "use client";
 
-import BlockIcon from "@mui/icons-material/Block";
+import {
+  useState,
+} from "react";
+
 import EditIcon from "@mui/icons-material/Edit";
+
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 
 import {
-  Box,
   Chip,
   IconButton,
+  Menu,
+  MenuItem,
+  Select,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  Tooltip,
-  Typography,
+  Typography
 } from "@mui/material";
 
 import { useRouter } from "next/navigation";
@@ -86,9 +93,11 @@ interface OrderType {
 
   notes: string;
 }
+
 interface Props {
 
-  orders: OrderType[];
+  orders:
+    OrderType[];
 
   setOrderData:
     React.Dispatch<
@@ -106,8 +115,47 @@ export default function OrderTable({
   const router =
     useRouter();
 
-  const handleToggleStatus = (
+  const [
+    anchorEl,
+    setAnchorEl,
+  ] = useState<
+    null | HTMLElement
+  >(null);
+
+  const [
+    selectedOrderId,
+    setSelectedOrderId,
+  ] = useState<
+    string | null
+  >(null);
+
+  const handleMenuOpen = (
+    event:
+      React.MouseEvent<HTMLElement>,
     id: string
+  ) => {
+
+    setAnchorEl(
+      event.currentTarget
+    );
+
+    setSelectedOrderId(
+      id
+    );
+  };
+
+  const handleMenuClose = () => {
+
+    setAnchorEl(null);
+
+    setSelectedOrderId(
+      null
+    );
+  };
+
+  const handleStatusChange = (
+    id: string,
+    value: string
   ) => {
 
     setOrderData((prev) =>
@@ -115,12 +163,7 @@ export default function OrderTable({
         order.id === id
           ? {
               ...order,
-
-              status:
-                order.status ===
-                "Completed"
-                  ? "Pending"
-                  : "Completed",
+              status: value,
             }
           : order
       )
@@ -131,12 +174,10 @@ export default function OrderTable({
     <TableContainer
       sx={{
         borderRadius:
-          "24px",
+          "20px",
 
-        border:
-          "1px solid #E2E8F0",
-
-        overflow: "hidden",
+        overflow:
+          "hidden",
 
         background:
           "#FFFFFF",
@@ -160,54 +201,113 @@ export default function OrderTable({
             sx={{
               background:
                 "#F8FAFC",
+
+              borderBottom:
+                "1px solid #E2E8F0",
             }}
           >
             <TableCell>
-              <Typography sx={{fontWeight:700}}>
+
+              <Typography
+                sx={{
+                  fontWeight:
+                    700,
+                }}
+              >
                 Order No
               </Typography>
+
             </TableCell>
 
             <TableCell>
-              <Typography sx={{fontWeight:700}}>
+
+              <Typography
+                sx={{
+                  fontWeight:
+                    700,
+                }}
+              >
                 Customer
               </Typography>
+
             </TableCell>
 
             <TableCell>
-              <Typography sx={{fontWeight:700}}>
+
+              <Typography
+                sx={{
+                  fontWeight:
+                    700,
+                }}
+              >
                 Product
               </Typography>
+
             </TableCell>
 
-            <TableCell>
-              <Typography sx={{fontWeight:700}}>
+            <TableCell align="center">
+
+              <Typography
+                sx={{
+                  fontWeight:
+                    700,
+                }}
+              >
                 Amount
               </Typography>
+
             </TableCell>
 
-            <TableCell>
-              <Typography sx={{fontWeight:700}}>
+            <TableCell align="center">
+
+              <Typography
+                sx={{
+                  fontWeight:
+                    700,
+                }}
+              >
                 Payment
               </Typography>
+
             </TableCell>
 
-            <TableCell>
-              <Typography sx={{fontWeight:700}}>
+            <TableCell align="center">
+
+              <Typography
+                sx={{
+                  fontWeight:
+                    700,
+                }}
+              >
                 Order Status
               </Typography>
+
             </TableCell>
 
-            <TableCell>
-              <Typography sx={{fontWeight:700}}>
-                Order Date
+            <TableCell align="center">
+
+              <Typography
+                sx={{
+                  fontWeight:
+                    700,
+                }}
+              >
+                Date
               </Typography>
+
             </TableCell>
 
-            <TableCell>
-              <Typography sx={{fontWeight:700}}>
+            <TableCell align="center">
+
+              <Typography
+                sx={{
+                  fontWeight:
+                    700,
+                }}
+              >
                 Actions
               </Typography>
+
             </TableCell>
 
           </TableRow>
@@ -218,16 +318,21 @@ export default function OrderTable({
         <TableBody>
 
           {orders.map(
-            (order) => (
+            (
+              order
+            ) => (
 
               <TableRow
-                key={order.id}
+                key={
+                  order.id
+                }
                 hover
                 sx={{
-                  "&:hover": {
-                    background:
-                      "#F8FAFC",
-                  },
+                  "&:hover":
+                    {
+                      background:
+                        "#F8FAFC",
+                    },
                 }}
               >
                 {/* ORDER NO */}
@@ -235,10 +340,14 @@ export default function OrderTable({
 
                   <Typography
                     sx={{
-                      fontWeight: 700,
+                      fontWeight:
+                        700,
 
                       color:
                         "#2563EB",
+
+                      fontSize:
+                        "15px",
                     }}
                   >
                     {
@@ -253,7 +362,8 @@ export default function OrderTable({
 
                   <Typography
                     sx={{
-                      fontWeight: 600,
+                      fontWeight:
+                        600,
                     }}
                   >
                     {
@@ -280,23 +390,28 @@ export default function OrderTable({
                 </TableCell>
 
                 {/* AMOUNT */}
-                <TableCell>
+                <TableCell align="center">
 
                   <Typography
                     sx={{
-                      fontWeight: 700,
+                      fontWeight:
+                        700,
                     }}
                   >
-                    ₹
+                    ₹{" "}
                     {
-                      order.totalAmount
+                      new Intl.NumberFormat(
+                        "en-IN"
+                      ).format(
+                        order.totalAmount
+                      )
                     }
                   </Typography>
 
                 </TableCell>
 
-                {/* PAYMENT STATUS */}
-                <TableCell>
+                {/* PAYMENT */}
+                <TableCell align="center">
 
                   <Chip
                     label={
@@ -315,7 +430,7 @@ export default function OrderTable({
 
                           ? "#FEF3C7"
 
-                          : "#FEE2E2",
+                          : "#EDE9FE",
 
                       color:
                         order.paymentStatus ===
@@ -328,9 +443,10 @@ export default function OrderTable({
 
                           ? "#B45309"
 
-                          : "#DC2626",
+                          : "#7C3AED",
 
-                      fontWeight: 700,
+                      fontWeight:
+                        700,
 
                       borderRadius:
                         "8px",
@@ -339,15 +455,30 @@ export default function OrderTable({
 
                 </TableCell>
 
-                {/* ORDER STATUS */}
-                <TableCell>
+                {/* STATUS */}
+                <TableCell align="center">
 
-                  <Chip
-                    label={
+                  <Select
+                    size="small"
+                    value={
                       order.status
                     }
-                    size="small"
+                    onChange={(e) =>
+                      handleStatusChange(
+                        order.id,
+                        e.target.value
+                      )
+                    }
                     sx={{
+                      minWidth:
+                        "130px",
+
+                      borderRadius:
+                        "10px",
+
+                      fontWeight:
+                        600,
+
                       background:
                         order.status ===
                         "Completed"
@@ -357,9 +488,14 @@ export default function OrderTable({
                           : order.status ===
                             "Pending"
 
-                          ? "#DBEAFE"
+                          ? "#FEF3C7"
 
-                          : "#FEE2E2",
+                          : order.status ===
+                            "Cancelled"
+
+                          ? "#FEE2E2"
+
+                          : "#EDE9FE",
 
                       color:
                         order.status ===
@@ -370,21 +506,65 @@ export default function OrderTable({
                           : order.status ===
                             "Pending"
 
-                          ? "#2563EB"
+                          ? "#B45309"
 
-                          : "#DC2626",
+                          : order.status ===
+                            "Cancelled"
 
-                      fontWeight: 700,
+                          ? "#DC2626"
 
-                      borderRadius:
-                        "8px",
+                          : "#7C3AED",
+
+                      ".MuiOutlinedInput-notchedOutline":
+                        {
+                          border:
+                            "none",
+                        },
+
+                      ".MuiSelect-icon":
+                        {
+                          color:
+                            order.status ===
+                            "Completed"
+
+                              ? "#15803D"
+
+                              : order.status ===
+                                "Pending"
+
+                              ? "#B45309"
+
+                              : order.status ===
+                                "Cancelled"
+
+                              ? "#DC2626"
+
+                              : "#7C3AED",
+                        },
                     }}
-                  />
+                  >
+                    <MenuItem value="Completed">
+                      Completed
+                    </MenuItem>
+
+                    <MenuItem value="Pending">
+                      Pending
+                    </MenuItem>
+
+                    <MenuItem value="Cancelled">
+                      Cancelled
+                    </MenuItem>
+
+                    <MenuItem value="Refunded">
+                      Refunded
+                    </MenuItem>
+
+                  </Select>
 
                 </TableCell>
 
                 {/* DATE */}
-                <TableCell>
+                <TableCell align="center">
 
                   <Typography
                     sx={{
@@ -400,101 +580,114 @@ export default function OrderTable({
                 </TableCell>
 
                 {/* ACTIONS */}
-                <TableCell>
+                <TableCell align="center">
 
-                  <Box
+                  <IconButton
+                    onClick={(e) =>
+                      handleMenuOpen(
+                        e,
+                        order.id
+                      )
+                    }
                     sx={{
-                      display:
-                        "flex",
+                      background:
+                        "#F8FAFC",
 
-                      gap: 1,
+                      width: 38,
+
+                      height: 38,
+
+                      "&:hover":
+                        {
+                          background:
+                            "#E2E8F0",
+                        },
+                    }}
+                  >
+                    <MoreVertIcon
+                      sx={{
+                        color:
+                          "#64748B",
+                      }}
+                    />
+                  </IconButton>
+
+                  <Menu
+                    anchorEl={
+                      anchorEl
+                    }
+                    open={
+                      Boolean(
+                        anchorEl
+                      ) &&
+                      selectedOrderId ===
+                        order.id
+                    }
+                    onClose={
+                      handleMenuClose
+                    }
+                    slotProps={{
+                      paper: {
+                        sx: {
+                          borderRadius:
+                            "14px",
+
+                          minWidth:
+                            "120px",
+
+                          boxShadow:
+                            "0px 10px 30px rgba(15,23,42,0.08)",
+                        },
+                      },
                     }}
                   >
                     {/* VIEW */}
-                    <Tooltip title="View">
+                    <MenuItem
+                      onClick={() => {
 
-                      <IconButton
+                        router.push(
+                          `/orders/view/${order.id}`
+                        );
+
+                        handleMenuClose();
+                      }}
+                    >
+                      <RemoveRedEyeOutlinedIcon
                         sx={{
-                          background:
-                            "#EFF6FF",
+                          mr: 1,
 
-                          "&:hover":
-                            {
-                              background:
-                                "#DBEAFE",
-                            },
+                          color:
+                            "#2563EB",
                         }}
-                        onClick={() =>
-                          router.push(
-                            `/orders/view/${order.id}`
-                          )
-                        }
-                      >
-                        <RemoveRedEyeOutlinedIcon
-                          sx={{
-                            color:
-                              "#2563EB",
-                          }}
-                        />
-                      </IconButton>
+                      />
 
-                    </Tooltip>
+                      View
+                    </MenuItem>
 
                     {/* EDIT */}
-                    <Tooltip title="Edit">
+                    <MenuItem
+                      onClick={() => {
 
-                      <IconButton
+                        router.push(
+                          `/orders/edit/${order.id}`
+                        );
+
+                        handleMenuClose();
+                      }}
+                    >
+                      <EditIcon
                         sx={{
-                          background:
-                            "#F8FAFC",
+                          mr: 1,
 
-                          "&:hover":
-                            {
-                              background:
-                                "#E2E8F0",
-                            },
+                          color:
+                            "#0F172A",
                         }}
-                        onClick={() =>
-                          router.push(
-                            `/orders/edit/${order.id}`
-                          )
-                        }
-                      >
-                        <EditIcon
-                          sx={{
-                            color:
-                              "#0F172A",
-                          }}
-                        />
-                      </IconButton>
+                      />
 
-                    </Tooltip>
+                      Edit
+                    </MenuItem>
 
-                    {/* STATUS */}
-                    <Tooltip title="Change Status">
-
-                      <IconButton
-                        sx={{
-                          background:
-                            "#FEF2F2",
-                        }}
-                        onClick={() =>
-                          handleToggleStatus(
-                            order.id
-                          )
-                        }
-                      >
-                        <BlockIcon
-                          sx={{
-                            color:
-                              "#DC2626",
-                          }}
-                        />
-                      </IconButton>
-
-                    </Tooltip>
-
-                  </Box>
+                  </Menu>
 
                 </TableCell>
 

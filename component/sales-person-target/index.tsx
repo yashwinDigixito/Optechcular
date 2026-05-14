@@ -1,12 +1,10 @@
 "use client";
 
-import {
-  salesTargets,
-} from "@/assets/genericdata";
+import { useState } from "react";
 
-import {
-  SalesTarget,
-} from "@/assets/types";
+import { salesTargets } from "@/assets/genericdata";
+
+import { SalesTarget } from "@/assets/types";
 
 import AddIcon from "@mui/icons-material/Add";
 
@@ -18,95 +16,105 @@ import {
 
 import { useRouter } from "next/navigation";
 
-import {
-  useState,
-} from "react";
-
-import TableContainerCard from "@/component/common/TableContainerCard";
-
 import SalesTargetFilters from "./SalesTargetFilters";
 
 import SalesTargetTable from "./SalesTargetTable";
 
 export default function SalesTargetManagementPage() {
 
-  const router =
-    useRouter();
+  const router = useRouter();
 
-  const [search, setSearch] =
-    useState("");
+  const [search, setSearch] = useState("");
 
-  const [month, setMonth] =
-    useState("");
+  const [month, setMonth] = useState("");
 
-  const [status, setStatus] =
-    useState("");
+  const [status, setStatus] = useState("");
 
-  const [targetData] =
-    useState<
-      SalesTarget[]
-    >(
-      salesTargets
-    );
+  const [targetData, setTargetData] =
+    useState<SalesTarget[]>(salesTargets);
 
+  /* COUNTS */
+  const salesTargetCount = {
+
+    all: targetData.length,
+
+    completed: targetData.filter(
+      (target) =>
+        target.status === "Completed"
+    ).length,
+
+    inProgress: targetData.filter(
+      (target) =>
+        target.status === "In Progress"
+    ).length,
+
+    pending: targetData.filter(
+      (target) =>
+        target.status === "Pending"
+    ).length,
+
+    overdue: targetData.filter(
+      (target) =>
+        target.status === "Overdue"
+    ).length,
+  };
+
+  /* FILTERED DATA */
   const filteredTargets =
-    targetData.filter(
-      (target) => {
+    targetData.filter((target) => {
 
-        const matchesSearch =
-          search
-            ? target.salesPersonName
-                .toLowerCase()
-                .includes(
-                  search.toLowerCase()
-                )
-            : true;
+      const matchesSearch =
+        !search ||
 
-        const matchesMonth =
-          month
-            ? target.month ===
-              month
-            : true;
+        target.salesPersonName
+          .toLowerCase()
+          .includes(
+            search.toLowerCase()
+          );
 
-        const matchesStatus =
-          status
-            ? target.status ===
-              status
-            : true;
+      const matchesMonth =
+        month
+          ? target.month === month
+          : true;
 
-        return (
-          matchesSearch &&
-          matchesMonth &&
-          matchesStatus
-        );
-      }
-    );
+      const matchesStatus =
+        status
+          ? target.status === status
+          : true;
+
+      return (
+        matchesSearch &&
+        matchesMonth &&
+        matchesStatus
+      );
+    });
 
   return (
-    <Box sx={{ p: 3 }}>
+    <Box
+      sx={{
+        p: 3,
+        minHeight: "100vh",
+        background: "#F8FAFC",
+      }}
+    >
 
       {/* HEADER */}
       <Box
         sx={{
-          display:
-            "flex",
-
-          justifyContent:
-            "space-between",
-
-          alignItems:
-            "center",
-
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
           mb: 3,
+          flexWrap: "wrap",
+          gap: 2,
         }}
       >
+
         <Typography
           sx={{
-            fontSize:
-              "32px",
-
-            fontWeight:
-              700,
+            fontSize: "32px",
+            fontWeight: 700,
+            color: "#0F172A",
           }}
         >
           Sales Person Target
@@ -121,11 +129,12 @@ export default function SalesTargetManagementPage() {
             )
           }
           sx={{
-            borderRadius:
-              "12px",
-
-            textTransform:
-              "none",
+            borderRadius: "14px",
+            px: 3,
+            height: "50px",
+            textTransform: "none",
+            fontWeight: 700,
+            boxShadow: "none",
           }}
         >
           Add Target
@@ -133,44 +142,56 @@ export default function SalesTargetManagementPage() {
 
       </Box>
 
-      {/* FILTERS */}
-      <SalesTargetFilters
-        search={search}
-        setSearch={setSearch}
-        month={month}
-        setMonth={setMonth}
-        status={status}
-        setStatus={setStatus}
-      />
+      {/* MAIN CARD */}
+      <Box
+        sx={{
+          background: "#FFFFFF",
+          border: "1px solid #E2E8F0",
+          borderRadius: "24px",
+          overflow: "hidden",
+        }}
+      >
 
-      {/* TABLE */}
-      <TableContainerCard>
+        {/* FILTERS */}
+        <SalesTargetFilters
+          search={search}
+          setSearch={setSearch}
+          month={month}
+          setMonth={setMonth}
+          status={status}
+          setStatus={setStatus}
+          salesTargetCount={salesTargetCount}
+        />
 
+        {/* TABLE */}
         <Box sx={{ p: 3 }}>
 
-          <Typography
-            sx={{
-              mb: 2,
+          {(
+            search ||
+            month ||
+            status
+          ) && (
 
-              color:
-                "#64748B",
-            }}
-          >
-            {
-              filteredTargets.length
-            }{" "}
-            results found
-          </Typography>
+            <Typography
+              sx={{
+                mb: 2,
+                color: "#64748B",
+                fontWeight: 500,
+              }}
+            >
+              {filteredTargets.length} results found
+            </Typography>
+
+          )}
 
           <SalesTargetTable
-            salesTargets={
-              filteredTargets
-            }
+            salesTargets={filteredTargets}
+            setSalesTargetData={setTargetData}
           />
 
         </Box>
 
-      </TableContainerCard>
+      </Box>
 
     </Box>
   );

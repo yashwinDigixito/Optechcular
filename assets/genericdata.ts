@@ -1,7 +1,9 @@
 import {
   DashboardStat,
   Expense,
+  Frame,
   Inventory,
+  Invoice,
   Ledger,
   LedgerGroup,
   ReportChartData,
@@ -1252,7 +1254,7 @@ export const materials = [
 
     materialName: "Polycarbonate",
 
-    applicableFor: "Optical Lens",
+    applicableFor: "Contact Lens",
 
     purchasePrice: 600,
 
@@ -1483,408 +1485,531 @@ export const rimShapes = [
   },
 ];
 
-export const frames = [
-  {
-    id: "1",
-
-   
-    frameId: "FRM-1001",
-    brand: "RayBan",
-    frameName: "RayBan Aviator Classic",
-    modelNo: "RB-3025",
-
-    
-    categoryId: "CAT-1001",
-    category: "Sunglasses",
-
-   
-    rimType: "Full Rim",
-    rimShape: "Aviator",
-    frameType: "Metal Frame",
-
-   
-    frameMaterial: "Metal",
-    templeMaterial: "Metal",
-
-    
-    size: "58",
-    dbl: "14",
-    templeLength: "135",
-    frameWidth: "142",
-    lensWidth: "58",
-    lensHeight: "50",
-
-    // COLORS
-    colourCode: "GOLD-BLACK",
-    frameFrontColor: "Gold",
-    templeColor: "Black",
-    lensColor: "Green",
-
-    // PRODUCT DETAILS
-    gender: "Unisex",
-    ageGroup: "Adult",
-    styleType: "Fashion",
-    frameWeight: "24 gm",
-
-    // LENS SUPPORT
-    lensTypeSupported: [
-      "Single Vision",
-      "Progressive",
-      "Blue Cut",
-    ],
-
-    // INVENTORY
-    skuCode: "RB-SG-1001",
-    barcode: "8901452365478",
-    stock: 15,
-    lowStockLimit: 5,
-    warehouseLocation: "Delhi Warehouse",
-
-    // PRICING
-    purchasePrice: 4500,
-    sellingPrice: 7999,
-    discountPrice: 7499,
-    tax: 18,
-
-    // LOCATION PRICING
-    locationPricing:
-      "Mumbai - 7999, Delhi - 8099",
-
-    // STATUS
-    status: "Active",
-    featuredProduct: true,
-    trendingProduct: true,
-
-    // PRODUCT MEDIA
-    thumbnailImage:
-      "/images/frames/rayban-main.png",
-
-    galleryImages: [
-      "/images/frames/rayban-1.png",
-      "/images/frames/rayban-2.png",
-    ],
-
-    // SEO
-    slug: "rayban-aviator-classic",
-    metaTitle:
-      "RayBan Aviator Classic Sunglasses",
-    metaDescription:
-      "Premium RayBan aviator sunglasses.",
-
-    // EXTRA DETAILS
-    hsnCode: "90041000",
-    launchSeason: "Summer 2026",
-    countryOfOrigin: "Italy",
-    warrantyPeriod: "1 Year",
-    supplierName: "RayBan India",
-
-    // DESCRIPTION
-    description:
-      "Premium lightweight aviator sunglasses.",
-
-    features: [
-      "UV Protection",
-      "Lightweight",
-      "Scratch Resistant",
-    ],
-
-    notes:
-      "Best selling aviator frame collection.",
-
-    // AUDIT DETAILS
-    createdOn: "2026-05-11",
-    updatedDate: "2026-05-12",
-    createdBy: "Admin",
-  },
-
-  {
-    id: "2",
-
-    frameId: "FRM-1002",
-    brand: "Oakley",
-    frameName: "Oakley Urban Flex",
-    modelNo: "OK-1102",
-
-    categoryId: "CAT-1001",
-    category: "Optical Frame",
-
-    rimType: "Half Rim",
-    rimShape: "Rectangle",
-    frameType: "Titanium Frame",
-
-    frameMaterial: "Titanium",
-    templeMaterial: "Titanium",
-
-    size: "54",
-    dbl: "17",
-    templeLength: "140",
-    frameWidth: "138",
-    lensWidth: "54",
-    lensHeight: "42",
-
-    colourCode: "MATTE-BLUE",
-    frameFrontColor: "Blue",
-    templeColor: "Black",
-    lensColor: "Transparent",
-
-    gender: "Men",
-    ageGroup: "Adult",
-    styleType: "Professional",
-    frameWeight: "20 gm",
-
-    lensTypeSupported: [
-      "Single Vision",
-      "Blue Cut",
-    ],
-
-    skuCode: "OK-OF-1002",
-    barcode: "8901452365490",
-    stock: 4,
-    lowStockLimit: 5,
-    warehouseLocation: "Mumbai Warehouse",
-
-    purchasePrice: 3500,
-    sellingPrice: 6499,
-    discountPrice: 5999,
-    tax: 18,
-
-    locationPricing:
-      "Ahmedabad - 6499",
-
-    status: "Active",
-    featuredProduct: false,
-    trendingProduct: true,
-
-    thumbnailImage:
-      "/images/frames/oakley-main.png",
-
-    galleryImages: [
-      "/images/frames/oakley-1.png",
-      "/images/frames/oakley-2.png",
-    ],
-
-    slug: "oakley-urban-flex",
-    metaTitle:
-      "Oakley Urban Flex Optical Frame",
-
-    metaDescription:
-      "Modern titanium optical frame by Oakley.",
-
-    hsnCode: "90049090",
-    launchSeason: "Winter 2026",
-    countryOfOrigin: "USA",
-    warrantyPeriod: "2 Years",
-    supplierName: "Oakley India",
-
-    description:
-      "Durable and lightweight titanium frame.",
-
-    features: [
-      "Flexible Hinges",
-      "Lightweight",
-      "Premium Finish",
-    ],
-
-    notes:
-      "Low stock product.",
-
-    createdOn: "2026-05-10",
-    updatedDate: "2026-05-11",
-    createdBy: "Admin",
-  },
-
-  {
-    id: "3",
-
-    frameId: "FRM-1003",
-    brand: "Gucci",
-    frameName: "Gucci Cat Eye Premium",
-    modelNo: "GC-778",
-
-    categoryId: "CAT-1001",
-    category: "Sunglasses",
-
-    rimType: "Full Rim",
-    rimShape: "Cat Eye",
-    frameType: "Acetate Frame",
-
-    frameMaterial: "Acetate",
-    templeMaterial: "Acetate",
-
-    size: "56",
-    dbl: "16",
-    templeLength: "142",
-    frameWidth: "145",
-    lensWidth: "56",
-    lensHeight: "48",
-
-    colourCode: "BLACK-GOLD",
-    frameFrontColor: "Black",
-    templeColor: "Gold",
-    lensColor: "Grey",
-
-    gender: "Women",
-    ageGroup: "Adult",
-    styleType: "Luxury",
-    frameWeight: "28 gm",
-
-    lensTypeSupported: [
-      "Single Vision",
-      "Progressive",
-    ],
-
-    skuCode: "GC-SG-1004",
-    barcode: "8901452365514",
-    stock: 9,
-    lowStockLimit: 3,
-    warehouseLocation: "Bangalore Warehouse",
-
-    purchasePrice: 6500,
-    sellingPrice: 9999,
-    discountPrice: 9499,
-    tax: 18,
-
-    locationPricing:
-      "Mumbai - 9999",
-
-    status: "Active",
-    featuredProduct: true,
-    trendingProduct: true,
-
-    thumbnailImage:
-      "/images/frames/gucci-main.png",
-
-    galleryImages: [
-      "/images/frames/gucci-1.png",
-      "/images/frames/gucci-2.png",
-    ],
-
-    slug: "gucci-cat-eye-premium",
-    metaTitle:
-      "Gucci Cat Eye Premium Sunglasses",
-
-    metaDescription:
-      "Luxury Gucci cat eye sunglasses.",
-
-    hsnCode: "90041000",
-    launchSeason: "Autumn 2026",
-    countryOfOrigin: "Italy",
-    warrantyPeriod: "1 Year",
-    supplierName: "Gucci India",
-
-    description:
-      "Luxury cat eye sunglasses with premium finish.",
-
-    features: [
-      "Luxury Design",
-      "UV Protection",
-      "Premium Acetate",
-    ],
-
-    notes:
-      "Premium women collection.",
-
-    createdOn: "2026-05-08",
-    updatedDate: "2026-05-09",
-    createdBy: "Admin",
-  },
-
-  {
-    id: "4",
-
-    frameId: "FRM-1004",
-    brand: "Titan Eye+",
-    frameName: "Titan Everyday Comfort",
-    modelNo: "TE-210",
-
-    categoryId: "CAT-1001",
-    category: "Optical Frame",
-
-    rimType: "Full Rim",
-    rimShape: "Rectangle",
-    frameType: "Plastic Frame",
-
-    frameMaterial: "Plastic",
-    templeMaterial: "Plastic",
-
-    size: "53",
-    dbl: "18",
-    templeLength: "136",
-    frameWidth: "136",
-    lensWidth: "53",
-    lensHeight: "40",
-
-    colourCode: "BLACK-RED",
-    frameFrontColor: "Black",
-    templeColor: "Red",
-    lensColor: "Transparent",
-
-    gender: "Unisex",
-    ageGroup: "Adult",
-    styleType: "Casual",
-    frameWeight: "22 gm",
-
-    lensTypeSupported: [
-      "Single Vision",
-      "Blue Cut",
-    ],
-
-    skuCode: "TE-OF-1006",
-    barcode: "8901452365538",
-    stock: 22,
-    lowStockLimit: 8,
-    warehouseLocation: "Surat Warehouse",
-
-    purchasePrice: 1800,
-    sellingPrice: 3499,
-    discountPrice: 3299,
-    tax: 12,
-
-    locationPricing:
-      "Surat - 3499",
-
-    status: "Active",
-    featuredProduct: false,
-    trendingProduct: false,
-
-    thumbnailImage:
-      "/images/frames/titan-main.png",
-
-    galleryImages: [
-      "/images/frames/titan-1.png",
-      "/images/frames/titan-2.png",
-    ],
-
-    slug: "titan-everyday-comfort",
-    metaTitle:
-      "Titan Everyday Comfort Optical Frame",
-
-    metaDescription:
-      "Comfortable everyday optical frame by Titan.",
-
-    hsnCode: "90049090",
-    launchSeason: "Winter 2025",
-    countryOfOrigin: "India",
-    warrantyPeriod: "6 Months",
-    supplierName: "Titan Eye+",
-
-    description:
-      "Affordable and durable daily wear optical frame.",
-
-    features: [
-      "Lightweight",
-      "Comfort Fit",
-      "Budget Friendly",
-    ],
-
-    notes:
-      "High stock available.",
-
-    createdOn: "2026-05-06",
-    updatedDate: "2026-05-07",
-    createdBy: "Admin",
-  },
+export const frames: Frame[] = [
+
+{
+id:"1",
+frameId:"FRM-1001",
+frameName:"RayBan Aviator Classic",
+skuCode:"RB-SG-1001",
+barcode:"8901452365478",
+tax:18,
+categoryId:"CAT-1001",
+category:"Sunglasses",
+
+brand:"RayBan",
+modelNumber:"RB-3025",
+
+rimType:"Full Rim",
+rimShape:"Aviator",
+
+gender:"Unisex",
+ageGroup:"Adult",
+
+frameSize:"58",
+lensWidth:58,
+bridgeWidth:14,
+templeLength:135,
+
+dbl:14,
+templeMaterial:"Metal",
+frameWidth:142,
+lensHeight:48,
+colorCode:"GLD-BLK",
+frameFrontColor:"Gold",
+lensColor:"Green",
+hsnCode:"90041000",
+frameType:"Sunglasses",
+
+frameMaterial:"Metal",
+frameColor:"Gold",
+templeColor:"Black",
+
+weight:24,
+
+lensTypeSupported:[
+"Single Vision",
+"Progressive",
+"Blue Cut",
+],
+
+stockQuantity:15,
+lowStockLimit:5,
+warehouseLocation:"Delhi Warehouse",
+
+purchasePrice:4500,
+sellingPrice:7999,
+discountPrice:7499,
+
+gstPercentage:18,
+
+status:"Active",
+
+featuredProduct:true,
+trendingProduct:true,
+
+thumbnailImage:"/images/frames/rayban-main.png",
+
+galleryImages:[
+"/images/frames/rayban-1.png",
+"/images/frames/rayban-2.png",
+],
+
+description:"Premium lightweight aviator sunglasses.",
+
+features:[
+"UV Protection",
+"Lightweight",
+"Scratch Resistant",
+],
+
+metaTitle:"RayBan Aviator Classic Sunglasses",
+
+metaDescription:"Premium RayBan aviator sunglasses.",
+
+slug:"rayban-aviator-classic",
+
+warrantyPeriod:"1 Year",
+
+supplierName:"RayBan India",
+
+countryOfOrigin:"Italy",
+
+createdOn:"2026-05-11",
+
+updatedDate:"2026-05-12",
+createdBy:"Admin",
+},
+
+{
+id:"2",
+frameId:"FRM-1002",
+frameName:"Oakley Urban Flex",
+skuCode:"OK-OF-1002",
+barcode:"8901452365490",
+
+categoryId:"CAT-1002",
+category:"Optical Frame",
+
+brand:"Oakley",
+modelNumber:"OK-1102",
+
+rimType:"Half Rim",
+rimShape:"Rectangle",
+
+gender:"Men",
+ageGroup:"Adult",
+
+frameSize:"54",
+lensWidth:54,
+bridgeWidth:17,
+templeLength:140,
+
+dbl:17,
+templeMaterial:"Titanium",
+frameWidth:138,
+lensHeight:39,
+colorCode:"BLK-BLU",
+frameFrontColor:"Black",
+lensColor:"Transparent",
+hsnCode:"90031100",
+frameType:"Optical",
+
+frameMaterial:"Titanium",
+frameColor:"Blue",
+templeColor:"Black",
+tax:18,
+weight:20,
+
+lensTypeSupported:[
+"Single Vision",
+"Blue Cut",
+],
+
+stockQuantity:4,
+lowStockLimit:5,
+warehouseLocation:"Mumbai Warehouse",
+
+purchasePrice:3500,
+sellingPrice:6499,
+discountPrice:5999,
+
+gstPercentage:18,
+
+status:"Active",
+
+featuredProduct:false,
+trendingProduct:true,
+
+thumbnailImage:"/images/frames/oakley-main.png",
+
+galleryImages:[
+"/images/frames/oakley-1.png",
+"/images/frames/oakley-2.png",
+],
+
+description:"Durable and lightweight titanium frame.",
+
+features:[
+"Flexible Hinges",
+"Lightweight",
+"Premium Finish",
+],
+
+metaTitle:"Oakley Urban Flex Optical Frame",
+
+metaDescription:"Modern titanium optical frame by Oakley.",
+
+slug:"oakley-urban-flex",
+
+warrantyPeriod:"2 Years",
+
+supplierName:"Oakley India",
+
+countryOfOrigin:"USA",
+
+createdOn:"2026-05-10",
+updatedDate:"2026-05-11",
+
+createdBy:"Admin",
+},
+
+{
+id:"5",
+frameId:"FRM-1005",
+frameName:"Prada Elite Vision",
+skuCode:"PR-OF-2001",
+barcode:"8901452365600",
+
+categoryId:"CAT-1002",
+category:"Optical Frame",
+
+brand:"Prada",
+modelNumber:"PR-980",
+
+rimType:"Full Rim",
+rimShape:"Oval",
+
+gender:"Women",
+ageGroup:"Adult",
+
+frameSize:"52",
+lensWidth:52,
+bridgeWidth:16,
+templeLength:138,
+
+dbl:16,
+templeMaterial:"Acetate",
+frameWidth:136,
+lensHeight:41,
+colorCode:"PRD-BRN",
+frameFrontColor:"Brown",
+lensColor:"Transparent",
+hsnCode:"90031100",
+frameType:"Optical",
+
+frameMaterial:"Acetate",
+frameColor:"Brown",
+templeColor:"Gold",
+
+weight:19,
+
+stockQuantity:10,
+lowStockLimit:4,
+warehouseLocation:"Hyderabad Warehouse",
+
+purchasePrice:4200,
+sellingPrice:7599,
+discountPrice:7099,
+
+gstPercentage:18,
+
+status:"Active",
+
+featuredProduct:true,
+trendingProduct:false,
+
+thumbnailImage:"/images/frames/prada-main.png",
+
+description:"Elegant premium oval optical frame.",
+
+features:[
+"Luxury Finish",
+"Premium Hinges",
+],
+tax:18,
+countryOfOrigin:"Italy",
+
+createdOn:"2026-05-13",
+},
+
+{
+id:"6",
+frameId:"FRM-1006",
+frameName:"Carrera Street Pro",
+skuCode:"CR-SG-2002",
+barcode:"8901452365601",
+
+categoryId:"CAT-1001",
+category:"Sunglasses",
+
+brand:"Carrera",
+modelNumber:"CR-778",
+
+rimType:"Full Rim",
+rimShape:"Wayfarer",
+
+gender:"Men",
+ageGroup:"Adult",
+
+frameSize:"57",
+lensWidth:57,
+bridgeWidth:15,
+templeLength:140,
+
+dbl:15,
+templeMaterial:"TR90",
+frameWidth:145,
+lensHeight:45,
+colorCode:"MAT-BLK",
+frameFrontColor:"Matte Black",
+lensColor:"Grey",
+hsnCode:"90041000",
+frameType:"Sunglasses",
+
+frameMaterial:"TR90",
+frameColor:"Black",
+templeColor:"Black",
+
+weight:26,
+
+stockQuantity:7,
+lowStockLimit:3,
+
+purchasePrice:3800,
+sellingPrice:6999,
+
+gstPercentage:18,
+
+status:"Active",
+
+thumbnailImage:"/images/frames/carrera-main.png",
+
+description:"Stylish sporty sunglasses.",
+tax:18,
+createdOn:"2026-05-15",
+},
+
+{
+id:"7",
+frameId:"FRM-1007",
+frameName:"Vogue Slim Air",
+skuCode:"VG-OF-2003",
+
+categoryId:"CAT-1002",
+category:"Optical Frame",
+
+brand:"Vogue",
+modelNumber:"VG-223",
+
+rimType:"Rimless",
+rimShape:"Rectangle",
+
+gender:"Women",
+ageGroup:"Adult",
+
+frameSize:"51",
+lensWidth:51,
+bridgeWidth:17,
+templeLength:135,
+
+dbl:17,
+templeMaterial:"Metal",
+frameWidth:132,
+lensHeight:36,
+colorCode:"ROS-GLD",
+frameFrontColor:"Rose Gold",
+lensColor:"Transparent",
+hsnCode:"90031100",
+frameType:"Optical",
+
+frameMaterial:"Metal",
+frameColor:"Rose Gold",
+templeColor:"Pink",
+
+stockQuantity:11,
+lowStockLimit:5,
+
+purchasePrice:2600,
+sellingPrice:5299,
+
+status:"Active",
+
+thumbnailImage:"/images/frames/vogue-main.png",
+
+description:"Ultra lightweight rimless optical frame.",
+tax:18,
+createdOn:"2026-05-16",
+},
+
+{
+id:"8",
+frameId:"FRM-1008",
+frameName:"Police Street Edge",
+skuCode:"PL-SG-2004",
+
+categoryId:"CAT-1001",
+category:"Sunglasses",
+
+brand:"Police",
+modelNumber:"PL-909",
+
+rimType:"Full Rim",
+rimShape:"Square",
+
+gender:"Men",
+ageGroup:"Adult",
+
+frameSize:"59",
+lensWidth:59,
+bridgeWidth:16,
+templeLength:142,
+
+dbl:16,
+templeMaterial:"Metal",
+frameWidth:146,
+lensHeight:49,
+colorCode:"SIL-BLU",
+frameFrontColor:"Silver",
+lensColor:"Blue",
+hsnCode:"90041000",
+frameType:"Sunglasses",
+
+frameMaterial:"Metal",
+frameColor:"Silver",
+templeColor:"Blue",
+
+stockQuantity:5,
+lowStockLimit:5,
+tax:18,
+purchasePrice:3900,
+sellingPrice:7199,
+
+status:"Out of Stock",
+
+thumbnailImage:"/images/frames/police-main.png",
+
+description:"Bold square sunglasses with blue lens.",
+
+createdOn:"2026-05-17",
+},
+
+{
+id:"9",
+frameId:"FRM-1009",
+frameName:"Tommy Youth Lite",
+skuCode:"TM-OF-2005",
+
+categoryId:"CAT-1002",
+category:"Optical Frame",
+
+brand:"Tommy Hilfiger",
+modelNumber:"TH-101",
+
+rimType:"Half Rim",
+rimShape:"Oval",
+
+gender:"Kids",
+ageGroup:"Teen",
+
+frameSize:"48",
+lensWidth:48,
+bridgeWidth:15,
+templeLength:128,
+tax:18,
+dbl:15,
+templeMaterial:"Plastic",
+frameWidth:125,
+lensHeight:34,
+colorCode:"RED-NVY",
+frameFrontColor:"Red",
+lensColor:"Transparent",
+hsnCode:"90031100",
+frameType:"Reading Glasses",
+
+frameMaterial:"Plastic",
+frameColor:"Red",
+templeColor:"Navy Blue",
+
+stockQuantity:18,
+lowStockLimit:5,
+
+purchasePrice:1500,
+sellingPrice:3299,
+
+status:"Active",
+
+thumbnailImage:"/images/frames/tommy-main.png",
+
+description:"Comfortable youth optical frame.",
+
+createdOn:"2026-05-18",
+},
+
+{
+id:"10",
+frameId:"FRM-1010",
+frameName:"Fastrack Urban Vision",
+skuCode:"FT-OF-2006",
+
+categoryId:"CAT-1002",
+category:"Computer Glasses",
+
+brand:"Fastrack",
+modelNumber:"FT-500",
+
+rimType:"Full Rim",
+rimShape:"Round",
+
+gender:"Unisex",
+ageGroup:"Adult",
+
+frameSize:"50",
+lensWidth:50,
+bridgeWidth:18,
+templeLength:138,
+
+dbl:18,
+templeMaterial:"TR90",
+frameWidth:134,
+lensHeight:42,
+colorCode:"BLK-YLW",
+frameFrontColor:"Black",
+lensColor:"Blue Cut",
+hsnCode:"90049090",
+frameType:"Computer Glasses",
+
+frameMaterial:"TR90",
+frameColor:"Black",
+templeColor:"Yellow",
+
+stockQuantity:25,
+lowStockLimit:10,
+
+purchasePrice:1200,
+sellingPrice:2499,
+tax:18,
+status:"Active",
+
+thumbnailImage:"/images/frames/fastrack-main.png",
+
+description:"Blue cut computer glasses.",
+
+createdOn:"2026-05-19",
+},
+
 ];
+
 export const contactLenses = [
   {
     id: "1",
@@ -2673,7 +2798,7 @@ export const customers = [
     customerId: "CUS-1001",
     customerName: "Rahul Sharma",
     fullName: "Rahul Sharma",
-    customerType: "B2C",
+    customerType: "Individual",
 
     status: "Active",
 
@@ -2717,7 +2842,7 @@ export const customers = [
     customerId: "CUS-1002",
     customerName: "Riya Patel",
     fullName: "Riya Patel",
-    customerType: "B2B",
+    customerType: "Business",
 
     status: "Active",
 
@@ -2761,7 +2886,7 @@ export const customers = [
     customerId: "CUS-1003",
     customerName: "Arjun Verma",
     fullName: "Arjun Verma",
-    customerType: "B2C",
+    customerType: "Individual",
 
     status: "Inactive",
 
@@ -2805,7 +2930,7 @@ export const customers = [
     customerId: "CUS-1004",
     customerName: "Sneha Kapoor",
     fullName: "Sneha Kapoor",
-    customerType: "B2C",
+    customerType: "Individual",
 
     status: "Active",
 
@@ -2849,7 +2974,7 @@ export const customers = [
     customerId: "CUS-1005",
     customerName: "Karan Mehta",
     fullName: "Karan Mehta",
-    customerType: "B2B",
+    customerType: "Business",
 
     status: "Active",
 
@@ -2893,7 +3018,7 @@ export const customers = [
     customerId: "CUS-1006",
     customerName: "Priya Nair",
     fullName: "Priya Nair",
-    customerType: "B2C",
+    customerType: "Individual",
 
     status: "Active",
 
@@ -2937,7 +3062,7 @@ export const customers = [
     customerId: "CUS-1007",
     customerName: "Aditya Singh",
     fullName: "Aditya Singh",
-    customerType: "B2B",
+    customerType: "Business",
 
     status: "Inactive",
 
@@ -2981,7 +3106,7 @@ export const customers = [
     customerId: "CUS-1008",
     customerName: "Neha Joshi",
     fullName: "Neha Joshi",
-    customerType: "B2C",
+    customerType: "Individual",
 
     status: "Active",
 
@@ -3021,7 +3146,7 @@ export const customers = [
   },
 ];
 
-export const invoices = [
+export const invoices: Invoice[]= [
   {
     id: "1",
     invoiceId: "INV-1001",

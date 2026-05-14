@@ -18,9 +18,8 @@ import {
 
 import { useRouter } from "next/navigation";
 
-import TableContainerCard from "@/component/common/TableContainerCard";
-
 import RoleFilters from "./RoleFilters";
+
 import RoleTable from "./RoleTable";
 
 export default function RoleManagementPage() {
@@ -37,18 +36,40 @@ export default function RoleManagementPage() {
   const [roleData, setRoleData] =
     useState(roles);
 
+  /* COUNTS */
+  const roleCount = {
+
+    all:
+      roleData.length,
+
+    active:
+      roleData.filter(
+        (role) =>
+          role.status ===
+          "Active"
+      ).length,
+
+    inactive:
+      roleData.filter(
+        (role) =>
+          role.status ===
+          "Inactive"
+      ).length,
+  };
+
+  /* FILTERED DATA */
   const filteredRoles =
     roleData.filter(
       (role) => {
 
         const matchesSearch =
-          search
-            ? role.roleName
-                .toLowerCase()
-                .includes(
-                  search.toLowerCase()
-                )
-            : true;
+          !search ||
+
+          role.roleName
+            .toLowerCase()
+            .includes(
+              search.toLowerCase()
+            );
 
         const matchesStatus =
           status
@@ -67,15 +88,18 @@ export default function RoleManagementPage() {
     <Box
       sx={{
         p: 3,
-
         minHeight:
           "100vh",
+        background:
+          "#F8FAFC",
       }}
     >
+
       {/* HEADER */}
       <Box
         sx={{
-          display: "flex",
+          display:
+            "flex",
 
           justifyContent:
             "space-between",
@@ -84,8 +108,14 @@ export default function RoleManagementPage() {
             "center",
 
           mb: 3,
+
+          flexWrap:
+            "wrap",
+
+          gap: 2,
         }}
       >
+
         <Typography
           sx={{
             fontSize:
@@ -110,17 +140,20 @@ export default function RoleManagementPage() {
           }
           sx={{
             borderRadius:
-              "12px",
+              "14px",
 
             px: 3,
 
             height:
-              "48px",
+              "50px",
 
             textTransform:
               "none",
 
-            fontWeight: 600,
+            fontWeight: 700,
+
+            boxShadow:
+              "none",
           }}
         >
           Add Role
@@ -128,37 +161,59 @@ export default function RoleManagementPage() {
 
       </Box>
 
-      {/* FILTERS OUTSIDE */}
-      <RoleFilters
-        search={search}
-        setSearch={setSearch}
-        status={status}
-        setStatus={setStatus}
-      />
+      {/* MAIN CARD */}
+      <Box
+        sx={{
+          background:
+            "#FFFFFF",
 
-      {/* TABLE CARD */}
-      <TableContainerCard>
+          border:
+            "1px solid #E2E8F0",
 
+          borderRadius:
+            "24px",
+
+          overflow:
+            "hidden",
+        }}
+      >
+
+        {/* FILTERS */}
+        <RoleFilters
+          search={search}
+          setSearch={setSearch}
+          status={status}
+          setStatus={setStatus}
+          roleCount={roleCount}
+        />
+
+        {/* TABLE */}
         <Box sx={{ p: 3 }}>
 
-          {/* RESULTS */}
-          <Typography
-            sx={{
-              color:
-                "#475569",
+          {(
+            search ||
+            status
+          ) && (
 
-              fontWeight: 500,
+            <Typography
+              sx={{
+                color:
+                  "#475569",
 
-              mb: 2,
-            }}
-          >
-            {
-              filteredRoles.length
-            }{" "}
-            results found
-          </Typography>
+                fontWeight:
+                  500,
 
-          {/* TABLE */}
+                mb: 2,
+              }}
+            >
+              {
+                filteredRoles.length
+              }{" "}
+              results found
+            </Typography>
+
+          )}
+
           <RoleTable
             roles={
               filteredRoles
@@ -170,7 +225,7 @@ export default function RoleManagementPage() {
 
         </Box>
 
-      </TableContainerCard>
+      </Box>
 
     </Box>
   );

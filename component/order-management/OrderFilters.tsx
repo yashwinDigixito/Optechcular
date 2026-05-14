@@ -3,10 +3,14 @@
 import SearchIcon from "@mui/icons-material/Search";
 
 import {
+  Autocomplete,
+  Badge,
   Box,
   InputAdornment,
-  MenuItem,
+  Tab,
+  Tabs,
   TextField,
+  Typography,
 } from "@mui/material";
 
 interface Props {
@@ -28,6 +32,14 @@ interface Props {
   setOrderStatus: (
     value: string
   ) => void;
+
+  ordersCount?: {
+    all: number;
+    completed: number;
+    pending: number;
+    cancelled: number;
+    refunded: number;
+  };
 }
 
 export default function OrderFilters({
@@ -37,192 +49,368 @@ export default function OrderFilters({
   setPaymentStatus,
   orderStatus,
   setOrderStatus,
+  ordersCount,
 }: Props) {
 
+  const tabs = [
+
+    {
+      label: "All",
+      value: "",
+      count:
+        ordersCount?.all || 0,
+    },
+
+    {
+      label: "Completed",
+      value: "Completed",
+      count:
+        ordersCount?.completed || 0,
+    },
+
+    {
+      label: "Pending",
+      value: "Pending",
+      count:
+        ordersCount?.pending || 0,
+    },
+
+    {
+      label: "Cancelled",
+      value: "Cancelled",
+      count:
+        ordersCount?.cancelled || 0,
+    },
+
+    {
+      label: "Refunded",
+      value: "Refunded",
+      count:
+        ordersCount?.refunded || 0,
+    },
+  ];
+
   return (
-    <Box
-      sx={{
-        display: "flex",
-
-        gap: 2,
-
-        mb: 3,
-
-        flexWrap: "wrap",
-      }}
-    >
-      {/* SEARCH */}
-      <TextField
-        placeholder="Search order or customer..."
-        value={search}
-        onChange={(e) =>
-          setSearch(
-            e.target.value
-          )
-        }
+    <Box>
+      {/* TABS */}
+      <Box
         sx={{
-          minWidth: "280px",
+          px: 3,
 
-          "& .MuiOutlinedInput-root":
-            {
-              borderRadius:
-                "14px",
+          pt: 2,
 
-              background:
-                "#FFFFFF",
-            },
-        }}
-        slotProps={{
-          input: {
-            startAdornment: (
-              <InputAdornment position="start">
-                <SearchIcon
-                  sx={{
-                    color:
-                      "#94A3B8",
-                  }}
-                />
-              </InputAdornment>
-            ),
-          },
-        }}
-      />
-
-      {/* PAYMENT STATUS */}
-      <TextField
-        select
-        value={paymentStatus}
-        onChange={(e) =>
-          setPaymentStatus(
-            e.target.value
-          )
-        }
-        sx={{
-          minWidth: "220px",
-
-          "& .MuiOutlinedInput-root":
-            {
-              borderRadius:
-                "14px",
-
-              background:
-                "#FFFFFF",
-            },
-        }}
-        slotProps={{
-          select: {
-            displayEmpty: true,
-
-            renderValue: (
-              selected
-            ) => {
-
-              if (!selected) {
-
-                return (
-                  <Box
-                    sx={{
-                      color:
-                        "#94A3B8",
-                    }}
-                  >
-                    Sort by Payment
-                  </Box>
-                );
-              }
-
-              return selected as string;
-            },
-          },
+          borderBottom:
+            "1px solid #E2E8F0",
         }}
       >
-        <MenuItem value="">
-          All Payments
-        </MenuItem>
+        <Tabs
+          value={orderStatus}
+          onChange={(
+            _,
+            value
+          ) =>
+            setOrderStatus(
+              value
+            )
+          }
+          sx={{
+            minHeight:
+              "54px",
 
-        <MenuItem value="Paid">
-          Paid
-        </MenuItem>
+            "& .MuiTabs-indicator":
+              {
+                height:
+                  "3px",
 
-        <MenuItem value="Pending">
-          Pending
-        </MenuItem>
+                borderRadius:
+                  "999px",
 
-        <MenuItem value="Refunded">
-          Refunded
-        </MenuItem>
+                background:
+                  orderStatus ===
+                  "Completed"
 
-      </TextField>
+                    ? "#16A34A"
 
-      {/* ORDER STATUS */}
-      <TextField
-        select
-        value={orderStatus}
-        onChange={(e) =>
-          setOrderStatus(
-            e.target.value
-          )
-        }
-        sx={{
-          minWidth: "220px",
+                    : orderStatus ===
+                      "Pending"
 
-          "& .MuiOutlinedInput-root":
-            {
-              borderRadius:
-                "14px",
+                    ? "#F59E0B"
 
-              background:
-                "#FFFFFF",
-            },
-        }}
-        slotProps={{
-          select: {
-            displayEmpty: true,
+                    : orderStatus ===
+                      "Cancelled"
 
-            renderValue: (
-              selected
-            ) => {
+                    ? "#DC2626"
 
-              if (!selected) {
+                    : orderStatus ===
+                      "Refunded"
 
-                return (
+                    ? "#7C3AED"
+
+                    : "#0F172A",
+              },
+          }}
+        >
+          {tabs.map(
+            (tab) => (
+
+              <Tab
+                key={
+                  tab.label
+                }
+                value={
+                  tab.value
+                }
+                disableRipple
+                label={
+
                   <Box
                     sx={{
-                      color:
-                        "#94A3B8",
+                      display:
+                        "flex",
+
+                      alignItems:
+                        "center",
+
+                      gap: 1,
                     }}
                   >
-                    Sort by Order Status
-                  </Box>
-                );
-              }
+                    <Typography
+                      sx={{
+                        textTransform:
+                          "none",
 
-              return selected as string;
-            },
-          },
+                        fontWeight:
+                          600,
+
+                        color:
+                          orderStatus ===
+                          tab.value
+
+                            ? tab.value ===
+                              "Completed"
+
+                              ? "#16A34A"
+
+                              : tab.value ===
+                                "Pending"
+
+                              ? "#F59E0B"
+
+                              : tab.value ===
+                                "Cancelled"
+
+                              ? "#DC2626"
+
+                              : tab.value ===
+                                "Refunded"
+
+                              ? "#7C3AED"
+
+                              : "#0F172A"
+
+                            : "#64748B",
+
+                        fontSize:
+                          "15px",
+                      }}
+                    >
+                      {
+                        tab.label
+                      }
+                    </Typography>
+
+                    <Badge
+                      badgeContent={
+                        tab.count
+                      }
+                      sx={{
+                        "& .MuiBadge-badge":
+                          {
+                            position:
+                              "static",
+
+                            transform:
+                              "none",
+
+                            background:
+                              orderStatus ===
+                              tab.value
+
+                                ? tab.value ===
+                                  "Completed"
+
+                                  ? "#16A34A"
+
+                                  : tab.value ===
+                                    "Pending"
+
+                                  ? "#F59E0B"
+
+                                  : tab.value ===
+                                    "Cancelled"
+
+                                  ? "#DC2626"
+
+                                  : tab.value ===
+                                    "Refunded"
+
+                                  ? "#7C3AED"
+
+                                  : "#0F172A"
+
+                                : "#F1F5F9",
+
+                            color:
+                              orderStatus ===
+                              tab.value
+
+                                ? "#FFFFFF"
+
+                                : "#475569",
+
+                            borderRadius:
+                              "8px",
+
+                            minWidth:
+                              "24px",
+
+                            height:
+                              "24px",
+
+                            fontWeight:
+                              700,
+
+                            fontSize:
+                              "12px",
+                          },
+                      }}
+                    />
+                  </Box>
+                }
+                sx={{
+                  minHeight:
+                    "54px",
+
+                  px: 0,
+
+                  mr: 5,
+                }}
+              />
+            )
+          )}
+
+        </Tabs>
+
+      </Box>
+
+      {/* FILTERS */}
+      <Box
+        sx={{
+          p: 3,
+
+          display:
+            "flex",
+
+          gap: 2,
+
+          flexWrap:
+            "wrap",
+
+          borderBottom:
+            "1px solid #E2E8F0",
         }}
       >
-        <MenuItem value="">
-          All Orders
-        </MenuItem>
+        {/* PAYMENT STATUS */}
+        <Autocomplete
+          options={[
+            "Paid",
+            "Pending",
+            "Refunded",
+          ]}
+          value={
+            paymentStatus ||
+            null
+          }
+          onChange={(
+            _,
+            value
+          ) =>
+            setPaymentStatus(
+              value || ""
+            )
+          }
+          sx={{
+            minWidth:
+              "280px",
 
-        <MenuItem value="Completed">
-          Completed
-        </MenuItem>
+            "& .MuiOutlinedInput-root":
+              {
+                borderRadius:
+                  "16px",
 
-        <MenuItem value="Pending">
-          Pending
-        </MenuItem>
+                background:
+                  "#FFFFFF",
 
-        <MenuItem value="Cancelled">
-          Cancelled
-        </MenuItem>
+                height:
+                  "56px",
+              },
+          }}
+          renderInput={(
+            params
+          ) => (
 
-        <MenuItem value="Refunded">
-          Refunded
-        </MenuItem>
+            <TextField
+              {...params}
+              label="Payment Status"
+            />
+          )}
+        />
 
-      </TextField>
+        {/* SEARCH */}
+        <TextField
+          placeholder="Search order or customer..."
+          value={search}
+          onChange={(e) =>
+            setSearch(
+              e.target.value
+            )
+          }
+          sx={{
+            flex: 1,
+
+            minWidth:
+              "320px",
+
+            "& .MuiOutlinedInput-root":
+              {
+                borderRadius:
+                  "16px",
+
+                background:
+                  "#FFFFFF",
+
+                height:
+                  "56px",
+              },
+          }}
+          slotProps={{
+            input: {
+              startAdornment:
+                (
+                  <InputAdornment position="start">
+                    <SearchIcon
+                      sx={{
+                        color:
+                          "#94A3B8",
+                      }}
+                    />
+                  </InputAdornment>
+                ),
+            },
+          }}
+        />
+
+      </Box>
 
     </Box>
   );

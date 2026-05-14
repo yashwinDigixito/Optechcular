@@ -5,20 +5,23 @@ import { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 
 import {
-    Box,
-    Button,
-    Typography,
+  Box,
+  Button,
+  Typography,
 } from "@mui/material";
 
 import { useRouter } from "next/navigation";
 
 import {
-    categories,
+  categories,
 } from "@/assets/genericdata";
 
-import TableContainerCard from "@/component/common/TableContainerCard";
+import {
+  Category,
+} from "@/assets/types";
 
 import CategoryFilters from "./CategoryFilters";
+
 import CategoryTable from "./CategoryTable";
 
 export default function CategoryManagementPage() {
@@ -32,11 +35,40 @@ export default function CategoryManagementPage() {
   const [status, setStatus] =
     useState("");
 
+  const [categoryData, setCategoryData] =
+    useState<Category[]>(
+      categories
+    );
+
+  /* COUNTS */
+  const categoryCount = {
+
+    all:
+      categoryData.length,
+
+    active:
+      categoryData.filter(
+        (category) =>
+          category.status ===
+          "Active"
+      ).length,
+
+    inactive:
+      categoryData.filter(
+        (category) =>
+          category.status ===
+          "Inactive"
+      ).length,
+  };
+
+  /* FILTERED CATEGORIES */
   const filteredCategories =
-    categories.filter(
+    categoryData.filter(
       (category) => {
 
         const matchesSearch =
+          !search ||
+
           category.categoryName
             .toLowerCase()
             .includes(
@@ -60,8 +92,13 @@ export default function CategoryManagementPage() {
     <Box
       sx={{
         p: 3,
+        minHeight:
+          "100vh",
+        background:
+          "#F8FAFC",
       }}
     >
+
       {/* HEADER */}
       <Box
         sx={{
@@ -70,12 +107,18 @@ export default function CategoryManagementPage() {
             "space-between",
           alignItems: "center",
           mb: 3,
+          flexWrap:
+            "wrap",
+          gap: 2,
         }}
       >
+
         <Typography
           sx={{
             fontSize: "32px",
             fontWeight: 700,
+            color:
+              "#0F172A",
           }}
         >
           Category Management
@@ -90,51 +133,80 @@ export default function CategoryManagementPage() {
             )
           }
           sx={{
-            height: "48px",
-            borderRadius: "12px",
+            height: "50px",
+            borderRadius: "14px",
             textTransform: "none",
             px: 3,
+            fontWeight: 700,
+            boxShadow: "none",
           }}
         >
           Add Category
         </Button>
+
       </Box>
 
-      {/* FILTERS */}
-      <CategoryFilters
-        search={search}
-        setSearch={setSearch}
-        status={status}
-        setStatus={setStatus}
-      />
+      {/* MAIN CARD */}
+      <Box
+        sx={{
+          background:
+            "#FFFFFF",
+          border:
+            "1px solid #E2E8F0",
+          borderRadius:
+            "24px",
+          overflow:
+            "hidden",
+        }}
+      >
 
-      {/* TABLE */}
-      <TableContainerCard>
+        {/* FILTERS */}
+        <CategoryFilters
+          search={search}
+          setSearch={setSearch}
+          status={status}
+          setStatus={setStatus}
+          categoryCount={
+            categoryCount
+          }
+        />
 
+        {/* TABLE */}
         <Box sx={{ p: 3 }}>
 
-          <Typography
-            sx={{
-              mb: 2,
-              color: "#64748B",
-              fontWeight: 600,
-            }}
-          >
-            {
-              filteredCategories.length
-            }{" "}
-            results found
-          </Typography>
+          {(
+            search ||
+            status
+          ) && (
+
+            <Typography
+              sx={{
+                mb: 2,
+                color: "#64748B",
+                fontWeight: 600,
+              }}
+            >
+              {
+                filteredCategories.length
+              }{" "}
+              results found
+            </Typography>
+
+          )}
 
           <CategoryTable
             categories={
               filteredCategories
             }
+            setCategoryData={
+              setCategoryData
+            }
           />
 
         </Box>
 
-      </TableContainerCard>
+      </Box>
+
     </Box>
   );
 }

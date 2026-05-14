@@ -1,10 +1,10 @@
-import DashboardPage from "@/component/dashboard/index";
+import LoginPage from "@/component/Login";
 import { Box } from "@mui/material";
 
-export default function Home() {
-  return (
+export default function Login() {
+    return (
     <Box>
-      <DashboardPage/>
+        <LoginPage/>
     </Box>
-  );
+);
 }

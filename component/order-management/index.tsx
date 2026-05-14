@@ -18,9 +18,8 @@ import {
 
 import { useRouter } from "next/navigation";
 
-import TableContainerCard from "@/component/common/TableContainerCard";
-
 import OrderFilters from "./OrderFilters";
+
 import OrderTable from "./OrderTable";
 
 export default function OrderManagementPage() {
@@ -31,18 +30,59 @@ export default function OrderManagementPage() {
   const [search, setSearch] =
     useState("");
 
-  const [paymentStatus,
-    setPaymentStatus] =
-      useState("");
+  const [
+    paymentStatus,
+    setPaymentStatus,
+  ] = useState("");
 
-  const [orderStatus,
-    setOrderStatus] =
-      useState("");
+  const [
+    orderStatus,
+    setOrderStatus,
+  ] = useState("");
 
-  const [orderData,
-    setOrderData] =
-      useState(orders);
+  const [
+    orderData,
+    setOrderData,
+  ] = useState(
+    orders
+  );
 
+  /* COUNTS */
+  const ordersCount = {
+
+    all:
+      orderData.length,
+
+    completed:
+      orderData.filter(
+        (order) =>
+          order.status ===
+          "Completed"
+      ).length,
+
+    pending:
+      orderData.filter(
+        (order) =>
+          order.status ===
+          "Pending"
+      ).length,
+
+    cancelled:
+      orderData.filter(
+        (order) =>
+          order.status ===
+          "Cancelled"
+      ).length,
+
+    refunded:
+      orderData.filter(
+        (order) =>
+          order.status ===
+          "Refunded"
+      ).length,
+  };
+
+  /* FILTERED DATA */
   const filteredOrders =
     orderData.filter(
       (order) => {
@@ -56,6 +96,12 @@ export default function OrderManagementPage() {
                 ) ||
 
               order.customerName
+                .toLowerCase()
+                .includes(
+                  search.toLowerCase()
+                ) ||
+
+              order.productName
                 .toLowerCase()
                 .includes(
                   search.toLowerCase()
@@ -89,12 +135,16 @@ export default function OrderManagementPage() {
 
         minHeight:
           "100vh",
+
+        background:
+          "#F8FAFC",
       }}
     >
       {/* HEADER */}
       <Box
         sx={{
-          display: "flex",
+          display:
+            "flex",
 
           justifyContent:
             "space-between",
@@ -103,6 +153,11 @@ export default function OrderManagementPage() {
             "center",
 
           mb: 3,
+
+          flexWrap:
+            "wrap",
+
+          gap: 2,
         }}
       >
         <Typography
@@ -110,7 +165,8 @@ export default function OrderManagementPage() {
             fontSize:
               "32px",
 
-            fontWeight: 700,
+            fontWeight:
+              700,
 
             color:
               "#0F172A",
@@ -121,7 +177,9 @@ export default function OrderManagementPage() {
 
         <Button
           variant="contained"
-          startIcon={<AddIcon />}
+          startIcon={
+            <AddIcon />
+          }
           onClick={() =>
             router.push(
               "/orders/add"
@@ -129,17 +187,21 @@ export default function OrderManagementPage() {
           }
           sx={{
             borderRadius:
-              "12px",
+              "14px",
 
             px: 3,
 
             height:
-              "48px",
+              "50px",
 
             textTransform:
               "none",
 
-            fontWeight: 600,
+            fontWeight:
+              700,
+
+            boxShadow:
+              "none",
           }}
         >
           Add Order
@@ -147,37 +209,73 @@ export default function OrderManagementPage() {
 
       </Box>
 
-      {/* FILTERS */}
-      <OrderFilters
-        search={search}
-        setSearch={setSearch}
-        paymentStatus={paymentStatus}
-        setPaymentStatus={setPaymentStatus}
-        orderStatus={orderStatus}
-        setOrderStatus={setOrderStatus}
-      />
+      {/* MAIN CARD */}
+      <Box
+        sx={{
+          background:
+            "#FFFFFF",
 
-      {/* TABLE CARD */}
-      <TableContainerCard>
+          border:
+            "1px solid #E2E8F0",
 
-        <Box sx={{ p: 3 }}>
+          borderRadius:
+            "24px",
 
+          overflow:
+            "hidden",
+        }}
+      >
+        {/* FILTERS */}
+        <OrderFilters
+          search={search}
+          setSearch={setSearch}
+          paymentStatus={
+            paymentStatus
+          }
+          setPaymentStatus={
+            setPaymentStatus
+          }
+          orderStatus={
+            orderStatus
+          }
+          setOrderStatus={
+            setOrderStatus
+          }
+          ordersCount={
+            ordersCount
+          }
+        />
+
+        {/* TABLE SECTION */}
+        <Box
+          sx={{
+            p: 3,
+          }}
+        >
           {/* RESULTS */}
-          <Typography
-            sx={{
-              color:
-                "#475569",
+          {(
+            search ||
+            paymentStatus ||
+            orderStatus
+          ) && (
 
-              fontWeight: 500,
+            <Typography
+              sx={{
+                color:
+                  "#475569",
 
-              mb: 2,
-            }}
-          >
-            {
-              filteredOrders.length
-            }{" "}
-            results found
-          </Typography>
+                fontWeight:
+                  500,
+
+                mb: 2,
+              }}
+            >
+              {
+                filteredOrders.length
+              }{" "}
+              results found
+            </Typography>
+          )}
 
           {/* TABLE */}
           <OrderTable
@@ -191,7 +289,7 @@ export default function OrderManagementPage() {
 
         </Box>
 
-      </TableContainerCard>
+      </Box>
 
     </Box>
   );

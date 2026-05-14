@@ -9,7 +9,7 @@ import {
 } from "@/assets/genericdata";
 
 import {
-  Invoice
+  Invoice,
 } from "@/assets/types";
 
 import AddIcon from "@mui/icons-material/Add";
@@ -22,9 +22,8 @@ import {
 
 import { useRouter } from "next/navigation";
 
-import TableContainerCard from "@/component/common/TableContainerCard";
-
 import InvoiceFilters from "./InvoiceFilters";
+
 import InvoiceTable from "./InvoiceTable";
 
 export default function InvoiceManagementPage() {
@@ -35,31 +34,71 @@ export default function InvoiceManagementPage() {
   const [search, setSearch] =
     useState("");
 
-  const [paymentStatus,
-    setPaymentStatus] =
-      useState("");
+  const [
+    paymentStatus,
+    setPaymentStatus,
+  ] = useState("");
 
-  const [invoiceStatus,
-    setInvoiceStatus] =
-      useState("");
+  const [
+    invoiceStatus,
+    setInvoiceStatus,
+  ] = useState("");
 
-  const [category,
-    setCategory] =
-      useState("");
+  const [
+    category,
+    setCategory,
+  ] = useState("");
 
-  const [invoiceData,
-    setInvoiceData] =
-      useState<Invoice[]>(
-        invoices
-      );
+  const [invoiceData,setInvoiceData] = useState<Invoice[]>(invoices);
 
+  /* COUNTS */
+  const invoicesCount = {
+
+    all:
+      invoiceData.length,
+
+    sent:
+      invoiceData.filter(
+        (invoice) =>
+          invoice.invoiceStatus ===
+          "Sent"
+      ).length,
+
+    draft:
+      invoiceData.filter(
+        (invoice) =>
+          invoice.invoiceStatus ===
+          "Draft"
+      ).length,
+
+    cancelled:
+      invoiceData.filter(
+        (invoice) =>
+          invoice.invoiceStatus ===
+          "Cancelled"
+      ).length,
+  };
+
+  /* FILTERED DATA */
   const filteredInvoices =
     invoiceData.filter(
       (invoice) => {
 
-        const matchesSearch = !search || [invoice.invoiceNo, invoice.customerName].some(
-  field => field?.toLowerCase().includes(search.toLowerCase())
-);
+        const matchesSearch =
+          !search ||
+
+          [
+            invoice.invoiceNo,
+            invoice.customerName,
+            invoice.productName,
+          ].some(
+            (field) =>
+              field
+                ?.toLowerCase()
+                .includes(
+                  search.toLowerCase()
+                )
+          );
 
         const matchesPayment =
           paymentStatus
@@ -95,12 +134,16 @@ export default function InvoiceManagementPage() {
 
         minHeight:
           "100vh",
+
+        background:
+          "#F8FAFC",
       }}
     >
       {/* HEADER */}
       <Box
         sx={{
-          display: "flex",
+          display:
+            "flex",
 
           justifyContent:
             "space-between",
@@ -109,6 +152,11 @@ export default function InvoiceManagementPage() {
             "center",
 
           mb: 3,
+
+          flexWrap:
+            "wrap",
+
+          gap: 2,
         }}
       >
         <Typography
@@ -116,7 +164,8 @@ export default function InvoiceManagementPage() {
             fontSize:
               "32px",
 
-            fontWeight: 700,
+            fontWeight:
+              700,
 
             color:
               "#0F172A",
@@ -127,7 +176,9 @@ export default function InvoiceManagementPage() {
 
         <Button
           variant="contained"
-          startIcon={<AddIcon />}
+          startIcon={
+            <AddIcon />
+          }
           onClick={() =>
             router.push(
               "/invoices/create"
@@ -135,17 +186,21 @@ export default function InvoiceManagementPage() {
           }
           sx={{
             borderRadius:
-              "12px",
+              "14px",
 
             px: 3,
 
             height:
-              "48px",
+              "50px",
 
             textTransform:
               "none",
 
-            fontWeight: 600,
+            fontWeight:
+              700,
+
+            boxShadow:
+              "none",
           }}
         >
           Create Invoice
@@ -153,39 +208,90 @@ export default function InvoiceManagementPage() {
 
       </Box>
 
-      {/* FILTERS */}
-      <InvoiceFilters
-        search={search}
-        setSearch={setSearch}
-        paymentStatus={paymentStatus}
-        setPaymentStatus={setPaymentStatus}
-        invoiceStatus={invoiceStatus}
-        setInvoiceStatus={setInvoiceStatus}
-        category={category}
-        setCategory={setCategory}
-      />
+      {/* MAIN CARD */}
+      <Box
+        sx={{
+          background:
+            "#FFFFFF",
 
-      {/* TABLE */}
-      <TableContainerCard>
+          border:
+            "1px solid #E2E8F0",
 
-        <Box sx={{ p: 3 }}>
+          borderRadius:
+            "24px",
 
-          <Typography
-            sx={{
-              color:
-                "#475569",
+          overflow:
+            "hidden",
+        }}
+      >
+        {/* FILTERS */}
+        <InvoiceFilters
+          search={search}
+          setSearch={setSearch}
+          paymentStatus={
+            paymentStatus
+          }
+          setPaymentStatus={
+            setPaymentStatus
+          }
+          invoiceStatus={
+            invoiceStatus
+          }
+          setInvoiceStatus={
+            setInvoiceStatus
+          }
+          category={category}
+          setCategory={
+            setCategory
+          }
+          invoicesCount={{
+            all:
+              invoicesCount.all,
 
-              fontWeight: 500,
+            completed:
+              invoicesCount.sent,
 
-              mb: 2,
-            }}
-          >
-            {
-              filteredInvoices.length
-            }{" "}
-            results found
-          </Typography>
+            pending:
+              invoicesCount.draft,
 
+            processing:
+              invoicesCount.cancelled,
+          }}
+        />
+
+        {/* TABLE SECTION */}
+        <Box
+          sx={{
+            p: 3,
+          }}
+        >
+          {/* RESULTS */}
+          {(
+            search ||
+            paymentStatus ||
+            invoiceStatus ||
+            category
+          ) && (
+
+            <Typography
+              sx={{
+                color:
+                  "#475569",
+
+                fontWeight:
+                  500,
+
+                mb: 2,
+              }}
+            >
+              {
+                filteredInvoices.length
+              }{" "}
+              results found
+            </Typography>
+          )}
+
+          {/* TABLE */}
           <InvoiceTable
             invoices={
               filteredInvoices
@@ -197,7 +303,7 @@ export default function InvoiceManagementPage() {
 
         </Box>
 
-      </TableContainerCard>
+      </Box>
 
     </Box>
   );

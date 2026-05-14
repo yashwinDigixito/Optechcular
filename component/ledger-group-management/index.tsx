@@ -1,185 +1,175 @@
 "use client";
 
-import {
-    ledgerGroups,
-} from "@/assets/genericdata";
+import { useState } from "react";
 
-import {
-    LedgerGroup,
-} from "@/assets/types";
+import { ledgerGroups } from "@/assets/genericdata";
+
+import { LedgerGroup } from "@/assets/types";
 
 import AddIcon from "@mui/icons-material/Add";
 
 import {
-    Box,
-    Button,
-    Typography,
+  Box,
+  Button,
+  Typography,
 } from "@mui/material";
 
 import { useRouter } from "next/navigation";
 
-import {
-    useState,
-} from "react";
-
-import TableContainerCard from "@/component/common/TableContainerCard";
-
 import LedgerGroupFilters from "./LedgerGroupFilters";
-
 import LedgerGroupTable from "./LedgerGroupTable";
 
-export default function LedgerGroupManagementPage() {
+export default function LedgerGroupManagementPage(){
 
-  const router =
-    useRouter();
+const router=useRouter();
 
-  const [search, setSearch] =
-    useState("");
+const [search,setSearch]=useState("");
 
-  const [status, setStatus] =
-    useState("");
+const [status,setStatus]=useState("");
 
-  const [groupData] =
-    useState<
-      LedgerGroup[]
-    >(
-      ledgerGroups
-    );
+const [groupData,setGroupData]=useState<LedgerGroup[]>(ledgerGroups);
 
-  const filteredGroups =
-    groupData.filter(
-      (group) => {
+/* COUNTS */
+const ledgerGroupCount={
 
-        const matchesSearch =
-          search
-            ? group.groupName
-                .toLowerCase()
-                .includes(
-                  search.toLowerCase()
-                )
-            : true;
+all:groupData.length,
 
-        const matchesStatus =
-          status
-            ? group.status ===
-              status
-            : true;
+active:groupData.filter(
+(group)=>
+group.status==="Active"
+).length,
 
-        return (
-          matchesSearch &&
-          matchesStatus
-        );
-      }
-    );
+inactive:groupData.filter(
+(group)=>
+group.status==="Inactive"
+).length,
+};
 
-  return (
-    <Box
-      sx={{
-        p: 3,
+/* FILTERED DATA */
+const filteredGroups=
+groupData.filter((group)=>{
 
-        minHeight:
-          "100vh",
-      }}
-    >
-      {/* HEADER */}
-      <Box
-        sx={{
-          display:
-            "flex",
+const matchesSearch=
+!search||
 
-          justifyContent:
-            "space-between",
+group.groupName
+.toLowerCase()
+.includes(
+search.toLowerCase()
+);
 
-          alignItems:
-            "center",
+const matchesStatus=
+status
+?group.status===status
+:true;
 
-          mb: 3,
-        }}
-      >
-        <Typography
-          sx={{
-            fontSize:
-              "32px",
+return(
+matchesSearch&&
+matchesStatus
+);
+});
 
-            fontWeight:
-              700,
+return(
+<Box
+sx={{
+p:3,
+minHeight:"100vh",
+background:"#F8FAFC",
+}}
+>
 
-            color:
-              "#0F172A",
-          }}
-        >
-          Ledger Group Management
-        </Typography>
+{/* HEADER */}
+<Box
+sx={{
+display:"flex",
+justifyContent:"space-between",
+alignItems:"center",
+mb:3,
+flexWrap:"wrap",
+gap:2,
+}}
+>
 
-        <Button
-          variant="contained"
-          startIcon={<AddIcon />}
-          onClick={() =>
-            router.push(
-              "/ledger-groups/add"
-            )
-          }
-          sx={{
-            borderRadius:
-              "12px",
+<Typography
+sx={{
+fontSize:"32px",
+fontWeight:700,
+color:"#0F172A",
+}}
+>
+Ledger Group Management
+</Typography>
 
-            px: 3,
+<Button
+variant="contained"
+startIcon={<AddIcon/>}
+onClick={()=>
+router.push(
+"/ledger-groups/add"
+)
+}
+sx={{
+borderRadius:"14px",
+px:3,
+height:"50px",
+textTransform:"none",
+fontWeight:700,
+boxShadow:"none",
+}}
+>
+Add Ledger Group
+</Button>
 
-            height:
-              "48px",
+</Box>
 
-            textTransform:
-              "none",
+{/* MAIN CARD */}
+<Box
+sx={{
+background:"#FFFFFF",
+border:"1px solid #E2E8F0",
+borderRadius:"24px",
+overflow:"hidden",
+}}
+>
 
-            fontWeight:
-              600,
-          }}
-        >
-          Add Ledger Group
-        </Button>
+{/* FILTERS */}
+<LedgerGroupFilters
+search={search}
+setSearch={setSearch}
+status={status}
+setStatus={setStatus}
+ledgerGroupCount={ledgerGroupCount}
+/>
 
-      </Box>
+{/* TABLE */}
+<Box sx={{p:3}}>
 
-      {/* FILTERS */}
-      <LedgerGroupFilters
-        search={search}
-        setSearch={setSearch}
-        status={status}
-        setStatus={setStatus}
-      />
+{(
+search||
+status
+)&&(
 
-      {/* TABLE */}
-      <TableContainerCard>
+<Typography
+sx={{
+mb:2,
+color:"#64748B",
+fontWeight:500,
+}}
+>
+{filteredGroups.length} results found
+</Typography>
 
-        <Box sx={{ p: 3 }}>
+)}
 
-          <Typography
-            sx={{
-              mb: 2,
+<LedgerGroupTable
+ledgerGroups={filteredGroups}
+setLedgerGroupData={setGroupData}
+/>
 
-              color:
-                "#64748B",
+</Box>
 
-              fontWeight:
-                500,
-            }}
-          >
-            {
-              filteredGroups.length
-            }{" "}
-            results found
-          </Typography>
+</Box>
 
-          <LedgerGroupTable
-            ledgerGroups={
-              filteredGroups
-            }
-          />
-
-        </Box>
-
-      </TableContainerCard>
-
-    </Box>
-  );
+</Box>
+);
 }

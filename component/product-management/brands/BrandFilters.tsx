@@ -3,10 +3,14 @@
 import SearchIcon from "@mui/icons-material/Search";
 
 import {
+  Autocomplete,
+  Badge,
   Box,
   InputAdornment,
-  MenuItem,
+  Tab,
+  Tabs,
   TextField,
+  Typography,
 } from "@mui/material";
 
 interface BrandFiltersProps {
@@ -34,6 +38,12 @@ interface BrandFiltersProps {
   setBrandGroup: (
     value: string
   ) => void;
+
+  brandCount?: {
+    all: number;
+    active: number;
+    inactive: number;
+  };
 }
 
 export default function BrandFilters({
@@ -45,255 +55,277 @@ export default function BrandFilters({
   setStatus,
   brandGroup,
   setBrandGroup,
+  brandCount,
 }: BrandFiltersProps) {
 
+  const tabs = [
+
+    {
+      label: "All",
+      value: "",
+      count: brandCount?.all || 0,
+    },
+
+    {
+      label: "Active",
+      value: "Active",
+      count: brandCount?.active || 0,
+    },
+
+    {
+      label: "Inactive",
+      value: "Inactive",
+      count: brandCount?.inactive || 0,
+    },
+  ];
+
   return (
-    <Box
-      sx={{
-        display: "flex",
-        gap: 2,
-        flexWrap: "wrap",
-        mb: 3,
-      }}
-    >
-      {/* SEARCH */}
-      <TextField
-        placeholder="Search brand..."
-        value={search}
-        onChange={(e) =>
-          setSearch(
-            e.target.value
-          )
-        }
-        sx={{
-          minWidth: "260px",
+    <Box>
 
-          "& .MuiOutlinedInput-root":
-            {
-              borderRadius:
-                "14px",
+      {/* STATUS TABS */}
+      <Box
+        sx={{
+          px: 3,
+          pt: 2,
+          borderBottom: "1px solid #E2E8F0",
+        }}
+      >
+
+        <Tabs
+          value={status}
+          onChange={(_, value) =>
+            setStatus(value)
+          }
+          sx={{
+            minHeight: "54px",
+
+            "& .MuiTabs-indicator": {
+              height: "3px",
+              borderRadius: "999px",
 
               background:
-                "#FFFFFF",
+                status === "Active"
+                  ? "#16A34A"
+                  : status === "Inactive"
+                    ? "#DC2626"
+                    : "#0F172A",
             },
-        }}
-        slotProps={{
-          input: {
-            startAdornment: (
-              <InputAdornment position="start">
-                <SearchIcon
+          }}
+        >
+
+          {tabs.map((tab) => (
+
+            <Tab
+              key={tab.label}
+              value={tab.value}
+              disableRipple
+
+              label={
+                <Box
                   sx={{
-                    color:
-                      "#94A3B8",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 1,
                   }}
-                />
-              </InputAdornment>
-            ),
-          },
-        }}
-      />
+                >
 
-      {/* CATEGORY */}
-      <TextField
-        select
-        value={category}
-        onChange={(e) =>
-          setCategory(
-            e.target.value
-          )
-        }
-        sx={{
-          minWidth: "220px",
-
-          "& .MuiOutlinedInput-root":
-            {
-              borderRadius:
-                "14px",
-
-              background:
-                "#FFFFFF",
-            },
-        }}
-        slotProps={{
-          select: {
-            displayEmpty: true,
-
-            renderValue: (
-              selected
-            ) => {
-
-              if (!selected) {
-
-                return (
-                  <Box
+                  <Typography
                     sx={{
+                      textTransform: "none",
+                      fontWeight: 600,
+
                       color:
-                        "#94A3B8",
+                        status === tab.value
+                          ? tab.value === "Active"
+                            ? "#16A34A"
+                            : tab.value === "Inactive"
+                              ? "#DC2626"
+                              : "#0F172A"
+                          : "#64748B",
+
+                      fontSize: "15px",
                     }}
                   >
-                    Sort by Category
-                  </Box>
-                );
-              }
+                    {tab.label}
+                  </Typography>
 
-              return selected as string;
-            },
-          },
-        }}
-      >
-        <MenuItem value="">
-          All Categories
-        </MenuItem>
+                  <Badge
+                    badgeContent={tab.count}
 
-        <MenuItem value="Frame">
-          Frame
-        </MenuItem>
-
-        <MenuItem value="Contact Lens">
-          Contact Lens
-        </MenuItem>
-
-        <MenuItem value="Accessories">
-          Accessories
-        </MenuItem>
-
-        <MenuItem value="Optical Lens">
-          Optical Lens
-        </MenuItem>
-
-      </TextField>
-
-      {/* STATUS */}
-      <TextField
-        select
-        value={status}
-        onChange={(e) =>
-          setStatus(
-            e.target.value
-          )
-        }
-        sx={{
-          minWidth: "220px",
-
-          "& .MuiOutlinedInput-root":
-            {
-              borderRadius:
-                "14px",
-
-              background:
-                "#FFFFFF",
-            },
-        }}
-        slotProps={{
-          select: {
-            displayEmpty: true,
-
-            renderValue: (
-              selected
-            ) => {
-
-              if (!selected) {
-
-                return (
-                  <Box
                     sx={{
-                      color:
-                        "#94A3B8",
+                      "& .MuiBadge-badge": {
+
+                        position: "static",
+                        transform: "none",
+
+                        background:
+                          status === tab.value
+                            ? tab.value === "Active"
+                              ? "#16A34A"
+                              : tab.value === "Inactive"
+                                ? "#DC2626"
+                                : "#0F172A"
+                            : "#F1F5F9",
+
+                        color:
+                          status === tab.value
+                            ? "#FFFFFF"
+                            : "#475569",
+
+                        borderRadius: "8px",
+                        minWidth: "24px",
+                        height: "24px",
+                        fontWeight: 700,
+                        fontSize: "12px",
+                      },
                     }}
-                  >
-                    Sort by Status
-                  </Box>
-                );
+                  />
+
+                </Box>
               }
 
-              return selected as string;
-            },
-          },
-        }}
-      >
-        <MenuItem value="">
-          All Status
-        </MenuItem>
+              sx={{
+                minHeight: "54px",
+                px: 0,
+                mr: 5,
+              }}
+            />
 
-        <MenuItem value="Active">
-          Active
-        </MenuItem>
+          ))}
 
-        <MenuItem value="Inactive">
-          Inactive
-        </MenuItem>
+        </Tabs>
 
-      </TextField>
+      </Box>
 
-      {/* BRAND GROUP */}
-      <TextField
-        select
-        value={brandGroup}
-        onChange={(e) =>
-          setBrandGroup(
-            e.target.value
-          )
-        }
+      {/* FILTERS */}
+      <Box
         sx={{
-          minWidth: "240px",
-
-          "& .MuiOutlinedInput-root":
-            {
-              borderRadius:
-                "14px",
-
-              background:
-                "#FFFFFF",
-            },
-        }}
-        slotProps={{
-          select: {
-            displayEmpty: true,
-
-            renderValue: (
-              selected
-            ) => {
-
-              if (!selected) {
-
-                return (
-                  <Box
-                    sx={{
-                      color:
-                        "#94A3B8",
-                    }}
-                  >
-                    Sort by Brand Group
-                  </Box>
-                );
-              }
-
-              return selected as string;
-            },
-          },
+          p: 3,
+          display: "flex",
+          gap: 2,
+          flexWrap: "wrap",
+          borderBottom: "1px solid #E2E8F0",
         }}
       >
-        <MenuItem value="">
-          All Groups
-        </MenuItem>
 
-        <MenuItem value="Premium">
-          Premium
-        </MenuItem>
+        {/* CATEGORY */}
+        <Autocomplete
+          options={[
+            "Frame",
+            "Contact Lens",
+            "Accessories",
+            "Optical Lens",
+          ]}
 
-        <MenuItem value="Budget">
-          Budget
-        </MenuItem>
+          value={category || null}
 
-        <MenuItem value="Luxury">
-          Luxury
-        </MenuItem>
+          onChange={(_, value) =>
+            setCategory(
+              value || ""
+            )
+          }
 
-        <MenuItem value="Imported">
-          Imported
-        </MenuItem>
+          sx={{
+            minWidth: "220px",
 
-      </TextField>
+            "& .MuiOutlinedInput-root": {
+              borderRadius: "16px",
+              background: "#FFFFFF",
+              height: "56px",
+            },
+          }}
+
+          renderInput={(
+            params
+          ) => (
+
+            <TextField
+              {...params}
+              label="Sort by Category"
+            />
+          )}
+        />
+
+        {/* BRAND GROUP */}
+        <Autocomplete
+          options={[
+            "Premium",
+            "Budget",
+            "Luxury",
+            "Imported",
+          ]}
+
+          value={brandGroup || null}
+
+          onChange={(_, value) =>
+            setBrandGroup(
+              value || ""
+            )
+          }
+
+          sx={{
+            minWidth: "240px",
+
+            "& .MuiOutlinedInput-root": {
+              borderRadius: "16px",
+              background: "#FFFFFF",
+              height: "56px",
+            },
+          }}
+
+          renderInput={(
+            params
+          ) => (
+
+            <TextField
+              {...params}
+              label="Sort by Brand Group"
+            />
+          )}
+        />
+
+        {/* SEARCH */}
+        <TextField
+          placeholder="Search brand..."
+          value={search}
+
+          onChange={(e) =>
+            setSearch(
+              e.target.value
+            )
+          }
+
+          sx={{
+            flex: 1,
+            minWidth: "320px",
+
+            "& .MuiOutlinedInput-root": {
+              borderRadius: "16px",
+              background: "#FFFFFF",
+              height: "56px",
+            },
+
+            "& input": {
+              color: "#64748B",
+            },
+          }}
+
+          slotProps={{
+            input: {
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon
+                    sx={{
+                      color: "#94A3B8",
+                    }}
+                  />
+                </InputAdornment>
+              ),
+            },
+          }}
+        />
+
+      </Box>
 
     </Box>
   );

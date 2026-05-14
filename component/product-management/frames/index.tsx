@@ -16,9 +16,13 @@ import {
   frames,
 } from "@/assets/genericdata";
 
-import TableContainerCard from "@/component/common/TableContainerCard";
+import {
+  Frame,
+} from "@/assets/types";
+
 
 import FrameFilters from "./FrameFilters";
+
 import FrameTable from "./FrameTable";
 
 export default function FrameManagementPage() {
@@ -29,32 +33,73 @@ export default function FrameManagementPage() {
   const [search, setSearch] =
     useState("");
 
+  const [brand, setBrand] =
+    useState("");
+
+  const [date, setDate] =
+    useState("");
+
   const [status, setStatus] =
     useState("");
 
+  const [frameData, setFrameData] =
+    useState<Frame[]>(
+      frames
+    );
+
+  /* COUNTS */
+  const frameCount = {
+
+    all:
+      frameData.length,
+
+    active:
+      frameData.filter(
+        (frame) =>
+          frame.status ===
+          "Active"
+      ).length,
+
+    inactive:
+      frameData.filter(
+        (frame) =>
+          frame.status ===
+          "Inactive"
+      ).length,
+
+    outOfStock:
+      frameData.filter(
+        (frame) =>
+          frame.status ===
+          "Out of Stock"
+      ).length,
+  };
+
+  /* FILTERED FRAMES */
   const filteredFrames =
-    frames.filter(
+    frameData.filter(
       (frame) => {
 
         const matchesSearch =
+          !search ||
 
-          frame.brand
-            .toLowerCase()
-            .includes(
-              search.toLowerCase()
-            ) ||
-
-          frame.modelNo
-            .toLowerCase()
-            .includes(
-              search.toLowerCase()
-            ) ||
-
-          frame.skuCode
+          frame.frameName
             .toLowerCase()
             .includes(
               search.toLowerCase()
             );
+
+        const matchesBrand =
+          !brand ||
+
+          frame.brand ===
+            brand;
+
+        const matchesDate =
+          !date ||
+
+          frame.createdOn ===
+            date;
 
         const matchesStatus =
           status
@@ -64,13 +109,23 @@ export default function FrameManagementPage() {
 
         return (
           matchesSearch &&
+          matchesBrand &&
+          matchesDate &&
           matchesStatus
         );
       }
     );
 
   return (
-    <Box sx={{ p: 3 }}>
+    <Box
+      sx={{
+        p: 3,
+        minHeight:
+          "100vh",
+        background:
+          "#F8FAFC",
+      }}
+    >
 
       {/* HEADER */}
       <Box
@@ -83,12 +138,20 @@ export default function FrameManagementPage() {
           alignItems: "center",
 
           mb: 3,
+
+          flexWrap:
+            "wrap",
+
+          gap: 2,
         }}
       >
+
         <Typography
           sx={{
             fontSize: "32px",
             fontWeight: 700,
+            color:
+              "#0F172A",
           }}
         >
           Frame Management
@@ -103,15 +166,21 @@ export default function FrameManagementPage() {
             )
           }
           sx={{
-            height: "48px",
+            height: "50px",
 
             borderRadius:
-              "12px",
+              "14px",
 
             textTransform:
               "none",
 
             px: 3,
+
+            fontWeight:
+              700,
+
+            boxShadow:
+              "none",
           }}
         >
           Add Frame
@@ -119,43 +188,89 @@ export default function FrameManagementPage() {
 
       </Box>
 
-      {/* FILTERS */}
-      <FrameFilters
-        search={search}
-        setSearch={setSearch}
-        status={status}
-        setStatus={setStatus}
-      />
+      {/* MAIN CARD */}
+      <Box
+        sx={{
+          background:
+            "#FFFFFF",
 
-      {/* TABLE */}
-      <TableContainerCard>
+          border:
+            "1px solid #E2E8F0",
 
+          borderRadius:
+            "24px",
+
+          overflow:
+            "hidden",
+        }}
+      >
+
+        {/* FILTERS */}
+        <FrameFilters
+          search={search}
+          setSearch={setSearch}
+
+          brand={brand}
+          setBrand={
+            setBrand
+          }
+
+          date={date}
+          setDate={
+            setDate
+          }
+
+          status={status}
+          setStatus={
+            setStatus
+          }
+
+          frameCount={
+            frameCount
+          }
+        />
+
+        {/* TABLE */}
         <Box sx={{ p: 3 }}>
 
-          <Typography
-            sx={{
-              mb: 2,
+          {(
+            search ||
+            brand ||
+            date ||
+            status
+          ) && (
 
-              color: "#64748B",
+            <Typography
+              sx={{
+                mb: 2,
 
-              fontWeight: 600,
-            }}
-          >
-            {
-              filteredFrames.length
-            }{" "}
-            results found
-          </Typography>
+                color:
+                  "#64748B",
+
+                fontWeight:
+                  600,
+              }}
+            >
+              {
+                filteredFrames.length
+              }{" "}
+              results found
+            </Typography>
+
+          )}
 
           <FrameTable
             frames={
               filteredFrames
             }
+            setFrameData={
+              setFrameData
+            }
           />
 
         </Box>
 
-      </TableContainerCard>
+      </Box>
 
     </Box>
   );
