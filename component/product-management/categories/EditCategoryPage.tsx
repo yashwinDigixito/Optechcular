@@ -82,7 +82,7 @@ export default function EditCategoryPage({
     >
       <Box sx={{ mb: 3 }}>
         <Link
-          href="/product/categories"
+          href="/products/categories"
           style={{
             textDecoration:
               "none",

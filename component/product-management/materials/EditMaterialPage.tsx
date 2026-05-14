@@ -82,7 +82,7 @@ export default function EditMaterialPage({
     >
       <Box sx={{ mb: 3 }}>
         <Link
-          href="/product/materials"
+          href="/products/materials"
           style={{
             textDecoration:
               "none",

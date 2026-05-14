@@ -42,7 +42,7 @@ export default function FrameForm() {
     <Box sx={{ p: 3 }}>
       <Box sx={{ mb: 3 }}>
               <Link
-                href="/product/frames"
+                href="/products/frames"
                 style={{
                   textDecoration:
                     "none",

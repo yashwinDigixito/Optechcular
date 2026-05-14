@@ -61,11 +61,8 @@ export default async function BrandGroupViewPage({
 
   return (
     <Box sx={{ width: "100%", minHeight: "100vh" }}>
-      <Box
-        
-      >
         <Container maxWidth="xl">
-          <Box sx={{ mb: 3 }}>
+      <Box>
         <Link
           href="/products/brand-groups"
           style={{
@@ -87,7 +84,6 @@ export default async function BrandGroupViewPage({
         </Link>
       </Box>
         </Container>
-      </Box>
 
       <Container maxWidth="xl" sx={{ py: 4 }}>
         <Box sx={{ mb: 4 }}>

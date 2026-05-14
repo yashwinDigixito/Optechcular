@@ -95,9 +95,9 @@ export default async function FrameViewPage({
       {/* HEADER */}
       <Box>
         <Container maxWidth="xl">
-          <Box sx={{ mb: 3 }}>
+      <Box>
         <Link
-          href="/product/frames"
+          href="/products/frames"
           style={{
             textDecoration:
               "none",
@@ -352,7 +352,7 @@ export default async function FrameViewPage({
 
                 <InfoLine
                   label="Selling Price"
-                  value={`₹${frame.srp}`}
+                  value={`₹${frame.sellingPrice}`}
                 />
 
                 <InfoLine
@@ -548,7 +548,7 @@ export default async function FrameViewPage({
                   icon={
                     <PaymentsOutlinedIcon />
                   }
-                  text={`Price: ₹${frame.srp}`}
+                  text={`Price: ₹${frame.sellingPrice}`}
                 />
 
                 <IconLine

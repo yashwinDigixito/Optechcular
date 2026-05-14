@@ -4,13 +4,19 @@ import {
   useState,
 } from "react";
 
+import {
+  Brand,
+} from "@/assets/types";
+
 import BlockIcon from "@mui/icons-material/Block";
+
 import EditIcon from "@mui/icons-material/Edit";
+
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 
 import {
+  Avatar,
   Box,
-  Chip,
   IconButton,
   Table,
   TableBody,
@@ -27,14 +33,9 @@ import { useRouter } from "next/navigation";
 import StatusChip from "@/component/common/StatusChip";
 
 interface BrandTableProps {
-  brands: {
-    id: string;
-    brandName: string;
-    category: string;
-    brandGroup: string;
-    status: string;
-    createdOn: string;
-  }[];
+
+  brands:
+    Brand[];
 }
 
 export default function BrandTable({
@@ -87,26 +88,23 @@ export default function BrandTable({
         border:
           "1px solid #E2E8F0",
 
-        overflow: "hidden",
-
-        boxShadow:
-          "0px 4px 20px rgba(15,23,42,0.04)",
+        overflow:
+          "hidden",
       }}
     >
       <Table
         sx={{
-          minWidth: 950,
+          minWidth: 850,
 
           "& .MuiTableCell-root":
             {
-              py: 2.5,
+              py: 2.2,
 
               borderColor:
                 "#F1F5F9",
             },
         }}
       >
-
         {/* TABLE HEAD */}
         <TableHead>
 
@@ -114,71 +112,84 @@ export default function BrandTable({
             sx={{
               background:
                 "#F8FAFC",
-
-              "& .MuiTableCell-root":
-                {
-                  py: 2.2,
-                },
             }}
           >
             <TableCell>
+
               <Typography
                 sx={{
-                  fontWeight: 700,
+                  fontWeight:
+                    700,
                 }}
               >
-                Brand Name
+                Brand
               </Typography>
+
             </TableCell>
 
             <TableCell>
+
               <Typography
                 sx={{
-                  fontWeight: 700,
+                  fontWeight:
+                    700,
                 }}
               >
-                Category
+                Type
               </Typography>
+
             </TableCell>
 
             <TableCell>
+
               <Typography
                 sx={{
-                  fontWeight: 700,
+                  fontWeight:
+                    700,
                 }}
               >
-                Brand Group
+                Phone
               </Typography>
+
             </TableCell>
 
             <TableCell>
+
               <Typography
                 sx={{
-                  fontWeight: 700,
+                  fontWeight:
+                    700,
                 }}
               >
                 Status
               </Typography>
+
             </TableCell>
 
             <TableCell>
+
               <Typography
                 sx={{
-                  fontWeight: 700,
+                  fontWeight:
+                    700,
                 }}
               >
-                Created On
+                Created
               </Typography>
+
             </TableCell>
 
             <TableCell>
+
               <Typography
                 sx={{
-                  fontWeight: 700,
+                  fontWeight:
+                    700,
                 }}
               >
                 Actions
               </Typography>
+
             </TableCell>
 
           </TableRow>
@@ -189,7 +200,9 @@ export default function BrandTable({
         <TableBody>
 
           {brands.map(
-            (brand) => {
+            (
+              brand
+            ) => {
 
               const currentStatus =
 
@@ -202,72 +215,124 @@ export default function BrandTable({
               return (
 
                 <TableRow
-                  key={brand.id}
+                  key={
+                    brand.id
+                  }
                   hover
                   sx={{
-                    transition:
-                      "0.2s",
-
-                    "&:hover": {
-                      background:
-                        "#F8FAFC",
-                    },
+                    "&:hover":
+                      {
+                        background:
+                          "#F8FAFC",
+                      },
                   }}
                 >
-                  {/* BRAND NAME */}
+                  {/* BRAND */}
+                  <TableCell>
+
+                    <Box
+                      sx={{
+                        display:
+                          "flex",
+
+                        alignItems:
+                          "center",
+
+                        gap: 2,
+                      }}
+                    >
+                      <Avatar
+                        src={
+                          brand.brandLogo
+                        }
+                        sx={{
+                          width: 42,
+
+                          height: 42,
+
+                          bgcolor:
+                            "#EFF6FF",
+
+                          color:
+                            "#2563EB",
+
+                          fontWeight:
+                            700,
+                        }}
+                      >
+                        {
+                          brand.brandName?.charAt(
+                            0
+                          )
+                        }
+                      </Avatar>
+
+                      <Box>
+
+                        <Typography
+                          sx={{
+                            fontWeight:
+                              700,
+
+                            color:
+                              "#2563EB",
+                          }}
+                        >
+                          {
+                            brand.brandName
+                          }
+                        </Typography>
+
+                        <Typography
+                          sx={{
+                            fontSize:
+                              "13px",
+
+                            color:
+                              "#64748B",
+                          }}
+                        >
+                          {
+                            brand.brandId
+                          }
+                        </Typography>
+
+                      </Box>
+
+                    </Box>
+
+                  </TableCell>
+
+                  {/* TYPE */}
                   <TableCell>
 
                     <Typography
                       sx={{
-                        fontWeight: 700,
-
                         color:
-                          "#2563EB",
+                          "#475569",
 
-                        fontSize:
-                          "16px",
+                        fontWeight:
+                          600,
                       }}
                     >
                       {
-                        brand.brandName
+                        brand.brandType || "-"
                       }
                     </Typography>
 
                   </TableCell>
 
-                  {/* CATEGORY */}
-                  <TableCell>
-
-                    <Chip
-                      label={
-                        brand.category
-                      }
-                      sx={{
-                        background:
-                          "#EFF6FF",
-
-                        color:
-                          "#2563EB",
-
-                        fontWeight: 600,
-                      }}
-                    />
-
-                  </TableCell>
-
-                  {/* BRAND GROUP */}
+                  {/* PHONE */}
                   <TableCell>
 
                     <Typography
                       sx={{
-                        fontWeight: 600,
-
                         color:
                           "#475569",
                       }}
                     >
                       {
-                        brand.brandGroup
+                        brand.phone
                       }
                     </Typography>
 
@@ -284,19 +349,17 @@ export default function BrandTable({
 
                   </TableCell>
 
-                  {/* CREATED DATE */}
+                  {/* CREATED */}
                   <TableCell>
 
                     <Typography
                       sx={{
                         color:
                           "#64748B",
-
-                        fontWeight: 500,
                       }}
                     >
                       {
-                        brand.createdOn
+                        brand.createdDate
                       }
                     </Typography>
 
@@ -309,9 +372,6 @@ export default function BrandTable({
                       sx={{
                         display:
                           "flex",
-
-                        alignItems:
-                          "center",
 
                         gap: 1,
                       }}
@@ -376,7 +436,7 @@ export default function BrandTable({
 
                       </Tooltip>
 
-                      {/* STATUS TOGGLE */}
+                      {/* STATUS */}
                       <Tooltip
                         title={
                           currentStatus ===
@@ -394,17 +454,6 @@ export default function BrandTable({
                                 ? "#FEF2F2"
 
                                 : "#DCFCE7",
-
-                            "&:hover":
-                              {
-                                background:
-                                  currentStatus ===
-                                  "Active"
-
-                                    ? "#FEE2E2"
-
-                                    : "#BBF7D0",
-                              },
                           }}
                           onClick={() =>
                             handleToggleStatus(

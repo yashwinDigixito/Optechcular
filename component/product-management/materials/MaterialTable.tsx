@@ -1,9 +1,21 @@
 "use client";
 
+import {
+  useState,
+} from "react";
+
+import {
+  Material,
+} from "@/assets/types";
+
 import StatusChip from "@/component/common/StatusChip";
+
 import BlockIcon from "@mui/icons-material/Block";
+
 import EditIcon from "@mui/icons-material/Edit";
+
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
+
 import {
   Box,
   Chip,
@@ -17,36 +29,48 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
+
 import { useRouter } from "next/navigation";
-import {
-  useState,
-} from "react";
 
 interface Props {
-  materials: {
-    id: string;
-    materialName: string;
-    applicableFor: string;
-    status: string;
-    createdOn: string;
-  }[];
+
+  materials:
+    Material[];
 }
 
 export default function MaterialTable({
   materials,
 }: Props) {
 
-  const router = useRouter();
-  const [statusMap, setStatusMap] = useState< Record<string, string> >({});
+  const router =
+    useRouter();
+
+  const [statusMap, setStatusMap] =
+    useState<
+      Record<string, string>
+    >({});
 
   const handleToggleStatus = (
     id: string
   ) => {
+
     setStatusMap((prev) => ({
+
       ...prev,
+
       [id]:
         (
-          prev[id] || materials.find( (material) => material.id === id )?.status ) === "Active" ? "Inactive" : "Active",
+          prev[id] ||
+
+          materials.find(
+            (material) =>
+              material.id === id
+          )?.status
+        ) === "Active"
+
+          ? "Inactive"
+
+          : "Active",
     }));
   };
 
@@ -54,195 +78,320 @@ export default function MaterialTable({
     <TableContainer
       sx={{
         mt: 2,
+
         borderRadius:
           "24px",
+
         background:
           "#FFFFFF",
+
         border:
           "1px solid #E2E8F0",
-        overflow: "hidden",
-        boxShadow:
-          "0px 4px 20px rgba(15,23,42,0.04)",
+
+        overflow:
+          "hidden",
       }}
     >
       <Table
         sx={{
           minWidth: 950,
+
           "& .MuiTableCell-root":
             {
-              py: 2.5,
-              borderColor: "#F1F5F9",
+              py: 2.2,
+
+              borderColor:
+                "#F1F5F9",
             },
         }}
       >
+        {/* TABLE HEAD */}
         <TableHead>
+
           <TableRow
             sx={{
-              background: "#F8FAFC",
-              "& .MuiTableCell-root":
-                {
-                  py: 2.2,
-                },
+              background:
+                "#F8FAFC",
             }}
           >
             <TableCell>
+
               <Typography
                 sx={{
-                  fontWeight: 700,
+                  fontWeight:
+                    700,
                 }}
               >
-                Material Name
+                Material
               </Typography>
+
             </TableCell>
+
             <TableCell>
+
               <Typography
                 sx={{
-                  fontWeight: 700,
+                  fontWeight:
+                    700,
                 }}
               >
                 Applicable For
               </Typography>
+
             </TableCell>
+
             <TableCell>
+
               <Typography
                 sx={{
-                  fontWeight: 700,
+                  fontWeight:
+                    700,
+                }}
+              >
+                Selling Price
+              </Typography>
+
+            </TableCell>
+
+            <TableCell>
+
+              <Typography
+                sx={{
+                  fontWeight:
+                    700,
                 }}
               >
                 Status
               </Typography>
+
             </TableCell>
+
             <TableCell>
+
               <Typography
                 sx={{
-                  fontWeight: 700,
-                }}
-              >
-                Created On
-              </Typography>
-            </TableCell>
-            <TableCell>
-              <Typography
-                sx={{
-                  fontWeight: 700,
+                  fontWeight:
+                    700,
                 }}
               >
                 Actions
               </Typography>
+
             </TableCell>
+
           </TableRow>
+
         </TableHead>
+
+        {/* TABLE BODY */}
         <TableBody>
+
           {materials.map(
-            (material) => {
-              const currentStatus = statusMap[ material.id ] || material.status;
+            (
+              material
+            ) => {
+
+              const currentStatus =
+
+                statusMap[
+                  material.id
+                ] ||
+
+                material.status;
+
               return (
+
                 <TableRow
-                  key={material.id}
+                  key={
+                    material.id
+                  }
                   hover
                   sx={{
-                    transition: "0.2s",
-                    "&:hover": {
-                      background: "#F8FAFC",
-                    },
+                    "&:hover":
+                      {
+                        background:
+                          "#F8FAFC",
+                      },
                   }}
                 >
+                  {/* MATERIAL */}
                   <TableCell>
-                    <Typography
-                      sx={{
-                        fontWeight: 700,
-                        color: "#2563EB",
-                        fontSize: "16px",
-                      }}
-                    >
-                      { material.materialName }
-                    </Typography>
+
+                    <Box>
+
+                      <Typography
+                        sx={{
+                          fontWeight:
+                            700,
+
+                          color:
+                            "#2563EB",
+                        }}
+                      >
+                        {
+                          material.materialName
+                        }
+                      </Typography>
+
+                      <Typography
+                        sx={{
+                          fontSize:
+                            "13px",
+
+                          color:
+                            "#64748B",
+                        }}
+                      >
+                        {
+                          material.materialCode
+                        }
+                      </Typography>
+
+                    </Box>
+
                   </TableCell>
+
+                  {/* APPLICABLE FOR */}
                   <TableCell>
+
                     <Chip
-                      label={material.applicableFor}
+                      label={
+                        material.applicableFor
+                      }
                       sx={{
                         background:
                           "#EFF6FF",
+
                         color:
                           "#2563EB",
-                        fontWeight: 600,
+
+                        fontWeight:
+                          600,
                       }}
                     />
+
                   </TableCell>
+
+                  {/* PRICE */}
                   <TableCell>
-                    <StatusChip
-                      status={currentStatus}
-                    />
-                  </TableCell>
-                  <TableCell>
+
                     <Typography
                       sx={{
-                        color: "#64748B",
-                        fontWeight: 500,
+                        fontWeight:
+                          700,
+
+                        color:
+                          "#16A34A",
                       }}
                     >
-                      {material.createdOn}
+                      ₹{" "}
+                      {
+                        material.sellingPrice.toLocaleString()
+                      }
                     </Typography>
+
                   </TableCell>
+
+                  {/* STATUS */}
                   <TableCell>
+
+                    <StatusChip
+                      status={
+                        currentStatus
+                      }
+                    />
+
+                  </TableCell>
+
+                  {/* ACTIONS */}
+                  <TableCell>
+
                     <Box
                       sx={{
-                        display: "flex",
+                        display:
+                          "flex",
+
                         gap: 1,
                       }}
                     >
+                      {/* VIEW */}
                       <Tooltip title="View">
+
                         <IconButton
                           sx={{
-                            background: "#EFF6FF",
+                            background:
+                              "#EFF6FF",
+
                             "&:hover":
                               {
-                                background: "#DBEAFE",
+                                background:
+                                  "#DBEAFE",
                               },
                           }}
                           onClick={() =>
-                            router.push(`/products/materials/view/${material.id}`)
+                            router.push(
+                              `/products/materials/view/${material.id}`
+                            )
                           }
                         >
                           <RemoveRedEyeOutlinedIcon
                             sx={{
-                              color: "#2563EB",
+                              color:
+                                "#2563EB",
                             }}
                           />
                         </IconButton>
+
                       </Tooltip>
+
+                      {/* EDIT */}
                       <Tooltip title="Edit">
+
                         <IconButton
                           sx={{
-                            background: "#F8FAFC",
+                            background:
+                              "#F8FAFC",
+
                             "&:hover":
                               {
-                                background: "#E2E8F0",
+                                background:
+                                  "#E2E8F0",
                               },
                           }}
                           onClick={() =>
-                            router.push(`/products/materials/edit/${material.id}`)
+                            router.push(
+                              `/products/materials/edit/${material.id}`
+                            )
                           }
                         >
                           <EditIcon
                             sx={{
-                              color: "#0F172A",
+                              color:
+                                "#0F172A",
                             }}
                           />
                         </IconButton>
+
                       </Tooltip>
+
+                      {/* STATUS */}
                       <Tooltip
-                        title={ currentStatus === "Active" ? "Deactivate" : "Activate"
+                        title={
+                          currentStatus ===
+                          "Active"
+                            ? "Deactivate"
+                            : "Activate"
                         }
                       >
                         <IconButton
                           sx={{
-                            background: currentStatus === "Active" ? "#FEF2F2" : "#DCFCE7",
-                            "&:hover":
-                              {
-                                background: currentStatus === "Active" ? "#FEE2E2" : "#BBF7D0",
-                              },
+                            background:
+                              currentStatus ===
+                              "Active"
+
+                                ? "#FEF2F2"
+
+                                : "#DCFCE7",
                           }}
                           onClick={() =>
                             handleToggleStatus(
@@ -252,19 +401,32 @@ export default function MaterialTable({
                         >
                           <BlockIcon
                             sx={{
-                              color: currentStatus === "Active" ? "#DC2626" : "#16A34A",
+                              color:
+                                currentStatus ===
+                                "Active"
+
+                                  ? "#DC2626"
+
+                                  : "#16A34A",
                             }}
                           />
                         </IconButton>
+
                       </Tooltip>
+
                     </Box>
+
                   </TableCell>
+
                 </TableRow>
               );
             }
           )}
+
         </TableBody>
+
       </Table>
+
     </TableContainer>
   );
 }

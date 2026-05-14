@@ -1,65 +1,46 @@
 "use client";
 
+import {
+  Customer,
+} from "@/assets/types";
+
 import BlockIcon from "@mui/icons-material/Block";
+
 import EditIcon from "@mui/icons-material/Edit";
+
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 
 import {
-    Box,
-    Chip,
-    IconButton,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
-    Tooltip,
-    Typography,
+  Box,
+  Chip,
+  IconButton,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Tooltip,
+  Typography,
 } from "@mui/material";
 
 import { useRouter } from "next/navigation";
 
 import StatusChip from "@/component/common/StatusChip";
 
-interface CustomerType {
-
-  id: string;
-
-  customerType: string;
-
-  fullName: string;
-
-  phoneNumber: string;
-
-  email: string;
-
-  addressLine1: string;
-
-  addressLine2: string;
-
-  city: string;
-
-  state: string;
-
-  country: string;
-
-  status: string;
-
-  createdOn: string;
-}
-
 interface Props {
 
-  customers: CustomerType[];
+  customers:
+    Customer[];
 
   setCustomerData:
     React.Dispatch<
       React.SetStateAction<
-        CustomerType[]
+        Customer[]
       >
     >;
 }
+
 export default function CustomerTable({
   customers,
   setCustomerData,
@@ -98,7 +79,8 @@ export default function CustomerTable({
         border:
           "1px solid #E2E8F0",
 
-        overflow: "hidden",
+        overflow:
+          "hidden",
 
         background:
           "#FFFFFF",
@@ -125,51 +107,107 @@ export default function CustomerTable({
             }}
           >
             <TableCell>
-              <Typography sx={{fontWeight:700}}>
+
+              <Typography
+                sx={{
+                  fontWeight:
+                    700,
+                }}
+              >
                 Customer Name
               </Typography>
+
             </TableCell>
 
             <TableCell>
-              <Typography sx={{fontWeight:700}}>
+
+              <Typography
+                sx={{
+                  fontWeight:
+                    700,
+                }}
+              >
                 Customer Type
               </Typography>
+
             </TableCell>
 
             <TableCell>
-              <Typography sx={{fontWeight:700}}>
+
+              <Typography
+                sx={{
+                  fontWeight:
+                    700,
+                }}
+              >
                 Phone Number
               </Typography>
+
             </TableCell>
 
             <TableCell>
-              <Typography sx={{fontWeight:700}}>
+
+              <Typography
+                sx={{
+                  fontWeight:
+                    700,
+                }}
+              >
                 Email
               </Typography>
+
             </TableCell>
 
             <TableCell>
-              <Typography sx={{fontWeight:700}}>
+
+              <Typography
+                sx={{
+                  fontWeight:
+                    700,
+                }}
+              >
                 Location
               </Typography>
+
             </TableCell>
 
             <TableCell>
-              <Typography sx={{fontWeight:700}}>
+
+              <Typography
+                sx={{
+                  fontWeight:
+                    700,
+                }}
+              >
                 Status
               </Typography>
+
             </TableCell>
 
             <TableCell>
-              <Typography sx={{fontWeight:700}}>
+
+              <Typography
+                sx={{
+                  fontWeight:
+                    700,
+                }}
+              >
                 Created On
               </Typography>
+
             </TableCell>
 
             <TableCell>
-              <Typography sx={{fontWeight:700}}>
+
+              <Typography
+                sx={{
+                  fontWeight:
+                    700,
+                }}
+              >
                 Actions
               </Typography>
+
             </TableCell>
 
           </TableRow>
@@ -180,16 +218,21 @@ export default function CustomerTable({
         <TableBody>
 
           {customers.map(
-            (customer) => (
+            (
+              customer
+            ) => (
 
               <TableRow
-                key={customer.id}
+                key={
+                  customer.id
+                }
                 hover
                 sx={{
-                  "&:hover": {
-                    background:
-                      "#F8FAFC",
-                  },
+                  "&:hover":
+                    {
+                      background:
+                        "#F8FAFC",
+                    },
                 }}
               >
                 {/* NAME */}
@@ -197,14 +240,15 @@ export default function CustomerTable({
 
                   <Typography
                     sx={{
-                      fontWeight: 700,
+                      fontWeight:
+                        700,
 
                       color:
                         "#2563EB",
                     }}
                   >
                     {
-                      customer.fullName
+                      customer.customerName
                     }
                   </Typography>
 
@@ -235,7 +279,8 @@ export default function CustomerTable({
 
                           : "#C026D3",
 
-                      fontWeight: 700,
+                      fontWeight:
+                        700,
 
                       borderRadius:
                         "8px",
@@ -249,7 +294,7 @@ export default function CustomerTable({
 
                   <Typography>
                     {
-                      customer.phoneNumber
+                      customer.phone
                     }
                   </Typography>
 

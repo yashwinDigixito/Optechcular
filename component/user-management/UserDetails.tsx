@@ -61,27 +61,34 @@ export default async function UserDetails({
   }
 
   return (
-    <Box sx={{ width: "100%", minHeight: "100vh", bgcolor: "#F8FAFC" }}>
+    <Box sx={{ width: "100%", minHeight: "100vh" }}>
       <Box
         sx={{
           py: 2,
-          bgcolor: "#FFFFFF",
-          borderBottom: "1px solid #E2E8F0",
         }}
       >
         <Container maxWidth="xl">
-          <Link href="/users" passHref style={{ textDecoration: "none" }}>
-            <Button
-              startIcon={<ArrowBackIcon />}
-              sx={{
-                color: "#64748B",
-                textTransform: "none",
-                fontWeight: 600,
-              }}
-            >
-              Back to Users
-            </Button>
-          </Link>
+      <Box >
+        <Link
+          href="/users"
+          style={{
+            textDecoration:
+              "none",
+          }}
+        >
+          <Button
+            startIcon={
+              <ArrowBackIcon />
+            }
+            sx={{
+              textTransform:"none",
+              fontWeight:600,
+            }}
+          >
+            Back to Users
+          </Button>
+        </Link>
+      </Box>
         </Container>
       </Box>
 

@@ -30,50 +30,53 @@ export default function RoleViewContent({
 
   return (
     <Box
-    sx={{
-    width: "100%",
-    height: "100vh",
-    background: "#F8FAFC",
-    overflow: "hidden",
-    display: "flex",
-    flexDirection: "column",
-    }}
->
-      {/* TOP NAVIGATION */}
-    <Box
-        sx={{
-        py: 2,
-        background: "#FFFFFF",
-        borderBottom:
-            "1px solid #E2E8F0",
-        }}
+      sx={{
+        width: "100%",
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+      }}
     >
+      {/* TOP NAVIGATION */}
+      <Box
+        sx={{
+          py: 2,
+        }}
+      >
         <Container maxWidth="lg">
-
+      <Box>
         <Link
-            href="/roles"
-            passHref
-            style={{
-            textDecoration: "none",
-            }}
+          href="/roles"
+          style={{
+            textDecoration:
+              "none",
+          }}
         >
-            <Button
+          <Button
             startIcon={
-                <ArrowBackIcon />
+              <ArrowBackIcon />
             }
             sx={{
-                color: "#64748B",
-                textTransform:
-                "none",
-                fontWeight: 600,
+              textTransform:"none",
+              fontWeight:600,
             }}
-            >
-            Back to Roles
-            </Button>
+          >
+            Back
+          </Button>
         </Link>
+      </Box>
         </Container>
-    </Box>
 
+      </Box>
+
+      {/* MAIN CONTENT */}
+      <Container
+        maxWidth="lg"
+        sx={{
+          py: 4,
+          flex: 1,
+        }}
+      >
         {/* CARD */}
         <Box
           sx={{
@@ -341,12 +344,10 @@ export default function RoleViewContent({
                   currentRole?.totalUsers
                 }
               </Typography>
-
             </Box>
-
           </Box>
-
         </Box>
+      </Container>
     </Box>
  )
 }

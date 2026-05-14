@@ -1,509 +1,252 @@
-"use client";
-
-import {
-  Expense,
-} from "@/assets/types";
-
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-
-import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
-
-import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
-
-import PaymentsOutlinedIcon from "@mui/icons-material/PaymentsOutlined";
-
-import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import Link from "next/link";
 
 import {
   Box,
   Button,
+  Card,
   Chip,
   Container,
-  Divider,
   Stack,
   Typography,
 } from "@mui/material";
 
-import Link from "next/link";
+import { expenses } from "@/assets/genericdata";
+import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
+import PaymentsOutlinedIcon from "@mui/icons-material/PaymentsOutlined";
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import ReceiptLongOutlinedIcon from "@mui/icons-material/ReceiptLongOutlined";
+import { IconLine, InfoLine, SideCard } from "../common/ViewPage";
 
-interface Props {
+export default async function ExpenseDetailsPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
 
-  expense: Expense;
-}
+  const expense = expenses.find((item) => item.id === id);
 
-export default function ExpenseDetails({
-  expense,
-}: Props) {
-
-  return (
-    <Box
-      sx={{
-        minHeight:
-          "100vh",
-
-        bgcolor:
-          "#F8FAFC",
-      }}
-    >
-      {/* TOP */}
+  if (!expense) {
+    return (
       <Box
         sx={{
-          p: 3,
+          minHeight: "100vh",
+          bgcolor: "#F8FAFC",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
-      <Box sx={{ mb: 3 }}>
-        <Link
-          href="/expenses"
-          style={{
-            textDecoration:
-              "none",
+        <Card
+          sx={{
+            p: 4,
+            borderRadius: "16px",
+            border: "1px solid #E2E8F0",
+            boxShadow: "none",
           }}
         >
-          <Button
-            startIcon={
-              <ArrowBackIcon />
-            }
-            sx={{
-              textTransform:"none",
-              fontWeight:600,
-            }}
-          >
-            Back
-          </Button>
-        </Link>
+          <Typography sx={{ color: "#64748B", fontWeight: 700 }}>
+            Expense record not found
+          </Typography>
+        </Card>
       </Box>
-      </Box>
+    );
+  }
 
-      <Container
-        maxWidth="lg"
-      >
-        {/* HEADER */}
-        <Box sx={{ mb: 4 }}>
-
-          <Stack
-            direction="row"
-            spacing={2}
-            sx={{
-              alignItems:
-                "center",
-
-              flexWrap:
-                "wrap",
-            }}
-          >
-            <Typography
+  return (
+    <Box sx={{ width: "100%", minHeight: "100vh", bgcolor: "#F8FAFC" }}>
+      {/* Top Navigation Bar */}
+      <Box>
+      
+        <Container maxWidth="xl">
+          <Link href="/expenses" passHref style={{ textDecoration: "none" }}>
+            <Button
+              startIcon={<ArrowBackIcon />}
               sx={{
-                fontSize:
-                  "32px",
-
-                fontWeight:
-                  800,
-
-                color:
-                  "#2563EB",
+                color: "#64748B",
+                textTransform: "none",
+                fontWeight: 600,
               }}
             >
-              {
-                expense.expenseName
-              }
+              Back to Expenses
+            </Button>
+          </Link>
+        </Container>
+      </Box>
+
+      <Container maxWidth="xl" sx={{ py: 4 }}>
+        {/* Header Section */}
+        <Box sx={{ mb: 4 }}>
+          <Stack direction="row" spacing={1.5} sx={{alignItems: "center",flexWrap: "wrap"}} >
+            <Typography
+              sx={{
+                fontSize: { xs: "1.5rem", md: "1.9rem" },
+                fontWeight: 800,
+                color: "#3B82F6",
+              }}
+            >
+              {expense.expenseName}
             </Typography>
 
             <Chip
-              label={
-                expense.status
-              }
+              label={expense.id}
+              size="small"
               sx={{
-                bgcolor:
-                  expense.status ===
-                  "Paid"
-
-                    ? "#DCFCE7"
-
-                    : "#FEF3C7",
-
-                color:
-                  expense.status ===
-                  "Paid"
-
-                    ? "#15803D"
-
-                    : "#B45309",
-
-                fontWeight:
-                  700,
+                bgcolor: "#EFF6FF",
+                color: "#3B82F6",
+                fontWeight: 700,
+                borderRadius: "8px",
               }}
             />
 
+            <Chip
+              label={expense.status}
+              size="small"
+              sx={{
+                bgcolor:
+                  expense.status === "Approved" || expense.status === "Paid"
+                    ? "#DCFCE7"
+                    : expense.status === "Rejected"
+                    ? "#FEE2E2"
+                    : "#FEF3C7",
+                color:
+                  expense.status === "Approved" || expense.status === "Paid"
+                    ? "#15803D"
+                    : expense.status === "Rejected"
+                    ? "#B91C1C"
+                    : "#D97706",
+                fontWeight: 700,
+                borderRadius: "8px",
+              }}
+            />
           </Stack>
 
-          <Typography
-            sx={{
-              mt: 1,
-
-              color:
-                "#64748B",
-            }}
-          >
-            Expense Date:
-            {" "}
-            {
-              expense.expenseDate
-            }
+          <Typography sx={{ mt: 1, color: "#64748B", fontSize: 14 }}>
+            Transaction Date: {expense.expenseDate}
           </Typography>
-
         </Box>
 
-        {/* CONTENT */}
         <Box
           sx={{
-            display:
-              "flex",
-
+            display: "flex",
             gap: 3,
-
-            flexDirection:
-              {
-                xs: "column",
-                lg: "row",
-              },
+            alignItems: "flex-start",
+            flexDirection: { xs: "column", lg: "row" },
           }}
         >
-          {/* LEFT */}
-          <Box sx={{ flex: 1 }}>
-
+          {/* Main Content - Left Side */}
+          <Box sx={{ width: { xs: "100%", lg: "60%" } }}>
             <Stack spacing={3}>
+              <SideCard title="General Information">
+                <InfoLine label="Expense ID" value={expense.id} />
+                <InfoLine label="Expense Name" value={expense.expenseName} />
+                <InfoLine label="Ledger/Category" value={expense.ledger} />
+                <InfoLine label="Payment Method" value={expense.paymentMethod} />
+                <InfoLine label="Status" value={expense.status} />
+              </SideCard>
 
-              {/* EXPENSE INFO */}
-              <Box
+              <SideCard title="Financial Details">
+                <InfoLine label="Amount" value={`${expense.currency} ${expense.amount.toLocaleString()}`} />
+                <InfoLine label="Currency" value={expense.currency} />
+                <InfoLine label="Expense Date" value={expense.expenseDate} />
+              </SideCard>
+
+              <SideCard title="Audit Tracking">
+                <InfoLine label="Created On" value={expense.createdOn} />
+                <InfoLine label="Created By" value={expense.createdBy} />
+              </SideCard>
+            </Stack>
+          </Box>
+
+          {/* Sidebar - Right Side */}
+          <Box sx={{ width: { xs: "100%", lg: "40%" } }}>
+            <Stack spacing={3}>
+              <Card
                 sx={{
                   p: 3,
-
-                  borderRadius:
-                    "20px",
-
-                  border:
-                    "1px solid #E2E8F0",
-
-                  bgcolor:
-                    "#FFFFFF",
+                  borderRadius: "16px",
+                  boxShadow: "none",
+                  border: "1px solid #E2E8F0",
+                  bgcolor: "#FFFFFF",
+                  textAlign: "center",
                 }}
               >
-                <Typography
+                <Box
                   sx={{
-                    fontSize:
-                      "20px",
-
-                    fontWeight:
-                      700,
-
-                    mb: 3,
-                  }}
-                >
-                  Expense Information
-                </Typography>
-
-                <Stack spacing={2}>
-
-                  <InfoRow
-                    label="Expense Name"
-                    value={
-                      expense.expenseName
-                    }
-                  />
-
-                  <InfoRow
-                    label="Ledger"
-                    value={
-                      expense.ledger
-                    }
-                  />
-
-                  <InfoRow
-                    label="Payment Method"
-                    value={
-                      expense.paymentMethod
-                    }
-                  />
-
-                  <InfoRow
-                    label="Created By"
-                    value={
-                      expense.createdBy
-                    }
-                  />
-
-                </Stack>
-
-              </Box>
-
-              {/* NOTES */}
-              <Box
-                sx={{
-                  p: 3,
-
-                  borderRadius:
-                    "20px",
-
-                  border:
-                    "1px solid #E2E8F0",
-
-                  bgcolor:
-                    "#FFFFFF",
-                }}
-              >
-                <Typography
-                  sx={{
-                    fontSize:
-                      "20px",
-
-                    fontWeight:
-                      700,
-
+                    width: 80,
+                    height: 80,
+                    mx: "auto",
                     mb: 2,
+                    borderRadius: "50%",
+                    bgcolor: "#EFF6FF",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
                   }}
                 >
-                  Notes
+                  <AccountBalanceWalletOutlinedIcon
+                    sx={{ fontSize: 40, color: "#3B82F6" }}
+                  />
+                </Box>
+
+                <Typography sx={{ fontSize: 28, fontWeight: 800, color: "#0F172A" }}>
+                  {expense.currency} {expense.amount.toLocaleString()}
                 </Typography>
 
-                <Typography
-                  sx={{
-                    color:
-                      "#475569",
-
-                    lineHeight:
-                      1.8,
-                  }}
-                >
-                  {
-                    expense.notes
-                  }
+                <Typography sx={{ color: "#64748B", fontSize: 14, mt: 0.5 }}>
+                  Total Expense Value
                 </Typography>
+              </Card>
 
-              </Box>
+              <SideCard title="Quick Summary">
+                <IconLine
+                  icon={<ReceiptLongOutlinedIcon />}
+                  text={`Category: ${expense.ledger}`}
+                />
+                <IconLine
+                  icon={<PaymentsOutlinedIcon />}
+                  text={`Method: ${expense.paymentMethod}`}
+                />
+                <IconLine
+                  icon={<CalendarMonthOutlinedIcon />}
+                  text={`Date: ${expense.expenseDate}`}
+                />
+                <IconLine
+                  icon={<PersonOutlineOutlinedIcon />}
+                  text={`Raised By: ${expense.createdBy}`}
+                />
+              </SideCard>
 
-            </Stack>
-
-          </Box>
-
-          {/* RIGHT */}
-          <Box
-            sx={{
-              width: {
-                xs: "100%",
-                lg: "350px",
-              },
-            }}
-          >
-            <Stack spacing={3}>
-
-              {/* SUMMARY */}
-              <Box
-                sx={{
-                  p: 3,
-
-                  borderRadius:
-                    "20px",
-
-                  border:
-                    "1px solid #E2E8F0",
-
-                  bgcolor:
-                    "#FFFFFF",
-                }}
-              >
-                <Typography
-                  sx={{
-                    fontSize:
-                      "20px",
-
-                    fontWeight:
-                      700,
-
-                    mb: 3,
-                  }}
-                >
-                  Expense Summary
-                </Typography>
-
+              <SideCard title="Description & Notes">
                 <Stack spacing={2}>
-
-                  <IconRow
-                    icon={
-                      <AccountBalanceWalletOutlinedIcon />
-                    }
-                    title="Amount"
-                    value={`₹${expense.amount.toLocaleString()}`}
-                  />
-
-                  <Divider />
-
-                  <IconRow
-                    icon={
-                      <PaymentsOutlinedIcon />
-                    }
-                    title="Payment"
-                    value={
-                      expense.paymentMethod
-                    }
-                  />
-
-                  <Divider />
-
-                  <IconRow
-                    icon={
-                      <CalendarMonthOutlinedIcon />
-                    }
-                    title="Date"
-                    value={
-                      expense.expenseDate
-                    }
-                  />
-
-                  <Divider />
-
-                  <IconRow
-                    icon={
-                      <PersonOutlineOutlinedIcon />
-                    }
-                    title="Created By"
-                    value={
-                      expense.createdBy
-                    }
-                  />
-
+                  <Box>
+                    <Typography sx={{ color: "#64748B", fontSize: 12, fontWeight: 700, textTransform: "uppercase", mb: 0.5 }}>
+                      Purpose
+                    </Typography>
+                    <Typography sx={{ color: "#475569", fontSize: 14, lineHeight: 1.6 }}>
+                      {expense.description}
+                    </Typography>
+                  </Box>
+                  
+                  {expense.notes && (
+                    <Box sx={{ pt: 2, borderTop: "1px dashed #E2E8F0" }}>
+                      <Typography sx={{ color: "#64748B", fontSize: 12, fontWeight: 700, textTransform: "uppercase", mb: 0.5 }}>
+                        Internal Notes
+                      </Typography>
+                      <Typography sx={{ color: "#475569", fontSize: 14, lineHeight: 1.6 }}>
+                        {expense.notes}
+                      </Typography>
+                    </Box>
+                  )}
                 </Stack>
-
-              </Box>
-
+              </SideCard>
             </Stack>
-
           </Box>
-
         </Box>
-
       </Container>
-
     </Box>
   );
 }
 
-function InfoRow({
-  label,
-  value,
-}: {
-  label: string;
-  value: string;
-}) {
-
-  return (
-    <Box
-      sx={{
-        display:
-          "flex",
-
-        justifyContent:
-          "space-between",
-
-        gap: 2,
-      }}
-    >
-      <Typography
-        sx={{
-          color:
-            "#64748B",
-        }}
-      >
-        {label}
-      </Typography>
-
-      <Typography
-        sx={{
-          fontWeight:
-            600,
-
-          textAlign:
-            "right",
-        }}
-      >
-        {value}
-      </Typography>
-
-    </Box>
-  );
-}
-
-function IconRow({
-  icon,
-  title,
-  value,
-}: {
-  icon: React.ReactNode;
-  title: string;
-  value: string;
-}) {
-
-  return (
-    <Stack
-      direction="row"
-      spacing={2}
-      sx={{
-        alignItems:
-          "center",
-      }}
-    >
-      <Box
-        sx={{
-          width: 42,
-
-          height: 42,
-
-          borderRadius:
-            "12px",
-
-          bgcolor:
-            "#EFF6FF",
-
-          display:
-            "flex",
-
-          alignItems:
-            "center",
-
-          justifyContent:
-            "center",
-
-          color:
-            "#2563EB",
-        }}
-      >
-        {icon}
-      </Box>
-
-      <Box>
-
-        <Typography
-          sx={{
-            fontSize:
-              "13px",
-
-            color:
-              "#64748B",
-          }}
-        >
-          {title}
-        </Typography>
-
-        <Typography
-          sx={{
-            fontWeight:
-              700,
-          }}
-        >
-          {value}
-        </Typography>
-
-      </Box>
-
-    </Stack>
-  );
-}

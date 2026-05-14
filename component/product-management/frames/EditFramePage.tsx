@@ -126,7 +126,7 @@ export default function EditFramePage({
 
             srp:
               String(
-                frame.srp
+                frame.sellingPrice
               ),
 
             locationPricing:
@@ -160,7 +160,7 @@ export default function EditFramePage({
     <Box sx={{ p: 3 }}>
       <Box sx={{ mb: 3 }}>
         <Link
-          href="/product/frames"
+          href="/products/frames"
           style={{
             textDecoration:
               "none",

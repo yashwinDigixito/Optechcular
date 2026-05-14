@@ -79,7 +79,7 @@ export default function EditRimShapePage({
     <Box sx={{ p: 3 }}>
       <Box sx={{ mb: 3 }}>
         <Link
-          href="/product/rim-shapes"
+          href="/products/rim-shapes"
           style={{
             textDecoration:
               "none",
