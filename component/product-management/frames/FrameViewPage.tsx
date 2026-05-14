@@ -117,14 +117,14 @@ export default async function FrameViewPage({
               <SideCard title="Frame Core Information">
                 <InfoLine label="Frame ID" value={frame.frameId} />
                 <InfoLine label="Brand Name" value={frame.brand} />
-                <InfoLine label="Model Number" value={frame.modelNo} />
+                <InfoLine label="Model Number" value={frame.modelNumber} />
                 <InfoLine label="Frame Material" value={frame.frameMaterial} />
                 <InfoLine label="Temple Material" value={frame.templeMaterial} />
                 <InfoLine label="Gender" value={frame.gender} />
               </SideCard>
 
               <SideCard title="Technical Specifications">
-                <InfoLine label="Frame Size" value={frame.size} />
+                <InfoLine label="Frame Size" value={frame.frameSize} />
                 <InfoLine label="Bridge Distance (DBL)" value={frame.dbl} />
                 <InfoLine label="Temple Length" value={frame.templeLength} />
                 <InfoLine label="Frame Width" value={frame.frameWidth} />
@@ -188,14 +188,14 @@ export default async function FrameViewPage({
                   {frame.brand}
                 </Typography>
                 <Typography sx={{ color: colors.textSecondary, fontSize: 14, mt: 0.5 }}>
-                  {frame.modelNo} • {frame.category}
+                  {frame.modelNumber} • {frame.category}
                 </Typography>
               </Card>
 
               <SideCard title="Quick Summary">
                 <IconLine icon={<StyleOutlinedIcon sx={{ color: colors.primary }} />} text={`Rim: ${frame.rimType} (${frame.rimShape})`} />
                 <IconLine icon={<PaletteOutlinedIcon sx={{ color: colors.primary }} />} text={`Color: ${frame.frameFrontColor}`} />
-                <IconLine icon={<Inventory2OutlinedIcon sx={{ color: colors.primary }} />} text={`Available Stock: ${frame.stock} units`} />
+                <IconLine icon={<Inventory2OutlinedIcon sx={{ color: colors.primary }} />} text={`Available Stock: ${frame.stockQuantity} units`} />
                 <IconLine icon={<WarehouseOutlinedIcon sx={{ color: colors.primary }} />} text={`Location: ${frame.warehouseLocation}`} />
               </SideCard>
 
