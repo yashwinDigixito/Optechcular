@@ -3,7 +3,7 @@
 import { FONT_FAMILY, FONT_SIZE, FONT_WEIGHT, themeConfig } from "@/assets/constants";
 import { LedgerGroup } from "@/assets/types";
 import { InfoLine, SideCard, getFadeInStyle } from "@/component/common/ViewPage";
-import { AccountTreeSharp, AccountTreeTwoTone } from "@mui/icons-material";
+import { AccountTreeTwoTone } from "@mui/icons-material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
 import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
