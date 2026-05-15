@@ -1,28 +1,20 @@
 "use client";
 
+import CommonTable from "@/component/common/table/CommonTable";
+
+import StatusSelect from "@/component/common/table/StatusSelect";
+
+import TableActions from "@/component/common/table/TableActions";
+
 import {
-  useState,
-} from "react";
-
-import EditIcon from "@mui/icons-material/Edit";
-
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-
-import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
+  FONT_FAMILY,
+  FONT_SIZE,
+  FONT_WEIGHT,
+} from "@/assets/constants";
 
 import {
   Chip,
-  IconButton,
-  Menu,
-  MenuItem,
-  Select,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Typography
+  Typography,
 } from "@mui/material";
 
 import { useRouter } from "next/navigation";
@@ -115,44 +107,56 @@ export default function OrderTable({
   const router =
     useRouter();
 
-  const [
-    anchorEl,
-    setAnchorEl,
-  ] = useState<
-    null | HTMLElement
-  >(null);
+  /* TABLE COLUMNS */
+  const columns = [
 
-  const [
-    selectedOrderId,
-    setSelectedOrderId,
-  ] = useState<
-    string | null
-  >(null);
+    {
+      key: "orderNo",
+      label: "Order No",
+    },
 
-  const handleMenuOpen = (
-    event:
-      React.MouseEvent<HTMLElement>,
-    id: string
-  ) => {
+    {
+      key: "customer",
+      label: "Customer",
+    },
 
-    setAnchorEl(
-      event.currentTarget
-    );
+    {
+      key: "product",
+      label: "Product",
+    },
 
-    setSelectedOrderId(
-      id
-    );
-  };
+    {
+      key: "amount",
+      label: "Amount",
+      align: "center" as const,
+    },
 
-  const handleMenuClose = () => {
+    {
+      key: "payment",
+      label: "Payment",
+      align: "center" as const,
+    },
 
-    setAnchorEl(null);
+    {
+      key: "status",
+      label: "Order Status",
+      align: "center" as const,
+    },
 
-    setSelectedOrderId(
-      null
-    );
-  };
+    {
+      key: "date",
+      label: "Date",
+      align: "center" as const,
+    },
 
+    {
+      key: "actions",
+      label: "Actions",
+      align: "center" as const,
+    },
+  ];
+
+  /* STATUS CHANGE */
   const handleStatusChange = (
     id: string,
     value: string
@@ -160,545 +164,269 @@ export default function OrderTable({
 
     setOrderData((prev) =>
       prev.map((order) =>
+
         order.id === id
+
           ? {
               ...order,
               status: value,
             }
+
           : order
       )
     );
   };
 
   return (
-    <TableContainer
-      sx={{
-        borderRadius:
-          "20px",
+    <CommonTable
+      columns={columns}
+      rows={orders}
 
-        overflow:
-          "hidden",
+      renderCell={(
+        order,
+        key
+      ) => {
 
-        background:
-          "#FFFFFF",
-      }}
-    >
-      <Table
-        sx={{
-          "& .MuiTableCell-root":
-            {
-              py: 2,
+        switch (key) {
 
-              borderColor:
-                "#F1F5F9",
-            },
-        }}
-      >
-        {/* TABLE HEAD */}
-        <TableHead>
+          /* ORDER NO */
+          case "orderNo":
 
-          <TableRow
-            sx={{
-              background:
-                "#F8FAFC",
-
-              borderBottom:
-                "1px solid #E2E8F0",
-            }}
-          >
-            <TableCell>
+            return (
 
               <Typography
                 sx={{
                   fontWeight:
-                    700,
+                    FONT_WEIGHT.BOLD,
+
+                  color:
+                    "#2563EB",
+
+                  fontSize:
+                    "15px",
+
+                  fontFamily:
+                    FONT_FAMILY.TABLE_BODY,
                 }}
               >
-                Order No
-              </Typography>
-
-            </TableCell>
-
-            <TableCell>
-
-              <Typography
-                sx={{
-                  fontWeight:
-                    700,
-                }}
-              >
-                Customer
-              </Typography>
-
-            </TableCell>
-
-            <TableCell>
-
-              <Typography
-                sx={{
-                  fontWeight:
-                    700,
-                }}
-              >
-                Product
-              </Typography>
-
-            </TableCell>
-
-            <TableCell align="center">
-
-              <Typography
-                sx={{
-                  fontWeight:
-                    700,
-                }}
-              >
-                Amount
-              </Typography>
-
-            </TableCell>
-
-            <TableCell align="center">
-
-              <Typography
-                sx={{
-                  fontWeight:
-                    700,
-                }}
-              >
-                Payment
-              </Typography>
-
-            </TableCell>
-
-            <TableCell align="center">
-
-              <Typography
-                sx={{
-                  fontWeight:
-                    700,
-                }}
-              >
-                Order Status
-              </Typography>
-
-            </TableCell>
-
-            <TableCell align="center">
-
-              <Typography
-                sx={{
-                  fontWeight:
-                    700,
-                }}
-              >
-                Date
-              </Typography>
-
-            </TableCell>
-
-            <TableCell align="center">
-
-              <Typography
-                sx={{
-                  fontWeight:
-                    700,
-                }}
-              >
-                Actions
-              </Typography>
-
-            </TableCell>
-
-          </TableRow>
-
-        </TableHead>
-
-        {/* TABLE BODY */}
-        <TableBody>
-
-          {orders.map(
-            (
-              order
-            ) => (
-
-              <TableRow
-                key={
-                  order.id
+                {
+                  order.orderNo
                 }
-                hover
+              </Typography>
+
+            );
+
+          /* CUSTOMER */
+          case "customer":
+
+            return (
+
+              <Typography
                 sx={{
-                  "&:hover":
-                    {
-                      background:
-                        "#F8FAFC",
-                    },
+                  fontWeight:
+                    FONT_WEIGHT.SEMI_BOLD,
+
+                  color:
+                    "#0F172A",
+
+                  fontFamily:
+                    FONT_FAMILY.TABLE_BODY,
+
+                  fontSize:
+                    FONT_SIZE.TABLE_BODY,
                 }}
               >
-                {/* ORDER NO */}
-                <TableCell>
-
-                  <Typography
-                    sx={{
-                      fontWeight:
-                        700,
-
-                      color:
-                        "#2563EB",
-
-                      fontSize:
-                        "15px",
-                    }}
-                  >
-                    {
-                      order.orderNo
-                    }
-                  </Typography>
-
-                </TableCell>
-
-                {/* CUSTOMER */}
-                <TableCell>
-
-                  <Typography
-                    sx={{
-                      fontWeight:
-                        600,
-                    }}
-                  >
-                    {
-                      order.customerName
-                    }
-                  </Typography>
-
-                </TableCell>
-
-                {/* PRODUCT */}
-                <TableCell>
-
-                  <Typography
-                    sx={{
-                      color:
-                        "#475569",
-                    }}
-                  >
-                    {
-                      order.productName
-                    }
-                  </Typography>
-
-                </TableCell>
-
-                {/* AMOUNT */}
-                <TableCell align="center">
-
-                  <Typography
-                    sx={{
-                      fontWeight:
-                        700,
-                    }}
-                  >
-                    ₹{" "}
-                    {
-                      new Intl.NumberFormat(
-                        "en-IN"
-                      ).format(
-                        order.totalAmount
-                      )
-                    }
-                  </Typography>
-
-                </TableCell>
-
-                {/* PAYMENT */}
-                <TableCell align="center">
-
-                  <Chip
-                    label={
-                      order.paymentStatus
-                    }
-                    size="small"
-                    sx={{
-                      background:
-                        order.paymentStatus ===
-                        "Paid"
+                {
+                  order.customerName
+                }
+              </Typography>
 
-                          ? "#DCFCE7"
-
-                          : order.paymentStatus ===
-                            "Pending"
+            );
 
-                          ? "#FEF3C7"
+          /* PRODUCT */
+          case "product":
 
-                          : "#EDE9FE",
+            return (
 
-                      color:
-                        order.paymentStatus ===
-                        "Paid"
+              <Typography
+                sx={{
+                  color:
+                    "#475569",
 
-                          ? "#15803D"
+                  fontFamily:
+                    FONT_FAMILY.TABLE_BODY,
 
-                          : order.paymentStatus ===
-                            "Pending"
+                  fontSize:
+                    FONT_SIZE.TABLE_BODY,
+                }}
+              >
+                {
+                  order.productName
+                }
+              </Typography>
 
-                          ? "#B45309"
+            );
 
-                          : "#7C3AED",
+          /* AMOUNT */
+          case "amount":
 
-                      fontWeight:
-                        700,
+            return (
 
-                      borderRadius:
-                        "8px",
-                    }}
-                  />
+              <Typography
+                sx={{
+                  fontWeight:
+                    FONT_WEIGHT.BOLD,
 
-                </TableCell>
+                  color:
+                    "#0F172A",
 
-                {/* STATUS */}
-                <TableCell align="center">
+                  fontFamily:
+                    FONT_FAMILY.TABLE_BODY,
 
-                  <Select
-                    size="small"
-                    value={
-                      order.status
-                    }
-                    onChange={(e) =>
-                      handleStatusChange(
-                        order.id,
-                        e.target.value
-                      )
-                    }
-                    sx={{
-                      minWidth:
-                        "130px",
+                  fontSize:
+                    FONT_SIZE.TABLE_BODY,
+                }}
+              >
+                ₹{" "}
+                {
+                  new Intl.NumberFormat(
+                    "en-IN"
+                  ).format(
+                    order.totalAmount
+                  )
+                }
+              </Typography>
 
-                      borderRadius:
-                        "10px",
+            );
 
-                      fontWeight:
-                        600,
+          /* PAYMENT */
+          case "payment":
 
-                      background:
-                        order.status ===
-                        "Completed"
+            return (
 
-                          ? "#DCFCE7"
+              <Chip
+                label={
+                  order.paymentStatus
+                }
 
-                          : order.status ===
-                            "Pending"
+                size="small"
 
-                          ? "#FEF3C7"
+                sx={{
+                  background:
+                    order.paymentStatus ===
+                    "Paid"
 
-                          : order.status ===
-                            "Cancelled"
+                      ? "#DCFCE7"
 
-                          ? "#FEE2E2"
+                      : order.paymentStatus ===
+                        "Pending"
 
-                          : "#EDE9FE",
+                      ? "#FEF3C7"
 
-                      color:
-                        order.status ===
-                        "Completed"
+                      : "#EDE9FE",
 
-                          ? "#15803D"
+                  color:
+                    order.paymentStatus ===
+                    "Paid"
 
-                          : order.status ===
-                            "Pending"
+                      ? "#15803D"
 
-                          ? "#B45309"
+                      : order.paymentStatus ===
+                        "Pending"
 
-                          : order.status ===
-                            "Cancelled"
+                      ? "#B45309"
 
-                          ? "#DC2626"
-
-                          : "#7C3AED",
-
-                      ".MuiOutlinedInput-notchedOutline":
-                        {
-                          border:
-                            "none",
-                        },
-
-                      ".MuiSelect-icon":
-                        {
-                          color:
-                            order.status ===
-                            "Completed"
-
-                              ? "#15803D"
-
-                              : order.status ===
-                                "Pending"
-
-                              ? "#B45309"
-
-                              : order.status ===
-                                "Cancelled"
-
-                              ? "#DC2626"
-
-                              : "#7C3AED",
-                        },
-                    }}
-                  >
-                    <MenuItem value="Completed">
-                      Completed
-                    </MenuItem>
-
-                    <MenuItem value="Pending">
-                      Pending
-                    </MenuItem>
-
-                    <MenuItem value="Cancelled">
-                      Cancelled
-                    </MenuItem>
-
-                    <MenuItem value="Refunded">
-                      Refunded
-                    </MenuItem>
-
-                  </Select>
-
-                </TableCell>
-
-                {/* DATE */}
-                <TableCell align="center">
-
-                  <Typography
-                    sx={{
-                      color:
-                        "#64748B",
-                    }}
-                  >
-                    {
-                      order.orderDate
-                    }
-                  </Typography>
-
-                </TableCell>
-
-                {/* ACTIONS */}
-                <TableCell align="center">
-
-                  <IconButton
-                    onClick={(e) =>
-                      handleMenuOpen(
-                        e,
-                        order.id
-                      )
-                    }
-                    sx={{
-                      background:
-                        "#F8FAFC",
-
-                      width: 38,
-
-                      height: 38,
-
-                      "&:hover":
-                        {
-                          background:
-                            "#E2E8F0",
-                        },
-                    }}
-                  >
-                    <MoreVertIcon
-                      sx={{
-                        color:
-                          "#64748B",
-                      }}
-                    />
-                  </IconButton>
-
-                  <Menu
-                    anchorEl={
-                      anchorEl
-                    }
-                    open={
-                      Boolean(
-                        anchorEl
-                      ) &&
-                      selectedOrderId ===
-                        order.id
-                    }
-                    onClose={
-                      handleMenuClose
-                    }
-                    slotProps={{
-                      paper: {
-                        sx: {
-                          borderRadius:
-                            "14px",
-
-                          minWidth:
-                            "120px",
-
-                          boxShadow:
-                            "0px 10px 30px rgba(15,23,42,0.08)",
-                        },
-                      },
-                    }}
-                  >
-                    {/* VIEW */}
-                    <MenuItem
-                      onClick={() => {
-
-                        router.push(
-                          `/orders/view/${order.id}`
-                        );
-
-                        handleMenuClose();
-                      }}
-                    >
-                      <RemoveRedEyeOutlinedIcon
-                        sx={{
-                          mr: 1,
-
-                          color:
-                            "#2563EB",
-                        }}
-                      />
-
-                      View
-                    </MenuItem>
-
-                    {/* EDIT */}
-                    <MenuItem
-                      onClick={() => {
-
-                        router.push(
-                          `/orders/edit/${order.id}`
-                        );
-
-                        handleMenuClose();
-                      }}
-                    >
-                      <EditIcon
-                        sx={{
-                          mr: 1,
-
-                          color:
-                            "#0F172A",
-                        }}
-                      />
-
-                      Edit
-                    </MenuItem>
-
-                  </Menu>
-
-                </TableCell>
-
-              </TableRow>
-            )
-          )}
-
-        </TableBody>
-
-      </Table>
-
-    </TableContainer>
+                      : "#7C3AED",
+
+                  fontWeight:
+                    FONT_WEIGHT.BOLD,
+
+                  borderRadius:
+                    "8px",
+
+                  fontFamily:
+                    FONT_FAMILY.BODY,
+                }}
+              />
+
+            );
+
+          /* STATUS */
+          case "status":
+
+            return (
+
+              <StatusSelect
+                value={
+                  order.status
+                }
+
+                options={[
+                  "Completed",
+                  "Pending",
+                  "Cancelled",
+                  "Refunded",
+                ]}
+
+                onChange={(value) =>
+                  handleStatusChange(
+                    order.id,
+                    value
+                  )
+                }
+              />
+
+            );
+
+          /* DATE */
+          case "date":
+
+            return (
+
+              <Typography
+                sx={{
+                  color:
+                    "#64748B",
+
+                  fontFamily:
+                    FONT_FAMILY.TABLE_BODY,
+
+                  fontSize:
+                    FONT_SIZE.TABLE_BODY,
+                }}
+              >
+                {
+                  order.orderDate
+                }
+              </Typography>
+
+            );
+
+          /* ACTIONS */
+          case "actions":
+
+            return (
+
+              <TableActions
+                onView={() =>
+                  router.push(
+                    `/orders/view/${order.id}`
+                  )
+                }
+
+                onEdit={() =>
+                  router.push(
+                    `/orders/edit/${order.id}`
+                  )
+                }
+              />
+
+            );
+
+          default:
+            return null;
+        }
+      }}
+    />
   );
 }

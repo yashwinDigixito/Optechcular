@@ -1,5 +1,3 @@
-// components/dashboard/SalesReturnChart.tsx
-
 "use client";
 
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
@@ -22,7 +20,16 @@ import {
   YAxis,
 } from "recharts";
 
-import { salesReturnData } from "@/assets/genericdata";
+import {
+  salesReturnData,
+} from "@/assets/genericdata";
+
+import {
+  FONT_FAMILY,
+  FONT_SIZE,
+  FONT_WEIGHT,
+  themeConfig,
+} from "@/assets/constants";
 
 export default function SalesReturnChart() {
 
@@ -32,71 +39,72 @@ export default function SalesReturnChart() {
         mt: 2,
         p: 2.5,
         borderRadius: "28px",
-        background: "#FFFFFF",
-        boxShadow:
-          "0px 8px 30px rgba(15,23,42,0.06)",
+        background: themeConfig.colors.white,
+        boxShadow: "0px 8px 30px rgba(15,23,42,0.06)",
         overflow: "hidden",
         position: "relative",
         height: "360px",
         transition: "0.3s",
-
-        "&:hover": {
-          boxShadow:
-            "0px 16px 40px rgba(15,23,42,0.1)",
-        },
+        "&:hover":
+          {
+            boxShadow: "0px 16px 40px rgba(15,23,42,0.1)",
+          },
       }}
     >
-      {/* Background Glow */}
+      {/* BACKGROUND GLOW */}
       <Box
         sx={{
-          position: "absolute",
+          position:"absolute",
           top: -80,
           right: -80,
           width: 200,
           height: 200,
-          borderRadius: "50%",
-          background:
-            "linear-gradient(135deg,#2563EB,#16A34A)",
+          borderRadius:"50%",
+          background:"linear-gradient(135deg,#2563EB,#16A34A)",
           opacity: 0.08,
           filter: "blur(40px)",
         }}
       />
-
-      {/* Header */}
+      {/* HEADER */}
       <Box
         sx={{
           display: "flex",
           justifyContent: "space-between",
-          alignItems: "flex-start",
+          alignItems:"flex-start",
           mb: 2,
         }}
       >
-        {/* Left */}
+        {/* LEFT */}
         <Box>
           <Typography
             sx={{
-              fontSize: "24px",
-              fontWeight: 700,
-              color: "#0F172A",
+              fontSize: FONT_SIZE.SECTION_HEADING,
+              fontWeight: FONT_WEIGHT.BOLD,
+              color:
+                themeConfig.colors.textMain,
+              fontFamily: FONT_FAMILY.HEADING,
             }}
           >
             Sales vs Returns
           </Typography>
-
           <Typography
             sx={{
               mt: 0.5,
-              fontSize: "14px",
+              fontSize: FONT_SIZE.SUB_HEADING,
               color: "#94A3B8",
+              fontFamily:FONT_FAMILY.BODY,
             }}
           >
             Monthly revenue analytics
           </Typography>
         </Box>
-
-        {/* Right */}
-        <Box sx={{ textAlign: "right" }}>
-
+        {/* RIGHT */}
+        <Box
+          sx={{
+            textAlign:
+              "right",
+          }}
+        >
           <Chip
             size="small"
             icon={
@@ -110,20 +118,19 @@ export default function SalesReturnChart() {
             label="+18.2%"
             sx={{
               mt: 1,
-              background: "#DCFCE7",
-              color: "#16A34A",
-              fontWeight: 700,
+              background: themeConfig.colors.successBg,
+              color: themeConfig.colors.success,
+              fontWeight: FONT_WEIGHT.BOLD,
               borderRadius: "10px",
+              fontFamily: FONT_FAMILY.BODY,
             }}
           />
         </Box>
       </Box>
-
-      {/* Chart */}
       <Box
         sx={{
-          width: "100%",
-          height: 240,
+          width:"100%",
+          height:240,
           minWidth: 0,
         }}
       >
@@ -132,23 +139,15 @@ export default function SalesReturnChart() {
           height={240}
         >
           <BarChart
-            data={salesReturnData}
-            margin={{
-              top: 10,
-              right: 10,
-              left: -10,
-              bottom: 0,
-            }}
+            data={ salesReturnData}
+            margin={{ top: 10, right: 10, left: -10, bottom: 0,}}
             barGap={8}
           >
-            {/* Grid */}
             <CartesianGrid
               strokeDasharray="3 3"
               vertical={false}
-              stroke="#E2E8F0"
+              stroke={themeConfig.colors.border}
             />
-
-            {/* X Axis */}
             <XAxis
               dataKey="month"
               axisLine={false}
@@ -156,11 +155,9 @@ export default function SalesReturnChart() {
               tick={{
                 fill: "#94A3B8",
                 fontSize: 13,
-                fontWeight: 500,
+                fontWeight: FONT_WEIGHT.MEDIUM,
               }}
             />
-
-            {/* Y Axis */}
             <YAxis
               axisLine={false}
               tickLine={false}
@@ -169,44 +166,38 @@ export default function SalesReturnChart() {
                 fontSize: 12,
               }}
             />
-
-            {/* Tooltip */}
+            {/* TOOLTIP */}
             <Tooltip
               cursor={{
                 fill: "rgba(37,99,235,0.04)",
               }}
+
               contentStyle={{
                 borderRadius: "16px",
                 border: "none",
-                boxShadow:
-                  "0px 10px 30px rgba(15,23,42,0.12)",
+                boxShadow: "0px 10px 30px rgba(15,23,42,0.12)",
+                fontFamily:FONT_FAMILY.BODY,
               }}
             />
-
-            {/* Legend */}
             <Legend
               wrapperStyle={{
-                fontSize: "14px",
-                paddingTop: "10px",
+                fontSize:"14px",
+                paddingTop:"10px",
+                fontFamily:FONT_FAMILY.BODY,
               }}
             />
-
-            {/* Sales */}
             <Bar
               dataKey="sales"
               fill="#2563EB"
-              radius={[12, 12, 0, 0]}
+              radius={[12,12,0,0,]}
               barSize={28}
             />
-
-            {/* Returns */}
             <Bar
               dataKey="returns"
               fill="#16A34A"
-              radius={[12, 12, 0, 0]}
+              radius={[12,12,0,0,]}
               barSize={18}
             />
-
           </BarChart>
         </ResponsiveContainer>
       </Box>

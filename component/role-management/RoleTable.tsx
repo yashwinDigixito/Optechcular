@@ -1,65 +1,51 @@
 "use client";
 
-import { useState } from "react";
+import CommonTable from "@/component/common/table/CommonTable";
 
-import EditIcon from "@mui/icons-material/Edit";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
+import StatusSelect from "@/component/common/table/StatusSelect";
+
+import TableActions from "@/component/common/table/TableActions";
+
+import {
+  FONT_FAMILY,
+  FONT_SIZE,
+  FONT_WEIGHT,
+} from "@/assets/constants";
 
 import {
   Box,
   Chip,
-  IconButton,
-  Menu,
-  MenuItem,
-  Select,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
   Typography,
 } from "@mui/material";
 
 import { useRouter } from "next/navigation";
 
+interface RoleType {
+
+  id: string;
+
+  roleName: string;
+
+  description: string;
+
+  permissions: string[];
+
+  totalUsers: number;
+
+  status: string;
+
+  createdOn: string;
+}
+
 interface Props {
 
-  roles: {
-    id: string;
-
-    roleName: string;
-
-    description: string;
-
-    permissions: string[];
-
-    totalUsers: number;
-
-    status: string;
-
-    createdOn: string;
-  }[];
+  roles:
+    RoleType[];
 
   setRoleData:
     React.Dispatch<
       React.SetStateAction<
-        {
-          id: string;
-
-          roleName: string;
-
-          description: string;
-
-          permissions: string[];
-
-          totalUsers: number;
-
-          status: string;
-
-          createdOn: string;
-        }[]
+        RoleType[]
       >
     >;
 }
@@ -72,382 +58,301 @@ export default function RoleTable({
   const router =
     useRouter();
 
-  const [anchorEl, setAnchorEl] =
-    useState<null | HTMLElement>(null);
+  /* TABLE COLUMNS */
+  const columns = [
 
-  const [selectedRoleId, setSelectedRoleId] =
-    useState<string | null>(null);
+    {
+      key: "roleName",
+      label: "Role Name",
+    },
 
-  const handleMenuOpen = (
-    event: React.MouseEvent<HTMLElement>,
-    id: string
-  ) => {
+    {
+      key: "permissions",
+      label: "Permissions",
+    },
 
-    setAnchorEl(
-      event.currentTarget
-    );
+    {
+      key: "users",
+      label: "Users",
+      align: "center" as const,
+    },
 
-    setSelectedRoleId(id);
-  };
+    {
+      key: "status",
+      label: "Status",
+      align: "center" as const,
+    },
 
-  const handleMenuClose = () => {
+    {
+      key: "createdOn",
+      label: "Created On",
+      align: "center" as const,
+    },
 
-    setAnchorEl(null);
+    {
+      key: "actions",
+      label: "Actions",
+      align: "center" as const,
+    },
+  ];
 
-    setSelectedRoleId(null);
-  };
-
+  /* STATUS CHANGE */
   const handleStatusChange = (
     id: string,
-    value: "Active" | "Inactive"
+    value: string
   ) => {
 
     setRoleData((prev) =>
       prev.map((role) =>
+
         role.id === id
+
           ? {
               ...role,
-              status: value,
+              status: value as
+                | "Active"
+                | "Inactive",
             }
+
           : role
       )
     );
   };
 
   return (
-    <TableContainer
-      sx={{
-        borderRadius: "20px",
-        overflow: "hidden",
-        background: "#FFFFFF",
-      }}
-    >
+    <CommonTable
+      columns={columns}
+      rows={roles}
 
-      <Table
-        sx={{
-          "& .MuiTableCell-root": {
-            py: 2,
-            borderColor: "#F1F5F9",
-          },
-        }}
-      >
+      renderCell={(
+        role,
+        key
+      ) => {
 
-        <TableHead>
+        switch (key) {
 
-          <TableRow
-            sx={{
-              background: "#F8FAFC",
-              borderBottom: "1px solid #E2E8F0",
-            }}
-          >
+          /* ROLE NAME */
+          case "roleName":
 
-            <TableCell>
-              <Typography sx={{ fontWeight: 700 }}>
-                Role Name
+            return (
+
+              <Typography
+                sx={{
+                  fontWeight:
+                    FONT_WEIGHT.BOLD,
+
+                  color:
+                    "#2563EB",
+
+                  fontSize:
+                    "15px",
+
+                  fontFamily:
+                    FONT_FAMILY.TABLE_BODY,
+                }}
+              >
+                {
+                  role.roleName
+                }
               </Typography>
-            </TableCell>
 
-            <TableCell>
-              <Typography sx={{ fontWeight: 700 }}>
-                Permissions
-              </Typography>
-            </TableCell>
+            );
 
-            <TableCell align="center">
-              <Typography sx={{ fontWeight: 700 }}>
-                Users
-              </Typography>
-            </TableCell>
+          /* PERMISSIONS */
+          case "permissions":
 
-            <TableCell align="center">
-              <Typography sx={{ fontWeight: 700 }}>
-                Status
-              </Typography>
-            </TableCell>
+            return (
 
-            <TableCell align="center">
-              <Typography sx={{ fontWeight: 700 }}>
-                Created On
-              </Typography>
-            </TableCell>
+              <Box
+                sx={{
+                  display:
+                    "flex",
 
-            <TableCell align="center">
-              <Typography sx={{ fontWeight: 700 }}>
-                Actions
-              </Typography>
-            </TableCell>
+                  gap: 1,
 
-          </TableRow>
+                  flexWrap:
+                    "wrap",
+                }}
+              >
 
-        </TableHead>
-
-        <TableBody>
-
-          {roles.map((role) => (
-
-            <TableRow
-              key={role.id}
-              hover
-              sx={{
-                "&:hover": {
-                  background: "#F8FAFC",
-                },
-              }}
-            >
-
-              {/* ROLE NAME */}
-              <TableCell>
-
-                <Typography
-                  sx={{
-                    fontWeight: 700,
-                    color: "#2563EB",
-                    fontSize: "14px",
-                  }}
-                >
-                  {role.roleName}
-                </Typography>
-
-              </TableCell>
-
-              {/* PERMISSIONS */}
-              <TableCell>
-
-                <Box
-                  sx={{
-                    display: "flex",
-                    gap: 1,
-                    flexWrap: "wrap",
-                  }}
-                >
-
-                  {role.permissions
-                    .slice(0, 1)
-                    .map((permission) => (
+                {role.permissions
+                  .slice(0, 1)
+                  .map(
+                    (
+                      permission
+                    ) => (
 
                       <Chip
-                        key={permission}
-                        label={permission}
+                        key={
+                          permission
+                        }
+
+                        label={
+                          permission
+                        }
+
                         size="small"
+
                         sx={{
-                          background: "#EFF6FF",
-                          color: "#2563EB",
-                          fontWeight: 600,
-                          borderRadius: "8px",
+                          background:
+                            "#EFF6FF",
+
+                          color:
+                            "#2563EB",
+
+                          fontWeight:
+                            FONT_WEIGHT.SEMI_BOLD,
+
+                          borderRadius:
+                            "8px",
+
+                          fontFamily:
+                            FONT_FAMILY.BODY,
                         }}
                       />
 
-                    ))}
-
-                  {role.permissions.length > 1 && (
-
-                    <Chip
-                      label={`+${
-                        role.permissions.length - 1
-                      }`}
-                      size="small"
-                      sx={{
-                        background: "#F1F5F9",
-                        color: "#475569",
-                        fontWeight: 700,
-                        borderRadius: "8px",
-                      }}
-                    />
-
+                    )
                   )}
 
-                </Box>
+                {role.permissions
+                  .length > 1 && (
 
-              </TableCell>
+                  <Chip
+                    label={`+${
+                      role.permissions
+                        .length - 1
+                    }`}
 
-              {/* USERS */}
-              <TableCell align="center">
+                    size="small"
 
-                <Typography
-                  sx={{
-                    fontWeight: 700,
-                    color: "#0F172A",
-                    fontSize: "14px",
-                  }}
-                >
-                  {role.totalUsers}
-                </Typography>
-
-              </TableCell>
-
-              {/* STATUS */}
-              <TableCell align="center">
-
-                <Select
-                  size="small"
-                  value={role.status}
-                  onChange={(e) =>
-                    handleStatusChange(
-                      role.id,
-                      e.target.value as
-                        | "Active"
-                        | "Inactive"
-                    )
-                  }
-                  sx={{
-                    minWidth: "120px",
-                    borderRadius: "10px",
-                    fontWeight: 600,
-
-                    background:
-                      role.status === "Active"
-                        ? "#DCFCE7"
-                        : "#FEE2E2",
-
-                    color:
-                      role.status === "Active"
-                        ? "#15803D"
-                        : "#DC2626",
-
-                    ".MuiOutlinedInput-notchedOutline": {
-                      border: "none",
-                    },
-
-                    ".MuiSelect-icon": {
-                      color:
-                        role.status === "Active"
-                          ? "#15803D"
-                          : "#DC2626",
-                    },
-                  }}
-                >
-
-                  <MenuItem value="Active">
-                    Active
-                  </MenuItem>
-
-                  <MenuItem value="Inactive">
-                    Inactive
-                  </MenuItem>
-
-                </Select>
-
-              </TableCell>
-
-              {/* CREATED DATE */}
-              <TableCell align="center">
-
-                <Typography
-                  sx={{
-                    color: "#64748B",
-                    fontWeight: 500,
-                    fontSize: "14px",
-                  }}
-                >
-                  {role.createdOn}
-                </Typography>
-
-              </TableCell>
-
-              {/* ACTIONS */}
-              <TableCell align="center">
-
-                <IconButton
-                  onClick={(e) =>
-                    handleMenuOpen(
-                      e,
-                      role.id
-                    )
-                  }
-                  sx={{
-                    background: "#F8FAFC",
-                    width: 38,
-                    height: 38,
-
-                    "&:hover": {
-                      background: "#E2E8F0",
-                    },
-                  }}
-                >
-
-                  <MoreVertIcon
                     sx={{
-                      color: "#64748B",
+                      background:
+                        "#F1F5F9",
+
+                      color:
+                        "#475569",
+
+                      fontWeight:
+                        FONT_WEIGHT.BOLD,
+
+                      borderRadius:
+                        "8px",
+
+                      fontFamily:
+                        FONT_FAMILY.BODY,
                     }}
                   />
 
-                </IconButton>
+                )}
 
-                <Menu
-                  anchorEl={anchorEl}
-                  open={
-                    Boolean(anchorEl) &&
-                    selectedRoleId === role.id
-                  }
-                  onClose={handleMenuClose}
-                  slotProps={{
-                    paper: {
-                      sx: {
-                        borderRadius: "14px",
-                        minWidth: "150px",
-                        boxShadow:
-                          "0px 10px 30px rgba(15,23,42,0.08)",
-                      },
-                    },
-                  }}
-                >
+              </Box>
 
-                  <MenuItem
-                    onClick={() => {
+            );
 
-                      router.push(
-                        `/roles/view/${role.id}`
-                      );
+          /* USERS */
+          case "users":
 
-                      handleMenuClose();
-                    }}
-                  >
+            return (
 
-                    <RemoveRedEyeOutlinedIcon
-                      sx={{
-                        mr: 1,
-                        color: "#2563EB",
-                      }}
-                    />
+              <Typography
+                sx={{
+                  fontWeight:
+                    FONT_WEIGHT.BOLD,
 
-                    View
+                  color:
+                    "#0F172A",
 
-                  </MenuItem>
+                  fontSize:
+                    FONT_SIZE.TABLE_BODY,
 
-                  <MenuItem
-                    onClick={() => {
+                  fontFamily:
+                    FONT_FAMILY.TABLE_BODY,
+                }}
+              >
+                {
+                  role.totalUsers
+                }
+              </Typography>
 
-                      router.push(
-                        `/roles/edit/${role.id}`
-                      );
+            );
 
-                      handleMenuClose();
-                    }}
-                  >
+          /* STATUS */
+          case "status":
 
-                    <EditIcon
-                      sx={{
-                        mr: 1,
-                        color: "#0F172A",
-                      }}
-                    />
+            return (
 
-                    Edit
+              <StatusSelect
+                value={
+                  role.status
+                }
 
-                  </MenuItem>
+                options={[
+                  "Active",
+                  "Inactive",
+                ]}
 
-                </Menu>
+                onChange={(value) =>
+                  handleStatusChange(
+                    role.id,
+                    value
+                  )
+                }
+              />
 
-              </TableCell>
+            );
 
-            </TableRow>
+          /* CREATED ON */
+          case "createdOn":
 
-          ))}
+            return (
 
-        </TableBody>
+              <Typography
+                sx={{
+                  color:
+                    "#64748B",
 
-      </Table>
+                  fontWeight:
+                    FONT_WEIGHT.MEDIUM,
 
-    </TableContainer>
+                  fontSize:
+                    FONT_SIZE.TABLE_BODY,
+
+                  fontFamily:
+                    FONT_FAMILY.TABLE_BODY,
+                }}
+              >
+                {
+                  role.createdOn
+                }
+              </Typography>
+
+            );
+
+          /* ACTIONS */
+          case "actions":
+
+            return (
+
+              <TableActions
+                onView={() =>
+                  router.push(
+                    `/roles/view/${role.id}`
+                  )
+                }
+
+                onEdit={() =>
+                  router.push(
+                    `/roles/edit/${role.id}`
+                  )
+                }
+              />
+
+            );
+
+          default:
+            return null;
+        }
+      }}
+    />
   );
 }

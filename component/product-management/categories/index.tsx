@@ -20,6 +20,12 @@ import {
   Category,
 } from "@/assets/types";
 
+import {
+  FONT_FAMILY,
+  FONT_SIZE,
+  FONT_WEIGHT,
+} from "@/assets/constants";
+
 import CategoryFilters from "./CategoryFilters";
 
 import CategoryTable from "./CategoryTable";
@@ -29,16 +35,24 @@ export default function CategoryManagementPage() {
   const router =
     useRouter();
 
-  const [search, setSearch] =
-    useState("");
+  const [
+    search,
+    setSearch,
+  ] = useState("");
 
-  const [status, setStatus] =
-    useState("");
+  const [
+    status,
+    setStatus,
+  ] = useState("");
 
-  const [categoryData, setCategoryData] =
-    useState<Category[]>(
-      categories
-    );
+  const [
+    categoryData,
+    setCategoryData,
+  ] = useState<
+    Category[]
+  >(
+    categories
+  );
 
   /* COUNTS */
   const categoryCount = {
@@ -77,11 +91,14 @@ export default function CategoryManagementPage() {
 
         const matchesStatus =
           status
+
             ? category.status ===
               status
+
             : true;
 
         return (
+
           matchesSearch &&
           matchesStatus
         );
@@ -92,116 +109,184 @@ export default function CategoryManagementPage() {
     <Box
       sx={{
         p: 3,
+
         minHeight:
           "100vh",
+
         background:
           "#F8FAFC",
       }}
     >
 
-      {/* HEADER */}
       <Box
         sx={{
-          display: "flex",
-          justifyContent:
-            "space-between",
-          alignItems: "center",
-          mb: 3,
-          flexWrap:
-            "wrap",
-          gap: 2,
+          maxWidth:
+            "100%",
+
+          mx:
+            "auto",
         }}
       >
 
-        <Typography
+        {/* HEADER */}
+        <Box
           sx={{
-            fontSize: "32px",
-            fontWeight: 700,
-            color:
-              "#0F172A",
+            display:
+              "flex",
+
+            justifyContent:
+              "space-between",
+
+            alignItems:
+              "center",
+
+            mb: 3,
+
+            px: 1,
+
+            flexWrap:
+              "wrap",
+
+            gap: 2,
           }}
         >
-          Category Management
-        </Typography>
 
-        <Button
-          variant="contained"
-          startIcon={<AddIcon />}
-          onClick={() =>
-            router.push(
-              "/products/categories/add"
-            )
-          }
-          sx={{
-            height: "50px",
-            borderRadius: "14px",
-            textTransform: "none",
-            px: 3,
-            fontWeight: 700,
-            boxShadow: "none",
-          }}
-        >
-          Add Category
-        </Button>
+          <Typography
+            sx={{
+              fontFamily:
+                FONT_FAMILY.HEADING,
 
-      </Box>
+              fontSize:
+                FONT_SIZE.PAGE_HEADING,
 
-      {/* MAIN CARD */}
-      <Box
-        sx={{
-          background:
-            "#FFFFFF",
-          border:
-            "1px solid #E2E8F0",
-          borderRadius:
-            "24px",
-          overflow:
-            "hidden",
-        }}
-      >
+              fontWeight:
+                FONT_WEIGHT.BOLD,
 
-        {/* FILTERS */}
-        <CategoryFilters
-          search={search}
-          setSearch={setSearch}
-          status={status}
-          setStatus={setStatus}
-          categoryCount={
-            categoryCount
-          }
-        />
+              color:
+                "#0F172A",
 
-        {/* TABLE */}
-        <Box sx={{ p: 3 }}>
+              lineHeight:
+                1.2,
+            }}
+          >
+            Category Management
+          </Typography>
 
-          {(
-            search ||
-            status
-          ) && (
+          <Button
+            variant="contained"
 
-            <Typography
-              sx={{
-                mb: 2,
-                color: "#64748B",
-                fontWeight: 600,
-              }}
-            >
-              {
-                filteredCategories.length
-              }{" "}
-              results found
-            </Typography>
-
-          )}
-
-          <CategoryTable
-            categories={
-              filteredCategories
+            startIcon={
+              <AddIcon />
             }
-            setCategoryData={
-              setCategoryData
+
+            onClick={() =>
+              router.push(
+                "/products/categories/add"
+              )
+            }
+
+            sx={{
+              height:
+                "50px",
+
+              borderRadius:
+                "14px",
+
+              textTransform:
+                "none",
+
+              px: 3,
+
+              fontFamily:
+                FONT_FAMILY.BUTTON,
+
+              fontWeight:
+                FONT_WEIGHT.BOLD,
+
+              boxShadow:
+                "none",
+            }}
+          >
+            Add Category
+          </Button>
+
+        </Box>
+
+        {/* MAIN CARD */}
+        <Box
+          sx={{
+            background:
+              "#FFFFFF",
+
+            border:
+              "1px solid #E2E8F0",
+
+            borderRadius:
+              "24px",
+
+            overflow:
+              "hidden",
+          }}
+        >
+
+          {/* FILTERS */}
+          <CategoryFilters
+            search={search}
+            setSearch={setSearch}
+            status={status}
+            setStatus={setStatus}
+            categoryCount={
+              categoryCount
             }
           />
+
+          {/* TABLE */}
+          <Box
+            sx={{
+              p: 3,
+            }}
+          >
+
+            {(
+
+              search ||
+              status
+
+            ) && (
+
+              <Typography
+                sx={{
+                  mb: 2,
+
+                  color:
+                    "#475569",
+
+                  fontWeight:
+                    500,
+
+                  fontFamily:
+                    FONT_FAMILY.BODY,
+                }}
+              >
+                {
+                  filteredCategories.length
+                }{" "}
+                results found
+              </Typography>
+
+            )}
+
+            <CategoryTable
+              categories={
+                filteredCategories
+              }
+
+              setCategoryData={
+                setCategoryData
+              }
+            />
+
+          </Box>
 
         </Box>
 

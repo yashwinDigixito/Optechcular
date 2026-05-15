@@ -1,29 +1,23 @@
 "use client";
 
 import {
-  useState,
-} from "react";
-
-import {
   Category,
 } from "@/assets/types";
 
-import EditIcon from "@mui/icons-material/Edit";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
+import CommonTable from "@/component/common/table/CommonTable";
+
+import StatusSelect from "@/component/common/table/StatusSelect";
+
+import TableActions from "@/component/common/table/TableActions";
 
 import {
-  IconButton,
-  Menu,
-  MenuItem,
-  Select,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Typography
+  FONT_FAMILY,
+  FONT_SIZE,
+  FONT_WEIGHT,
+} from "@/assets/constants";
+
+import {
+  Typography,
 } from "@mui/material";
 
 import { useRouter } from "next/navigation";
@@ -49,465 +43,234 @@ export default function CategoryTable({
   const router =
     useRouter();
 
-  const [anchorEl, setAnchorEl] =
-    useState<null | HTMLElement>(null);
+  /* TABLE COLUMNS */
+  const columns = [
 
-  const [selectedCategoryId, setSelectedCategoryId] =
-    useState<string | null>(null);
+    {
+      key: "category",
+      label: "Category",
+    },
 
-  const handleMenuOpen = (
-    event: React.MouseEvent<HTMLElement>,
-    id: string
-  ) => {
+    {
+      key: "categoryType",
+      label: "Category Type",
+    },
 
-    setAnchorEl(
-      event.currentTarget
-    );
+    {
+      key: "parentCategory",
+      label: "Parent Category",
+    },
 
-    setSelectedCategoryId(id);
-  };
+    {
+      key: "status",
+      label: "Status",
+      align: "center" as const,
+    },
 
-  const handleMenuClose = () => {
+    {
+      key: "createdOn",
+      label: "Created On",
+      align: "center" as const,
+    },
 
-    setAnchorEl(null);
+    {
+      key: "actions",
+      label: "Actions",
+      align: "center" as const,
+    },
+  ];
 
-    setSelectedCategoryId(null);
-  };
-
+  /* STATUS CHANGE */
   const handleStatusChange = (
     id: string,
-    value:
-      | "Active"
-      | "Inactive"
+    value: string
   ) => {
 
     setCategoryData((prev) =>
       prev.map((category) =>
+
         category.id === id
+
           ? {
               ...category,
-              status: value,
+              status: value as
+                | "Active"
+                | "Inactive",
             }
+
           : category
       )
     );
   };
 
   return (
-    <TableContainer
-      sx={{
-        borderRadius:
-          "20px",
+    <CommonTable
+      columns={columns}
+      rows={categories}
 
-        overflow:
-          "hidden",
+      renderCell={(
+        category,
+        key
+      ) => {
 
-        background:
-          "#FFFFFF",
-      }}
-    >
+        switch (key) {
 
-      <Table
-        sx={{
-          "& .MuiTableCell-root": {
-            py: 2,
-            borderColor: "#F1F5F9",
-          },
-        }}
-      >
+          /* CATEGORY */
+          case "category":
 
-        <TableHead>
-
-          <TableRow
-            sx={{
-              background:
-                "#F8FAFC",
-
-              borderBottom:
-                "1px solid #E2E8F0",
-            }}
-          >
-
-            <TableCell>
+            return (
 
               <Typography
                 sx={{
                   fontWeight:
-                    700,
+                    FONT_WEIGHT.BOLD,
+
+                  color:
+                    "#2563EB",
+
+                  fontSize:
+                    "15px",
+
+                  fontFamily:
+                    FONT_FAMILY.TABLE_BODY,
                 }}
               >
-                Category
-              </Typography>
-
-            </TableCell>
-
-            <TableCell>
-
-              <Typography
-                sx={{
-                  fontWeight:
-                    700,
-                }}
-              >
-                Category Type
-              </Typography>
-
-            </TableCell>
-
-            <TableCell>
-
-              <Typography
-                sx={{
-                  fontWeight:
-                    700,
-                }}
-              >
-                Parent Category
-              </Typography>
-
-            </TableCell>
-
-            <TableCell align="center">
-
-              <Typography
-                sx={{
-                  fontWeight:
-                    700,
-                }}
-              >
-                Status
-              </Typography>
-
-            </TableCell>
-
-            <TableCell align="center">
-
-              <Typography
-                sx={{
-                  fontWeight:
-                    700,
-                }}
-              >
-                Created On
-              </Typography>
-
-            </TableCell>
-
-            <TableCell align="center">
-
-              <Typography
-                sx={{
-                  fontWeight:
-                    700,
-                }}
-              >
-                Actions
-              </Typography>
-
-            </TableCell>
-
-          </TableRow>
-
-        </TableHead>
-
-        <TableBody>
-
-          {categories.map(
-            (
-              category
-            ) => (
-
-              <TableRow
-                key={
-                  category.id
+                {
+                  category.categoryName
                 }
-                hover
+              </Typography>
+
+            );
+
+          /* CATEGORY TYPE */
+          case "categoryType":
+
+            return (
+
+              <Typography
                 sx={{
-                  "&:hover":
-                    {
-                      background:
-                        "#F8FAFC",
-                    },
+                  color:
+                    "#475569",
+
+                  fontWeight:
+                    FONT_WEIGHT.SEMI_BOLD,
+
+                  fontSize:
+                    FONT_SIZE.TABLE_BODY,
+
+                  fontFamily:
+                    FONT_FAMILY.TABLE_BODY,
                 }}
               >
-
-                {/* CATEGORY */}
-                <TableCell>
-
-                  <Typography
-                    sx={{
-                      fontWeight:
-                        700,
-
-                      color:
-                        "#2563EB",
-
-                      fontSize:
-                        "14px",
-                    }}
-                  >
-                    {
-                      category.categoryName
-                    }
-                  </Typography>
-
-                </TableCell>
-
-                {/* CATEGORY TYPE */}
-                <TableCell>
-
-                  <Typography
-                    sx={{
-                      color:
-                        "#475569",
-
-                      fontWeight:
-                        600,
-
-                      fontSize:
-                        "14px",
-                    }}
-                  >
-                    {
-                      category.categoryType
-                    }
-                  </Typography>
-
-                </TableCell>
-
-                {/* PARENT CATEGORY */}
-                <TableCell>
-
-                  <Typography
-                    sx={{
-                      color:
-                        "#475569",
-
-                      fontSize:
-                        "14px",
-                    }}
-                  >
-                    {
-                      category.parentCategory ||
-                      "-"
-                    }
-                  </Typography>
-
-                </TableCell>
-
-                {/* STATUS */}
-                <TableCell align="center">
-
-                  <Select
-                    size="small"
-                    value={category.status}
-                    onChange={(e) =>
-                      handleStatusChange(
-                        category.id,
-                        e.target.value as
-                          | "Active"
-                          | "Inactive"
-                      )
-                    }
-                    sx={{
-                      minWidth:
-                        "120px",
-
-                      borderRadius:
-                        "10px",
-
-                      fontWeight:
-                        600,
-
-                      background:
-                        category.status ===
-                        "Active"
-
-                          ? "#DCFCE7"
-
-                          : "#FEE2E2",
-
-                      color:
-                        category.status ===
-                        "Active"
-
-                          ? "#15803D"
-
-                          : "#DC2626",
-
-                      ".MuiOutlinedInput-notchedOutline":
-                        {
-                          border:
-                            "none",
-                        },
-
-                      ".MuiSelect-icon":
-                        {
-                          color:
-                            category.status ===
-                            "Active"
-
-                              ? "#15803D"
-
-                              : "#DC2626",
-                        },
-                    }}
-                  >
-
-                    <MenuItem value="Active">
-                      Active
-                    </MenuItem>
-
-                    <MenuItem value="Inactive">
-                      Inactive
-                    </MenuItem>
-
-                  </Select>
-
-                </TableCell>
-
-                {/* CREATED DATE */}
-                <TableCell align="center">
-
-                  <Typography
-                    sx={{
-                      color:
-                        "#64748B",
-
-                      fontWeight:
-                        500,
-
-                      fontSize:
-                        "14px",
-                    }}
-                  >
-                    {
-                      category.createdOn
-                    }
-                  </Typography>
-
-                </TableCell>
-
-                {/* ACTIONS */}
-                <TableCell align="center">
-
-                  <IconButton
-                    onClick={(e) =>
-                      handleMenuOpen(
-                        e,
-                        category.id
-                      )
-                    }
-                    sx={{
-                      background:
-                        "#F8FAFC",
-
-                      width: 38,
-
-                      height: 38,
-
-                      "&:hover": {
-                        background:
-                          "#E2E8F0",
-                      },
-                    }}
-                  >
-
-                    <MoreVertIcon
-                      sx={{
-                        color:
-                          "#64748B",
-                      }}
-                    />
-
-                  </IconButton>
-
-                  <Menu
-                    anchorEl={anchorEl}
-                    open={
-                      Boolean(anchorEl) &&
-                      selectedCategoryId ===
-                        category.id
-                    }
-                    onClose={
-                      handleMenuClose
-                    }
-                    slotProps={{
-                      paper: {
-                        sx: {
-                          borderRadius:
-                            "14px",
-
-                          minWidth:
-                            "150px",
-
-                          boxShadow:
-                            "0px 10px 30px rgba(15,23,42,0.08)",
-                        },
-                      },
-                    }}
-                  >
-
-                    <MenuItem
-                      onClick={() => {
-
-                        router.push(
-                          `/products/categories/view/${category.id}`
-                        );
-
-                        handleMenuClose();
-                      }}
-                    >
-
-                      <RemoveRedEyeOutlinedIcon
-                        sx={{
-                          mr: 1,
-
-                          color:
-                            "#2563EB",
-                        }}
-                      />
-
-                      View
-
-                    </MenuItem>
-
-                    <MenuItem
-                      onClick={() => {
-
-                        router.push(
-                          `/products/categories/edit/${category.id}`
-                        );
-
-                        handleMenuClose();
-                      }}
-                    >
-
-                      <EditIcon
-                        sx={{
-                          mr: 1,
-
-                          color:
-                            "#0F172A",
-                        }}
-                      />
-
-                      Edit
-
-                    </MenuItem>
-
-                  </Menu>
-
-                </TableCell>
-
-              </TableRow>
-            )
-          )}
-
-        </TableBody>
-
-      </Table>
-
-    </TableContainer>
+                {
+                  category.categoryType
+                }
+              </Typography>
+
+            );
+
+          /* PARENT CATEGORY */
+          case "parentCategory":
+
+            return (
+
+              <Typography
+                sx={{
+                  color:
+                    "#475569",
+
+                  fontSize:
+                    FONT_SIZE.TABLE_BODY,
+
+                  fontFamily:
+                    FONT_FAMILY.TABLE_BODY,
+                }}
+              >
+                {
+                  category.parentCategory ||
+                  "-"
+                }
+              </Typography>
+
+            );
+
+          /* STATUS */
+          case "status":
+
+            return (
+
+              <StatusSelect
+                value={
+                  category.status
+                }
+
+                options={[
+                  "Active",
+                  "Inactive",
+                ]}
+
+                onChange={(value) =>
+                  handleStatusChange(
+                    category.id,
+                    value
+                  )
+                }
+              />
+
+            );
+
+          /* CREATED ON */
+          case "createdOn":
+
+            return (
+
+              <Typography
+                sx={{
+                  color:
+                    "#64748B",
+
+                  fontWeight:
+                    FONT_WEIGHT.MEDIUM,
+
+                  fontSize:
+                    FONT_SIZE.TABLE_BODY,
+
+                  fontFamily:
+                    FONT_FAMILY.TABLE_BODY,
+                }}
+              >
+                {
+                  category.createdOn
+                }
+              </Typography>
+
+            );
+
+          /* ACTIONS */
+          case "actions":
+
+            return (
+
+              <TableActions
+                onView={() =>
+                  router.push(
+                    `/products/categories/view/${category.id}`
+                  )
+                }
+
+                onEdit={() =>
+                  router.push(
+                    `/products/categories/edit/${category.id}`
+                  )
+                }
+              />
+
+            );
+
+          default:
+            return null;
+        }
+      }}
+    />
   );
 }

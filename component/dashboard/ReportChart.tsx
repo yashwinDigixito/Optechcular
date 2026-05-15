@@ -16,10 +16,19 @@ import {
   ResponsiveContainer,
   Tooltip,
   XAxis,
-  YAxis
+  YAxis,
 } from "recharts";
 
-import { ReportChartProps } from "@/assets/types";
+import {
+  ReportChartProps,
+} from "@/assets/types";
+
+import {
+  FONT_FAMILY,
+  FONT_SIZE,
+  FONT_WEIGHT,
+  themeConfig,
+} from "@/assets/constants";
 
 export default function ReportChart({
   title,
@@ -32,54 +41,101 @@ export default function ReportChart({
     <Card
       sx={{
         mt: 2,
+
         p: 2,
-        borderRadius: "22px",
-        background: "#FFFFFF",
+
+        borderRadius:
+          "22px",
+
+        background:
+          themeConfig.colors.white,
+
         boxShadow:
           "0px 6px 24px rgba(15,23,42,0.06)",
-        overflow: "hidden",
-        position: "relative",
-        height: "320px",
-        transition: "0.3s",
 
-        "&:hover": {
-          transform: "translateY(-4px)",
-          boxShadow:
-            "0px 16px 40px rgba(15,23,42,0.1)",
-        },
+        overflow:
+          "hidden",
+
+        position:
+          "relative",
+
+        height:
+          "320px",
+
+        transition:
+          "0.3s",
+
+        "&:hover":
+          {
+            transform:
+              "translateY(-4px)",
+
+            boxShadow:
+              "0px 16px 40px rgba(15,23,42,0.1)",
+          },
       }}
     >
-      {/* Background Blur */}
+
+      {/* BACKGROUND BLUR */}
       <Box
         sx={{
-          position: "absolute",
+          position:
+            "absolute",
+
           top: -40,
+
           right: -40,
+
           width: 120,
+
           height: 120,
-          borderRadius: "50%",
-          background: color,
-          opacity: 0.08,
-          filter: "blur(12px)",
+
+          borderRadius:
+            "50%",
+
+          background:
+            color,
+
+          opacity:
+            0.08,
+
+          filter:
+            "blur(12px)",
         }}
       />
 
-      {/* Header */}
+      {/* HEADER */}
       <Box
         sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "flex-start",
+          display:
+            "flex",
+
+          justifyContent:
+            "space-between",
+
+          alignItems:
+            "flex-start",
+
           mb: 2,
         }}
       >
-        {/* Left */}
+
+        {/* LEFT */}
         <Box>
+
           <Typography
             sx={{
-              fontSize: "20px",
-              fontWeight: 700,
-              color: "#0F172A",
+              fontSize:
+                FONT_SIZE.CARD_HEADING,
+
+              fontWeight:
+                FONT_WEIGHT.BOLD,
+
+              color:
+                themeConfig.colors.textMain,
+
+              fontFamily:
+                FONT_FAMILY.HEADING,
             }}
           >
             {title}
@@ -88,42 +144,65 @@ export default function ReportChart({
           <Typography
             sx={{
               mt: 0.5,
-              fontSize: "13px",
-              color: "#94A3B8",
+
+              fontSize:
+                FONT_SIZE.SUB_HEADING,
+
+              color:
+                "#94A3B8",
+
+              fontFamily:
+                FONT_FAMILY.BODY,
             }}
           >
             Weekly analytics overview
           </Typography>
+
         </Box>
 
-        {/* Right */}
-        <Box sx={{ textAlign: "right" }}>
+        {/* RIGHT */}
+        <Box
+          sx={{
+            textAlign:
+              "right",
+          }}
+        >
+
           <Chip
             size="small"
+
             icon={
               <TrendingUpIcon
                 sx={{
-                  fontSize: "16px !important",
+                  fontSize:
+                    "16px !important",
                 }}
               />
             }
             label={label}
             sx={{
               mt: 1,
-              background: "#DCFCE7",
-              color: "#16A34A",
-              fontWeight: 700,
-              borderRadius: "8px",
+              background:
+                themeConfig.colors.successBg,
+              color:
+                themeConfig.colors.success,
+              fontWeight:
+                FONT_WEIGHT.BOLD,
+              borderRadius:
+                "8px",
+              fontFamily:
+                FONT_FAMILY.BODY,
             }}
           />
         </Box>
       </Box>
 
-      {/* Chart */}
       <Box
         sx={{
-          width: "100%",
-          height: 220,
+          width:
+            "100%",
+          height:
+            220,
           minWidth: 0,
         }}
       >
@@ -140,47 +219,52 @@ export default function ReportChart({
               bottom: 0,
             }}
           >
-            {/* Grid */}
+            {/* GRID */}
             <CartesianGrid
               strokeDasharray="3 3"
               vertical={false}
-              stroke="#E2E8F0"
+              stroke={
+                themeConfig.colors.border
+              }
             />
-
-            {/* X Axis */}
+            {/* X AXIS */}
             <XAxis
               dataKey="day"
               axisLine={false}
               tickLine={false}
               tick={{
-                fill: "#94A3B8",
+                fill:
+                  "#94A3B8",
                 fontSize: 12,
               }}
             />
 
-            {/* Y Axis */}
+            {/* Y AXIS */}
             <YAxis
               axisLine={false}
               tickLine={false}
               tick={{
-                fill: "#94A3B8",
+                fill:
+                  "#94A3B8",
                 fontSize: 12,
               }}
             />
 
-            {/* Tooltip */}
+            {/* TOOLTIP */}
             <Tooltip
               contentStyle={{
-                borderRadius: "14px",
-                border: "none",
+                borderRadius:
+                  "14px",
+                border:
+                  "none",
                 boxShadow:
                   "0px 10px 30px rgba(15,23,42,0.12)",
+                fontFamily:
+                  FONT_FAMILY.BODY,
               }}
             />
 
-            
-
-            {/* Line */}
+            {/* LINE */}
             <Line
               type="monotone"
               dataKey="value"
@@ -188,13 +272,16 @@ export default function ReportChart({
               strokeWidth={3}
               dot={{
                 r: 4,
-                fill: color,
+                fill:
+                  color,
                 strokeWidth: 2,
-                stroke: "#fff",
+                stroke:
+                  "#fff",
               }}
+
               activeDot={{
                 r: 6,
-                stroke: color,
+                stroke:color,
                 strokeWidth: 2,
                 fill: "#fff",
               }}

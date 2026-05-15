@@ -20,6 +20,11 @@ import {
   Frame,
 } from "@/assets/types";
 
+import {
+  FONT_FAMILY,
+  FONT_SIZE,
+  FONT_WEIGHT,
+} from "@/assets/constants";
 
 import FrameFilters from "./FrameFilters";
 
@@ -30,22 +35,34 @@ export default function FrameManagementPage() {
   const router =
     useRouter();
 
-  const [search, setSearch] =
-    useState("");
+  const [
+    search,
+    setSearch,
+  ] = useState("");
 
-  const [brand, setBrand] =
-    useState("");
+  const [
+    brand,
+    setBrand,
+  ] = useState("");
 
-  const [date, setDate] =
-    useState("");
+  const [
+    date,
+    setDate,
+  ] = useState("");
 
-  const [status, setStatus] =
-    useState("");
+  const [
+    status,
+    setStatus,
+  ] = useState("");
 
-  const [frameData, setFrameData] =
-    useState<Frame[]>(
-      frames
-    );
+  const [
+    frameData,
+    setFrameData,
+  ] = useState<
+    Frame[]
+  >(
+    frames
+  );
 
   /* COUNTS */
   const frameCount = {
@@ -103,11 +120,14 @@ export default function FrameManagementPage() {
 
         const matchesStatus =
           status
+
             ? frame.status ===
               status
+
             : true;
 
         return (
+
           matchesSearch &&
           matchesBrand &&
           matchesDate &&
@@ -120,153 +140,200 @@ export default function FrameManagementPage() {
     <Box
       sx={{
         p: 3,
+
         minHeight:
           "100vh",
+
         background:
           "#F8FAFC",
       }}
     >
 
-      {/* HEADER */}
       <Box
         sx={{
-          display: "flex",
+          maxWidth:
+            "100%",
 
-          justifyContent:
-            "space-between",
-
-          alignItems: "center",
-
-          mb: 3,
-
-          flexWrap:
-            "wrap",
-
-          gap: 2,
+          mx:
+            "auto",
         }}
       >
 
-        <Typography
+        {/* HEADER */}
+        <Box
           sx={{
-            fontSize: "32px",
-            fontWeight: 700,
-            color:
-              "#0F172A",
+            display:
+              "flex",
+
+            justifyContent:
+              "space-between",
+
+            alignItems:
+              "center",
+
+            mb: 3,
+
+            px: 1,
+
+            flexWrap:
+              "wrap",
+
+            gap: 2,
           }}
         >
-          Frame Management
-        </Typography>
 
-        <Button
-          variant="contained"
-          startIcon={<AddIcon />}
-          onClick={() =>
-            router.push(
-              "/products/frames/add"
-            )
-          }
+          <Typography
+            sx={{
+              fontFamily:
+                FONT_FAMILY.HEADING,
+
+              fontSize:
+                FONT_SIZE.PAGE_HEADING,
+
+              fontWeight:
+                FONT_WEIGHT.BOLD,
+
+              color:
+                "#0F172A",
+
+              lineHeight:
+                1.2,
+            }}
+          >
+            Frame Management
+          </Typography>
+
+          <Button
+            variant="contained"
+
+            startIcon={
+              <AddIcon />
+            }
+
+            onClick={() =>
+              router.push(
+                "/products/frames/add"
+              )
+            }
+
+            sx={{
+              height:
+                "50px",
+
+              borderRadius:
+                "14px",
+
+              textTransform:
+                "none",
+
+              px: 3,
+
+              fontFamily:
+                FONT_FAMILY.BUTTON,
+
+              fontWeight:
+                FONT_WEIGHT.BOLD,
+
+              boxShadow:
+                "none",
+            }}
+          >
+            Add Frame
+          </Button>
+
+        </Box>
+
+        {/* MAIN CARD */}
+        <Box
           sx={{
-            height: "50px",
+            background:
+              "#FFFFFF",
+
+            border:
+              "1px solid #E2E8F0",
 
             borderRadius:
-              "14px",
+              "24px",
 
-            textTransform:
-              "none",
-
-            px: 3,
-
-            fontWeight:
-              700,
-
-            boxShadow:
-              "none",
+            overflow:
+              "hidden",
           }}
         >
-          Add Frame
-        </Button>
 
-      </Box>
+          {/* FILTERS */}
+          <FrameFilters
+            search={search}
+            setSearch={setSearch}
 
-      {/* MAIN CARD */}
-      <Box
-        sx={{
-          background:
-            "#FFFFFF",
-
-          border:
-            "1px solid #E2E8F0",
-
-          borderRadius:
-            "24px",
-
-          overflow:
-            "hidden",
-        }}
-      >
-
-        {/* FILTERS */}
-        <FrameFilters
-          search={search}
-          setSearch={setSearch}
-
-          brand={brand}
-          setBrand={
-            setBrand
-          }
-
-          date={date}
-          setDate={
-            setDate
-          }
-
-          status={status}
-          setStatus={
-            setStatus
-          }
-
-          frameCount={
-            frameCount
-          }
-        />
-
-        {/* TABLE */}
-        <Box sx={{ p: 3 }}>
-
-          {(
-            search ||
-            brand ||
-            date ||
-            status
-          ) && (
-
-            <Typography
-              sx={{
-                mb: 2,
-
-                color:
-                  "#64748B",
-
-                fontWeight:
-                  600,
-              }}
-            >
-              {
-                filteredFrames.length
-              }{" "}
-              results found
-            </Typography>
-
-          )}
-
-          <FrameTable
-            frames={
-              filteredFrames
+            brand={brand}
+            setBrand={
+              setBrand
             }
-            setFrameData={
-              setFrameData
+
+            date={date}
+            setDate={
+              setDate
+            }
+
+            status={status}
+            setStatus={
+              setStatus
+            }
+
+            frameCount={
+              frameCount
             }
           />
+
+          {/* TABLE */}
+          <Box
+            sx={{
+              p: 3,
+            }}
+          >
+
+            {(
+
+              search ||
+              brand ||
+              date ||
+              status
+
+            ) && (
+
+              <Typography
+                sx={{
+                  mb: 2,
+
+                  color:
+                    "#475569",
+
+                  fontWeight:
+                    500,
+
+                  fontFamily:
+                    FONT_FAMILY.BODY,
+                }}
+              >
+                {
+                  filteredFrames.length
+                }{" "}
+                results found
+              </Typography>
+
+            )}
+
+            <FrameTable
+              frames={
+                filteredFrames
+              }
+
+              setFrameData={
+                setFrameData
+              }
+            />
+
+          </Box>
 
         </Box>
 

@@ -251,15 +251,16 @@ height:"56px",
 },
 }}
 
-renderInput={(params)=>(
+renderInput={(
+            params
+          ) => (
 
-<TextField
-{...params}
-placeholder="Filter by Month"
-/>
-
-)}
-/>
+            <TextField
+              {...params}
+              label="Filter by Month"
+            />
+          )}
+        />
 
 <TextField
 placeholder="Search sales person..."

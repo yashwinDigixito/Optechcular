@@ -1,100 +1,62 @@
 "use client";
-
 import {
-  useState,
-} from "react";
-
-import {
-  Customer,
-} from "@/assets/types";
-
-import EditIcon from "@mui/icons-material/Edit";
-
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-
-import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
-
+  FONT_FAMILY,
+  FONT_SIZE,
+  FONT_WEIGHT,
+} from "@/assets/constants";
+import { Customer } from "@/assets/types";
+import CommonTable from "@/component/common/table/CommonTable";
+import StatusSelect from "@/component/common/table/StatusSelect";
+import TableActions from "@/component/common/table/TableActions";
 import {
   Chip,
-  IconButton,
-  Menu,
-  MenuItem,
-  Select,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
   Typography,
 } from "@mui/material";
-
 import { useRouter } from "next/navigation";
 
 interface Props {
-
-  customers:
-    Customer[];
-
-  setCustomerData:
-    React.Dispatch<
-      React.SetStateAction<
-        Customer[]
-      >
-    >;
+  customers: Customer[];
+  setCustomerData: React.Dispatch< React.SetStateAction< Customer[]>>;
 }
 
-export default function CustomerTable({
-  customers,
-  setCustomerData,
-}: Props) {
-
-  const router =
-    useRouter();
-
-  const [
-    anchorEl,
-    setAnchorEl,
-  ] = useState<
-    null | HTMLElement
-  >(null);
-
-  const [
-    selectedCustomerId,
-    setSelectedCustomerId,
-  ] = useState<
-    string | null
-  >(null);
-
-  const handleMenuOpen = (
-    event:
-      React.MouseEvent<HTMLElement>,
-    id: string
-  ) => {
-
-    setAnchorEl(
-      event.currentTarget
-    );
-
-    setSelectedCustomerId(
-      id
-    );
-  };
-
-  const handleMenuClose = () => {
-
-    setAnchorEl(null);
-
-    setSelectedCustomerId(
-      null
-    );
-  };
-
+export default function CustomerTable({ customers, setCustomerData}: Props) {
+  const router = useRouter();
+  const columns = [
+    {
+      key: "customerName",
+      label: "Customer Name",
+    },
+    {
+      key: "customerType",
+      label: "Customer Type",
+    },
+    {
+      key: "phone",
+      label: "Phone",
+    },
+    {
+      key: "email",
+      label: "Email",
+    },
+    {
+      key: "location",
+      label: "Location",
+    },
+    {
+      key: "status",
+      label: "Status",
+      align: "center" as const,
+    },
+    {
+      key: "actions",
+      label: "Actions",
+      align: "center" as const,
+    },
+  ];
   const handleStatusChange = (
     id: string,
     value: string
   ) => {
-
     setCustomerData((prev) =>
       prev.map((customer) =>
         customer.id === id
@@ -106,473 +68,114 @@ export default function CustomerTable({
       )
     );
   };
-
   return (
-    <TableContainer
-      sx={{
-        borderRadius:
-          "20px",
-
-        overflow:
-          "hidden",
-
-        background:
-          "#FFFFFF",
-      }}
-    >
-      <Table
-        sx={{
-          "& .MuiTableCell-root":
-            {
-              py: 2,
-
-              borderColor:
-                "#F1F5F9",
-            },
-        }}
-      >
-        {/* TABLE HEAD */}
-        <TableHead>
-
-          <TableRow
-            sx={{
-              background:
-                "#F8FAFC",
-
-              borderBottom:
-                "1px solid #E2E8F0",
-            }}
-          >
-            <TableCell>
-
+    <CommonTable
+      columns={columns}
+      rows={customers}
+      renderCell={(
+        customer,
+        key
+      ) => {
+        switch (key) {
+          case "customerName":
+            return (
               <Typography
                 sx={{
-                  fontWeight:
-                    700,
-
-                  color:
-                    "#0F172A",
+                  fontWeight: FONT_WEIGHT.BOLD,
+                  color: "#2563EB",
+                  fontSize: "15px",
+                  fontFamily: FONT_FAMILY.TABLE_BODY,
                 }}
               >
-                Customer Name
+                { customer.customerName }
               </Typography>
-
-            </TableCell>
-
-            <TableCell>
-
+            );
+          case "customerType":
+            return (
+              <Chip
+                label={ customer.customerType }
+                size="small"
+                sx={{
+                  background:
+                    customer.customerType ===
+                    "Individual"
+                      ? "#EFF6FF"
+                      : "#FDF4FF",
+                  color:
+                    customer.customerType ===
+                    "Business"
+                      ? "#2563EB"
+                      : "#C026D3",
+                  fontWeight: FONT_WEIGHT.BOLD,
+                  borderRadius: "8px",
+                  fontFamily: FONT_FAMILY.BODY,
+                }}
+              />
+            );
+          case "phone":
+            return (
               <Typography
                 sx={{
-                  fontWeight:
-                    700,
-
-                  color:
-                    "#0F172A",
+                  fontFamily: FONT_FAMILY.TABLE_BODY,
+                  fontSize: FONT_SIZE.TABLE_BODY,
+                  color: "#0F172A",
                 }}
               >
-                Customer Type
+                { customer.phone }
               </Typography>
-
-            </TableCell>
-
-            <TableCell>
-
+            );
+          case "email":
+            return (
               <Typography
                 sx={{
-                  fontWeight:
-                    700,
-
-                  color:
-                    "#0F172A",
+                  color: "#475569",
+                  fontFamily: FONT_FAMILY.TABLE_BODY,
+                  fontSize: FONT_SIZE.TABLE_BODY,
                 }}
               >
-                Phone
+                { customer.email }
               </Typography>
-
-            </TableCell>
-
-            <TableCell>
-
+            );
+          case "location":
+            return (
               <Typography
                 sx={{
-                  fontWeight:
-                    700,
-
-                  color:
-                    "#0F172A",
+                  color: "#475569",
+                  fontFamily: FONT_FAMILY.TABLE_BODY,
+                  fontSize: FONT_SIZE.TABLE_BODY,
                 }}
               >
-                Email
+                { customer.city },{" "}
+                { customer.state }
               </Typography>
-
-            </TableCell>
-
-            <TableCell>
-
-              <Typography
-                sx={{
-                  fontWeight:
-                    700,
-
-                  color:
-                    "#0F172A",
-                }}
-              >
-                Location
-              </Typography>
-
-            </TableCell>
-
-            <TableCell align="center">
-
-              <Typography
-                sx={{
-                  fontWeight:
-                    700,
-
-                  color:
-                    "#0F172A",
-                }}
-              >
-                Status
-              </Typography>
-
-            </TableCell>
-
-            <TableCell align="center">
-
-              <Typography
-                sx={{
-                  fontWeight:
-                    700,
-
-                  color:
-                    "#0F172A",
-                }}
-              >
-                Actions
-              </Typography>
-
-            </TableCell>
-
-          </TableRow>
-
-        </TableHead>
-
-        {/* TABLE BODY */}
-        <TableBody>
-
-          {customers.map(
-            (
-              customer
-            ) => (
-
-              <TableRow
-                key={
-                  customer.id
+            );
+          case "status":
+            return (
+              <StatusSelect
+                value={ customer.status }
+                options={[ "Active", "Inactive" ]}
+                onChange={(value) =>
+                  handleStatusChange(
+                    customer.id,
+                    value
+                  )
                 }
-                hover
-                sx={{
-                  "&:hover":
-                    {
-                      background:
-                        "#F8FAFC",
-                    },
-                }}
-              >
-                {/* NAME */}
-                <TableCell>
-
-                  <Typography
-                    sx={{
-                      fontWeight:
-                        700,
-
-                      color:
-                        "#2563EB",
-
-                      fontSize:
-                        "16px",
-                    }}
-                  >
-                    {
-                      customer.customerName
-                    }
-                  </Typography>
-
-                </TableCell>
-
-                {/* CUSTOMER TYPE */}
-                <TableCell>
-
-                  <Chip
-                    label={
-                      customer.customerType
-                    }
-                    size="small"
-                    sx={{
-                      background:
-                        customer.customerType ===
-                        "Individual"
-
-                          ? "#EFF6FF"
-
-                          : "#FDF4FF",
-
-                      color:
-                        customer.customerType ===
-                        "Business"
-
-                          ? "#2563EB"
-
-                          : "#C026D3",
-
-                      fontWeight:
-                        700,
-
-                      borderRadius:
-                        "8px",
-                    }}
-                  />
-
-                </TableCell>
-
-                {/* PHONE */}
-                <TableCell>
-
-                  <Typography>
-                    {
-                      customer.phone
-                    }
-                  </Typography>
-
-                </TableCell>
-
-                {/* EMAIL */}
-                <TableCell>
-
-                  <Typography
-                    sx={{
-                      color:
-                        "#475569",
-                    }}
-                  >
-                    {
-                      customer.email
-                    }
-                  </Typography>
-
-                </TableCell>
-
-                {/* LOCATION */}
-                <TableCell>
-
-                  <Typography
-                    sx={{
-                      color:
-                        "#475569",
-                    }}
-                  >
-                    {
-                      customer.city
-                    },{" "}
-                    {
-                      customer.state
-                    }
-                  </Typography>
-
-                </TableCell>
-
-                {/* STATUS */}
-                <TableCell align="center">
-
-                  <Select
-                    size="small"
-                    value={
-                      customer.status
-                    }
-                    onChange={(e) =>
-                      handleStatusChange(
-                        customer.id,
-                        e.target.value
-                      )
-                    }
-                    sx={{
-                      minWidth:
-                        "110px",
-
-                      borderRadius:
-                        "10px",
-
-                      fontWeight:
-                        600,
-
-                      background:
-                        customer.status ===
-                        "Active"
-
-                          ? "#DCFCE7"
-
-                          : "#FEE2E2",
-
-                      color:
-                        customer.status ===
-                        "Active"
-
-                          ? "#15803D"
-
-                          : "#DC2626",
-
-                      ".MuiOutlinedInput-notchedOutline":
-                        {
-                          border:
-                            "none",
-                        },
-
-                      ".MuiSelect-icon":
-                        {
-                          color:
-                            customer.status ===
-                            "Active"
-
-                              ? "#15803D"
-
-                              : "#DC2626",
-                        },
-                    }}
-                  >
-                    <MenuItem value="Active">
-                      Active
-                    </MenuItem>
-
-                    <MenuItem value="Inactive">
-                      Inactive
-                    </MenuItem>
-
-                  </Select>
-
-                </TableCell>
-
-                {/* ACTIONS */}
-                <TableCell align="center">
-
-                  <IconButton
-                    onClick={(e) =>
-                      handleMenuOpen(
-                        e,
-                        customer.id
-                      )
-                    }
-                    sx={{
-                      background:
-                        "#F8FAFC",
-
-                      width: 38,
-
-                      height: 38,
-
-                      "&:hover":
-                        {
-                          background:
-                            "#E2E8F0",
-                        },
-                    }}
-                  >
-                    <MoreVertIcon
-                      sx={{
-                        color:
-                          "#64748B",
-                      }}
-                    />
-                  </IconButton>
-
-                  <Menu
-                    anchorEl={
-                      anchorEl
-                    }
-                    open={
-                      Boolean(
-                        anchorEl
-                      ) &&
-                      selectedCustomerId ===
-                        customer.id
-                    }
-                    onClose={
-                      handleMenuClose
-                    }
-                    slotProps={{
-                      paper: {
-                        sx: {
-                          borderRadius:
-                            "14px",
-
-                          minWidth:
-                            "120px",
-
-                          boxShadow:
-                            "0px 10px 30px rgba(15,23,42,0.08)",
-                        },
-                      },
-                    }}
-                  >
-                    {/* VIEW */}
-                    <MenuItem
-                      onClick={() => {
-
-                        router.push(
-                          `/customers/view/${customer.id}`
-                        );
-
-                        handleMenuClose();
-                      }}
-                    >
-                      <RemoveRedEyeOutlinedIcon
-                        sx={{
-                          mr: 1,
-
-                          color:
-                            "#2563EB",
-                        }}
-                      />
-
-                      View
-                    </MenuItem>
-
-                    {/* EDIT */}
-                    <MenuItem
-                      onClick={() => {
-
-                        router.push(
-                          `/customers/edit/${customer.id}`
-                        );
-
-                        handleMenuClose();
-                      }}
-                    >
-                      <EditIcon
-                        sx={{
-                          mr: 1,
-
-                          color:
-                            "#0F172A",
-                        }}
-                      />
-
-                      Edit
-                    </MenuItem>
-
-                  </Menu>
-
-                </TableCell>
-
-              </TableRow>
-            )
-          )}
-
-        </TableBody>
-
-      </Table>
-
-    </TableContainer>
+              />
+            );
+          case "actions":
+            return (
+              <TableActions
+                onView={() =>
+                  router.push( `/customers/view/${customer.id}` )
+                }
+                onEdit={() =>
+                  router.push( `/customers/edit/${customer.id}` )
+                }
+              />
+            );
+          default: return null;
+        }
+      }}
+    />
   );
 }

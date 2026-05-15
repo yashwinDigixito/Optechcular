@@ -1,30 +1,23 @@
 "use client";
 
 import {
-  useState,
-} from "react";
-
-import {
   Brand,
 } from "@/assets/types";
 
-import EditIcon from "@mui/icons-material/Edit";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
+import CommonTable from "@/component/common/table/CommonTable";
+
+import StatusSelect from "@/component/common/table/StatusSelect";
+
+import TableActions from "@/component/common/table/TableActions";
 
 import {
-  Avatar,
+  FONT_FAMILY,
+  FONT_SIZE,
+  FONT_WEIGHT,
+} from "@/assets/constants";
+
+import {
   Box,
-  IconButton,
-  Menu,
-  MenuItem,
-  Select,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
   Typography,
 } from "@mui/material";
 
@@ -51,510 +44,286 @@ export default function BrandTable({
   const router =
     useRouter();
 
-  const [anchorEl, setAnchorEl] =
-    useState<null | HTMLElement>(null);
+  /* TABLE COLUMNS */
+  const columns = [
 
-  const [selectedBrandId, setSelectedBrandId] =
-    useState<string | null>(null);
+    {
+      key: "brand",
+      label: "Brand",
+    },
 
-  const handleMenuOpen = (
-    event: React.MouseEvent<HTMLElement>,
-    id: string
-  ) => {
+    {
+      key: "category",
+      label: "Category",
+    },
 
-    setAnchorEl(
-      event.currentTarget
-    );
+    {
+      key: "brandGroup",
+      label: "Brand Group",
+    },
 
-    setSelectedBrandId(id);
-  };
+    {
+      key: "phone",
+      label: "Phone",
+    },
 
-  const handleMenuClose = () => {
+    {
+      key: "status",
+      label: "Status",
+      align: "center" as const,
+    },
 
-    setAnchorEl(null);
+    {
+      key: "created",
+      label: "Created",
+      align: "center" as const,
+    },
 
-    setSelectedBrandId(null);
-  };
+    {
+      key: "actions",
+      label: "Actions",
+      align: "center" as const,
+    },
+  ];
 
+  /* STATUS CHANGE */
   const handleStatusChange = (
     id: string,
-    value:
-      | "Active"
-      | "Inactive"
+    value: string
   ) => {
 
     setBrandData((prev) =>
       prev.map((brand) =>
+
         brand.id === id
+
           ? {
               ...brand,
-              status: value,
+              status: value as
+                | "Active"
+                | "Inactive",
             }
+
           : brand
       )
     );
   };
 
   return (
-    <TableContainer
-      sx={{
-        borderRadius:
-          "20px",
+    <CommonTable
+      columns={columns}
+      rows={brands}
 
-        overflow:
-          "hidden",
+      renderCell={(
+        brand,
+        key
+      ) => {
 
-        background:
-          "#FFFFFF",
-      }}
-    >
+        switch (key) {
 
-      <Table
-        sx={{
-          "& .MuiTableCell-root": {
-            py: 2,
-            borderColor: "#F1F5F9",
-          },
-        }}
-      >
+          /* BRAND */
+          case "brand":
 
-        <TableHead>
+            return (
 
-          <TableRow
-            sx={{
-              background:
-                "#F8FAFC",
+              <Box>
 
-              borderBottom:
-                "1px solid #E2E8F0",
-            }}
-          >
+                <Typography
+                  sx={{
+                    fontWeight:
+                      FONT_WEIGHT.BOLD,
 
-            <TableCell>
-              <Typography sx={{ fontWeight: 700 }}>
-                Brand
-              </Typography>
-            </TableCell>
+                    color:
+                      "#2563EB",
 
-            <TableCell>
-              <Typography sx={{ fontWeight: 700 }}>
-                Category
-              </Typography>
-            </TableCell>
+                    fontSize:
+                      "15px",
 
-            <TableCell>
-              <Typography sx={{ fontWeight: 700 }}>
-                Brand Group
-              </Typography>
-            </TableCell>
+                    fontFamily:
+                      FONT_FAMILY.TABLE_BODY,
+                  }}
+                >
+                  {
+                    brand.brandName
+                  }
+                </Typography>
 
-            <TableCell>
-              <Typography sx={{ fontWeight: 700 }}>
-                Phone
-              </Typography>
-            </TableCell>
+                <Typography
+                  sx={{
+                    fontSize:
+                      FONT_SIZE.SMALL,
 
-            <TableCell align="center">
-              <Typography sx={{ fontWeight: 700 }}>
-                Status
-              </Typography>
-            </TableCell>
+                    color:
+                      "#64748B",
 
-            <TableCell align="center">
-              <Typography sx={{ fontWeight: 700 }}>
-                Created
-              </Typography>
-            </TableCell>
+                    fontFamily:
+                      FONT_FAMILY.TABLE_BODY,
+                  }}
+                >
+                  {
+                    brand.brandId
+                  }
+                </Typography>
 
-            <TableCell align="center">
-              <Typography sx={{ fontWeight: 700 }}>
-                Actions
-              </Typography>
-            </TableCell>
+              </Box>
 
-          </TableRow>
+            );
 
-        </TableHead>
+          /* CATEGORY */
+          case "category":
 
-        <TableBody>
+            return (
 
-          {brands.map(
-            (
-              brand
-            ) => (
-
-              <TableRow
-                key={
-                  brand.id
-                }
-                hover
+              <Typography
                 sx={{
-                  "&:hover":
-                    {
-                      background:
-                        "#F8FAFC",
-                    },
+                  color:
+                    "#475569",
+
+                  fontWeight:
+                    FONT_WEIGHT.SEMI_BOLD,
+
+                  fontSize:
+                    FONT_SIZE.TABLE_BODY,
+
+                  fontFamily:
+                    FONT_FAMILY.TABLE_BODY,
                 }}
               >
+                {
+                  brand.category ||
+                  "-"
+                }
+              </Typography>
+
+            );
+
+          /* BRAND GROUP */
+          case "brandGroup":
+
+            return (
 
-                {/* BRAND */}
-                <TableCell>
-
-                  <Box
-                    sx={{
-                      display:
-                        "flex",
-
-                      alignItems:
-                        "center",
-
-                      gap: 2,
-                    }}
-                  >
-
-                    <Avatar
-                      src={
-                        brand.brandLogo
-                      }
-                      sx={{
-                        width: 42,
-
-                        height: 42,
-
-                        bgcolor:
-                          "#EFF6FF",
-
-                        color:
-                          "#2563EB",
-
-                        fontWeight:
-                          700,
-                      }}
-                    >
-                      {
-                        brand.brandName?.charAt(
-                          0
-                        )
-                      }
-                    </Avatar>
-
-                    <Box>
-
-                      <Typography
-                        sx={{
-                          fontWeight:
-                            700,
-
-                          color:
-                            "#2563EB",
-
-                          fontSize:
-                            "14px",
-                        }}
-                      >
-                        {
-                          brand.brandName
-                        }
-                      </Typography>
-
-                      <Typography
-                        sx={{
-                          fontSize:
-                            "13px",
-
-                          color:
-                            "#64748B",
-                        }}
-                      >
-                        {
-                          brand.brandId
-                        }
-                      </Typography>
-
-                    </Box>
-
-                  </Box>
-
-                </TableCell>
-
-                {/* CATEGORY */}
-                <TableCell>
-
-                  <Typography
-                    sx={{
-                      color:
-                        "#475569",
-
-                      fontWeight:
-                        600,
-
-                      fontSize:
-                        "14px",
-                    }}
-                  >
-                    {
-                      brand.category ||
-                      "-"
-                    }
-                  </Typography>
-
-                </TableCell>
-
-                {/* GROUP */}
-                <TableCell>
-
-                  <Typography
-                    sx={{
-                      color:
-                        "#0F172A",
-
-                      fontWeight:
-                        600,
-
-                      fontSize:
-                        "14px",
-                    }}
-                  >
-                    {
-                      brand.brandGroup ||
-                      "-"
-                    }
-                  </Typography>
-
-                </TableCell>
-
-                {/* PHONE */}
-                <TableCell>
-
-                  <Typography
-                    sx={{
-                      color:
-                        "#475569",
-
-                      fontSize:
-                        "14px",
-                    }}
-                  >
-                    {
-                      brand.phone
-                    }
-                  </Typography>
-
-                </TableCell>
-
-                {/* STATUS */}
-                <TableCell align="center">
-
-                  <Select
-                    size="small"
-                    value={brand.status}
-                    onChange={(e) =>
-                      handleStatusChange(
-                        brand.id,
-                        e.target.value as
-                          | "Active"
-                          | "Inactive"
-                      )
-                    }
-                    sx={{
-                      minWidth:
-                        "120px",
-
-                      borderRadius:
-                        "10px",
-
-                      fontWeight:
-                        600,
-
-                      background:
-                        brand.status ===
-                        "Active"
-
-                          ? "#DCFCE7"
-
-                          : "#FEE2E2",
-
-                      color:
-                        brand.status ===
-                        "Active"
-
-                          ? "#15803D"
-
-                          : "#DC2626",
-
-                      ".MuiOutlinedInput-notchedOutline":
-                        {
-                          border:
-                            "none",
-                        },
-
-                      ".MuiSelect-icon":
-                        {
-                          color:
-                            brand.status ===
-                            "Active"
-
-                              ? "#15803D"
-
-                              : "#DC2626",
-                        },
-                    }}
-                  >
-
-                    <MenuItem value="Active">
-                      Active
-                    </MenuItem>
-
-                    <MenuItem value="Inactive">
-                      Inactive
-                    </MenuItem>
-
-                  </Select>
-
-                </TableCell>
-
-                {/* CREATED */}
-                <TableCell align="center">
-
-                  <Typography
-                    sx={{
-                      color:
-                        "#64748B",
-
-                      fontWeight:
-                        500,
-
-                      fontSize:
-                        "14px",
-                    }}
-                  >
-                    {
-                      brand.createdDate
-                    }
-                  </Typography>
-
-                </TableCell>
-
-                {/* ACTIONS */}
-                <TableCell align="center">
-
-                  <IconButton
-                    onClick={(e) =>
-                      handleMenuOpen(
-                        e,
-                        brand.id
-                      )
-                    }
-                    sx={{
-                      background:
-                        "#F8FAFC",
-
-                      width: 38,
-
-                      height: 38,
-
-                      "&:hover": {
-                        background:
-                          "#E2E8F0",
-                      },
-                    }}
-                  >
-
-                    <MoreVertIcon
-                      sx={{
-                        color:
-                          "#64748B",
-                      }}
-                    />
-
-                  </IconButton>
-
-                  <Menu
-                    anchorEl={anchorEl}
-                    open={
-                      Boolean(anchorEl) &&
-                      selectedBrandId ===
-                        brand.id
-                    }
-                    onClose={
-                      handleMenuClose
-                    }
-                    slotProps={{
-                      paper: {
-                        sx: {
-                          borderRadius:
-                            "14px",
-
-                          minWidth:
-                            "150px",
-
-                          boxShadow:
-                            "0px 10px 30px rgba(15,23,42,0.08)",
-                        },
-                      },
-                    }}
-                  >
-
-                    <MenuItem
-                      onClick={() => {
-
-                        router.push(
-                          `/products/brands/view/${brand.id}`
-                        );
-
-                        handleMenuClose();
-                      }}
-                    >
-
-                      <RemoveRedEyeOutlinedIcon
-                        sx={{
-                          mr: 1,
-
-                          color:
-                            "#2563EB",
-                        }}
-                      />
-
-                      View
-
-                    </MenuItem>
-
-                    <MenuItem
-                      onClick={() => {
-
-                        router.push(
-                          `/products/brands/edit/${brand.id}`
-                        );
-
-                        handleMenuClose();
-                      }}
-                    >
-
-                      <EditIcon
-                        sx={{
-                          mr: 1,
-
-                          color:
-                            "#0F172A",
-                        }}
-                      />
-
-                      Edit
-
-                    </MenuItem>
-
-                  </Menu>
-
-                </TableCell>
-
-              </TableRow>
-            )
-          )}
-
-        </TableBody>
-
-      </Table>
-
-    </TableContainer>
+              <Typography
+                sx={{
+                  color:
+                    "#0F172A",
+
+                  fontWeight:
+                    FONT_WEIGHT.SEMI_BOLD,
+
+                  fontSize:
+                    FONT_SIZE.TABLE_BODY,
+
+                  fontFamily:
+                    FONT_FAMILY.TABLE_BODY,
+                }}
+              >
+                {
+                  brand.brandGroup ||
+                  "-"
+                }
+              </Typography>
+
+            );
+
+          /* PHONE */
+          case "phone":
+
+            return (
+
+              <Typography
+                sx={{
+                  color:
+                    "#475569",
+
+                  fontSize:
+                    FONT_SIZE.TABLE_BODY,
+
+                  fontFamily:
+                    FONT_FAMILY.TABLE_BODY,
+                }}
+              >
+                {
+                  brand.phone
+                }
+              </Typography>
+
+            );
+
+          /* STATUS */
+          case "status":
+
+            return (
+
+              <StatusSelect
+                value={
+                  brand.status
+                }
+
+                options={[
+                  "Active",
+                  "Inactive",
+                ]}
+
+                onChange={(value) =>
+                  handleStatusChange(
+                    brand.id,
+                    value
+                  )
+                }
+              />
+
+            );
+
+          /* CREATED */
+          case "created":
+
+            return (
+
+              <Typography
+                sx={{
+                  color:
+                    "#64748B",
+
+                  fontWeight:
+                    FONT_WEIGHT.MEDIUM,
+
+                  fontSize:
+                    FONT_SIZE.TABLE_BODY,
+
+                  fontFamily:
+                    FONT_FAMILY.TABLE_BODY,
+                }}
+              >
+                {
+                  brand.createdDate
+                }
+              </Typography>
+
+            );
+
+          /* ACTIONS */
+          case "actions":
+
+            return (
+
+              <TableActions
+                onView={() =>
+                  router.push(
+                    `/products/brands/view/${brand.id}`
+                  )
+                }
+
+                onEdit={() =>
+                  router.push(
+                    `/products/brands/edit/${brand.id}`
+                  )
+                }
+              />
+            );
+          default:
+            return null;
+        }
+      }}
+    />
   );
 }

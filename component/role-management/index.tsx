@@ -8,6 +8,12 @@ import {
   roles,
 } from "@/assets/genericdata";
 
+import {
+  FONT_FAMILY,
+  FONT_SIZE,
+  FONT_WEIGHT,
+} from "@/assets/constants";
+
 import AddIcon from "@mui/icons-material/Add";
 
 import {
@@ -27,14 +33,22 @@ export default function RoleManagementPage() {
   const router =
     useRouter();
 
-  const [search, setSearch] =
-    useState("");
+  const [
+    search,
+    setSearch,
+  ] = useState("");
 
-  const [status, setStatus] =
-    useState("");
+  const [
+    status,
+    setStatus,
+  ] = useState("");
 
-  const [roleData, setRoleData] =
-    useState(roles);
+  const [
+    roleData,
+    setRoleData,
+  ] = useState(
+    roles
+  );
 
   /* COUNTS */
   const roleCount = {
@@ -73,11 +87,14 @@ export default function RoleManagementPage() {
 
         const matchesStatus =
           status
+
             ? role.status ===
               status
+
             : true;
 
         return (
+
           matchesSearch &&
           matchesStatus
         );
@@ -88,140 +105,182 @@ export default function RoleManagementPage() {
     <Box
       sx={{
         p: 3,
+
         minHeight:
           "100vh",
+
         background:
           "#F8FAFC",
       }}
     >
 
-      {/* HEADER */}
       <Box
         sx={{
-          display:
-            "flex",
+          maxWidth:
+            "100%",
 
-          justifyContent:
-            "space-between",
-
-          alignItems:
-            "center",
-
-          mb: 3,
-
-          flexWrap:
-            "wrap",
-
-          gap: 2,
+          mx:
+            "auto",
         }}
       >
 
-        <Typography
+        {/* HEADER */}
+        <Box
           sx={{
-            fontSize:
-              "32px",
+            display:
+              "flex",
 
-            fontWeight: 700,
+            justifyContent:
+              "space-between",
 
-            color:
-              "#0F172A",
+            alignItems:
+              "center",
+
+            mb: 3,
+
+            px: 1,
+
+            flexWrap:
+              "wrap",
+
+            gap: 2,
           }}
         >
-          Role Management
-        </Typography>
 
-        <Button
-          variant="contained"
-          startIcon={<AddIcon />}
-          onClick={() =>
-            router.push(
-              "/roles/add"
-            )
-          }
+          <Typography
+            sx={{
+              fontFamily:
+                FONT_FAMILY.HEADING,
+
+              fontSize:
+                FONT_SIZE.PAGE_HEADING,
+
+              fontWeight:
+                FONT_WEIGHT.BOLD,
+
+              color:
+                "#0F172A",
+
+              lineHeight:
+                1.2,
+            }}
+          >
+            Role Management
+          </Typography>
+
+          <Button
+            variant="contained"
+
+            startIcon={
+              <AddIcon />
+            }
+
+            onClick={() =>
+              router.push(
+                "/roles/add"
+              )
+            }
+
+            sx={{
+              borderRadius:
+                "14px",
+
+              px: 3,
+
+              height:
+                "50px",
+
+              textTransform:
+                "none",
+
+              fontFamily:
+                FONT_FAMILY.BUTTON,
+
+              fontWeight:
+                FONT_WEIGHT.BOLD,
+
+              boxShadow:
+                "none",
+            }}
+          >
+            Add Role
+          </Button>
+
+        </Box>
+
+        {/* MAIN CARD */}
+        <Box
           sx={{
+            background:
+              "#FFFFFF",
+
+            border:
+              "1px solid #E2E8F0",
+
             borderRadius:
-              "14px",
+              "24px",
 
-            px: 3,
-
-            height:
-              "50px",
-
-            textTransform:
-              "none",
-
-            fontWeight: 700,
-
-            boxShadow:
-              "none",
+            overflow:
+              "hidden",
           }}
         >
-          Add Role
-        </Button>
 
-      </Box>
-
-      {/* MAIN CARD */}
-      <Box
-        sx={{
-          background:
-            "#FFFFFF",
-
-          border:
-            "1px solid #E2E8F0",
-
-          borderRadius:
-            "24px",
-
-          overflow:
-            "hidden",
-        }}
-      >
-
-        {/* FILTERS */}
-        <RoleFilters
-          search={search}
-          setSearch={setSearch}
-          status={status}
-          setStatus={setStatus}
-          roleCount={roleCount}
-        />
-
-        {/* TABLE */}
-        <Box sx={{ p: 3 }}>
-
-          {(
-            search ||
-            status
-          ) && (
-
-            <Typography
-              sx={{
-                color:
-                  "#475569",
-
-                fontWeight:
-                  500,
-
-                mb: 2,
-              }}
-            >
-              {
-                filteredRoles.length
-              }{" "}
-              results found
-            </Typography>
-
-          )}
-
-          <RoleTable
-            roles={
-              filteredRoles
-            }
-            setRoleData={
-              setRoleData
-            }
+          {/* FILTERS */}
+          <RoleFilters
+            search={search}
+            setSearch={setSearch}
+            status={status}
+            setStatus={setStatus}
+            roleCount={roleCount}
           />
+
+          {/* TABLE */}
+          <Box
+            sx={{
+              p: 3,
+            }}
+          >
+
+            {(
+
+              search ||
+              status
+
+            ) && (
+
+              <Typography
+                sx={{
+                  color:
+                    "#475569",
+
+                  fontWeight:
+                    500,
+
+                  mb: 2,
+
+                  fontFamily:
+                    FONT_FAMILY.BODY,
+                }}
+              >
+                {
+                  filteredRoles.length
+                }{" "}
+                results found
+              </Typography>
+
+            )}
+
+            <RoleTable
+              roles={
+                filteredRoles
+              }
+
+              setRoleData={
+                setRoleData
+              }
+            />
+
+          </Box>
 
         </Box>
 

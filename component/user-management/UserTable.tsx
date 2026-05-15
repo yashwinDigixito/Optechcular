@@ -1,26 +1,22 @@
 "use client";
 
-import { useState } from "react";
-
 import {
   User,
 } from "@/assets/types";
 
-import EditIcon from "@mui/icons-material/Edit";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
+import CommonTable from "@/component/common/table/CommonTable";
+
+import StatusSelect from "@/component/common/table/StatusSelect";
+
+import TableActions from "@/component/common/table/TableActions";
 
 import {
-  IconButton,
-  Menu,
-  MenuItem,
-  Select,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
+  FONT_FAMILY,
+  FONT_SIZE,
+  FONT_WEIGHT,
+} from "@/assets/constants";
+
+import {
   Typography,
 } from "@mui/material";
 
@@ -47,408 +43,230 @@ export default function UserTable({
   const router =
     useRouter();
 
-  const [anchorEl, setAnchorEl] =
-    useState<null | HTMLElement>(null);
+  /* TABLE COLUMNS */
+  const columns = [
 
-  const [selectedUserId, setSelectedUserId] =
-    useState<string | null>(null);
+    {
+      key: "fullName",
+      label: "Full Name",
+    },
 
-  const handleMenuOpen = (
-    event: React.MouseEvent<HTMLElement>,
-    id: string
-  ) => {
+    {
+      key: "email",
+      label: "Email",
+    },
 
-    setAnchorEl(
-      event.currentTarget
-    );
+    {
+      key: "phone",
+      label: "Phone Number",
+    },
 
-    setSelectedUserId(id);
-  };
+    {
+      key: "role",
+      label: "Role",
+    },
 
-  const handleMenuClose = () => {
+    {
+      key: "status",
+      label: "Status",
+      align: "center" as const,
+    },
 
-    setAnchorEl(null);
+    {
+      key: "actions",
+      label: "Actions",
+      align: "center" as const,
+    },
+  ];
 
-    setSelectedUserId(null);
-  };
-
+  /* STATUS CHANGE */
   const handleStatusChange = (
     id: string,
-    value: "Active" | "Inactive"
+    value: string
   ) => {
 
     setUserData((prev) =>
       prev.map((user) =>
+
         user.id === id
+
           ? {
               ...user,
-              status: value,
+              status: value as
+                | "Active"
+                | "Inactive",
             }
+
           : user
       )
     );
   };
 
   return (
-    <TableContainer
-      sx={{
-        borderRadius:
-          "20px",
+    <CommonTable
+      columns={columns}
+      rows={users}
 
-        overflow:
-          "hidden",
+      renderCell={(
+        user,
+        key
+      ) => {
 
-        background:
-          "#FFFFFF",
-      }}
-    >
+        switch (key) {
 
-      <Table
-        sx={{
-          "& .MuiTableCell-root": {
-            py: 2,
-            borderColor: "#F1F5F9",
-          },
-        }}
-      >
+          /* FULL NAME */
+          case "fullName":
 
-        <TableHead>
+            return (
 
-          <TableRow
-            sx={{
-              background:
-                "#F8FAFC",
-
-              borderBottom:
-                "1px solid #E2E8F0",
-            }}
-          >
-
-            <TableCell>
-              <Typography sx={{ fontWeight: 700 }}>
-                Full Name
-              </Typography>
-            </TableCell>
-
-            <TableCell>
-              <Typography sx={{ fontWeight: 700 }}>
-                Email
-              </Typography>
-            </TableCell>
-
-            <TableCell>
-              <Typography sx={{ fontWeight: 700 }}>
-                Phone Number
-              </Typography>
-            </TableCell>
-
-            <TableCell>
-              <Typography sx={{ fontWeight: 700 }}>
-                Role
-              </Typography>
-            </TableCell>
-
-            <TableCell align="center">
-              <Typography sx={{ fontWeight: 700 }}>
-                Status
-              </Typography>
-            </TableCell>
-
-            <TableCell align="center">
-              <Typography sx={{ fontWeight: 700 }}>
-                Actions
-              </Typography>
-            </TableCell>
-
-          </TableRow>
-
-        </TableHead>
-
-        <TableBody>
-
-          {users.map(
-            (user) => (
-
-              <TableRow
-                key={user.id}
-                hover
+              <Typography
                 sx={{
-                  "&:hover": {
-                    background:
-                      "#F8FAFC",
-                  },
+                  fontWeight:
+                    FONT_WEIGHT.BOLD,
+
+                  color:
+                    "#2563EB",
+
+                  fontSize:
+                    "15px",
+
+                  fontFamily:
+                    FONT_FAMILY.TABLE_BODY,
                 }}
               >
+                {
+                  user.fullName
+                }
+              </Typography>
+
+            );
+
+          /* EMAIL */
+          case "email":
+
+            return (
 
-                {/* NAME */}
-                <TableCell>
-
-                  <Typography
-                    sx={{
-                      fontWeight:
-                        700,
-
-                      color:
-                        "#2563EB",
-
-                      fontSize:
-                        "14px",
-                    }}
-                  >
-                    {
-                      user.fullName
-                    }
-                  </Typography>
-
-                </TableCell>
-
-                {/* EMAIL */}
-                <TableCell>
-
-                  <Typography
-                    sx={{
-                      color:
-                        "#475569",
-
-                      fontSize:
-                        "14px",
-                    }}
-                  >
-                    {user.email}
-                  </Typography>
-
-                </TableCell>
-
-                {/* PHONE */}
-                <TableCell>
-
-                  <Typography
-                    sx={{
-                      color:
-                        "#475569",
-
-                      fontSize:
-                        "14px",
-                    }}
-                  >
-                    {
-                      user.phone
-                    }
-                  </Typography>
-
-                </TableCell>
-
-                {/* ROLE */}
-                <TableCell>
-
-                  <Typography
-                    sx={{
-                      fontWeight:
-                        600,
-
-                      color:
-                        "#0F172A",
-
-                      fontSize:
-                        "14px",
-                    }}
-                  >
-                    {user.role}
-                  </Typography>
-
-                </TableCell>
-
-                {/* STATUS */}
-                <TableCell align="center">
-
-                  <Select
-                    size="small"
-                    value={user.status}
-                    onChange={(e) =>
-                      handleStatusChange(
-                        user.id,
-                        e.target.value as
-                          | "Active"
-                          | "Inactive"
-                      )
-                    }
-                    sx={{
-                      minWidth:
-                        "120px",
-
-                      borderRadius:
-                        "10px",
-
-                      fontWeight:
-                        600,
-
-                      background:
-                        user.status ===
-                        "Active"
-
-                          ? "#DCFCE7"
-
-                          : "#FEE2E2",
-
-                      color:
-                        user.status ===
-                        "Active"
-
-                          ? "#15803D"
-
-                          : "#DC2626",
-
-                      ".MuiOutlinedInput-notchedOutline":
-                        {
-                          border:
-                            "none",
-                        },
-
-                      ".MuiSelect-icon":
-                        {
-                          color:
-                            user.status ===
-                            "Active"
-
-                              ? "#15803D"
-
-                              : "#DC2626",
-                        },
-                    }}
-                  >
-
-                    <MenuItem value="Active">
-                      Active
-                    </MenuItem>
-
-                    <MenuItem value="Inactive">
-                      Inactive
-                    </MenuItem>
-
-                  </Select>
-
-                </TableCell>
-
-                {/* ACTIONS */}
-                <TableCell align="center">
-
-                  <IconButton
-                    onClick={(e) =>
-                      handleMenuOpen(
-                        e,
-                        user.id
-                      )
-                    }
-                    sx={{
-                      background:
-                        "#F8FAFC",
+              <Typography
+                sx={{
+                  color:
+                    "#475569",
 
-                      width: 38,
-
-                      height: 38,
-
-                      "&:hover": {
-                        background:
-                          "#E2E8F0",
-                      },
-                    }}
-                  >
-
-                    <MoreVertIcon
-                      sx={{
-                        color:
-                          "#64748B",
-                      }}
-                    />
-
-                  </IconButton>
-
-                  <Menu
-                    anchorEl={anchorEl}
-                    open={
-                      Boolean(anchorEl) &&
-                      selectedUserId ===
-                        user.id
-                    }
-                    onClose={
-                      handleMenuClose
-                    }
-                    slotProps={{
-                      paper: {
-                        sx: {
-                          borderRadius:
-                            "14px",
-
-                          minWidth:
-                            "150px",
-
-                          boxShadow:
-                            "0px 10px 30px rgba(15,23,42,0.08)",
-                        },
-                      },
-                    }}
-                  >
-
-                    <MenuItem
-                      onClick={() => {
-
-                        router.push(
-                          `/users/view/${user.id}`
-                        );
-
-                        handleMenuClose();
-                      }}
-                    >
-
-                      <RemoveRedEyeOutlinedIcon
-                        sx={{
-                          mr: 1,
-
-                          color:
-                            "#2563EB",
-                        }}
-                      />
-
-                      View
-
-                    </MenuItem>
-
-                    <MenuItem
-                      onClick={() => {
-
-                        router.push(
-                          `/users/edit/${user.id}`
-                        );
-
-                        handleMenuClose();
-                      }}
-                    >
-
-                      <EditIcon
-                        sx={{
-                          mr: 1,
-
-                          color:
-                            "#0F172A",
-                        }}
-                      />
-
-                      Edit
-
-                    </MenuItem>
-
-                  </Menu>
-
-                </TableCell>
-
-              </TableRow>
-            )
-          )}
-
-        </TableBody>
-
-      </Table>
-
-    </TableContainer>
+                  fontSize:
+                    FONT_SIZE.TABLE_BODY,
+
+                  fontFamily:
+                    FONT_FAMILY.TABLE_BODY,
+                }}
+              >
+                {
+                  user.email
+                }
+              </Typography>
+
+            );
+
+          /* PHONE */
+          case "phone":
+
+            return (
+
+              <Typography
+                sx={{
+                  color:
+                    "#475569",
+
+                  fontSize:
+                    FONT_SIZE.TABLE_BODY,
+
+                  fontFamily:
+                    FONT_FAMILY.TABLE_BODY,
+                }}
+              >
+                {
+                  user.phone
+                }
+              </Typography>
+
+            );
+
+          /* ROLE */
+          case "role":
+
+            return (
+
+              <Typography
+                sx={{
+                  fontWeight:
+                    FONT_WEIGHT.SEMI_BOLD,
+
+                  color:
+                    "#0F172A",
+
+                  fontSize:
+                    FONT_SIZE.TABLE_BODY,
+
+                  fontFamily:
+                    FONT_FAMILY.TABLE_BODY,
+                }}
+              >
+                {
+                  user.role
+                }
+              </Typography>
+
+            );
+
+          /* STATUS */
+          case "status":
+
+            return (
+
+              <StatusSelect
+                value={
+                  user.status
+                }
+
+                options={[
+                  "Active",
+                  "Inactive",
+                  "Suspended"
+                ]}
+
+                onChange={(value) =>
+                  handleStatusChange(
+                    user.id,
+                    value
+                  )
+                }
+              />
+
+            );
+
+          /* ACTIONS */
+          case "actions":
+
+            return (
+
+              <TableActions
+                onView={() =>
+                  router.push(
+                    `/users/view/${user.id}`
+                  )
+                }
+
+                onEdit={() =>
+                  router.push(
+                    `/users/edit/${user.id}`
+                  )
+                }
+              />
+
+            );
+
+          default:
+            return null;
+        }
+      }}
+    />
   );
 }

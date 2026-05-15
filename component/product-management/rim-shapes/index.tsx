@@ -20,6 +20,12 @@ import {
   RimShape,
 } from "@/assets/types";
 
+import {
+  FONT_FAMILY,
+  FONT_SIZE,
+  FONT_WEIGHT,
+} from "@/assets/constants";
+
 import RimShapeFilters from "./RimShapeFilters";
 
 import RimShapeTable from "./RimShapeTable";
@@ -29,19 +35,24 @@ export default function RimShapeManagementPage() {
   const router =
     useRouter();
 
-  const [search, setSearch] =
-    useState("");
+  const [
+    search,
+    setSearch,
+  ] = useState("");
 
-  const [status, setStatus] =
-    useState("");
+  const [
+    status,
+    setStatus,
+  ] = useState("");
 
-  const [rimShapeData,
-    setRimShapeData] =
-      useState<
-        RimShape[]
-      >(
-        rimShapes
-      );
+  const [
+    rimShapeData,
+    setRimShapeData,
+  ] = useState<
+    RimShape[]
+  >(
+    rimShapes
+  );
 
   /* COUNTS */
   const rimShapeCount = {
@@ -103,11 +114,14 @@ export default function RimShapeManagementPage() {
 
         const matchesStatus =
           status
+
             ? shape.status ===
               status
+
             : true;
 
         return (
+
           matchesSearch &&
           matchesStatus
         );
@@ -127,158 +141,198 @@ export default function RimShapeManagementPage() {
       }}
     >
 
-      {/* HEADER */}
       <Box
         sx={{
-          display:
-            "flex",
+          maxWidth:
+            "100%",
 
-          justifyContent:
-            "space-between",
-
-          alignItems:
-            "center",
-
-          mb: 3,
-
-          flexWrap:
-            "wrap",
-
-          gap: 2,
+          mx:
+            "auto",
         }}
       >
 
-        <Box>
-
-          <Typography
-            sx={{
-              fontSize:
-                "32px",
-
-              fontWeight:
-                700,
-
-              color:
-                "#0F172A",
-            }}
-          >
-            Rim Shape Management
-          </Typography>
-
-          <Typography
-            sx={{
-              color:
-                "#64748B",
-
-              mt: 0.5,
-            }}
-          >
-            Manage rim shape categories and product mapping
-          </Typography>
-
-        </Box>
-
-        <Button
-          variant="contained"
-
-          startIcon={
-            <AddIcon />
-          }
-
-          onClick={() =>
-            router.push(
-              "/products/rim-shapes/add"
-            )
-          }
-
+        {/* HEADER */}
+        <Box
           sx={{
-            height:
-              "50px",
+            display:
+              "flex",
 
-            borderRadius:
-              "14px",
+            justifyContent:
+              "space-between",
 
-            textTransform:
-              "none",
+            alignItems:
+              "center",
 
-            px: 3,
+            mb: 3,
 
-            fontWeight:
-              700,
+            px: 1,
 
-            boxShadow:
-              "none",
+            flexWrap:
+              "wrap",
+
+            gap: 2,
           }}
         >
-          Add Rim Shape
-        </Button>
 
-      </Box>
-
-      {/* MAIN CARD */}
-      <Box
-        sx={{
-          background:
-            "#FFFFFF",
-
-          border:
-            "1px solid #E2E8F0",
-
-          borderRadius:
-            "24px",
-
-          overflow:
-            "hidden",
-        }}
-      >
-
-        {/* FILTERS */}
-        <RimShapeFilters
-          search={search}
-          setSearch={setSearch}
-
-          status={status}
-          setStatus={setStatus}
-
-          rimShapeCount={
-            rimShapeCount
-          }
-        />
-
-        {/* TABLE */}
-        <Box sx={{ p: 3 }}>
-
-          {(search ||
-            status) && (
+          <Box>
 
             <Typography
               sx={{
-                mb: 2,
+                fontFamily:
+                  FONT_FAMILY.HEADING,
 
+                fontSize:
+                  FONT_SIZE.PAGE_HEADING,
+
+                fontWeight:
+                  FONT_WEIGHT.BOLD,
+
+                color:
+                  "#0F172A",
+
+                lineHeight:
+                  1.2,
+              }}
+            >
+              Rim Shape Management
+            </Typography>
+
+            <Typography
+              sx={{
                 color:
                   "#64748B",
 
-                fontWeight:
-                  500,
+                mt: 0.5,
+
+                fontFamily:
+                  FONT_FAMILY.BODY,
+
+                fontSize:
+                  FONT_SIZE.BODY,
               }}
             >
-              {
-                filteredShapes.length
-              }{" "}
-              results found
+              Manage rim shape categories and product mapping
             </Typography>
 
-          )}
+          </Box>
 
-          <RimShapeTable
-            rimShapes={
-              filteredShapes
+          <Button
+            variant="contained"
+
+            startIcon={
+              <AddIcon />
             }
 
-            setRimShapeData={
-              setRimShapeData
+            onClick={() =>
+              router.push(
+                "/products/rim-shapes/add"
+              )
+            }
+
+            sx={{
+              height:
+                "50px",
+
+              borderRadius:
+                "14px",
+
+              textTransform:
+                "none",
+
+              px: 3,
+
+              fontFamily:
+                FONT_FAMILY.BUTTON,
+
+              fontWeight:
+                FONT_WEIGHT.BOLD,
+
+              boxShadow:
+                "none",
+            }}
+          >
+            Add Rim Shape
+          </Button>
+
+        </Box>
+
+        {/* MAIN CARD */}
+        <Box
+          sx={{
+            background:
+              "#FFFFFF",
+
+            border:
+              "1px solid #E2E8F0",
+
+            borderRadius:
+              "24px",
+
+            overflow:
+              "hidden",
+          }}
+        >
+
+          {/* FILTERS */}
+          <RimShapeFilters
+            search={search}
+            setSearch={setSearch}
+
+            status={status}
+            setStatus={setStatus}
+
+            rimShapeCount={
+              rimShapeCount
             }
           />
+
+          {/* TABLE */}
+          <Box
+            sx={{
+              p: 3,
+            }}
+          >
+
+            {(
+
+              search ||
+              status
+
+            ) && (
+
+              <Typography
+                sx={{
+                  mb: 2,
+
+                  color:
+                    "#475569",
+
+                  fontWeight:
+                    500,
+
+                  fontFamily:
+                    FONT_FAMILY.BODY,
+                }}
+              >
+                {
+                  filteredShapes.length
+                }{" "}
+                results found
+              </Typography>
+
+            )}
+
+            <RimShapeTable
+              rimShapes={
+                filteredShapes
+              }
+
+              setRimShapeData={
+                setRimShapeData
+              }
+            />
+
+          </Box>
 
         </Box>
 

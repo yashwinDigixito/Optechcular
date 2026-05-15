@@ -1,29 +1,23 @@
 "use client";
 
 import {
-  useState,
-} from "react";
-
-import {
   BrandGroup,
 } from "@/assets/types";
 
-import EditIcon from "@mui/icons-material/Edit";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
+import CommonTable from "@/component/common/table/CommonTable";
+
+import StatusSelect from "@/component/common/table/StatusSelect";
+
+import TableActions from "@/component/common/table/TableActions";
+
+import {
+  FONT_FAMILY,
+  FONT_SIZE,
+  FONT_WEIGHT,
+} from "@/assets/constants";
 
 import {
   Box,
-  IconButton,
-  Menu,
-  MenuItem,
-  Select,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
   Typography,
 } from "@mui/material";
 
@@ -50,441 +44,255 @@ export default function BrandGroupTable({
   const router =
     useRouter();
 
-  const [anchorEl, setAnchorEl] =
-    useState<null | HTMLElement>(null);
+  /* TABLE COLUMNS */
+  const columns = [
 
-  const [selectedGroupId, setSelectedGroupId] =
-    useState<string | null>(null);
+    {
+      key: "groupName",
+      label: "Group Name",
+    },
 
-  const handleMenuOpen = (
-    event: React.MouseEvent<HTMLElement>,
-    id: string
-  ) => {
+    {
+      key: "groupType",
+      label: "Group Type",
+    },
 
-    setAnchorEl(
-      event.currentTarget
-    );
+    {
+      key: "parentCategory",
+      label: "Parent Category",
+    },
 
-    setSelectedGroupId(id);
-  };
+    {
+      key: "status",
+      label: "Status",
+      align: "center" as const,
+    },
 
-  const handleMenuClose = () => {
+    {
+      key: "createdOn",
+      label: "Created On",
+      align: "center" as const,
+    },
 
-    setAnchorEl(null);
+    {
+      key: "actions",
+      label: "Actions",
+      align: "center" as const,
+    },
+  ];
 
-    setSelectedGroupId(null);
-  };
-
+  /* STATUS CHANGE */
   const handleStatusChange = (
     id: string,
-    value:
-      | "Active"
-      | "Inactive"
+    value: string
   ) => {
 
     setGroupData((prev) =>
       prev.map((group) =>
+
         group.id === id
+
           ? {
               ...group,
-              status: value,
+              status: value as
+                | "Active"
+                | "Inactive",
             }
+
           : group
       )
     );
   };
 
   return (
-    <TableContainer
-      sx={{
-        borderRadius:
-          "20px",
+    <CommonTable
+      columns={columns}
+      rows={groups}
 
-        overflow:
-          "hidden",
+      renderCell={(
+        group,
+        key
+      ) => {
 
-        background:
-          "#FFFFFF",
-      }}
-    >
+        switch (key) {
 
-      <Table
-        sx={{
-          "& .MuiTableCell-root": {
-            py: 2,
-            borderColor: "#F1F5F9",
-          },
-        }}
-      >
+          /* GROUP NAME */
+          case "groupName":
 
-        <TableHead>
+            return (
 
-          <TableRow
-            sx={{
-              background:
-                "#F8FAFC",
+              <Box>
 
-              borderBottom:
-                "1px solid #E2E8F0",
-            }}
-          >
+                <Typography
+                  sx={{
+                    fontWeight:
+                      FONT_WEIGHT.BOLD,
 
-            <TableCell>
-              <Typography sx={{ fontWeight: 700 }}>
-                Group Name
-              </Typography>
-            </TableCell>
+                    color:
+                      "#2563EB",
 
-            <TableCell>
-              <Typography sx={{ fontWeight: 700 }}>
-                Group Type
-              </Typography>
-            </TableCell>
+                    fontSize:
+                      "15px",
 
-            <TableCell>
-              <Typography sx={{ fontWeight: 700 }}>
-                Parent Category
-              </Typography>
-            </TableCell>
+                    fontFamily:
+                      FONT_FAMILY.TABLE_BODY,
+                  }}
+                >
+                  {
+                    group.groupName
+                  }
+                </Typography>
 
-            <TableCell align="center">
-              <Typography sx={{ fontWeight: 700 }}>
-                Status
-              </Typography>
-            </TableCell>
+                <Typography
+                  sx={{
+                    fontSize:
+                      FONT_SIZE.SMALL,
 
-            <TableCell align="center">
-              <Typography sx={{ fontWeight: 700 }}>
-                Created On
-              </Typography>
-            </TableCell>
+                    color:
+                      "#64748B",
 
-            <TableCell align="center">
-              <Typography sx={{ fontWeight: 700 }}>
-                Actions
-              </Typography>
-            </TableCell>
+                    fontFamily:
+                      FONT_FAMILY.TABLE_BODY,
+                  }}
+                >
+                  {
+                    group.groupId
+                  }
+                </Typography>
 
-          </TableRow>
+              </Box>
 
-        </TableHead>
+            );
 
-        <TableBody>
+          /* GROUP TYPE */
+          case "groupType":
 
-          {groups.map(
-            (
-              group
-            ) => (
+            return (
 
-              <TableRow
-                key={
-                  group.id
-                }
-                hover
+              <Typography
                 sx={{
-                  "&:hover":
-                    {
-                      background:
-                        "#F8FAFC",
-                    },
+                  color:
+                    "#475569",
+
+                  fontWeight:
+                    FONT_WEIGHT.SEMI_BOLD,
+
+                  fontSize:
+                    FONT_SIZE.TABLE_BODY,
+
+                  fontFamily:
+                    FONT_FAMILY.TABLE_BODY,
                 }}
               >
-
-                {/* GROUP NAME */}
-                <TableCell>
-
-                  <Box>
-
-                    <Typography
-                      sx={{
-                        fontWeight:
-                          700,
-
-                        color:
-                          "#2563EB",
-
-                        fontSize:
-                          "14px",
-                      }}
-                    >
-                      {
-                        group.groupName
-                      }
-                    </Typography>
-
-                    <Typography
-                      sx={{
-                        fontSize:
-                          "13px",
-
-                        color:
-                          "#64748B",
-                      }}
-                    >
-                      {
-                        group.groupId
-                      }
-                    </Typography>
-
-                  </Box>
-
-                </TableCell>
-
-                {/* GROUP TYPE */}
-                <TableCell>
-
-                  <Typography
-                    sx={{
-                      color:
-                        "#475569",
-
-                      fontWeight:
-                        600,
-
-                      fontSize:
-                        "14px",
-                    }}
-                  >
-                    {
-                      group.groupType
-                    }
-                  </Typography>
-
-                </TableCell>
-
-                {/* PARENT CATEGORY */}
-                <TableCell>
-
-                  <Typography
-                    sx={{
-                      color:
-                        "#475569",
-
-                      fontSize:
-                        "14px",
-                    }}
-                  >
-                    {
-                      group.parentCategory ||
-                      "-"
-                    }
-                  </Typography>
-
-                </TableCell>
-
-                {/* STATUS */}
-                <TableCell align="center">
-
-                  <Select
-                    size="small"
-                    value={group.status}
-                    onChange={(e) =>
-                      handleStatusChange(
-                        group.id,
-                        e.target.value as
-                          | "Active"
-                          | "Inactive"
-                      )
-                    }
-                    sx={{
-                      minWidth:
-                        "120px",
-
-                      borderRadius:
-                        "10px",
-
-                      fontWeight:
-                        600,
-
-                      background:
-                        group.status ===
-                        "Active"
-
-                          ? "#DCFCE7"
-
-                          : "#FEE2E2",
-
-                      color:
-                        group.status ===
-                        "Active"
-
-                          ? "#15803D"
-
-                          : "#DC2626",
-
-                      ".MuiOutlinedInput-notchedOutline":
-                        {
-                          border:
-                            "none",
-                        },
-
-                      ".MuiSelect-icon":
-                        {
-                          color:
-                            group.status ===
-                            "Active"
-
-                              ? "#15803D"
-
-                              : "#DC2626",
-                        },
-                    }}
-                  >
-
-                    <MenuItem value="Active">
-                      Active
-                    </MenuItem>
-
-                    <MenuItem value="Inactive">
-                      Inactive
-                    </MenuItem>
-
-                  </Select>
-
-                </TableCell>
-
-                {/* CREATED DATE */}
-                <TableCell align="center">
-
-                  <Typography
-                    sx={{
-                      color:
-                        "#64748B",
-
-                      fontWeight:
-                        500,
-
-                      fontSize:
-                        "14px",
-                    }}
-                  >
-                    {
-                      group.createdOn
-                    }
-                  </Typography>
-
-                </TableCell>
-
-                {/* ACTIONS */}
-                <TableCell align="center">
-
-                  <IconButton
-                    onClick={(e) =>
-                      handleMenuOpen(
-                        e,
-                        group.id
-                      )
-                    }
-                    sx={{
-                      background:
-                        "#F8FAFC",
-
-                      width: 38,
-
-                      height: 38,
-
-                      "&:hover": {
-                        background:
-                          "#E2E8F0",
-                      },
-                    }}
-                  >
-
-                    <MoreVertIcon
-                      sx={{
-                        color:
-                          "#64748B",
-                      }}
-                    />
-
-                  </IconButton>
-
-                  <Menu
-                    anchorEl={anchorEl}
-                    open={
-                      Boolean(anchorEl) &&
-                      selectedGroupId ===
-                        group.id
-                    }
-                    onClose={
-                      handleMenuClose
-                    }
-                    slotProps={{
-                      paper: {
-                        sx: {
-                          borderRadius:
-                            "14px",
-
-                          minWidth:
-                            "150px",
-
-                          boxShadow:
-                            "0px 10px 30px rgba(15,23,42,0.08)",
-                        },
-                      },
-                    }}
-                  >
-
-                    <MenuItem
-                      onClick={() => {
-
-                        router.push(
-                          `/products/brand-groups/view/${group.id}`
-                        );
-
-                        handleMenuClose();
-                      }}
-                    >
-
-                      <RemoveRedEyeOutlinedIcon
-                        sx={{
-                          mr: 1,
-
-                          color:
-                            "#2563EB",
-                        }}
-                      />
-
-                      View
-
-                    </MenuItem>
-
-                    <MenuItem
-                      onClick={() => {
-
-                        router.push(
-                          `/products/brand-groups/edit/${group.id}`
-                        );
-
-                        handleMenuClose();
-                      }}
-                    >
-
-                      <EditIcon
-                        sx={{
-                          mr: 1,
-
-                          color:
-                            "#0F172A",
-                        }}
-                      />
-
-                      Edit
-
-                    </MenuItem>
-
-                  </Menu>
-
-                </TableCell>
-
-              </TableRow>
-            )
-          )}
-
-        </TableBody>
-
-      </Table>
-
-    </TableContainer>
+                {
+                  group.groupType
+                }
+              </Typography>
+
+            );
+
+          /* PARENT CATEGORY */
+          case "parentCategory":
+
+            return (
+
+              <Typography
+                sx={{
+                  color:
+                    "#475569",
+
+                  fontSize:
+                    FONT_SIZE.TABLE_BODY,
+
+                  fontFamily:
+                    FONT_FAMILY.TABLE_BODY,
+                }}
+              >
+                {
+                  group.parentCategory ||
+                  "-"
+                }
+              </Typography>
+
+            );
+
+          /* STATUS */
+          case "status":
+
+            return (
+
+              <StatusSelect
+                value={
+                  group.status
+                }
+
+                options={[
+                  "Active",
+                  "Inactive",
+                ]}
+
+                onChange={(value) =>
+                  handleStatusChange(
+                    group.id,
+                    value
+                  )
+                }
+              />
+
+            );
+
+          /* CREATED ON */
+          case "createdOn":
+
+            return (
+
+              <Typography
+                sx={{
+                  color:
+                    "#64748B",
+
+                  fontWeight:
+                    FONT_WEIGHT.MEDIUM,
+
+                  fontSize:
+                    FONT_SIZE.TABLE_BODY,
+
+                  fontFamily:
+                    FONT_FAMILY.TABLE_BODY,
+                }}
+              >
+                {
+                  group.createdOn
+                }
+              </Typography>
+
+            );
+
+          /* ACTIONS */
+          case "actions":
+
+            return (
+
+              <TableActions
+                onView={() =>
+                  router.push(
+                    `/products/brand-groups/view/${group.id}`
+                  )
+                }
+
+                onEdit={() =>
+                  router.push(
+                    `/products/brand-groups/edit/${group.id}`
+                  )
+                }
+              />
+
+            );
+
+          default:
+            return null;
+        }
+      }}
+    />
   );
 }
