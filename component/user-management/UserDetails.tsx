@@ -21,9 +21,9 @@ import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined
 import PhoneOutlinedIcon from "@mui/icons-material/PhoneOutlined";
 import ReceiptLongOutlinedIcon from "@mui/icons-material/ReceiptLongOutlined";
 
-import { themeConfig } from "@/assets/constants";
+import { FONT_FAMILY, FONT_SIZE, FONT_WEIGHT, themeConfig } from "@/assets/constants";
 import { users } from "@/assets/genericdata";
-import { IconLine, InfoLine, SideCard, getFadeInStyle } from "../common/ViewPage";
+import { DataNotFound, IconLine, InfoLine, SideCard, getFadeInStyle } from "../common/ViewPage";
 
 export default async function UserDetails({
   params,
@@ -33,33 +33,11 @@ export default async function UserDetails({
   const { id } = await params;
   const user = users.find((item) => item.id === id);
 
-  const { colors, typography, borderRadius } = themeConfig;
+  const { colors, borderRadius } = themeConfig;
 
   if (!user) {
     return (
-      <Box
-        sx={{
-          minHeight: "100vh",
-          bgcolor: colors.bgLight,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          ...getFadeInStyle(0),
-        }}
-      >
-        <Card
-          sx={{
-            p: 4,
-            borderRadius: borderRadius.large,
-            border: `1px solid ${colors.border}`,
-            boxShadow: "none",
-          }}
-        >
-          <Typography sx={{ color: colors.textSecondary, fontWeight: typography.fontWeight.bold }}>
-            User record not found
-          </Typography>
-        </Card>
-      </Box>
+      <DataNotFound message="User record not found" />
     );
   }
 
@@ -72,23 +50,26 @@ export default async function UserDetails({
             startIcon={<ArrowBackIcon />}
             sx={{
               textTransform: "none",
-              fontWeight: typography.fontWeight.medium,
+              fontWeight: FONT_WEIGHT.MEDIUM,
+              fontFamily: FONT_FAMILY.BUTTON,
+              fontSize: FONT_SIZE.SUB_HEADING,
               color: colors.primary,
             }}
           >
-            Back to Users
+            Back 
           </Button>
         </Link>
       </Box>
 
-      <Container maxWidth="xl" sx={{ py: 4 }}>
+      <Container maxWidth="xl" sx={{ py: 1}}>
         {/* Header Section */}
         <Box sx={{ mb: 4, ...getFadeInStyle(0.2) }}>
           <Stack direction="row" spacing={1.5} sx={{ alignItems: "center", flexWrap: "wrap" }}>
             <Typography
               sx={{
-                fontSize: { xs: typography.fontSize.h3, md: "1.9rem" },
-                fontWeight: typography.fontWeight.extraBold,
+                fontSize: FONT_SIZE.PAGE_HEADING,
+                fontWeight: FONT_WEIGHT.BOLD,
+                fontFamily: FONT_FAMILY.HEADING,
                 color: colors.primary,
               }}
             >
@@ -101,7 +82,8 @@ export default async function UserDetails({
               sx={{
                 bgcolor: colors.primaryLight,
                 color: colors.primary,
-                fontWeight: typography.fontWeight.bold,
+                fontWeight: FONT_WEIGHT.BOLD,
+                fontFamily: FONT_FAMILY.BODY,
                 borderRadius: borderRadius.small,
               }}
             />
@@ -112,12 +94,21 @@ export default async function UserDetails({
               sx={{
                 bgcolor: user.status === "Active" ? colors.successBg : colors.errorBg,
                 color: user.status === "Active" ? colors.success : colors.error,
-                fontWeight: typography.fontWeight.bold,
+                fontWeight: FONT_WEIGHT.BOLD,
+                fontFamily: FONT_FAMILY.BODY,
                 borderRadius: borderRadius.small,
               }}
             />
           </Stack>
-          <Typography sx={{ mt: 1, color: colors.textSecondary, fontSize: typography.fontSize.small }}>
+          <Typography 
+            sx={{ 
+                mt: 1, 
+                color: colors.textSecondary, 
+                 fontSize: FONT_SIZE.BODY,
+                            fontFamily: FONT_FAMILY.SUB_HEADING,
+                            fontWeight: FONT_WEIGHT.BOLD 
+            }}
+          >
             Account Created: {user.createdOn}
           </Typography>
         </Box>
@@ -166,7 +157,13 @@ export default async function UserDetails({
 
                 <Stack direction="row" spacing={1} sx={{ mt: 2, alignItems: "center", cursor: "pointer" }}>
                   <LocationOnOutlinedIcon sx={{ color: colors.primary, fontSize: 18 }} />
-                  <Typography sx={{ color: colors.primary, fontWeight: typography.fontWeight.bold }}>
+                  <Typography 
+                    sx={{ 
+                        color: colors.primary, 
+                        fontWeight: FONT_WEIGHT.BOLD,
+                        fontFamily: FONT_FAMILY.BODY 
+                    }}
+                  >
                     View Office Location
                   </Typography>
                 </Stack>
@@ -218,10 +215,24 @@ export default async function UserDetails({
                 >
                   <PersonOutlineOutlinedIcon sx={{ fontSize: 46, color: colors.primary }} />
                 </Box>
-                <Typography sx={{ fontSize: 24, fontWeight: typography.fontWeight.extraBold, color: colors.textMain }}>
+                <Typography 
+                    sx={{ 
+                        fontSize: FONT_SIZE.SECTION_HEADING, 
+                        fontWeight: FONT_WEIGHT.BOLD, 
+                        fontFamily: FONT_FAMILY.HEADING,
+                        color: colors.textMain 
+                    }}
+                >
                   {user.fullName}
                 </Typography>
-                <Typography sx={{ color: colors.textSecondary, fontSize: typography.fontSize.small, mt: 0.5 }}>
+                <Typography 
+                    sx={{ 
+                        color: colors.textSecondary, 
+                        fontSize: FONT_SIZE.SMALL, 
+                        fontFamily: FONT_FAMILY.BODY,
+                        mt: 0.5 
+                    }}
+                >
                   {user.role} • {user.department || "No Dept"}
                 </Typography>
               </Card>
@@ -240,7 +251,14 @@ export default async function UserDetails({
               </SideCard>
 
               <SideCard title="Managerial Notes">
-                <Typography sx={{ color: colors.textSecondary, fontSize: typography.fontSize.small, lineHeight: 1.7 }}>
+                <Typography 
+                    sx={{ 
+                        color: colors.textSecondary, 
+                        fontSize: FONT_SIZE.SMALL, 
+                        fontFamily: FONT_FAMILY.BODY,
+                        lineHeight: 1.7 
+                    }}
+                >
                   {user.notes || "No additional records provided for this user account."}
                 </Typography>
               </SideCard>
