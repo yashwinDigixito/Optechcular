@@ -17,6 +17,8 @@ export default function StatusChip({
     // Green
     case "Completed":
     case "Active":
+      case"Paid":
+      case "In Stock":
       return {
         bg: "#DCFCE7",
         color: "#16A34A",
@@ -24,6 +26,8 @@ export default function StatusChip({
 
     // Yellow
     case "Pending":
+      case "Low Stock":
+        case "Draft":
       return {
         bg: "#FEF3C7",
         color: "#D97706",
@@ -32,6 +36,7 @@ export default function StatusChip({
     // Red
     case "Cancelled":
     case "Inactive":
+      case "Out of Stock":
       return {
         bg: "#FEE2E2",
         color: "#DC2626",
@@ -41,13 +46,19 @@ export default function StatusChip({
     case "Refunded":
       return {
         bg: "#E2E8F0",
-        color: "#475569",
+        color: "#C026D3",
       };
+
+      case "overdue":
+        return {
+          bg: "#FEE2E2",
+          color: "#B91C1C",
+        };
 
     default:
       return {
         bg: "#E2E8F0",
-        color: "#475569",
+        color: "#3B82F6",
       };
   }
   };

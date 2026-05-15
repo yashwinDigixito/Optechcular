@@ -1,6 +1,9 @@
 "use client";
 
+import { FONT_FAMILY, FONT_SIZE, FONT_WEIGHT, themeConfig } from "@/assets/constants";
 import { Ledger } from "@/assets/types";
+import { InfoLine, SideCard, getFadeInStyle } from "@/component/common/ViewPage";
+import { AddModeratorTwoTone, LocalAtm } from "@mui/icons-material";
 import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
@@ -10,262 +13,238 @@ import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined
 import {
     Box,
     Button,
+    Card,
     Chip,
     Container,
-    Divider,
     Stack,
     Typography,
 } from "@mui/material";
 import Link from "next/link";
 
 interface Props {
-ledger:Ledger;
+    ledger: Ledger;
 }
 
-export default function LedgerDetails({
-ledger,
-}: Props) {
+export default function LedgerDetails({ ledger }: Props) {
+    const { colors, borderRadius } = themeConfig;
 
-return (
-    <Box
-    sx={{
-        minHeight:"100vh",
-        bgcolor:"#F8FAFC",
-        py: 4,
-    }}
-    >
-    <Container maxWidth="lg">
-        <Box sx={{ mb: 3 }}>
-        <Link
-        href="/ledgers"
-        style={{
-            textDecoration:"none",
-        }}
-        >
-        <Button
-            startIcon={
-            <ArrowBackIcon />
-            }
-            sx={{
-            textTransform:"none",
-            fontWeight:600,
-            }}
-        >
-            Back to Ledgers
-        </Button>
-        </Link>
-    </Box>
-        <Box
-        sx={{
-            background:"#FFFFFF",
-            borderRadius:"24px",
-            border:"1px solid #E2E8F0",
-            p: 4,
-        }}
-        >
-        <Box
-            sx={{
-            display:"flex",
-            justifyContent:"space-between",
-            alignItems:"center",
-            flexWrap:"wrap",
-            gap: 2,
-            mb: 3,
-            }}
-        >
-            <Box>
-            <Typography
-                sx={{
-                fontSize:"30px",
-                fontWeight:700,
-                color:"#2563EB",
-                }}
-            >
-                {ledger.ledgerName}
-            </Typography>
-            <Typography
-                sx={{
-                color:"#64748B",
-                mt: 0.5,
-                }}
-            >
-                Ledger Details
-            </Typography>
+    return (
+        <Box sx={{ width: "100%", minHeight: "100vh", bgcolor: colors.bgLight }}>
+            {/* Navigation Header */}
+            <Box sx={{ px: 3, pt: 2, ...getFadeInStyle(0.1) }}>
+                <Link href="/ledgers" style={{ textDecoration: "none" }}>
+                    <Button
+                        startIcon={<ArrowBackIcon />}
+                        sx={{
+                            textTransform: "none",
+                            fontWeight: FONT_WEIGHT.MEDIUM,
+                            fontFamily: FONT_FAMILY.BUTTON,
+                            fontSize: FONT_SIZE.SUB_HEADING,
+                            color: colors.primary,
+                        }}
+                    >
+                        Back 
+                    </Button>
+                </Link>
             </Box>
-            <Chip
-            label={ledger.status}
-            sx={{
-                bgcolor: ledger.status === "Active" ? "#DCFCE7" : "#FEE2E2",
-                color: ledger.status === "Active" ? "#15803D" : "#DC2626",
-                fontWeight:700,
-            }}
-            />
-        </Box>
-        <Divider sx={{ mb: 4 }} />
-        <Box
-            sx={{
-            display:"grid",
-            gridTemplateColumns:
-                {
-                xs: "1fr",
-                md: "1fr 1fr",
-                },
-            gap: 3,
-            }}
-        >
-            <InfoCard
-            icon={
-                <FolderOutlinedIcon />
-            }
-            title="Ledger Group"
-            value={ledger.ledgerGroup}
-            />
-            <InfoCard
-            icon={
-                <CalendarMonthOutlinedIcon />
-            }
-            title="Created On"
-            value={ledger.createdOn}
-            />
-            <InfoCard
-            icon={
-                <AccountBalanceWalletOutlinedIcon />
-            }
-            title="Opening Balance"
-            value={`₹${ledger.openingBalance.toLocaleString()}`}
-            />
-            <InfoCard
-            icon={
-                <AccountBalanceWalletOutlinedIcon />
-            }
-            title="Current Balance"
-            value={`₹${ledger.currentBalance.toLocaleString()}`}
-            />
-            <InfoCard
-            icon={
-                <PersonOutlineOutlinedIcon />
-            }
-            title="Balance Type"
-            value={ledger.balanceType}
-            />
-            <InfoCard
-            icon={
-                <PersonOutlineOutlinedIcon />
-            }
-            title="Created By"
-            value={ledger.createdBy}
-            />
-        </Box>
-        <Box
-            sx={{
-            mt: 4,
-            p: 3,
-            borderRadius:"18px",
-            border:"1px solid #E2E8F0",
-            background:"#F8FAFC",
-            }}
-        >
-            <Stack
-            direction="row"
-            spacing={1}
-            sx={{
-                alignItems:"center",
-                mb: 2,
-            }}
-            >
-            <DescriptionOutlinedIcon
-                sx={{
-                color:"#2563EB",
-                }}
-            />
 
-            <Typography
-                sx={{
-                fontWeight:700,
-                fontSize:"18px",
-                }}
-            >
-                Notes
-            </Typography>
-            </Stack>
-            <Typography
-            sx={{
-                color:"#475569",
-                lineHeight:1.8,
-            }}
-            >
-            {
-                ledger.notes
-            }
-            </Typography>
+            <Container maxWidth="xl" sx={{ py: 1 }}>
+                {/* Header Section */}
+                <Box sx={{ mb: 4, ...getFadeInStyle(0.2) }}>
+                    <Stack direction="row" spacing={1.5} sx={{ alignItems: "center", flexWrap: "wrap" }}>
+                        <Typography
+                            sx={{
+                                fontSize: FONT_SIZE.PAGE_HEADING,
+                                fontWeight: FONT_WEIGHT.BOLD,
+                                fontFamily: FONT_FAMILY.HEADING,
+                                color: colors.primary,
+                            }}
+                        >
+                            {ledger.ledgerName}
+                        </Typography>
+
+                        <Chip
+                            label={ledger.status}
+                            size="small"
+                            sx={{
+                                bgcolor: ledger.status === "Active" ? colors.successBg : colors.errorBg,
+                                color: ledger.status === "Active" ? colors.success : colors.error,
+                                fontWeight: FONT_WEIGHT.BOLD,
+                                fontFamily: FONT_FAMILY.BODY,
+                                borderRadius: borderRadius.small,
+                            }}
+                        />
+                    </Stack>
+                    <Typography 
+                        sx={{ 
+                            mt: 1, 
+                            color: colors.textSecondary, 
+                             fontSize: FONT_SIZE.BODY,
+                            fontFamily: FONT_FAMILY.SUB_HEADING,
+                            fontWeight: FONT_WEIGHT.BOLD
+                        }}
+                    >
+                        Ledger Account ID: {ledger.ledgerGroup.substring(0, 3).toUpperCase()}-{ledger.ledgerName.substring(0, 3).toUpperCase()}
+                    </Typography>
+                </Box>
+
+                <Box
+                    sx={{
+                        display: "flex",
+                        gap: 3,
+                        alignItems: "flex-start",
+                        flexDirection: { xs: "column", lg: "row" },
+                    }}
+                >
+                    {/* Main Content - Left Side */}
+                    <Box sx={{ width: { xs: "100%", lg: "60%" }, ...getFadeInStyle(0.3) }}>
+                        <Stack spacing={3}>
+                            <SideCard title="Account Information">
+                                <InfoLine 
+                                    label="Ledger Name" 
+                                    value={ledger.ledgerName} 
+                                    icon={<PersonOutlineOutlinedIcon sx={{ fontSize: 20, color: colors.primary }} />}
+                                />
+                                <InfoLine 
+                                    label="Parent Group" 
+                                    value={ledger.ledgerGroup} 
+                                    icon={<FolderOutlinedIcon sx={{ fontSize: 20, color: colors.primary }} />}
+                                />
+                               
+                                <InfoLine 
+                                    label="Created On" 
+                                    value={ledger.createdOn} 
+                                    icon={<CalendarMonthOutlinedIcon sx={{ fontSize: 20, color: colors.primary }} />}
+                                />
+                                <InfoLine 
+                                    label="Authorized By" 
+                                    value={ledger.createdBy} 
+                                    icon={<AddModeratorTwoTone sx={{ fontSize: 20, color: colors.primary }} />}
+                                />
+                            </SideCard>
+
+                            <SideCard title="Financial Overview">
+                                <InfoLine 
+                                    label="Opening Balance" 
+                                    value={`₹${ledger.openingBalance.toLocaleString()}`} 
+                                    icon={<AccountBalanceWalletOutlinedIcon sx={{ fontSize: 20, color: colors.primary }} />}
+                                />
+                                <InfoLine 
+                                    label="Current Balance" 
+                                    value={`₹${ledger.currentBalance.toLocaleString()}`} 
+                                    icon={<AccountBalanceWalletOutlinedIcon sx={{ fontSize: 20, color: colors.primary }} />}
+                                />
+                            </SideCard>
+
+                            <SideCard title="Internal Remarks">
+                                <Stack direction="row" spacing={1.5} sx={{ mb: 2, alignItems: "center" }}>
+                                    <DescriptionOutlinedIcon sx={{ color: colors.primary }} />
+                                    <Typography sx={{ fontWeight: FONT_WEIGHT.BOLD, fontFamily: FONT_FAMILY.HEADING }}>
+                                        Account Notes
+                                    </Typography>
+                                </Stack>
+                                <Typography 
+                                    sx={{ 
+                                        color: colors.textMain, 
+                                        fontSize: FONT_SIZE.BODY, 
+                                        fontFamily: FONT_FAMILY.BODY,
+                                        lineHeight: 1.8,
+                                        p: 2,
+                                        bgcolor: colors.bgLight,
+                                        borderRadius: borderRadius.medium,
+                                        border: `1px solid ${colors.border}`
+                                    }}
+                                >
+                                    {ledger.notes || "No additional administrative notes recorded for this ledger."}
+                                </Typography>
+                            </SideCard>
+                        </Stack>
+                    </Box>
+
+                    {/* Sidebar - Right Side Summary */}
+                    <Box 
+                        sx={{ 
+                            width: { xs: "100%", lg: "40%" },
+                            position: { lg: "sticky" },
+                            top: 24,
+                            alignSelf: "flex-start",
+                            ...getFadeInStyle(0.4)
+                        }}
+                    >
+                        <Stack spacing={3}>
+                            <Card
+                                sx={{
+                                    p: 3,
+                                    borderRadius: borderRadius.large,
+                                    boxShadow: "none",
+                                    border: `1px solid ${colors.border}`,
+                                    bgcolor: colors.white,
+                                    textAlign: "center",
+                                    transition: "transform 0.3s ease",
+                                    "&:hover": { transform: "translateY(-4px)" }
+                                }}
+                            >
+                                <Box
+                                    sx={{
+                                        width: 80,
+                                        height: 80,
+                                        mx: "auto",
+                                        mb: 2,
+                                        borderRadius: borderRadius.large,
+                                        bgcolor: colors.primaryLight,
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center"
+                                    }}
+                                >
+                                    <AccountBalanceWalletOutlinedIcon sx={{ fontSize: 40, color: colors.primary }} />
+                                </Box>
+                                <Typography 
+                                    sx={{ 
+                                        fontSize: "2rem", 
+                                        fontWeight: FONT_WEIGHT.BOLD, 
+                                        fontFamily: FONT_FAMILY.HEADING,
+                                        color: colors.textMain 
+                                    }}
+                                >
+                                    ₹{ledger.currentBalance.toLocaleString()}
+                                </Typography>
+                                <Typography 
+                                    sx={{ 
+                                        color: colors.textSecondary, 
+                                        fontSize: FONT_SIZE.SMALL, 
+                                        fontFamily: FONT_FAMILY.BODY,
+                                        mt: 0.5 
+                                    }}
+                                >
+                                    Current Account Balance
+                                </Typography>
+                            </Card>
+
+                            <SideCard title="Quick Stats">
+                                <Stack spacing={2}>
+                                    <Box>
+                                        <Typography sx={{ color: colors.textSecondary, fontSize: 11, fontWeight: FONT_WEIGHT.BOLD, textTransform: "uppercase", mb: 0.5 }}>
+                                            Balance Type
+                                        </Typography>
+                                        <Typography sx={{ color: colors.textMain, fontWeight: FONT_WEIGHT.MEDIUM }}>
+                                            {ledger.balanceType}
+                                        </Typography>
+                                    </Box>
+                                    <Box>
+                                        <Typography sx={{ color: colors.textSecondary, fontSize: 11, fontWeight: FONT_WEIGHT.BOLD, textTransform: "uppercase", mb: 0.5 }}>
+                                            Group Category
+                                        </Typography>
+                                        <Typography sx={{ color: colors.textMain, fontWeight: FONT_WEIGHT.MEDIUM }}>
+                                            {ledger.ledgerGroup}
+                                        </Typography>
+                                    </Box>
+                                </Stack>
+                            </SideCard>
+                        </Stack>
+                    </Box>
+                </Box>
+            </Container>
         </Box>
-        </Box>
-    </Container>
-    </Box>
-);
-}
-
-function InfoCard({
-    icon,
-    title,
-    value,
-}: {
-    icon: React.ReactNode;
-    title: string;
-    value: string;
-}) {
-
-return (
-    <Box
-    sx={{
-        p: 3,
-        borderRadius:"18px",
-        border:"1px solid #E2E8F0",
-        background:"#FFFFFF",
-    }}
-    >
-    <Stack
-        direction="row"
-        spacing={2}
-        sx={{
-        alignItems:"center",
-        mb: 2,
-        }}
-    >
-        <Box
-        sx={{
-            width: 42,
-            height: 42,
-            borderRadius:"12px",
-            bgcolor:"#EFF6FF",
-            display:"flex",
-            alignItems:"center",
-            justifyContent:"center",
-            color:"#2563EB",
-        }}
-        >
-        {icon}
-        </Box>
-
-        <Typography
-        sx={{
-            color:"#64748B",
-            fontWeight:600,
-        }}
-        >
-        {title}
-        </Typography>
-
-    </Stack>
-        <Typography
-        sx={{
-        fontSize:"20px",
-        fontWeight:700,
-        color:"#0F172A",
-        }}
-    >
-        {value}
-    </Typography>
-    </Box>
-);
+    );
 }
