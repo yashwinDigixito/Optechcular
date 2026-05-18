@@ -14,7 +14,7 @@ export const themeConfig = {
     warningBg: "#FEF3C7",
 
     // Neutrals
-    textMain: "#0F172A",
+    textMain: "#64748B",
     textSecondary: "#64748B",
     textMuted: "#475569",
     border: "#E2E8F0",
