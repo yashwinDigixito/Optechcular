@@ -15,6 +15,7 @@ export type FrameVariation = {
   frameFrontColor: string;
   templeColor: string;
   barcode: string;
+  subtopic11: string;
   branchPricing: BranchPrice[];
   images: File[];
 };

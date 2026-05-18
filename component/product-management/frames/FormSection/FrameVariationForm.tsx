@@ -1,25 +1,49 @@
 "use client";
 
-import {
-  Grid,
-  TextField,
-  Typography,
-  Button,
-  IconButton,
-  Card,
-  Box,
-} from "@mui/material";
-import { FieldArray, FormikProps } from "formik";
-import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
-import { FrameFormValues } from "./types";
+import AutoFixHighIcon from "@mui/icons-material/AutoFixHigh";
+import DeleteIcon from "@mui/icons-material/Delete";
+import {
+  Box,
+  Button,
+  Card,
+  Divider,
+  Grid,
+  IconButton,
+  InputAdornment,
+  TextField,
+  Typography
+} from "@mui/material";
+import { FieldArray, FormikErrors, FormikProps, FormikTouched } from "formik";
 import VariationImageUpload from "./ImageUpload";
+import { FrameFormValues, FrameVariation } from "./types";
 
 type Props = {
   formik: FormikProps<FrameFormValues>;
 };
 
 export default function FrameVariationForm({ formik }: Props) {
+  // Helper to generate a random EAN-13 barcode
+  const generateEANBarcode = () => {
+    let result = "890"; // India prefix
+    for (let i = 0; i < 9; i++) {
+      result += Math.floor(Math.random() * 10);
+    }
+    // Calculate simple checksum digit
+    let sum = 0;
+    for (let i = 0; i < result.length; i++) {
+      sum += parseInt(result[i]) * (i % 2 === 0 ? 1 : 3);
+    }
+    const checkDigit = (10 - (sum % 10)) % 10;
+    return result + checkDigit;
+  };
+
+  const defaultBranchPricing = [
+    { location: "Mumbai Flagship Store", price: "" as const },
+    { location: "Delhi CP Store", price: "" as const },
+    { location: "Bangalore Warehouse Hub", price: "" as const },
+  ];
+
   return (
     <>
       <FieldArray name="variations">
@@ -28,7 +52,7 @@ export default function FrameVariationForm({ formik }: Props) {
             <Grid size={{ xs: 12 }}>
               <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mt: 1, mb: 2 }}>
                 <Typography sx={{ fontWeight: 700, fontSize: "16px", color: "#334155" }}>
-                  4. Eyewear Frame Color & Size Variations
+                  4. Eyewear Frame Color, Size & Price Variations
                 </Typography>
                 <Button
                   type="button"
@@ -47,6 +71,8 @@ export default function FrameVariationForm({ formik }: Props) {
                       frameFrontColor: "",
                       templeColor: "", 
                       barcode: "",
+                      subtopic11: "",
+                      branchPricing: [...defaultBranchPricing],
                       images: [],
                     })
                   }
@@ -61,21 +87,28 @@ export default function FrameVariationForm({ formik }: Props) {
               // Access Formik nested array error / touched helpers safely
               const errorsArray = formik.errors.variations;
               const touchedArray = formik.touched.variations;
-              
-              const vErrors = (errorsArray && typeof errorsArray === "object" && Array.isArray(errorsArray)) 
-                ? (errorsArray[index] as any) 
-                : undefined;
-                
-              const vTouched = (touchedArray && typeof touchedArray === "object" && Array.isArray(touchedArray)) 
-                ? (touchedArray[index] as any) 
-                : undefined;
+const vErrors =
+  Array.isArray(errorsArray)
+    ? errorsArray[index] as
+        FormikErrors<
+          FrameVariation
+        >
+    : undefined;
 
+const vTouched =
+  Array.isArray(touchedArray)
+    ? touchedArray[index] as
+        FormikTouched<
+          FrameVariation
+        >
+    : undefined;
               return (
                 <Grid size={{ xs: 12 }} key={index}>
-                  <Card sx={{ p: 3, border: "1px dashed #CBD5E1", borderRadius: "16px", bgcolor: "#FAFAFA", mb: 2 }}>
-                    <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2 }}>
-                      <Typography sx={{ fontWeight: 700, fontSize: "14px", color: "#475569" }}>
-                        Variation #{index + 1}
+                  <Card sx={{ p: 3, border: "1px dashed #CBD5E1", borderRadius: "16px", bgcolor: "#FAFAFA", mb: 3 }}>
+                    {/* Header bar */}
+                    <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 3 }}>
+                      <Typography sx={{ fontWeight: 800, fontSize: "15px", color: "#475569" }}>
+                        Variation Specs #{index + 1}
                       </Typography>
                       <IconButton 
                         type="button" 
@@ -86,8 +119,9 @@ export default function FrameVariationForm({ formik }: Props) {
                       </IconButton>
                     </Box>
 
+                    {/* Primary Grid Fields */}
                     <Grid container spacing={2}>
-                      <Grid size={{ xs: 12, sm: 6, md: 2 }}>
+                      <Grid size={{ xs: 12, sm: 6, md: 2.4 }}>
                         <TextField
                           fullWidth
                           label="Color Code *"
@@ -102,7 +136,7 @@ export default function FrameVariationForm({ formik }: Props) {
                         />
                       </Grid>
 
-                      <Grid size={{ xs: 12, sm: 6, md: 2 }}>
+                      <Grid size={{ xs: 12, sm: 6, md: 2.4 }}>
                         <TextField
                           fullWidth
                           label="Size *"
@@ -117,10 +151,10 @@ export default function FrameVariationForm({ formik }: Props) {
                         />
                       </Grid>
 
-                      <Grid size={{ xs: 12, sm: 6, md: 2 }}>
+                      <Grid size={{ xs: 12, sm: 6, md: 2.4 }}>
                         <TextField
                           fullWidth
-                          label="DBL *"
+                          label="DBL (Bridge Size) *"
                           value={v.dbl}
                           onChange={(e) =>
                             formik.setFieldValue(`variations.${index}.dbl`, e.target.value)
@@ -132,7 +166,80 @@ export default function FrameVariationForm({ formik }: Props) {
                         />
                       </Grid>
 
+                      <Grid size={{ xs: 12, sm: 6, md: 2.4 }}>
+                        <TextField
+                          fullWidth
+                          label="Temple Length"
+                          value={v.templeLength}
+                          onChange={(e) =>
+                            formik.setFieldValue(`variations.${index}.templeLength`, e.target.value)
+                          }
+                          placeholder="e.g. 140"
+                        />
+                      </Grid>
+
+                      <Grid size={{ xs: 12, sm: 6, md: 2.4 }}>
+                        <TextField
+                          fullWidth
+                          label="Launch Season"
+                          value={v.launchSeason}
+                          onChange={(e) =>
+                            formik.setFieldValue(`variations.${index}.launchSeason`, e.target.value)
+                          }
+                          placeholder="e.g. Summer 2026"
+                        />
+                      </Grid>
+
                       <Grid size={{ xs: 12, sm: 6, md: 3 }}>
+                        <TextField
+                          fullWidth
+                          label="Lens Color"
+                          value={v.lensColor}
+                          onChange={(e) =>
+                            formik.setFieldValue(`variations.${index}.lensColor`, e.target.value)
+                          }
+                          placeholder="e.g. Classic Brown"
+                        />
+                      </Grid>
+
+                      <Grid size={{ xs: 12, sm: 6, md: 3 }}>
+                        <TextField
+                          fullWidth
+                          label="Frame Front Color"
+                          value={v.frameFrontColor}
+                          onChange={(e) =>
+                            formik.setFieldValue(`variations.${index}.frameFrontColor`, e.target.value)
+                          }
+                          placeholder="e.g. Tortoise Shell"
+                        />
+                      </Grid>
+
+                      <Grid size={{ xs: 12, sm: 6, md: 3 }}>
+                        <TextField
+                          fullWidth
+                          label="Temple Color"
+                          value={v.templeColor}
+                          onChange={(e) =>
+                            formik.setFieldValue(`variations.${index}.templeColor`, e.target.value)
+                          }
+                          placeholder="e.g. Matte Black"
+                        />
+                      </Grid>
+
+                      <Grid size={{ xs: 12, sm: 6, md: 3 }}>
+                        <TextField
+                          fullWidth
+                          label="Subtopic 11"
+                          value={v.subtopic11}
+                          onChange={(e) =>
+                            formik.setFieldValue(`variations.${index}.subtopic11`, e.target.value)
+                          }
+                          placeholder="Subtopic tracking code"
+                        />
+                      </Grid>
+
+                      {/* Stock SKU, SRP and Barcode Registry */}
+                      <Grid size={{ xs: 12, sm: 6, md: 4 }}>
                         <TextField
                           fullWidth
                           label="Barcoded SKU *"
@@ -144,10 +251,11 @@ export default function FrameVariationForm({ formik }: Props) {
                           name={`variations.${index}.sku`}
                           error={Boolean(vTouched?.sku && vErrors?.sku)}
                           helperText={vTouched?.sku && vErrors?.sku}
+                          placeholder="e.g. SKU-RAY-MUM-01"
                         />
                       </Grid>
 
-                      <Grid size={{ xs: 12, sm: 6, md: 3 }}>
+                      <Grid size={{ xs: 12, sm: 6, md: 4 }}>
                         <TextField
                           fullWidth
                           label="Retail Price SRP (₹) *"
@@ -166,69 +274,72 @@ export default function FrameVariationForm({ formik }: Props) {
                               formik.setFieldValue(`variations.${index}.price`, Number(val));
                             }
                           }}
+                          placeholder="e.g. 4500"
                         />
                       </Grid>
 
-                      {/* Additional ERP Variation Specs */}
-                      <Grid size={{ xs: 12, sm: 6, md: 2 }}>
+                      <Grid size={{ xs: 12, sm: 12, md: 4 }}>
                         <TextField
                           fullWidth
-                          label="Temple Length"
-                          value={v.templeLength}
-                          onChange={(e) =>
-                            formik.setFieldValue(`variations.${index}.templeLength`, e.target.value)
-                          }
-                        />
-                      </Grid>
-
-                      <Grid size={{ xs: 12, sm: 6, md: 2.5 }}>
-                        <TextField
-                          fullWidth
-                          label="Lens Color"
-                          value={v.lensColor}
-                          onChange={(e) =>
-                            formik.setFieldValue(`variations.${index}.lensColor`, e.target.value)
-                          }
-                          placeholder="e.g. Green Classic"
-                        />
-                      </Grid>
-
-                      <Grid size={{ xs: 12, sm: 6, md: 2.5 }}>
-                        <TextField
-                          fullWidth
-                          label="Front Color"
-                          value={v.frameFrontColor}
-                          onChange={(e) =>
-                            formik.setFieldValue(`variations.${index}.frameFrontColor`, e.target.value)
-                          }
-                          placeholder="e.g. Tortoise"
-                        />
-                      </Grid>
-
-                      <Grid size={{ xs: 12, sm: 6, md: 2.5 }}>
-                        <TextField
-                          fullWidth
-                          label="Temple Color"
-                          value={v.templeColor}
-                          onChange={(e) =>
-                            formik.setFieldValue(`variations.${index}.templeColor`, e.target.value)
-                          }
-                          placeholder="e.g. Gold Metal"
-                        />
-                      </Grid>
-
-                      <Grid size={{ xs: 12, sm: 6, md: 2.5 }}>
-                        <TextField
-                          fullWidth
-                          label="System Barcode"
+                          label="Barcode Identifier"
                           value={v.barcode}
                           onChange={(e) =>
                             formik.setFieldValue(`variations.${index}.barcode`, e.target.value)
                           }
+                          slotProps={{
+                            input:{
+                            endAdornment: (
+                              <InputAdornment position="end">
+                                <Button
+                                  variant="text"
+                                  onClick={() =>
+                                    formik.setFieldValue(`variations.${index}.barcode`, generateEANBarcode())
+                                  }
+                                  startIcon={<AutoFixHighIcon />}
+                                  size="small"
+                                  sx={{ textTransform: "none", fontWeight: 700 }}
+                                >
+                                  Generate
+                                </Button>
+                              </InputAdornment>
+                            ),
+                          }
+                          }}
+                          placeholder="EAN check bar"
                         />
                       </Grid>
 
-                      <Grid size={{ xs: 12 }} sx={{ mt: 1 }}>
+                      {/* Location Based Pricing Sub-Matrix */}
+                      <Grid size={{ xs: 12 }}>
+                        <Divider sx={{ my: 1.5 }} />
+                        <Typography sx={{ fontWeight: 700, fontSize: "13px", color: "#64748B", mb: 2 }}>
+                          Location-Based Branch Pricing Matrix (INR)
+                        </Typography>
+                        <Grid container spacing={2}>
+                          {v.branchPricing.map((bp, bpIdx) => (
+                            <Grid size={{ xs: 12, sm: 4 }} key={bpIdx}>
+                              <TextField
+                                fullWidth
+                                label={`${bp.location} Price`}
+                                value={bp.price}
+                                type="number"
+                                onChange={(e) => {
+                                  const val = e.target.value;
+                                  formik.setFieldValue(
+                                    `variations.${index}.branchPricing.${bpIdx}.price`,
+                                    val === "" ? "" : Number(val)
+                                  );
+                                }}
+                                placeholder={`Base SRP: ₹${v.price || "N/A"}`}
+                              />
+                            </Grid>
+                          ))}
+                        </Grid>
+                      </Grid>
+
+                      {/* Multiple picture additions */}
+                      <Grid size={{ xs: 12 }}>
+                        <Divider sx={{ my: 1.5 }} />
                         <VariationImageUpload formik={formik} index={index} />
                       </Grid>
                     </Grid>
