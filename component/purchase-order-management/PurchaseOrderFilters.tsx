@@ -23,9 +23,9 @@ interface Props {
     value: string
   ) => void;
 
-  poStatus: string;
+  Status: string;
 
-  setPoStatus: (
+  setStatus: (
     value: string
   ) => void;
 
@@ -34,6 +34,13 @@ interface Props {
   setCategory: (
     value: string
   ) => void;
+
+  poCounts?: {
+    all: number;
+    received: number;
+    pending: number;
+    delivered: number;
+  };
 }
 
 export default function PurchaseOrderFilters({
@@ -41,8 +48,8 @@ export default function PurchaseOrderFilters({
   setSearch,
   paymentStatus,
   setPaymentStatus,
-  poStatus,
-  setPoStatus,
+  Status,
+  setStatus,
   category,
   setCategory,
 }: Props) {
@@ -165,9 +172,9 @@ export default function PurchaseOrderFilters({
       {/* PO STATUS */}
       <TextField
         select
-        value={poStatus}
+        value={Status}
         onChange={(e) =>
-          setPoStatus(
+          setStatus(
             e.target.value
           )
         }

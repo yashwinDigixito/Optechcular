@@ -369,32 +369,62 @@ export interface Invoice {
   createdOn: string;
   updatedDate?: string;
   createdBy?: string;
-}
+}export interface PurchaseOrder {
 
-export interface PurchaseOrder {
   id: string;
-  poNumber: string;
-  vendorName: string;
-  vendorEmail: string;
-  vendorPhone: string;
-  productName: string;
-  brand:string;
-  purchaseNo:string;
-  productSku: string;
-  category: string;
-  quantity: number;
-  unitPrice: number;
-  tax: number;
-  discount: number;
-  grandTotal: number;
-  paymentStatus: string;
-  status: string;
-  orderDate: string;
-  expectedDelivery: string;
-  createdBy: string;
-  notes: string;
-}
 
+  purchaseId: string;
+
+  purchaseNo: string;
+
+  supplierInvoiceNo: string;
+
+  vendorName: string;
+
+  supplierName: string;
+
+  email: string;
+
+  phone: string;
+
+  mobile?: string;
+
+  gstNumber?: string;
+
+  billingAddress?: string;
+
+  shippingAddress?: string;
+
+  productName: string;
+
+  brand?: string;
+
+  category?: string;
+
+  quantity: number;
+
+  unitPrice?: number;
+
+  tax?: number;
+
+  discount?: number;
+
+  grandTotal?: number;
+
+  paymentStatus: string;
+
+  status: string;
+
+  orderDate?: string;
+
+  expectedDelivery?: string;
+
+  createdOn?: string;
+
+  createdBy?: string;
+
+  notes?: string;
+}
 export interface Expense {
   id: string;           
   expenseName: string;

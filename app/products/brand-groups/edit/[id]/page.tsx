@@ -1,4 +1,4 @@
-import EditBrandGroupPage from "@/component/product-management/brand-groups/EditBrandGroupPage";
+import EditBrandGroupPage from "@/component/product-management/brand-groups/EditBrandGroupForm";
 
 export default async function Page({
   params,

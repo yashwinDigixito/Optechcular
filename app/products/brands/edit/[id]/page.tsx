@@ -1,4 +1,4 @@
-import EditBrandPage from "@/component/product-management/brands/EditBrandPage";
+import EditBrandPage from "@/component/product-management/brands/EditBrandForm";
 
 export default async function Page({
   params,

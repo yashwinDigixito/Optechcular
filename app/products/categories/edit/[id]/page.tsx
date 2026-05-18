@@ -1,4 +1,4 @@
-import EditCategoryPage from "@/component/product-management/categories/EditCategoryPage";
+import EditCategoryPage from "@/component/product-management/categories/EditCategoryForm";
 
 export default async function Page({
   params,

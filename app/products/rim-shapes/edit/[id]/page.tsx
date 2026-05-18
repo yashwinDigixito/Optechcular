@@ -1,4 +1,4 @@
-import EditRimShapePage from "@/component/product-management/rim-shapes/EditRimShapePage";
+import EditRimShapePage from "@/component/product-management/rim-shapes/EditRimShapeForm";
 
 export default async function Page({
   params,
