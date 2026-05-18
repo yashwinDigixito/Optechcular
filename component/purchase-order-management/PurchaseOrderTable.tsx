@@ -1,192 +1,196 @@
 "use client";
 
-import { FONT_SIZE, FONT_WEIGHT, themeConfig } from "@/assets/constants";
-import { PurchaseOrder } from "@/assets/types";
-import EditIcon from "@mui/icons-material/Edit";
-import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import {
-  Box,
-  Chip,
-  IconButton,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Tooltip,
-  Typography,
-} from "@mui/material";
+  FONT_FAMILY,
+  FONT_SIZE,
+  FONT_WEIGHT,
+  themeConfig,
+} from "@/assets/constants";
+import { PurchaseOrder } from "@/assets/types";
+import CommonTable from "@/component/common/table/CommonTable";
+import StatusSelect from "@/component/common/table/StatusSelect";
+import TableActions from "@/component/common/table/TableActions";
+import { Box, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
+
 interface Props {
   purchaseOrders: PurchaseOrder[];
+  setStoreData: React.Dispatch<React.SetStateAction<PurchaseOrder[]>>;
 }
-export default function PurchaseOrderTable({ purchaseOrders }: Props) {
+
+export default function PurchaseOrderTable({ purchaseOrders, setStoreData }: Props) {
   const router = useRouter();
-  const { colors,borderRadius } = themeConfig;
+
+  const columns = [
+    {
+      key: "purchaseNo",
+      label: "Purchase No & Date",
+    },
+    {
+      key: "vendorName",
+      label: "Vendor Name",
+    },
+    {
+      key: "productName",
+      label: "Product & Category",
+    },
+    {
+      key: "grandTotal",
+      label: "Grand Total (₹)",
+    },
+    {
+      key: "paymentStatus",
+      label: "Payment Status",
+      align: "center" as const,
+    },
+    {
+      key: "status",
+      label: "PO Status",
+      align: "center" as const,
+    },
+    {
+      key: "actions",
+      label: "Actions",
+      align: "center" as const,
+    },
+  ];
+
+  // Handles inline payment status modification
+  const handlePaymentStatusChange = (id: string, value: string) => {
+    setStoreData((prev) =>
+      prev.map((po) =>
+        po.id === id
+          ? {
+              ...po,
+              paymentStatus: value,
+            }
+          : po
+      )
+    );
+  };
+
+  // Handles inline PO status modification
+  const handlePOStatusChange = (id: string, value: string) => {
+    setStoreData((prev) =>
+      prev.map((po) =>
+        po.id === id
+          ? {
+              ...po,
+              status: value,
+              purchaseStatus: value, // keeping both statuses synchronized
+            }
+          : po
+      )
+    );
+  };
 
   return (
-    <TableContainer
-      sx={{
-        mt: 2,
-        borderRadius: borderRadius.large,
-        background: colors.white,
-        border: `1px solid ${colors.border}`,
-        overflow: "hidden",
+    <CommonTable
+      columns={columns}
+      rows={purchaseOrders}
+      renderCell={(po, key) => {
+        switch (key) {
+          case "purchaseNo":
+            return (
+              <Box>
+                <Typography
+                  sx={{
+                    fontWeight: FONT_WEIGHT.BOLD,
+                    color: themeConfig.colors.primary,
+                    fontSize: "15px",
+                    fontFamily: FONT_FAMILY.TABLE_BODY,
+                  }}
+                >
+                  {po.purchaseNo}
+                </Typography>
+                <Typography
+                  sx={{
+                    color: "#64748B",
+                    fontSize: "12px",
+                    fontFamily: FONT_FAMILY.BODY,
+                  }}
+                >
+                  {po.orderDate || "N/A"}
+                </Typography>
+              </Box>
+            );
+          case "vendorName":
+            return (
+              <Typography
+                sx={{
+                  fontWeight: FONT_WEIGHT.MEDIUM,
+                  color: "#334155",
+                  fontSize: FONT_SIZE.TABLE_BODY,
+                  fontFamily: FONT_FAMILY.BODY,
+                }}
+              >
+                {po.vendorName || po.supplierName || "N/A"}
+              </Typography>
+            );
+          case "productName":
+            return (
+              <Box>
+                <Typography
+                  sx={{
+                    fontWeight: FONT_WEIGHT.BOLD,
+                    color: "#0F172A",
+                    fontSize: "14px",
+                    fontFamily: FONT_FAMILY.BODY,
+                  }}
+                >
+                  {po.productName}
+                </Typography>
+                <Typography
+                  sx={{
+                    color: "#64748B",
+                    fontSize: "12px",
+                    fontFamily: FONT_FAMILY.BODY,
+                  }}
+                >
+                  {po.category  || "Frame"}
+                </Typography>
+              </Box>
+            );
+          case "grandTotal":
+            return (
+              <Typography
+                sx={{
+                  fontWeight: FONT_WEIGHT.BOLD,
+                  color: themeConfig.colors.success,
+                  fontSize: FONT_SIZE.TABLE_BODY,
+                  fontFamily: FONT_FAMILY.TABLE_BODY,
+                }}
+              >
+                ₹ {(po.grandTotal || 0).toLocaleString()}
+              </Typography>
+            );
+          case "paymentStatus":
+            return (
+              <StatusSelect
+                value={po.paymentStatus}
+                options={["Paid", "Pending", "Partial"]}
+                onChange={(val) => handlePaymentStatusChange(po.id, val)}
+              />
+            );
+          case "status":
+            return (
+              <StatusSelect
+                value={po.status}
+                options={["Pending", "Processing", "Delivered", "Received"]}
+                onChange={(val) => handlePOStatusChange(po.id, val)}
+              />
+            );
+          case "actions":
+            return (
+              <TableActions
+                onView={() => router.push(`/purchase-orders/view/${po.id}`)}
+                onEdit={() => router.push(`/purchase-orders/edit/${po.id}`)}
+              />
+            );
+          default:
+            return null;
+        }
       }}
-    >
-      <Table
-        sx={{
-          minWidth: 1000,
-          "& .MuiTableCell-root": {
-            py: 2.2,
-            borderColor: colors.bgLight,
-          },
-        }}
-      >
-        {/* TABLE HEAD */}
-        <TableHead>
-          <TableRow
-            sx={{
-              background: colors.bgLight,
-            }}
-          >
-            {["Purchase No", "Vendor", "Product", "Amount", "Payment", "Status", "Actions"].map((head) => (
-              <TableCell key={head}>
-                <Typography
-                  sx={{
-                    fontWeight: FONT_WEIGHT.BOLD,
-                    fontSize: FONT_SIZE.SMALL,
-                    color: colors.textMuted,
-                  }}
-                >
-                  {head}
-                </Typography>
-              </TableCell>
-            ))}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {purchaseOrders.map((po) => (
-            <TableRow
-              key={po.id}
-              hover
-              sx={{
-                "&:hover": {
-                  background: colors.bgLight,
-                },
-              }}
-            >
-              <TableCell>
-                <Box>
-                  <Typography
-                    sx={{
-                      color: colors.primary,
-                      fontWeight: FONT_WEIGHT.BOLD,
-                    }}
-                  >
-                    {po.purchaseNo}
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "13px",
-                      color: colors.textSecondary,
-                    }}
-                  >
-                    {po.orderDate}
-                  </Typography>
-                </Box>
-              </TableCell>
-              <TableCell>
-                <Typography
-                  sx={{
-                    fontWeight: FONT_WEIGHT.MEDIUM,
-                    color: colors.textMuted,
-                  }}
-                >
-                  {po.vendorName}
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Box>
-                  <Typography sx={{ fontWeight: FONT_WEIGHT.MEDIUM}}>
-                    {po.productName}
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "13px",
-                      color: colors.textSecondary,
-                    }}
-                  >
-                    {po.brand}
-                  </Typography>
-                </Box>
-              </TableCell>
-              <TableCell>
-                <Typography
-                  sx={{
-                    fontWeight: FONT_WEIGHT.BOLD,
-                    color: colors.success,
-                  }}
-                >
-                  ₹ {po.grandTotal.toLocaleString()}
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Chip
-                  label={po.paymentStatus}
-                  size="small"
-                  sx={{
-                    bgcolor: po.paymentStatus === "Paid" ? colors.successBg : po.paymentStatus === "Pending" ? colors.warningBg : colors.errorBg,
-                    color: po.paymentStatus === "Paid" ? colors.success : po.paymentStatus === "Pending" ? colors.warning : colors.error,
-                    fontWeight: FONT_WEIGHT.BOLD,
-                    borderRadius: borderRadius.small,
-                  }}
-                />
-              </TableCell>
-              <TableCell>
-                <Chip
-                  label={po.status}
-                  size="small"
-                  sx={{
-                    bgcolor: po.status === "Received" ? colors.successBg : colors.primaryLight,
-                    color: po.status === "Received" ? colors.success : colors.primary,
-                    fontWeight: FONT_WEIGHT.BOLD,
-                    borderRadius: borderRadius.small,
-                  }}
-                />
-              </TableCell>
-              <TableCell>
-                <Box sx={{ display: "flex", gap: 1 }}>
-                  <Tooltip title="View">
-                    <IconButton
-                      sx={{
-                        background: colors.primaryLight,
-                        "&:hover": { background: colors.border },
-                      }}
-                      onClick={() => router.push(`/purchase-orders/view/${po.id}`)}
-                    >
-                      <RemoveRedEyeOutlinedIcon sx={{ color: colors.primary }} />
-                    </IconButton>
-                  </Tooltip>
-
-                  <Tooltip title="Edit">
-                    <IconButton
-                      sx={{
-                        background: colors.bgLight,
-                        "&:hover": { background: colors.border },
-                      }}
-                      onClick={() => router.push(`/purchase-orders/edit/${po.id}`)}
-                    >
-                      <EditIcon sx={{ color: colors.textMain }} />
-                    </IconButton>
-                  </Tooltip>
-                </Box>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    />
   );
 }

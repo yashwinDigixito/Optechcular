@@ -1,255 +1,174 @@
-import {
-    Avatar,
-    Box,
-    Button,
-    Card,
-    Container,
-    Divider,
-    Stack,
-    Typography,
-} from "@mui/material";
-import Link from "next/link";
+"use client";
 
-import { FONT_FAMILY, FONT_SIZE, FONT_WEIGHT, themeConfig } from "@/assets/constants";
-import { categories, frames, frameVariants } from "@/assets/genericdata";
-import StatusChip from "@/component/common/StatusChip";
-import { DataNotFound, getFadeInStyle, IconLine, InfoLine, SideCard } from "@/component/common/ViewPage";
+import { frames } from "@/assets/genericdata";
+import { FrameFormValues } from "@/assets/types";
+import FormSection from "@/component/common/FormSection";
+import BasicInfo from "@/component/common/formSection/BasicInfo";
+import FrameVariationForm from "@/component/common/formSection/FrameVariationForm";
+import ProductSpecs from "@/component/common/formSection/ProductSpecs";
+import RimDetails from "@/component/common/formSection/RimDetails";
+import TaxSection from "@/component/common/formSection/TaxSection";
+import { frameValidation } from "@/component/common/formSection/validations";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
-import PaletteOutlinedIcon from "@mui/icons-material/PaletteOutlined";
-import StyleOutlinedIcon from "@mui/icons-material/StyleOutlined";
-import WarehouseOutlinedIcon from "@mui/icons-material/WarehouseOutlined";
+import {
+  Box,
+  Button,
+  Card,
+  Grid,
+  Typography,
+} from "@mui/material";
+import { FormikProvider, useFormik } from "formik";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import * as React from "react";
 
-export default async function FrameViewPage({
-    params,
+export default function EditFramePage({
+  params,
 }: {
-    params: Promise<{ id: string }>;
+  params: Promise<{
+    id: string;
+  }>;
 }) {
-    const { id } = await params;
-    const frame = frames.find((item) => item.id === id);
+  const router = useRouter();
+  
+  // Synchronously resolve async next.js 15 route parameters using React 19 use() hook
+  const { id } = React.use(params);
+  
+  const frame = React.useMemo(() => {
+    return frames.find((item) => item.id === id);
+  }, [id]);
 
-    const { colors, borderRadius } = themeConfig;
+  const formik = useFormik<FrameFormValues>({
+    initialValues: {
+      brand: frame?.brand || "",
+      modelNo: frame?.modelNumber || "",
+      manufacturer: frame?.manufacturer || "",
+      gender: frame?.gender || "Unisex",
+      rimType: frame?.rimType || "Full Rim",
+      rimShape: frame?.rimShape || "",
+      lensWidth: frame?.lensWidth ?? "",
+      lensHeight: frame?.lensHeight ?? "",
+      bridgeWidth: frame?.bridgeWidth ?? "",
+      templeMaterial: frame?.templeMaterial || "",
+      category: frame?.category || "Optical Frame",
+      material: frame?.material || frame?.frameMaterial || "Acetate",
+      weight: frame?.weight ?? "",
+      shelfLocation: frame?.shelfLocation || frame?.warehouseLocation || "",
+      hsn: frame?.hsnCode || "",
+      tax: frame?.tax ?? "",
+      costPrice: frame?.costPrice || frame?.purchasePrice || "",
+      minStockLevel: frame?.minStockLevel || frame?.lowStockLimit || "",
+      variations: frame?.variations || [],
+      images: [],
+    },
+    enableReinitialize: true,
+    validationSchema: frameValidation,
+    onSubmit: (values) => {
+      console.log("Frame Record Updated Successfully in ERP Roster:", values);
+      router.push("/products/frames");
+    },
+  });
 
-    if (!frame) {
-        return (
-         <DataNotFound message="Frame record not found" />
-        );
-    }
+  return (
+    <Box sx={{ p: 3, background: "#F8FAFC", minHeight: "100vh" }}>
+      {/* Back button */}
+      <Box sx={{ mb: 3 }}>
+        <Link
+          href="/products/frames"
+          style={{
+            textDecoration: "none",
+          }}
+        >
+          <Button
+            startIcon={<ArrowBackIcon />}
+            sx={{
+              textTransform: "none",
+              fontWeight: 600,
+            }}
+          >
+            Back to Eyewear Inventory
+          </Button>
+        </Link>
+      </Box>
 
-    const variants = frameVariants.filter((item) => item.frameId === id);
-    const category = categories.find((item) => item.categoryId === frame.categoryId);
+      {/* Main card */}
+      <Card sx={{ p: 4, borderRadius: "24px", border: "1px solid #E2E8F0", boxShadow: "none" }}>
+        <Typography sx={{ fontSize: 32, fontWeight: 700, mb: 1, color: "#0F172A" }}>
+          Edit Eyewear Frame
+        </Typography>
+        <Typography sx={{ color: "#64748B", mb: 4, fontSize: "14px" }}>
+          Modify frame brand attributes, technical lab dimensions, material compositions, cost margins, and variations.
+        </Typography>
 
-    return (
-        <Box sx={{ width: "100%", minHeight: "100vh", bgcolor: colors.bgLight }}>
-            {/* Navigation Header */}
-            <Box sx={{ px: 3, pt: 2, ...getFadeInStyle(0.1) }}>
-                <Link href="/products/frames" style={{ textDecoration: "none" }}>
-                    <Button
-                        startIcon={<ArrowBackIcon />}
-                        sx={{
-                            textTransform: "none",
-                            fontWeight: FONT_WEIGHT.MEDIUM,
-                            fontFamily: FONT_FAMILY.BUTTON,
-                            fontSize: FONT_SIZE.SUB_HEADING,
-                            color: colors.primary,
-                        }}
-                    >
-                        Back 
-                    </Button>
-                </Link>
-            </Box>
+        <FormikProvider value={formik}>
+          <form onSubmit={formik.handleSubmit}>
+            <Grid container spacing={1}>
+              
+              <FormSection 
+                title="1. Eyewear Brand Details" 
+                description="General brand attributes, manufacturer registries, and demographic target audience."
+              >
+                <BasicInfo formik={formik} />
+              </FormSection>
 
-            <Container maxWidth="xl" sx={{ py: 1 }}>
-                {/* Header Section */}
-                <Box sx={{ mb: 4, ...getFadeInStyle(0.2) }}>
-                    <Stack direction="row" spacing={1.5} sx={{ alignItems: "center", flexWrap: "wrap" }}>
-                        <Typography
-                            sx={{
-                                fontSize: FONT_SIZE.PAGE_HEADING,
-                                fontWeight: FONT_WEIGHT.BOLD,
-                                fontFamily: FONT_FAMILY.HEADING,
-                                color: colors.primary,
-                            }}
-                        >
-                            Frame: {frame.frameName}
-                        </Typography>
+              <FormSection 
+                title="2. Optical & Rim Specifications" 
+                description="Dimensions, sizes, and shape configurations required by custom lens laboratory cutters."
+              >
+                <RimDetails formik={formik} />
+              </FormSection>
 
-                        <StatusChip status={frame.status} />
-                    </Stack>
-                    <Typography 
-                        sx={{ 
-                            mt: 1, 
-                            color: colors.textSecondary, 
-                             fontSize: FONT_SIZE.BODY,
-                            fontFamily: FONT_FAMILY.SUB_HEADING,
-                            fontWeight: FONT_WEIGHT.BOLD
-                        }}
-                    >
-                        Created On: {frame.createdOn}
+              <FormSection 
+                title="3. Weight & Material Composition" 
+                description="Physical specifications, frame compounds, and stock shelf storage locator tags."
+              >
+                <ProductSpecs formik={formik} />
+              </FormSection>
+
+              <FormSection 
+                title="4. Tax & Financial Audit Specs" 
+                description="Compliance HSN tracking codes, VAT/tax zones, purchasing cost lines, and safety stock reorder triggers."
+              >
+                <TaxSection formik={formik} />
+              </FormSection>
+
+              <Grid size={{xs:12}} sx={{ mb: 4 }}>
+                <FrameVariationForm formik={formik} />
+              </Grid>
+
+              {/* Validation alert message if form has been submitted and contains errors */}
+              {formik.submitCount > 0 && !formik.isValid && (
+                <Grid size={{xs:12}} sx={{ mb: 2 }}>
+                  <Box sx={{ p: 2, borderRadius: "12px", bgcolor: "#FEF2F2", border: "1px solid #FCA5A5" }}>
+                    <Typography sx={{ color: "#DC2626", fontWeight: 700, fontSize: "14px" }}>
+                      Please review the highlighted red sections above.
                     </Typography>
-                </Box>
+                  </Box>
+                </Grid>
+              )}
 
-                {/* Main Content Layout */}
-                <Box
-                    sx={{
-                        display: "flex",
-                        gap: 3,
-                        alignItems: "flex-start",
-                        flexDirection: { xs: "column", lg: "row" },
-                    }}
+              <Grid size={{xs:12}}>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  sx={{ 
+                    height: 52, 
+                    borderRadius: "14px", 
+                    px: 4, 
+                    fontWeight: 700, 
+                    boxShadow: "none",
+                    textTransform: "none",
+                    fontSize: "15px"
+                  }}
                 >
-                    {/* Left Section - Main Details */}
-                    <Box sx={{ width: { xs: "100%", lg: "60%" }, ...getFadeInStyle(0.3) }}>
-                        <Stack spacing={3}>
-                            <SideCard title="Frame Core Information">
-                                <InfoLine label="Frame ID" value={frame.frameId} />
-                                <InfoLine label="Brand Name" value={frame.brand} />
-                                <InfoLine label="Model Number" value={frame.modelNumber} />
-                                <InfoLine label="Frame Material" value={frame.frameMaterial} />
-                                <InfoLine label="Temple Material" value={frame.templeMaterial} />
-                                <InfoLine label="Gender" value={frame.gender} />
-                            </SideCard>
+                  Update Frame Record
+                </Button>
+              </Grid>
 
-                            <SideCard title="Technical Specifications">
-                                <InfoLine label="Frame Size" value={frame.frameSize} />
-                                <InfoLine label="Bridge Distance (DBL)" value={frame.dbl} />
-                                <InfoLine label="Temple Length" value={frame.templeLength} />
-                                <InfoLine label="Frame Width" value={frame.frameWidth} />
-                                <InfoLine label="Lens Dimensions" value={`${frame.lensWidth} x ${frame.lensHeight}`} />
-                            </SideCard>
-
-                            <SideCard title="Pricing & Tax Details">
-                                <InfoLine label="Purchase Price" value={`₹${frame.purchasePrice}`} />
-                                <InfoLine label="Selling Price" value={`₹${frame.sellingPrice}`} />
-                                <InfoLine label="Discounted Price" value={`₹${frame.discountPrice}`} />
-                                <Divider sx={{ my: 1.5, borderColor: colors.border }} />
-                                <InfoLine label="Applicable Tax" value={`${frame.tax}%`} />
-                                <InfoLine label="HSN Code" value={frame.hsnCode} />
-                            </SideCard>
-
-                            <SideCard title="Product Description">
-                                <Typography 
-                                    sx={{ 
-                                        color: colors.textMain, 
-                                        fontSize: FONT_SIZE.BODY, 
-                                        fontFamily: FONT_FAMILY.BODY,
-                                        lineHeight: 1.7 
-                                    }}
-                                >
-                                    {frame.description || "No detailed description available for this frame model."}
-                                </Typography>
-                            </SideCard>
-                        </Stack>
-                    </Box>
-
-                    {/* Right Section - Sticky Sidebar */}
-                    <Box 
-                        sx={{ 
-                            width: { xs: "100%", lg: "40%" },
-                            position: { lg: "sticky" },
-                            top: 24,
-                            alignSelf: "flex-start",
-                            ...getFadeInStyle(0.4)
-                        }}
-                    >
-                        <Stack spacing={3}>
-                            {/* Visual Profile Card */}
-                            <Card
-                                sx={{
-                                    p: 3,
-                                    borderRadius: borderRadius.large,
-                                    boxShadow: "none",
-                                    border: `1px solid ${colors.border}`,
-                                    bgcolor: colors.white,
-                                    textAlign: "center",
-                                    transition: "transform 0.3s ease",
-                                    "&:hover": { transform: "scale(1.02)" }
-                                }}
-                            >
-                                <Avatar
-                                    src={frame.thumbnailImage}
-                                    variant="rounded"
-                                    sx={{
-                                        width: 100,
-                                        height: 100,
-                                        mx: "auto",
-                                        mb: 2,
-                                        borderRadius: borderRadius.large,
-                                        bgcolor: colors.bgLight,
-                                        border: `1px solid ${colors.border}`,
-                                    }}
-                                />
-                                <Typography 
-                                    sx={{ 
-                                        fontSize: FONT_SIZE.SECTION_HEADING, 
-                                        fontWeight: FONT_WEIGHT.BOLD, 
-                                        fontFamily: FONT_FAMILY.HEADING,
-                                        color: colors.textMain 
-                                    }}
-                                >
-                                    {frame.brand}
-                                </Typography>
-                                <Typography 
-                                    sx={{ 
-                                        color: colors.textSecondary, 
-                                        fontSize: FONT_SIZE.SMALL, 
-                                        fontFamily: FONT_FAMILY.BODY,
-                                        mt: 0.5 
-                                    }}
-                                >
-                                    {frame.modelNumber} • {frame.category}
-                                </Typography>
-                            </Card>
-
-                            <SideCard title="Quick Summary">
-                                <IconLine icon={<StyleOutlinedIcon sx={{ color: colors.primary }} />} text={`Rim: ${frame.rimType} (${frame.rimShape})`} />
-                                <IconLine icon={<PaletteOutlinedIcon sx={{ color: colors.primary }} />} text={`Color: ${frame.frameFrontColor}`} />
-                                <IconLine icon={<Inventory2OutlinedIcon sx={{ color: colors.primary }} />} text={`Available Stock: ${frame.stockQuantity} units`} />
-                                <IconLine icon={<WarehouseOutlinedIcon sx={{ color: colors.primary }} />} text={`Location: ${frame.warehouseLocation}`} />
-                            </SideCard>
-
-                            <SideCard title="Category Context">
-                                <InfoLine label="Name" value={category?.categoryName} />
-                                <InfoLine label="Code" value={category?.categoryCode} />
-                                <InfoLine label="Type" value={category?.categoryType} />
-                            </SideCard>
-
-                            <SideCard title="Available Variants">
-                                <Stack spacing={2}>
-                                    {variants.map((variant) => (
-                                      
-                                        <Box 
-                                            key={variant.id}
-                                            sx={{ 
-                                                p: 1.5, 
-                                                borderRadius: borderRadius.medium, 
-                                                border: `1px solid ${colors.border}`,
-                                                bgcolor: colors.bgLight,
-                                                "&:hover": { bgcolor: colors.white }
-                                            }}
-                                        >
-                                            <Stack direction="row" sx={{justifyContent: "space-between", alignItems: "center"}}  >
-                                                <Typography sx={{ fontWeight: FONT_WEIGHT.BOLD, fontSize: FONT_SIZE.SMALL, fontFamily: FONT_FAMILY.BODY }}>
-                                                    {variant.color}
-                                                </Typography>
-                                                <StatusChip status={variant.stock > 0 ? "In Stock" : "Out of Stock"} />
-                                            </Stack>
-                                            <Typography sx={{ mt: 0.5, color: colors.primary, fontWeight: FONT_WEIGHT.BOLD, fontFamily: FONT_FAMILY.BODY }}>
-                                                ₹{variant.price}
-                                            </Typography>
-                                        </Box>
-                                    ))}
-                                    {variants.length === 0 && (
-                                        <Typography sx={{ color: colors.textSecondary, fontSize: FONT_SIZE.SMALL, fontFamily: FONT_FAMILY.BODY }}>
-                                            No variants listed.
-                                        </Typography>
-                                    )}
-                                </Stack>
-                            </SideCard>
-                        </Stack>
-                    </Box>
-                </Box>
-            </Container>
-        </Box>
-    );
+            </Grid>
+          </form>
+        </FormikProvider>
+      </Card>
+    </Box>
+  );
 }

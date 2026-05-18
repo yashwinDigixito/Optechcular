@@ -71,7 +71,6 @@ export default function FrameVariationForm({ formik }: Props) {
                       frameFrontColor: "",
                       templeColor: "", 
                       barcode: "",
-                      subtopic11: "",
                       branchPricing: [...defaultBranchPricing],
                       images: [],
                     })
@@ -190,7 +189,7 @@ const vTouched =
                         />
                       </Grid>
 
-                      <Grid size={{ xs: 12, sm: 6, md: 3 }}>
+                      <Grid size={{ xs: 12, sm: 6, md: 4 }}>
                         <TextField
                           fullWidth
                           label="Lens Color"
@@ -202,7 +201,7 @@ const vTouched =
                         />
                       </Grid>
 
-                      <Grid size={{ xs: 12, sm: 6, md: 3 }}>
+                      <Grid size={{ xs: 12, sm: 6, md: 4 }}>
                         <TextField
                           fullWidth
                           label="Frame Front Color"
@@ -214,7 +213,7 @@ const vTouched =
                         />
                       </Grid>
 
-                      <Grid size={{ xs: 12, sm: 6, md: 3 }}>
+                      <Grid size={{ xs: 12, sm: 6, md: 4 }}>
                         <TextField
                           fullWidth
                           label="Temple Color"
@@ -225,19 +224,6 @@ const vTouched =
                           placeholder="e.g. Matte Black"
                         />
                       </Grid>
-
-                      <Grid size={{ xs: 12, sm: 6, md: 3 }}>
-                        <TextField
-                          fullWidth
-                          label="Subtopic 11"
-                          value={v.subtopic11}
-                          onChange={(e) =>
-                            formik.setFieldValue(`variations.${index}.subtopic11`, e.target.value)
-                          }
-                          placeholder="Subtopic tracking code"
-                        />
-                      </Grid>
-
                       {/* Stock SKU, SRP and Barcode Registry */}
                       <Grid size={{ xs: 12, sm: 6, md: 4 }}>
                         <TextField

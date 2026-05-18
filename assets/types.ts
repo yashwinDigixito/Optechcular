@@ -473,6 +473,13 @@ export interface Ledger {
   categoryId: string;
   category?: string;
   brand: string;
+  manufacturer:string;
+  material:string;
+  shelfLocation:string;
+  minStockLevel: number | "";
+  variations: FrameVariation[];
+  tax: number | "";
+  costPrice: number | "";
   modelNumber?: string;
   rimType:
     | "Full Rim"
@@ -527,7 +534,6 @@ export interface Ledger {
   lowStockLimit?: number;
   warehouseLocation?: string;
   purchasePrice?: number;
-  tax?: number;
   sellingPrice: number;
   discountPrice?: number;
   gstPercentage?: number;
@@ -743,90 +749,124 @@ export interface Store {
 export interface BranchPrice  {
   location: string;
   price: number | "";
-};
+}
 
-export interface FrameVariation  {
+export interface FrameVariation {
+
   colorCode: string;
+
   size: string;
-  dbl: string;
+
+  dbl: number | "";
+
   sku: string;
-  price: number | "";
-  templeLength: string;
+
+  sellingPrice: number | "";
+
+  templeLength: number | "";
+
   launchSeason: string;
+
   lensColor: string;
+
   frameFrontColor: string;
+
   templeColor: string;
+
   barcode: string;
-  subtopic11: string;
+
+  price:string;
+
   branchPricing: BranchPrice[];
+
   images: File[];
-};
+}
 
 export interface FrameFormValues {
-  // Basic Info
+
   brand: string;
+
   modelNo: string;
+
   manufacturer: string;
+
   gender: string;
 
-  // Rim
   rimType: string;
+
   rimShape: string;
+
   lensWidth: number | "";
+
   lensHeight: number | "";
+
   bridgeWidth: number | "";
 
-  // Product Specs
   templeMaterial: string;
+
   category: string;
+
   material: string;
+
   weight: number | "";
+
   shelfLocation: string;
 
-  // Tax & Financial
   hsn: string;
+
   tax: number | "";
+
   costPrice: number | "";
+
   minStockLevel: number | "";
 
-  // variations & media
   variations: FrameVariation[];
-  images: File[];
-};
 
-export interface ContactLensVariant  {
+  images: File[];
+}
+
+export interface ContactLensVariant {
+
   sku: string;
+
   barcode: string;
+
   sphericalPower: string;
+
   cylindricalPower: string;
+
   axis: string;
+
   additional: string;
+
   color: string;
-};
+}
 
 export interface ContactLensFormValues {
-  // Basic Info
+
   powerType: string;
+
   brand: string;
 
-  // Usage
   modality: string;
 
-  // Product Info
   productCode: string;
-  productName: string;
-  baseCurve: string;
-  diameter: string;
 
-  // Classification
+  productName: string;
+
+  baseCurve: number | "";
+
+  diameter: number | "";
+
   material: string;
+
   productType: string;
 
-  // Pricing
   hsn: string;
+
   tax: number | "";
+
   mrp: number | "";
 
-  // Variants
   variants: ContactLensVariant[];
-};
+}

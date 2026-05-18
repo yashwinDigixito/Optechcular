@@ -3,496 +3,168 @@
 import {
   purchaseOrders,
 } from "@/assets/genericdata";
-
 import {
   PurchaseOrder,
 } from "@/assets/types";
-
 import {
   FONT_FAMILY,
   FONT_SIZE,
   FONT_WEIGHT,
   themeConfig,
 } from "@/assets/constants";
-
 import AddIcon from "@mui/icons-material/Add";
-
 import {
   Box,
   Button,
   Typography,
 } from "@mui/material";
-
 import { useRouter } from "next/navigation";
-
-import {
-  useState,
-} from "react";
-
+import { useState } from "react";
 import PurchaseOrderFilters from "./PurchaseOrderFilters";
-
 import PurchaseOrderTable from "./PurchaseOrderTable";
 
 export default function PurchaseOrderManagementPage() {
+  const router = useRouter();
+  const { colors } = themeConfig;
 
-  const router =
-    useRouter();
+  const [search, setSearch] = useState("");
+  const [paymentStatus, setPaymentStatus] = useState("");
+  const [poStatus, setPoStatus] = useState("");
+  const [category, setCategory] = useState("");
 
-  const { colors } =
-    themeConfig;
+  const [purchaseOrderData, setStoreData] = useState<PurchaseOrder[]>(purchaseOrders);
 
-  const [search, setSearch] =
-    useState("");
-
-  const [
-    paymentStatus,
-    setPaymentStatus,
-  ] = useState("");
-
-  const [
-    status,
-    setStatus,
-  ] = useState("");
-
-  const [
-    category,
-    setCategory,
-  ] = useState("");
-
-  const [
-    purchaseOrderData,
-  ] = useState<
-    PurchaseOrder[]
-  >(
-    purchaseOrders
-  );
-
-  /* COUNTS */
-  const poCounts = {
-
-    all:
-      purchaseOrderData.length,
-
-    received:
-      purchaseOrderData.filter(
-        (po) =>
-          po.status ===
-          "Received"
-      ).length,
-
-    pending:
-      purchaseOrderData.filter(
-        (po) =>
-          po.status ===
-            "Pending" ||
-
-          po.status ===
-            "Processing"
-      ).length,
-
-    delivered:
-      purchaseOrderData.filter(
-        (po) =>
-          po.status ===
-          "Delivered"
-      ).length,
+  // Dynamic PO counts for filter tabs
+  const poCount = {
+    all: purchaseOrderData.length,
+    received: purchaseOrderData.filter((po) => po.status === "Received").length,
+    pending: purchaseOrderData.filter((po) => po.status === "Pending").length,
+    processing: purchaseOrderData.filter((po) => po.status === "Processing").length,
   };
 
-  /* FILTERED DATA */
-  const filteredPOs =
-    purchaseOrderData.filter(
-      (po) => {
+  const filteredPOs = purchaseOrderData.filter((po) => {
+    const matchesSearch = !search ||
+      po.purchaseNo.toLowerCase().includes(search.toLowerCase()) ||
+      po.vendorName.toLowerCase().includes(search.toLowerCase());
 
-        const matchesSearch =
-          search
+    const matchesPayment = paymentStatus
+      ? po.paymentStatus === paymentStatus
+      : true;
 
-            ? po.purchaseNo
-                .toLowerCase()
-                .includes(
-                  search.toLowerCase()
-                ) ||
+    const matchesStatus = poStatus
+      ? po.status.toLowerCase() === poStatus.toLowerCase()
+      : true;
 
-              po.vendorName
-                .toLowerCase()
-                .includes(
-                  search.toLowerCase()
-                ) ||
+    const matchesCategory = category
+      ? po.category === category
+      : true;
 
-              po.productName
-                .toLowerCase()
-                .includes(
-                  search.toLowerCase()
-                )
-
-            : true;
-
-        const matchesPayment =
-          paymentStatus
-
-            ? po.paymentStatus ===
-              paymentStatus
-
-            : true;
-
-        const matchesStatus =
-          status
-
-            ? po.status
-                .toLowerCase()
-                .includes(
-                  status.toLowerCase()
-                )
-
-            : true;
-
-        const matchesCategory =
-          category
-
-            ? po.category ===
-              category
-
-            : true;
-
-        return (
-
-          matchesSearch &&
-          matchesPayment &&
-          matchesStatus &&
-          matchesCategory
-        );
-      }
+    return (
+      matchesSearch &&
+      matchesPayment &&
+      matchesStatus &&
+      matchesCategory
     );
+  });
 
   return (
-
     <Box
       sx={{
         p: 3,
-
-        minHeight:
-          "100vh",
-
-        background:
-          colors.bgLight,
+        minHeight: "100vh",
+        background: "#F8FAFC",
       }}
     >
-
       <Box
         sx={{
-          maxWidth:
-            "100%",
-
+          maxWidth: "100%",
           mx: "auto",
         }}
       >
-
-        {/* HEADER */}
+        {/* HEADER SECTION */}
         <Box
           sx={{
-            display:
-              "flex",
-
-            justifyContent:
-              "space-between",
-
-            alignItems:
-              "center",
-
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
             mb: 3,
-
-            flexWrap:
-              "wrap",
-
+            px: 1,
+            flexWrap: "wrap",
             gap: 2,
           }}
         >
-
-          <Box>
-
-            <Typography
-              sx={{
-                fontFamily:
-                  FONT_FAMILY.HEADING,
-
-                fontSize:
-                  FONT_SIZE.PAGE_HEADING,
-
-                fontWeight:
-                  FONT_WEIGHT.BOLD,
-
-                color:
-                  colors.textMain,
-              }}
-            >
-              Purchase Orders
-            </Typography>
-
-            <Typography
-              sx={{
-                fontFamily:
-                  FONT_FAMILY.BODY,
-
-                fontSize:
-                  "13px",
-
-                color:
-                  colors.textSecondary,
-
-                mt: 0.5,
-              }}
-            >
-              Manage procurement,
-              delivery tracking
-              and purchase
-              settlements.
-            </Typography>
-
-          </Box>
-
+          <Typography
+            sx={{
+              fontFamily: FONT_FAMILY.HEADING,
+              fontSize: FONT_SIZE.PAGE_HEADING,
+              fontWeight: FONT_WEIGHT.BOLD,
+              color: "#0F172A",
+              lineHeight: 1.2,
+            }}
+          >
+            Purchase Order Management
+          </Typography>
           <Button
             variant="contained"
-
-            startIcon={
-              <AddIcon />
-            }
-
-            onClick={() =>
-              router.push(
-                "/purchase-orders/add"
-              )
-            }
-
+            startIcon={<AddIcon />}
+            onClick={() => router.push("/purchase-orders/add")}
             sx={{
-              height:
-                "50px",
-
-              borderRadius:
-                "14px",
-
-              textTransform:
-                "none",
-
+              borderRadius: "14px",
               px: 3,
-
-              fontFamily:
-                FONT_FAMILY.BUTTON,
-
-              fontWeight:
-                FONT_WEIGHT.BOLD,
-
-              boxShadow:
-                "none",
+              height: "50px",
+              textTransform: "none",
+              fontFamily: FONT_FAMILY.BUTTON,
+              fontWeight: FONT_WEIGHT.BOLD,
+              boxShadow: "none",
             }}
           >
             Add Purchase Order
           </Button>
-
         </Box>
 
-        {/* MAIN CARD */}
+        {/* UNIFIED DATA CARD */}
         <Box
           sx={{
-            background:
-              "#FFFFFF",
-
-            border:
-              `1px solid ${colors.border}`,
-
-            borderRadius:
-              "24px",
-
-            overflow:
-              "hidden",
+            background: "#FFFFFF",
+            border: "1px solid #E2E8F0",
+            borderRadius: "24px",
+            overflow: "hidden",
           }}
         >
-
-          {/* FILTERS */}
+          {/* TABS & FILTERS */}
           <PurchaseOrderFilters
             search={search}
-            setSearch={
-              setSearch
-            }
-
-            paymentStatus={
-              paymentStatus
-            }
-
-            setPaymentStatus={
-              setPaymentStatus
-            }
-
-            Status={status}
-
-            setStatus={
-              setStatus
-            }
-
-            category={
-              category
-            }
-
-            setCategory={
-              setCategory
-            }
-
-            poCounts={
-              poCounts
-            }
+            setSearch={setSearch}
+            paymentStatus={paymentStatus}
+            setPaymentStatus={setPaymentStatus}
+            poStatus={poStatus}
+            setPoStatus={setPoStatus}
+            category={category}
+            setCategory={setCategory}
+            poCount={poCount}
           />
 
-          {/* TABLE SECTION */}
-          <Box
-            sx={{
-              p: 3,
-            }}
-          >
-
-            {(
-
-              search ||
-
-              paymentStatus ||
-
-              status ||
-
-              category
-
-            ) && (
-
+          {/* TABLE AREA */}
+          <Box sx={{ p: 3 }}>
+            {(search || paymentStatus || poStatus || category) && (
               <Typography
                 sx={{
+                  color: "#475569",
+                  fontWeight: 500,
                   mb: 2,
-
-                  color:
-                    colors.textSecondary,
-
-                  fontWeight:
-                    600,
-
-                  fontSize:
-                    "13px",
-
-                  fontFamily:
-                    FONT_FAMILY.BODY,
+                  fontFamily: FONT_FAMILY.BODY,
                 }}
               >
-                {
-                  filteredPOs.length
-                }{" "}
-                purchase orders
-                found
+                {filteredPOs.length} results found
               </Typography>
-
             )}
-
-            {/* STATUS INFO */}
-            <Box
-              sx={{
-                display:
-                  "flex",
-
-                justifyContent:
-                  "space-between",
-
-                alignItems:
-                  "center",
-
-                flexWrap:
-                  "wrap",
-
-                gap: 1.5,
-
-                mb: 2,
-              }}
-            >
-
-              <Typography
-                sx={{
-                  fontSize:
-                    "12px",
-
-                  color:
-                    colors.textSecondary,
-
-                  fontFamily:
-                    FONT_FAMILY.BODY,
-                }}
-              >
-                Received:
-                {" "}
-
-                <Box
-                  component="span"
-                  sx={{
-                    color:
-                      colors.success,
-
-                    fontWeight:
-                      700,
-                  }}
-                >
-                  {
-                    poCounts.received
-                  }
-                </Box>
-
-                {" "}•{" "}
-
-                Pending:
-                {" "}
-
-                <Box
-                  component="span"
-                  sx={{
-                    color:
-                      colors.warning,
-
-                    fontWeight:
-                      700,
-                  }}
-                >
-                  {
-                    poCounts.pending
-                  }
-                </Box>
-
-                {" "}•{" "}
-
-                Delivered:
-                {" "}
-
-                <Box
-                  component="span"
-                  sx={{
-                    color:
-                      colors.primary,
-
-                    fontWeight:
-                      700,
-                    }}
-                  >
-                    {
-                      poCounts.delivered
-                    }
-                  </Box>
-
-              </Typography>
-
-            </Box>
-
-            {/* TABLE */}
             <PurchaseOrderTable
-              purchaseOrders={
-                filteredPOs
-              }
+              purchaseOrders={filteredPOs}
+              setStoreData={setStoreData}
             />
-
           </Box>
-
         </Box>
-
       </Box>
-
     </Box>
   );
 }
