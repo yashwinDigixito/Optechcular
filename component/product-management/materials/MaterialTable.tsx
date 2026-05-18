@@ -1,32 +1,24 @@
 "use client";
 
 import {
-  useState,
-} from "react";
-
-import {
   Material,
 } from "@/assets/types";
 
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+import CommonTable from "@/component/common/table/CommonTable";
 
-import EditIcon from "@mui/icons-material/Edit";
+import StatusSelect from "@/component/common/table/StatusSelect";
 
-import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
+import TableActions from "@/component/common/table/TableActions";
+
+import {
+  FONT_FAMILY,
+  FONT_SIZE,
+  FONT_WEIGHT,
+} from "@/assets/constants";
 
 import {
   Box,
   Chip,
-  IconButton,
-  Menu,
-  MenuItem,
-  Select,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
   Typography,
 } from "@mui/material";
 
@@ -53,53 +45,61 @@ export default function MaterialTable({
   const router =
     useRouter();
 
-  const [anchorEl, setAnchorEl] =
-    useState<null | HTMLElement>(null);
+  /* TABLE COLUMNS */
+  const columns = [
 
-  const [selectedMaterialId,
-    setSelectedMaterialId] =
-      useState<string | null>(
-        null
-      );
+    {
+      key: "material",
+      label: "Material",
+    },
 
-  const handleMenuOpen = (
-    event: React.MouseEvent<HTMLElement>,
-    id: string
-  ) => {
+    {
+      key: "applicableFor",
+      label: "Applicable For",
+    },
 
-    setAnchorEl(
-      event.currentTarget
-    );
+    {
+      key: "stock",
+      label: "Stock",
+      align: "center" as const,
+    },
 
-    setSelectedMaterialId(
-      id
-    );
-  };
+    {
+      key: "price",
+      label: "Price",
+      align: "center" as const,
+    },
 
-  const handleMenuClose = () => {
+    {
+      key: "status",
+      label: "Status",
+      align: "center" as const,
+    },
 
-    setAnchorEl(null);
+    {
+      key: "actions",
+      label: "Actions",
+      align: "center" as const,
+    },
+  ];
 
-    setSelectedMaterialId(
-      null
-    );
-  };
-
+  /* STATUS CHANGE */
   const handleStatusChange = (
     id: string,
-    value:
-      | "Active"
-      | "Inactive"
-      | "Out of Stock"
+    value: string
   ) => {
 
     setMaterialData((prev) =>
       prev.map((material) =>
+
         material.id === id
 
           ? {
               ...material,
-              status: value,
+              status: value as
+                | "Active"
+                | "Inactive"
+                | "Out of Stock",
             }
 
           : material
@@ -108,471 +108,206 @@ export default function MaterialTable({
   };
 
   return (
-    <TableContainer
-      sx={{
-        mt: 2,
+    <CommonTable
+      columns={columns}
+      rows={materials}
 
-        borderRadius:
-          "24px",
+      renderCell={(
+        material,
+        key
+      ) => {
 
-        background:
-          "#FFFFFF",
+        switch (key) {
 
-        border:
-          "1px solid #E2E8F0",
+          /* MATERIAL */
+          case "material":
 
-        overflow:
-          "hidden",
-      }}
-    >
+            return (
 
-      <Table
-        sx={{
-          minWidth: 1000,
+              <Box>
 
-          "& .MuiTableCell-root":
-            {
-              py: 2.2,
+                <Typography
+                  sx={{
+                    fontWeight:
+                      FONT_WEIGHT.BOLD,
 
-              borderColor:
-                "#F1F5F9",
-            },
-        }}
-      >
+                    color:
+                      "#2563EB",
 
-        {/* TABLE HEAD */}
-        <TableHead>
+                    fontSize:
+                      "15px",
 
-          <TableRow
-            sx={{
-              background:
-                "#F8FAFC",
-            }}
-          >
+                    fontFamily:
+                      FONT_FAMILY.TABLE_BODY,
+                  }}
+                >
+                  {
+                    material.materialName
+                  }
+                </Typography>
 
-            <TableCell>
+                <Typography
+                  sx={{
+                    fontSize:
+                      FONT_SIZE.SMALL,
 
-              <Typography
-                sx={{
-                  fontWeight:
-                    700,
-                }}
-              >
-                Material
-              </Typography>
+                    color:
+                      "#64748B",
 
-            </TableCell>
+                    fontFamily:
+                      FONT_FAMILY.TABLE_BODY,
+                  }}
+                >
+                  {
+                    material.materialCode
+                  }
+                </Typography>
 
-            <TableCell>
+              </Box>
 
-              <Typography
-                sx={{
-                  fontWeight:
-                    700,
-                }}
-              >
-                Applicable For
-              </Typography>
+            );
 
-            </TableCell>
+          /* APPLICABLE FOR */
+          case "applicableFor":
 
-            <TableCell align="center">
+            return (
 
-              <Typography
-                sx={{
-                  fontWeight:
-                    700,
-                }}
-              >
-                Stock
-              </Typography>
-
-            </TableCell>
-
-            <TableCell align="center">
-
-              <Typography
-                sx={{
-                  fontWeight:
-                    700,
-                }}
-              >
-                Price
-              </Typography>
-
-            </TableCell>
-
-            <TableCell align="center">
-
-              <Typography
-                sx={{
-                  fontWeight:
-                    700,
-                }}
-              >
-                Status
-              </Typography>
-
-            </TableCell>
-
-            <TableCell align="center">
-
-              <Typography
-                sx={{
-                  fontWeight:
-                    700,
-                }}
-              >
-                Actions
-              </Typography>
-
-            </TableCell>
-
-          </TableRow>
-
-        </TableHead>
-
-        {/* TABLE BODY */}
-        <TableBody>
-
-          {materials.map(
-            (
-              material
-            ) => (
-
-              <TableRow
-                key={
-                  material.id
+              <Chip
+                label={
+                  material.applicableFor
                 }
-                hover
+
                 sx={{
-                  "&:hover":
-                    {
-                      background:
-                        "#F8FAFC",
-                    },
+                  background:
+                    "#EFF6FF",
+
+                  color:
+                    "#2563EB",
+
+                  fontWeight:
+                    FONT_WEIGHT.SEMI_BOLD,
+
+                  borderRadius:
+                    "8px",
+
+                  fontFamily:
+                    FONT_FAMILY.BODY,
+                }}
+              />
+
+            );
+
+          /* STOCK */
+          case "stock":
+
+            return (
+
+              <Typography
+                sx={{
+                  fontWeight:
+                    FONT_WEIGHT.BOLD,
+
+                  color:
+                    material.stockQuantity <=
+                    material.minimumStockLevel
+
+                      ? "#EA580C"
+
+                      : "#16A34A",
+
+                  fontSize:
+                    FONT_SIZE.TABLE_BODY,
+
+                  fontFamily:
+                    FONT_FAMILY.TABLE_BODY,
                 }}
               >
-
-                {/* MATERIAL */}
-                <TableCell>
-
-                  <Box>
-
-                    <Typography
-                      sx={{
-                        fontWeight:
-                          700,
-
-                        color:
-                          "#2563EB",
-
-                        fontSize:
-                          "14px",
-                      }}
-                    >
-                      {
-                        material.materialName
-                      }
-                    </Typography>
-
-                    <Typography
-                      sx={{
-                        fontSize:
-                          "13px",
-
-                        color:
-                          "#64748B",
-                      }}
-                    >
-                      {
-                        material.materialCode
-                      }
-                    </Typography>
-
-                  </Box>
-
-                </TableCell>
-
-                {/* APPLICABLE FOR */}
-                <TableCell>
-
-                  <Chip
-                    label={
-                      material.applicableFor
-                    }
-                    sx={{
-                      background:
-                        "#EFF6FF",
-
-                      color:
-                        "#2563EB",
-
-                      fontWeight:
-                        600,
-                    }}
-                  />
-
-                </TableCell>
-
-                {/* STOCK */}
-                <TableCell align="center">
-
-                  <Typography
-                    sx={{
-                      fontWeight:
-                        700,
-
-                      color:
-                        material.stockQuantity <=
-                        material.minimumStockLevel
-
-                          ? "#EA580C"
-
-                          : "#16A34A",
-                    }}
-                  >
-                    {
-                      material.stockQuantity
-                    }
-                  </Typography>
-
-                </TableCell>
-
-                {/* PRICE */}
-                <TableCell align="center">
-
-                  <Box>
-
-                    <Typography
-                      sx={{
-                        fontWeight:
-                          700,
-
-                        color:
-                          "#16A34A",
-                      }}
-                    >
-                      ₹
-                      {
-                        material.sellingPrice.toLocaleString()
-                      }
-                    </Typography>
-                  </Box>
-
-                </TableCell>
-
-                {/* STATUS */}
-                <TableCell align="center">
-
-                  <Select
-                    size="small"
-                    value={
-                      material.status
-                    }
-                    onChange={(e) =>
-                      handleStatusChange(
-                        material.id,
-                        e.target.value as
-                          | "Active"
-                          | "Inactive"
-                          | "Out of Stock"
-                      )
-                    }
-                    sx={{
-                      minWidth:
-                        "140px",
-
-                      borderRadius:
-                        "10px",
-
-                      fontWeight:
-                        600,
-
-                      background:
-                        material.status ===
-                        "Active"
-
-                          ? "#DCFCE7"
-
-                          : material.status ===
-                            "Inactive"
-
-                            ? "#FEE2E2"
-
-                            : "#FFF7ED",
-
-                      color:
-                        material.status ===
-                        "Active"
-
-                          ? "#15803D"
-
-                          : material.status ===
-                            "Inactive"
-
-                            ? "#DC2626"
-
-                            : "#EA580C",
-
-                      ".MuiOutlinedInput-notchedOutline":
-                        {
-                          border:
-                            "none",
-                        },
-
-                      ".MuiSelect-icon":
-                        {
-                          color:
-                            material.status ===
-                            "Active"
-
-                              ? "#15803D"
-
-                              : material.status ===
-                                "Inactive"
-
-                                ? "#DC2626"
-
-                                : "#EA580C",
-                        },
-                    }}
-                  >
-
-                    <MenuItem value="Active">
-                      Active
-                    </MenuItem>
-
-                    <MenuItem value="Inactive">
-                      Inactive
-                    </MenuItem>
-
-                    <MenuItem value="Out of Stock">
-                      Out of Stock
-                    </MenuItem>
-
-                  </Select>
-
-                </TableCell>
-
-                {/* ACTIONS */}
-                <TableCell align="center">
-
-                  <IconButton
-                    onClick={(e) =>
-                      handleMenuOpen(
-                        e,
-                        material.id
-                      )
-                    }
-                    sx={{
-                      background:
-                        "#F8FAFC",
-
-                      width: 38,
-
-                      height: 38,
-
-                      "&:hover": {
-                        background:
-                          "#E2E8F0",
-                      },
-                    }}
-                  >
-
-                    <MoreVertIcon
-                      sx={{
-                        color:
-                          "#64748B",
-                      }}
-                    />
-
-                  </IconButton>
-
-                  <Menu
-                    anchorEl={anchorEl}
-                    open={
-                      Boolean(anchorEl) &&
-                      selectedMaterialId ===
-                        material.id
-                    }
-                    onClose={
-                      handleMenuClose
-                    }
-                    slotProps={{
-                      paper: {
-                        sx: {
-                          borderRadius:
-                            "14px",
-
-                          minWidth:
-                            "150px",
-
-                          boxShadow:
-                            "0px 10px 30px rgba(15,23,42,0.08)",
-                        },
-                      },
-                    }}
-                  >
-
-                    <MenuItem
-                      onClick={() => {
-
-                        router.push(
-                          `/products/materials/view/${material.id}`
-                        );
-
-                        handleMenuClose();
-                      }}
-                    >
-
-                      <RemoveRedEyeOutlinedIcon
-                        sx={{
-                          mr: 1,
-                          color:
-                            "#2563EB",
-                        }}
-                      />
-
-                      View
-
-                    </MenuItem>
-
-                    <MenuItem
-                      onClick={() => {
-
-                        router.push(
-                          `/products/materials/edit/${material.id}`
-                        );
-
-                        handleMenuClose();
-                      }}
-                    >
-
-                      <EditIcon
-                        sx={{
-                          mr: 1,
-                          color:
-                            "#0F172A",
-                        }}
-                      />
-
-                      Edit
-
-                    </MenuItem>
-
-                  </Menu>
-
-                </TableCell>
-
-              </TableRow>
-            )
-          )}
-
-        </TableBody>
-
-      </Table>
-
-    </TableContainer>
+                {
+                  material.stockQuantity
+                }
+              </Typography>
+
+            );
+
+          /* PRICE */
+          case "price":
+
+            return (
+
+              <Typography
+                sx={{
+                  fontWeight:
+                    FONT_WEIGHT.BOLD,
+
+                  color:
+                    "#16A34A",
+
+                  fontSize:
+                    FONT_SIZE.TABLE_BODY,
+
+                  fontFamily:
+                    FONT_FAMILY.TABLE_BODY,
+                }}
+              >
+                ₹
+                {
+                  material.sellingPrice.toLocaleString()
+                }
+              </Typography>
+
+            );
+
+          /* STATUS */
+          case "status":
+
+            return (
+
+              <StatusSelect
+                value={
+                  material.status
+                }
+
+                options={[
+                  "Active",
+                  "Inactive",
+                  "Out of Stock",
+                ]}
+
+                onChange={(value) =>
+                  handleStatusChange(
+                    material.id,
+                    value
+                  )
+                }
+              />
+
+            );
+
+          /* ACTIONS */
+          case "actions":
+
+            return (
+
+              <TableActions
+                onView={() =>
+                  router.push(
+                    `/products/materials/view/${material.id}`
+                  )
+                }
+
+                onEdit={() =>
+                  router.push(
+                    `/products/materials/edit/${material.id}`
+                  )
+                }
+              />
+
+            );
+
+          default:
+            return null;
+        }
+      }}
+    />
   );
 }

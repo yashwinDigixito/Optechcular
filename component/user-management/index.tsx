@@ -8,6 +8,12 @@ import {
     User,
 } from "@/assets/types";
 
+import {
+    FONT_FAMILY,
+    FONT_SIZE,
+    FONT_WEIGHT,
+} from "@/assets/constants";
+
 import AddIcon from "@mui/icons-material/Add";
 
 import {
@@ -28,231 +34,288 @@ import UserTable from "./UserTable";
 
 export default function UserManagementPage() {
 
-    const router =
-        useRouter();
+  const router =
+    useRouter();
 
-    const [search, setSearch] =
-        useState("");
+  const [
+    search,
+    setSearch,
+  ] = useState("");
 
-    const [role, setRole] =
-        useState("");
+  const [
+    role,
+    setRole,
+  ] = useState("");
 
-    const [status, setStatus] =
-        useState("");
+  const [
+    status,
+    setStatus,
+  ] = useState("");
 
-    const [userData, setUserData] =
-        useState<User[]>(users);
+  const [
+    userData,
+    setUserData,
+  ] = useState<
+    User[]
+  >(
+    users
+  );
 
-    /* COUNTS */
-    const userCount = {
+  /* COUNTS */
+  const userCount = {
 
-        all:
-            userData.length,
+    all:
+      userData.length,
 
-        active:
-            userData.filter(
-                (user) =>
-                    user.status ===
-                    "Active"
-            ).length,
+    active:
+      userData.filter(
+        (user) =>
+          user.status ===
+          "Active"
+      ).length,
 
-        inactive:
-            userData.filter(
-                (user) =>
-                    user.status ===
-                    "Inactive"
-            ).length,
+    inactive:
+      userData.filter(
+        (user) =>
+          user.status ===
+          "Inactive"
+      ).length,
 
-        suspended:
-            userData.filter(
-                (user) =>
-                    user.status ===
-                    "Suspended"
-            ).length,
-    };
+    suspended:
+      userData.filter(
+        (user) =>
+          user.status ===
+          "Suspended"
+      ).length,
+  };
 
-    /* FILTERED USERS */
-    const filteredUsers =
-        userData.filter(
-            (user) => {
+  /* FILTERED USERS */
+  const filteredUsers =
+    userData.filter(
+      (user) => {
 
-                const matchesSearch =
-                    !search ||
+        const matchesSearch =
+          !search ||
 
-                    user.fullName
-                        .toLowerCase()
-                        .includes(
-                            search.toLowerCase()
-                        );
+          user.fullName
+            .toLowerCase()
+            .includes(
+              search.toLowerCase()
+            );
 
-                const matchesRole =
-                    role
-                        ? user.role ===
-                          role
-                        : true;
+        const matchesRole =
+          role
 
-                const matchesStatus =
-                    status
-                        ? user.status ===
-                          status
-                        : true;
+            ? user.role ===
+              role
 
-                return (
-                    matchesSearch &&
-                    matchesRole &&
-                    matchesStatus
-                );
-            }
+            : true;
+
+        const matchesStatus =
+          status
+
+            ? user.status ===
+              status
+
+            : true;
+
+        return (
+
+          matchesSearch &&
+          matchesRole &&
+          matchesStatus
         );
+      }
+    );
 
-    return (
+  return (
+    <Box
+      sx={{
+        p: 3,
+
+        minHeight:
+          "100vh",
+
+        background:
+          "#F8FAFC",
+      }}
+    >
+
+      <Box
+        sx={{
+          maxWidth:
+            "100%",
+
+          mx:
+            "auto",
+        }}
+      >
+
+        {/* HEADER */}
         <Box
-            sx={{
-                p: 3,
-                minHeight:
-                    "100vh",
-                background:
-                    "#F8FAFC",
-            }}
+          sx={{
+            display:
+              "flex",
+
+            justifyContent:
+              "space-between",
+
+            alignItems:
+              "center",
+
+            mb: 3,
+
+            px: 1,
+
+            flexWrap:
+              "wrap",
+
+            gap: 2,
+          }}
         >
 
-            {/* HEADER */}
-            <Box
-                sx={{
-                    display:
-                        "flex",
+          <Typography
+            sx={{
+              fontFamily:
+                FONT_FAMILY.HEADING,
 
-                    justifyContent:
-                        "space-between",
+              fontSize:
+                FONT_SIZE.PAGE_HEADING,
 
-                    alignItems:
-                        "center",
+              fontWeight:
+                FONT_WEIGHT.BOLD,
 
-                    mb: 3,
+              color:
+                "#0F172A",
 
-                    flexWrap:
-                        "wrap",
+              lineHeight:
+                1.2,
+            }}
+          >
+            User Management
+          </Typography>
 
-                    gap: 2,
-                }}
-            >
+          <Button
+            variant="contained"
 
-                <Typography
-                    sx={{
-                        fontSize:
-                            "32px",
+            startIcon={
+              <AddIcon />
+            }
 
-                        fontWeight:
-                            700,
+            onClick={() =>
+              router.push(
+                "/users/add"
+              )
+            }
 
-                        color:
-                            "#0F172A",
-                    }}
-                >
-                    User Management
-                </Typography>
+            sx={{
+              borderRadius:
+                "14px",
 
-                <Button
-                    variant="contained"
-                    startIcon={
-                        <AddIcon />
-                    }
-                    onClick={() =>
-                        router.push(
-                            "/users/add"
-                        )
-                    }
-                    sx={{
-                        borderRadius:
-                            "14px",
+              px: 3,
 
-                        px: 3,
+              height:
+                "50px",
 
-                        height:
-                            "50px",
+              textTransform:
+                "none",
 
-                        textTransform:
-                            "none",
+              fontFamily:
+                FONT_FAMILY.BUTTON,
 
-                        fontWeight:
-                            700,
+              fontWeight:
+                FONT_WEIGHT.BOLD,
 
-                        boxShadow:
-                            "none",
-                    }}
-                >
-                    Add User
-                </Button>
-
-            </Box>
-
-            {/* MAIN CARD */}
-            <Box
-                sx={{
-                    background:
-                        "#FFFFFF",
-
-                    border:
-                        "1px solid #E2E8F0",
-
-                    borderRadius:
-                        "24px",
-
-                    overflow:
-                        "hidden",
-                }}
-            >
-
-                {/* FILTERS */}
-                <UserFilters
-                    search={search}
-                    setSearch={setSearch}
-                    role={role}
-                    setRole={setRole}
-                    status={status}
-                    setStatus={setStatus}
-                    userCount={userCount}
-                />
-
-                {/* TABLE */}
-                <Box sx={{ p: 3 }}>
-
-                    {(
-                        search ||
-                        role ||
-                        status
-                    ) && (
-
-                        <Typography
-                            sx={{
-                                mb: 2,
-                                color:
-                                    "#64748B",
-                                fontWeight:
-                                    500,
-                            }}
-                        >
-                            {
-                                filteredUsers.length
-                            }{" "}
-                            results found
-                        </Typography>
-
-                    )}
-
-                    <UserTable
-                        users={
-                            filteredUsers
-                        }
-                        setUserData={
-                            setUserData
-                        }
-                    />
-
-                </Box>
-
-            </Box>
+              boxShadow:
+                "none",
+            }}
+          >
+            Add User
+          </Button>
 
         </Box>
-    );
+
+        {/* MAIN CARD */}
+        <Box
+          sx={{
+            background:
+              "#FFFFFF",
+
+            border:
+              "1px solid #E2E8F0",
+
+            borderRadius:
+              "24px",
+
+            overflow:
+              "hidden",
+          }}
+        >
+
+          {/* FILTERS */}
+          <UserFilters
+            search={search}
+            setSearch={setSearch}
+            role={role}
+            setRole={setRole}
+            status={status}
+            setStatus={setStatus}
+            userCount={userCount}
+          />
+
+          {/* TABLE */}
+          <Box
+            sx={{
+              p: 3,
+            }}
+          >
+
+            {(
+
+              search ||
+              role ||
+              status
+
+            ) && (
+
+              <Typography
+                sx={{
+                  mb: 2,
+
+                  color:
+                    "#475569",
+
+                  fontWeight:
+                    500,
+
+                  fontFamily:
+                    FONT_FAMILY.BODY,
+                }}
+              >
+                {
+                  filteredUsers.length
+                }{" "}
+                results found
+              </Typography>
+
+            )}
+
+            <UserTable
+              users={
+                filteredUsers
+              }
+
+              setUserData={
+                setUserData
+              }
+            />
+
+          </Box>
+
+        </Box>
+
+      </Box>
+
+    </Box>
+  );
 }

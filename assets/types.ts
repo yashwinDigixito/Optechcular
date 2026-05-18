@@ -668,3 +668,17 @@ export interface RimShape {
 
   createdBy?: string;
 }
+
+export interface Column {
+
+  key: string;
+
+  label: string;
+
+  align?:
+    | "left"
+    | "center"
+    | "right";
+
+  width?: number | string;
+}

@@ -72,9 +72,6 @@ export const FONT_SIZE = {
   BODY:
     "14px",
 
-  TABLE_HEADING:
-    "14px",
-
   TABLE_BODY:
     "14px",
 

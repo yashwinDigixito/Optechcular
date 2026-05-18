@@ -112,7 +112,7 @@ productName: "RayBan Classic Frame",
 paymentStatus: "Paid",
     deliveryStatus: "Delivered",
 
-    orderDate: "08-05-2026",
+    orderDate: "08/05/2026",
 
     subtotal: 24500,
     discount: 500,
@@ -127,7 +127,7 @@ paymentStatus: "Paid",
 
     shippingPartner: "BlueDart",
     trackingNo: "BD123456789",
-    estimatedDeliveryDate: "10-05-2026",
+    estimatedDeliveryDate: "10/05/2026",
 
     shippingAddress:
       "22 MG Road, Delhi, India",
@@ -160,7 +160,7 @@ productName: "Bausch & Lomb Lens",
 paymentStatus: "Pending",
     deliveryStatus: "Processing",
 
-    orderDate: "07-05-2026",
+    orderDate: "07/05/2026",
 
     subtotal: 12800,
     discount: 0,
@@ -175,7 +175,7 @@ paymentStatus: "Pending",
 
     shippingPartner: "DTDC",
     trackingNo: "DT987654321",
-    estimatedDeliveryDate: "11-05-2026",
+    estimatedDeliveryDate: "11/05/2026",
 
     shippingAddress:
       "Ahmedabad, Gujarat, India",
@@ -209,7 +209,7 @@ productName: "Eyewear Cleaning Kit",
 paymentStatus: "Refunded",
     deliveryStatus: "Cancelled",
 
-    orderDate: "06-05-2026",
+    orderDate: "06/05/2026",
 
     subtotal: 7200,
     discount: 200,
@@ -258,7 +258,7 @@ productName: "Titan Premium Frame",
 paymentStatus: "Paid",
     deliveryStatus: "Delivered",
 
-    orderDate: "05-05-2026",
+    orderDate: "05/05/2026",
 
     subtotal: 31800,
     discount: 1000,
@@ -307,7 +307,7 @@ productName: "Oakley Sunglasses",
 paymentStatus: "Pending",
     deliveryStatus: "Not shipped",
 
-    orderDate: "05-05-2026",
+    orderDate: "05/05/2026",
 
     subtotal: 15400,
     discount: 400,
@@ -322,7 +322,7 @@ paymentStatus: "Pending",
 
     shippingPartner: "DTDC",
     trackingNo: "DT445566778",
-    estimatedDeliveryDate: "12-05-2026",
+    estimatedDeliveryDate: "12/05/2026",
 
     shippingAddress:
       "Pune, Maharashtra, India",
@@ -356,7 +356,7 @@ productName: "Crizal Optical Lens",
 paymentStatus: "Paid",
     deliveryStatus: "Delivered",
 
-    orderDate: "04-05-2026",
+    orderDate: "04/05/2026",
 
     subtotal: 22600,
     discount: 600,
@@ -371,7 +371,7 @@ paymentStatus: "Paid",
 
     shippingPartner: "BlueDart",
     trackingNo: "BD456789123",
-    estimatedDeliveryDate: "07-05-2026",
+    estimatedDeliveryDate: "07/05/2026",
 
     shippingAddress:
       "Kochi, Kerala, India",
@@ -405,7 +405,7 @@ productName: "Lens Cleaner",
 paymentStatus: "Refunded",
     deliveryStatus: "Returned",
 
-    orderDate: "04-05-2026",
+    orderDate: "04/05/2026",
 
     subtotal: 5400,
     discount: 100,
@@ -454,7 +454,7 @@ productName: "Acuvue Lens",
 paymentStatus: "Paid",
     deliveryStatus: "Delivered",
 
-    orderDate: "03-05-2026",
+    orderDate: "03/05/2026",
 
     subtotal: 19600,
     discount: 500,
@@ -469,7 +469,7 @@ paymentStatus: "Paid",
 
     shippingPartner: "BlueDart",
     trackingNo: "BD852741963",
-    estimatedDeliveryDate: "06-05-2026",
+    estimatedDeliveryDate: "06/05/2026",
 
     shippingAddress:
       "Jaipur, Rajasthan, India",
@@ -562,8 +562,8 @@ export const brands = [
     notes:
       "Top-selling premium frame brand.",
 
-    createdDate: "2026-05-11",
-    updatedDate: "2026-05-12",
+    createdDate: "11/05/2026",
+    updatedDate: "12/05/2026",
     createdBy: "Admin",
   },
 
@@ -602,8 +602,8 @@ export const brands = [
     notes:
       "Good budget category sales.",
 
-    createdDate: "2026-05-10",
-    updatedDate: "2026-05-11",
+    createdDate: "10/05/2026",
+    updatedDate: "11/05/2026",
     createdBy: "Admin",
   },
 
@@ -642,8 +642,8 @@ export const brands = [
     notes:
       "Strong premium customer base.",
 
-    createdDate: "2026-05-09",
-    updatedDate: "2026-05-10",
+    createdDate: "09/05/2026",
+    updatedDate: "10/05/2026",
     createdBy: "Admin",
   },
 
@@ -682,8 +682,8 @@ export const brands = [
     notes:
       "Low inventory available.",
 
-    createdDate: "2026-05-08",
-    updatedDate: "2026-05-09",
+    createdDate: "08/05/2026",
+    updatedDate: "09/05/2026",
     createdBy: "Admin",
   },
 
@@ -722,8 +722,8 @@ export const brands = [
     notes:
       "Popular among young customers.",
 
-    createdDate: "2026-05-07",
-    updatedDate: "2026-05-08",
+    createdDate: "07/05/2026",
+    updatedDate: "08/05/2026",
     createdBy: "Admin",
   },
 
@@ -762,8 +762,8 @@ export const brands = [
     notes:
       "High-value premium orders.",
 
-    createdDate: "2026-05-06",
-    updatedDate: "2026-05-07",
+    createdDate: "06/05/2026",
+    updatedDate: "07/05/2026",
     createdBy: "Admin",
   },
 
@@ -802,8 +802,8 @@ export const brands = [
     notes:
       "Good retail performance.",
 
-    createdDate: "2026-05-05",
-    updatedDate: "2026-05-06",
+    createdDate: "05/05/2026",
+    updatedDate: "06/05/2026",
     createdBy: "Admin",
   },
 
@@ -842,8 +842,8 @@ export const brands = [
     notes:
       "Excellent customer satisfaction.",
 
-    createdDate: "2026-05-04",
-    updatedDate: "2026-05-05",
+    createdDate: "04/05/2026",
+    updatedDate: "05/05/2026",
     createdBy: "Admin",
   },
 
@@ -882,8 +882,8 @@ export const brands = [
     notes:
       "Limited imported collection.",
 
-    createdDate: "2026-05-03",
-    updatedDate: "2026-05-04",
+    createdDate: "03/05/2026",
+    updatedDate: "04/05/2026",
     createdBy: "Admin",
   },
 
@@ -922,8 +922,8 @@ export const brands = [
     notes:
       "High-end optical solutions provider.",
 
-    createdDate: "2026-05-02",
-    updatedDate: "2026-05-03",
+    createdDate: "02/05/2026",
+    updatedDate: "03/05/2026",
     createdBy: "Admin",
   },
 ];
@@ -947,8 +947,8 @@ export const brandGroups = [
     managerEmail: "rahul.manager@gmail.com",
     managerPhone: "+91 9876543210",
     notes: "Best performing brand group.",
-    createdOn: "2026-05-11",
-    updatedDate: "2026-05-12",
+    createdOn: "11/05/2026",
+    updatedDate: "12/05/2026",
     createdBy: "Admin",
   },
   {
@@ -969,8 +969,8 @@ export const brandGroups = [
     managerEmail: "riya.manager@gmail.com",
     managerPhone: "+91 9988776655",
     notes: "Good for daily-use customer segment.",
-    createdOn: "2026-05-10",
-    updatedDate: "2026-05-11",
+    createdOn: "10/05/2026",
+    updatedDate: "11/05/2026",
     createdBy: "Admin",
   },
   {
@@ -991,8 +991,8 @@ export const brandGroups = [
     managerEmail: "amit.manager@gmail.com",
     managerPhone: "+91 9090909090",
     notes: "Requires updated luxury catalog.",
-    createdOn: "2026-05-09",
-    updatedDate: "2026-05-10",
+    createdOn: "09/05/2026",
+    updatedDate: "10/05/2026",
     createdBy: "Admin",
   },
   {
@@ -1013,8 +1013,8 @@ export const brandGroups = [
     managerEmail: "sneha.manager@gmail.com",
     managerPhone: "+91 8181818181",
     notes: "Imported product stock needs regular tracking.",
-    createdOn: "2026-05-08",
-    updatedDate: "2026-05-09",
+    createdOn: "08/05/2026",
+    updatedDate: "09/05/2026",
     createdBy: "Admin",
   },
 ];
@@ -1038,8 +1038,8 @@ export const categories = [
     warehouseLocation: "Delhi Warehouse",
     description: "Optical and sunglasses frames",
     notes: "Top performing category.",
-    createdOn: "2026-05-11",
-    updatedDate: "2026-05-12",
+    createdOn: "11/05/2026",
+    updatedDate: "12/05/2026",
     createdBy: "Admin",
   },
   {
@@ -1061,8 +1061,8 @@ export const categories = [
     warehouseLocation: "Mumbai Warehouse",
     description: "Vision correction contact lenses",
     notes: "Regular restocking required.",
-    createdOn: "2026-05-10",
-    updatedDate: "2026-05-11",
+    createdOn: "10/05/2026",
+    updatedDate: "11/05/2026",
     createdBy: "Admin",
   },
   {
@@ -1084,8 +1084,8 @@ export const categories = [
     warehouseLocation: "Noida Warehouse",
     description: "Eyewear accessories and cleaners",
     notes: "Some items need catalog update.",
-    createdOn: "2026-05-09",
-    updatedDate: "2026-05-10",
+    createdOn: "09/05/2026",
+    updatedDate: "10/05/2026",
     createdBy: "Admin",
   },
   {
@@ -1107,8 +1107,8 @@ export const categories = [
     warehouseLocation: "Bangalore Warehouse",
     description: "Prescription optical lenses",
     notes: "High-value prescription lens category.",
-    createdOn: "2026-05-08",
-    updatedDate: "2026-05-09",
+    createdOn: "08/05/2026",
+    updatedDate: "09/05/2026",
     createdBy: "Admin",
   },
 ];
@@ -1148,9 +1148,9 @@ export const materials = [
     notes:
       "Best suited for luxury frame collection.",
 
-    createdOn: "2026-05-11",
+    createdOn: "11/05/2026",
 
-    updatedDate: "2026-05-12",
+    updatedDate: "12/05/2026",
 
     createdBy: "Admin",
 
@@ -1192,9 +1192,9 @@ export const materials = [
     notes:
       "High stock turnover product.",
 
-    createdOn: "2026-05-10",
+    createdOn: "10/05/2026",
 
-    updatedDate: "2026-05-11",
+    updatedDate: "11/05/2026",
 
     createdBy: "Admin",
 
@@ -1236,9 +1236,9 @@ export const materials = [
     notes:
       "Most preferred material for monthly disposable lenses.",
 
-    createdOn: "2026-05-09",
+    createdOn: "09/05/2026",
 
-    updatedDate: "2026-05-10",
+    updatedDate: "10/05/2026",
 
     createdBy: "Admin",
 
@@ -1280,9 +1280,9 @@ export const materials = [
     notes:
       "Low stock. Reorder required.",
 
-    createdOn: "2026-05-08",
+    createdOn: "08/05/2026",
 
-    updatedDate: "2026-05-09",
+    updatedDate: "09/05/2026",
 
     createdBy: "Admin",
 
@@ -1324,9 +1324,9 @@ export const materials = [
     notes:
       "Corrosion resistant and durable.",
 
-    createdOn: "2026-05-07",
+    createdOn: "07/05/2026",
 
-    updatedDate: "2026-05-08",
+    updatedDate: "08/05/2026",
 
     createdBy: "Admin",
 
@@ -1357,9 +1357,9 @@ export const rimShapes = [
     notes:
       "Popular among retro style frames.",
 
-    createdOn: "2026-05-11",
+    createdOn: "11/05/2026",
 
-    updatedDate: "2026-05-12",
+    updatedDate: "12/05/2026",
 
     createdBy: "Admin",
   },
@@ -1387,9 +1387,9 @@ export const rimShapes = [
     notes:
       "High demand in premium sunglasses category.",
 
-    createdOn: "2026-05-10",
+    createdOn: "10/05/2026",
 
-    updatedDate: "2026-05-11",
+    updatedDate: "11/05/2026",
 
     createdBy: "Admin",
   },
@@ -1417,9 +1417,9 @@ export const rimShapes = [
     notes:
       "Currently inactive due to seasonal collection update.",
 
-    createdOn: "2026-05-09",
+    createdOn: "09/05/2026",
 
-    updatedDate: "2026-05-10",
+    updatedDate: "10/05/2026",
 
     createdBy: "Admin",
   },
@@ -1447,9 +1447,9 @@ export const rimShapes = [
     notes:
       "Best seller in men's sunglasses.",
 
-    createdOn: "2026-05-08",
+    createdOn: "08/05/2026",
 
-    updatedDate: "2026-05-09",
+    updatedDate: "09/05/2026",
 
     createdBy: "Admin",
   },
@@ -1477,9 +1477,9 @@ export const rimShapes = [
     notes:
       "Suitable for all age groups.",
 
-    createdOn: "2026-05-07",
+    createdOn: "07/05/2026",
 
-    updatedDate: "2026-05-08",
+    updatedDate: "08/05/2026",
 
     createdBy: "Admin",
   },
@@ -1575,9 +1575,9 @@ supplierName:"RayBan India",
 
 countryOfOrigin:"Italy",
 
-createdOn:"2026-05-11",
+createdOn:"11/05/2026",
 
-updatedDate:"2026-05-12",
+updatedDate:"12/05/2026",
 createdBy:"Admin",
 },
 
@@ -1668,8 +1668,8 @@ supplierName:"Oakley India",
 
 countryOfOrigin:"USA",
 
-createdOn:"2026-05-10",
-updatedDate:"2026-05-11",
+createdOn:"10/05/2026",
+updatedDate:"11/05/2026",
 
 createdBy:"Admin",
 },
@@ -1740,7 +1740,7 @@ features:[
 tax:18,
 countryOfOrigin:"Italy",
 
-createdOn:"2026-05-13",
+createdOn:"13/05/2026",
 },
 
 {
@@ -1797,7 +1797,7 @@ thumbnailImage:"/images/frames/carrera-main.png",
 
 description:"Stylish sporty sunglasses.",
 tax:18,
-createdOn:"2026-05-15",
+createdOn:"15/05/2026",
 },
 
 {
@@ -1849,7 +1849,7 @@ thumbnailImage:"/images/frames/vogue-main.png",
 
 description:"Ultra lightweight rimless optical frame.",
 tax:18,
-createdOn:"2026-05-16",
+createdOn:"16/05/2026",
 },
 
 {
@@ -1901,7 +1901,7 @@ thumbnailImage:"/images/frames/police-main.png",
 
 description:"Bold square sunglasses with blue lens.",
 
-createdOn:"2026-05-17",
+createdOn:"17/05/2026",
 },
 
 {
@@ -1953,7 +1953,7 @@ thumbnailImage:"/images/frames/tommy-main.png",
 
 description:"Comfortable youth optical frame.",
 
-createdOn:"2026-05-18",
+createdOn:"18/05/2026",
 },
 
 {
@@ -2005,7 +2005,7 @@ thumbnailImage:"/images/frames/fastrack-main.png",
 
 description:"Blue cut computer glasses.",
 
-createdOn:"2026-05-19",
+createdOn:"19/05/2026",
 },
 
 ];
@@ -2074,9 +2074,9 @@ export const contactLenses = [
     notes:
       "Best selling monthly disposable contact lens.",
 
-    createdOn: "2026-05-11",
+    createdOn: "11/05/2026",
 
-    updatedDate: "2026-05-12",
+    updatedDate: "12/05/2026",
 
     createdBy: "Admin",
   },
@@ -2144,9 +2144,9 @@ export const contactLenses = [
     notes:
       "Recommended for dry eye users.",
 
-    createdOn: "2026-05-10",
+    createdOn: "10/05/2026",
 
-    updatedDate: "2026-05-11",
+    updatedDate: "11/05/2026",
 
     createdBy: "Admin",
   },
@@ -2213,9 +2213,9 @@ export const contactLenses = [
     notes:
       "Currently out of stock.",
 
-    createdOn: "2026-05-09",
+    createdOn: "09/05/2026",
 
-    updatedDate: "2026-05-10",
+    updatedDate: "10/05/2026",
 
     createdBy: "Admin",
   },
@@ -2282,9 +2282,9 @@ export const contactLenses = [
     notes:
       "Popular bi-weekly replacement lens.",
 
-    createdOn: "2026-05-08",
+    createdOn: "08/05/2026",
 
-    updatedDate: "2026-05-09",
+    updatedDate: "09/05/2026",
 
     createdBy: "Admin",
   },
@@ -2711,7 +2711,7 @@ export const roles = [
       "Active",
 
     createdOn:
-      "2026-05-12",
+      "12/05/2026",
   },
 
   {
@@ -2737,7 +2737,7 @@ export const roles = [
       "Active",
 
     createdOn:
-      "2026-05-10",
+      "10/05/2026",
   },
 
   {
@@ -2762,7 +2762,7 @@ export const roles = [
       "Inactive",
 
     createdOn:
-      "2026-05-09",
+      "09/05/2026",
   },
 
   {
@@ -2787,7 +2787,7 @@ export const roles = [
       "Active",
 
     createdOn:
-      "2026-05-08",
+      "08/05/2026",
   },
 
 ];
@@ -3157,8 +3157,8 @@ export const invoices: Invoice[]= [
     phone: "+91 9876543210",
     billingAddress: "22 MG Road, Near Metro Station, Delhi, India - 110001",
     shippingAddress: "22 MG Road, Near Metro Station, Delhi, India - 110001",
-    invoiceDate: "2026-05-01",
-    dueDate: "2026-05-10",
+    invoiceDate: "01/05/2026",
+    dueDate: "10/05/2026",
     invoiceStatus: "Sent",
     paymentStatus: "Paid",
     productName: "RayBan Optical Frame",
@@ -3179,8 +3179,8 @@ export const invoices: Invoice[]= [
     paymentMethod: "UPI",
     transactionId: "TXN-908776",
     notes: "Invoice paid successfully.",
-    createdOn: "2026-05-01",
-    updatedDate: "2026-05-02",
+    createdOn: "01/05/2026",
+    updatedDate: "02/05/2026",
     createdBy: "Admin",
   },
   {
@@ -3193,13 +3193,13 @@ export const invoices: Invoice[]= [
     phone: "+91 9988776655",
     billingAddress: "Andheri East, Business Park, Mumbai, India - 400069",
     shippingAddress: "Andheri East, Business Park, Mumbai, India - 400069",
-    invoiceDate: "2026-05-02",
-    dueDate: "2026-05-12",
+    invoiceDate: "02/05/2026",
+    dueDate: "12/05/2026",
     invoiceStatus: "Sent",
     paymentStatus: "Partial",
     productName: "Acuvue Contact Lens",
     productType: "Contact Lens",
-    category: "Contacts", // Added category
+    category: "Contacts",
     quantity: 5,
     unitPrice: 2500,
     tax: 12,
@@ -3215,8 +3215,8 @@ export const invoices: Invoice[]= [
     paymentMethod: "Bank Transfer",
     transactionId: "TXN-887766",
     notes: "Partial payment received.",
-    createdOn: "2026-05-02",
-    updatedDate: "2026-05-03",
+    createdOn: "02/05/2026",
+    updatedDate: "03/05/2026",
     createdBy: "Admin",
   },
   {
@@ -3229,8 +3229,8 @@ export const invoices: Invoice[]= [
     phone: "+91 9090909090",
     billingAddress: "Sector 18, Near Mall, Noida, India - 201301",
     shippingAddress: "Sector 18, Near Mall, Noida, India - 201301",
-    invoiceDate: "2026-05-03",
-    dueDate: "2026-05-15",
+    invoiceDate: "03/05/2026",
+    dueDate: "15/05/2026",
     invoiceStatus: "Draft",
     paymentStatus: "Pending",
     productName: "Fastrack Sunglasses",
@@ -3251,8 +3251,8 @@ export const invoices: Invoice[]= [
     paymentMethod: "Cash",
     transactionId: "",
     notes: "Waiting for customer confirmation.",
-    createdOn: "2026-05-03",
-    updatedDate: "2026-05-03",
+    createdOn: "03/05/2026",
+    updatedDate: "03/05/2026",
     createdBy: "Admin",
   },
   {
@@ -3265,8 +3265,8 @@ export const invoices: Invoice[]= [
     phone: "+91 8181818181",
     billingAddress: "MG Road, Central Plaza, Bangalore, India - 560001",
     shippingAddress: "MG Road, Central Plaza, Bangalore, India - 560001",
-    invoiceDate: "2026-05-04",
-    dueDate: "2026-05-14",
+    invoiceDate: "04/05/2026",
+    dueDate: "14/05/2026",
     invoiceStatus: "Sent",
     paymentStatus: "Paid",
     productName: "Oakley Premium Frame",
@@ -3287,8 +3287,8 @@ export const invoices: Invoice[]= [
     paymentMethod: "Card",
     transactionId: "TXN-667788",
     notes: "Premium customer order.",
-    createdOn: "2026-05-04",
-    updatedDate: "2026-05-05",
+    createdOn: "04/05/2026",
+    updatedDate: "05/05/2026",
     createdBy: "Admin",
   },
   {
@@ -3301,8 +3301,8 @@ export const invoices: Invoice[]= [
     phone: "+91 7878787878",
     billingAddress: "Park Street, Office Complex, Kolkata, India - 700016",
     shippingAddress: "Park Street, Office Complex, Kolkata, India - 700016",
-    invoiceDate: "2026-05-05",
-    dueDate: "2026-05-16",
+    invoiceDate: "05/05/2026",
+    dueDate: "16/05/2026",
     invoiceStatus: "Cancelled",
     paymentStatus: "Overdue",
     productName: "Essilor Optical Lens",
@@ -3323,8 +3323,8 @@ export const invoices: Invoice[]= [
     paymentMethod: "Cheque",
     transactionId: "TXN-554433",
     notes: "Invoice overdue and cancelled.",
-    createdOn: "2026-05-05",
-    updatedDate: "2026-05-06",
+    createdOn: "05/05/2026",
+    updatedDate: "06/05/2026",
     createdBy: "Admin",
   },
   {
@@ -3337,8 +3337,8 @@ export const invoices: Invoice[]= [
     phone: "+91 9998887776",
     billingAddress: "Marine Drive, Sea View Apartments, Mumbai, India - 400002",
     shippingAddress: "Marine Drive, Sea View Apartments, Mumbai, India - 400002",
-    invoiceDate: "2026-05-06",
-    dueDate: "2026-05-18",
+    invoiceDate: "06/05/2026",
+    dueDate: "18/05/2026",
     invoiceStatus: "Sent",
     paymentStatus: "Paid",
     productName: "Zeiss Lens Package",
@@ -3359,8 +3359,8 @@ export const invoices: Invoice[]= [
     paymentMethod: "UPI",
     transactionId: "TXN-998877",
     notes: "Completed invoice payment.",
-    createdOn: "2026-05-06",
-    updatedDate: "2026-05-07",
+    createdOn: "06/05/2026",
+    updatedDate: "07/05/2026",
     createdBy: "Admin",
   },
 ];
@@ -3859,11 +3859,11 @@ export const expenses: Expense[] = [
     ledger: "Administrative",
     amount: 45000,
     currency: "INR",
-    expenseDate: "2026-05-01",
+    expenseDate: "01/05/2026",
     paymentMethod: "Bank Transfer",
     status: "Approved",
     description: "May 2026 rent for Delhi head office",
-    createdOn: "2026-05-01",
+    createdOn: "01/05/2026",
     createdBy: "Admin",
     notes: "Monthly office rent payment.",
   },
@@ -3873,11 +3873,11 @@ export const expenses: Expense[] = [
     ledger: "IT & Software",
     amount: 12500,
     currency: "INR",
-    expenseDate: "2026-05-05",
+    expenseDate: "05/05/2026",
     paymentMethod: "Credit Card",
     status: "Approved",
     description: "Annual renewal for team email accounts",
-    createdOn: "2026-05-05",
+    createdOn: "05/05/2026",
     createdBy: "Admin",
     notes: "Standard IT overhead.",
   },
@@ -3887,11 +3887,11 @@ export const expenses: Expense[] = [
     ledger: "Marketing & Sales",
     amount: 3200,
     currency: "INR",
-    expenseDate: "2026-05-07",
+    expenseDate: "07/05/2026",
     paymentMethod: "UPI",
     status: "Pending",
     description: "Project kickoff meeting lunch",
-    createdOn: "2026-05-07",
+    createdOn: "07/05/2026",
     createdBy: "Admin",
     notes: "Awaiting receipt verification.",
   },
@@ -3901,11 +3901,11 @@ export const expenses: Expense[] = [
     ledger: "Fixed Assets",
     amount: 18000,
     currency: "INR",
-    expenseDate: "2026-05-10",
+    expenseDate: "10/05/2026",
     paymentMethod: "Cheque",
     status: "Approved",
     description: "Additional racks for warehouse organization",
-    createdOn: "2026-05-10",
+    createdOn: "10/05/2026",
     createdBy: "Admin",
     notes: "Capital expenditure for warehouse.",
   },
@@ -3915,11 +3915,11 @@ export const expenses: Expense[] = [
     ledger: "Marketing & Sales",
     amount: 25000,
     currency: "INR",
-    expenseDate: "2026-05-12",
+    expenseDate: "12/05/2026",
     paymentMethod: "Card",
     status: "Pending",
     description: "Facebook and Instagram ads for new frame collection",
-    createdOn: "2026-05-13",
+    createdOn: "12/05/2026",
     createdBy: "Admin",
     notes: "Campaign running for 30 days.",
   }
@@ -3936,7 +3936,7 @@ LedgerGroup[] = [
       "Administrative",
 
     createdAt:
-      "2026-05-10",
+      "10/05/2026",
 
     status:
       "Active",
@@ -3952,7 +3952,7 @@ LedgerGroup[] = [
       "Utilities",
 
     createdAt:
-      "2026-05-11",
+      "11/05/2026",
 
     status:
       "Active",
@@ -3968,7 +3968,7 @@ LedgerGroup[] = [
       "Revenue",
 
     createdAt:
-      "2026-05-12",
+      "12/05/2026",
 
     status:
       "Active",
@@ -4001,7 +4001,7 @@ Ledger[] = [
       32000,
 
     createdOn:
-      "2026-05-10",
+      "10/05/2026",
 
     createdBy:
       "Admin",
@@ -4032,7 +4032,7 @@ Ledger[] = [
       14500,
 
     createdOn:
-      "2026-05-11",
+      "11/05/2026",
 
     createdBy:
       "Manager",
@@ -4063,7 +4063,7 @@ Ledger[] = [
       175000,
 
     createdOn:
-      "2026-05-12",
+      "12/05/2026",
 
     createdBy:
       "Admin",
@@ -4086,12 +4086,12 @@ export const salesTargets: SalesTarget[] = [
     targetAmount: 100000,
     achievedAmount: 85000,
     remainingAmount: 15000,
-    dueDate: "2026-06-30",
+    dueDate: "30/06/2026",
     month: "June",
     status: "In Progress",
     notes: "Good performance this month.",
-    createdOn: "2026-06-01",
-    updatedDate: "2026-06-12",
+    createdOn: "01/05/2026",
+    updatedDate: "12/06/2026",
     createdBy: "Admin",
   },
   {
@@ -4102,12 +4102,12 @@ export const salesTargets: SalesTarget[] = [
     targetAmount: 120000,
     achievedAmount: 120000,
     remainingAmount: 0,
-    dueDate: "2026-06-30",
+    dueDate: "30/06/2026",
     month: "June",
     status: "Completed",
     notes: "Target achieved successfully.",
-    createdOn: "2026-06-01",
-    updatedDate: "2026-06-25",
+    createdOn: "01/06/2026",
+    updatedDate: "25/06/2026",
     createdBy: "Admin",
   },
   {
@@ -4118,12 +4118,12 @@ export const salesTargets: SalesTarget[] = [
     targetAmount: 90000,
     achievedAmount: 45000,
     remainingAmount: 45000,
-    dueDate: "2026-06-30",
+    dueDate: "30/06/2026",
     month: "June",
     status: "Pending",
     notes: "Needs improvement.",
-    createdOn: "2026-06-02",
-    updatedDate: "2026-06-10",
+    createdOn: "02/06/2026",
+    updatedDate: "10/06/2026",
     createdBy: "Admin",
   },
   {
@@ -4134,12 +4134,12 @@ export const salesTargets: SalesTarget[] = [
     targetAmount: 150000,
     achievedAmount: 140000,
     remainingAmount: 10000,
-    dueDate: "2026-06-30",
+    dueDate: "30/06/2026",
     month: "June",
     status: "In Progress",
     notes: "Almost completed target.",
-    createdOn: "2026-06-03",
-    updatedDate: "2026-06-13",
+    createdOn: "03/06/2026",
+    updatedDate: "13/06/2026",
     createdBy: "Admin",
   },
   {
@@ -4150,12 +4150,12 @@ export const salesTargets: SalesTarget[] = [
     targetAmount: 80000,
     achievedAmount: 20000,
     remainingAmount: 60000,
-    dueDate: "2026-06-30",
+    dueDate: "30/06/2026",
     month: "June",
     status: "Overdue",
     notes: "Performance significantly below expectations.",
-    createdOn: "2026-06-04",
-    updatedDate: "2026-06-14",
+    createdOn: "04/06/2026",
+    updatedDate: "14/06/2026",
     createdBy: "Admin",
   }
 ];
@@ -4178,8 +4178,8 @@ export const inventories: Inventory[] = [
     status: "In Stock",
     supplier: "Luxottica India",
     location: "Aisle 4, Shelf B",
-    createdOn: "2026-05-14",
-    updatedDate: "2026-05-15",
+    createdOn: "14/05/2026",
+    updatedDate: "15/05/2026",
     createdBy: "Admin",
     notes: "Fast moving frame. Keep 2 extra pieces in display.",
   },
@@ -4200,8 +4200,8 @@ export const inventories: Inventory[] = [
     status: "Low Stock",
     supplier: "Johnson & Johnson Vision",
     location: "Cold Storage Room 1",
-    createdOn: "2026-05-13",
-    updatedDate: "2026-05-14",
+    createdOn: "13/05/2026",
+    updatedDate: "14/05/2026",
     createdBy: "Manager",
     notes: "Need urgent refill. Customer demand is high in Delhi North.",
   },
@@ -4222,8 +4222,8 @@ export const inventories: Inventory[] = [
     status: "Out of Stock",
     supplier: "Carl Zeiss Optical",
     location: "Main Vault",
-    createdOn: "2026-05-10",
-    updatedDate: "2026-05-15",
+    createdOn: "10/05/2026",
+    updatedDate: "15/05/2026",
     createdBy: "Admin",
     notes: "Awaiting shipment from international warehouse.",
   }

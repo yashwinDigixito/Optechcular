@@ -1,31 +1,23 @@
 "use client";
 
 import {
-  useState,
-} from "react";
-
-import {
   RimShape,
 } from "@/assets/types";
 
-import EditIcon from "@mui/icons-material/Edit";
+import CommonTable from "@/component/common/table/CommonTable";
 
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+import StatusSelect from "@/component/common/table/StatusSelect";
 
-import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
+import TableActions from "@/component/common/table/TableActions";
+
+import {
+  FONT_FAMILY,
+  FONT_SIZE,
+  FONT_WEIGHT,
+} from "@/assets/constants";
 
 import {
   Box,
-  IconButton,
-  Menu,
-  MenuItem,
-  Select,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
   Typography,
 } from "@mui/material";
 
@@ -52,586 +44,322 @@ export default function RimShapeTable({
   const router =
     useRouter();
 
-  const [anchorEl,
-    setAnchorEl] =
-      useState<
-        null | HTMLElement
-      >(null);
+  /* TABLE COLUMNS */
+  const columns = [
 
-  const [selectedShapeId,
-    setSelectedShapeId] =
-      useState<
-        string | null
-      >(null);
+    {
+      key: "shape",
+      label: "Shape Name",
+    },
 
-  const handleMenuOpen = (
-    event:
-      React.MouseEvent<HTMLElement>,
-    id: string
-  ) => {
+    {
+      key: "code",
+      label: "Shape Code",
+    },
 
-    setAnchorEl(
-      event.currentTarget
-    );
+    {
+      key: "category",
+      label: "Category",
+    },
 
-    setSelectedShapeId(
-      id
-    );
-  };
+    {
+      key: "applicableFor",
+      label: "Applicable For",
+    },
 
-  const handleMenuClose =
-    () => {
+    {
+      key: "products",
+      label: "Products",
+      align: "center" as const,
+    },
 
-      setAnchorEl(null);
+    {
+      key: "status",
+      label: "Status",
+      align: "center" as const,
+    },
 
-      setSelectedShapeId(
-        null
-      );
-    };
+    {
+      key: "createdOn",
+      label: "Created On",
+      align: "center" as const,
+    },
 
+    {
+      key: "actions",
+      label: "Actions",
+      align: "center" as const,
+    },
+  ];
+
+  /* STATUS CHANGE */
   const handleStatusChange = (
     id: string,
-
-    value:
-      | "Active"
-      | "Inactive"
+    value: string
   ) => {
 
-    setRimShapeData(
-      (prev) =>
+    setRimShapeData((prev) =>
+      prev.map((shape) =>
 
-        prev.map(
-          (shape) =>
+        shape.id === id
 
-            shape.id === id
+          ? {
+              ...shape,
+              status: value as
+                | "Active"
+                | "Inactive",
+            }
 
-              ? {
-                  ...shape,
-                  status:
-                    value,
-                }
-
-              : shape
-        )
+          : shape
+      )
     );
   };
 
   return (
-    <TableContainer
-      sx={{
-        mt: 2,
+    <CommonTable
+      columns={columns}
+      rows={rimShapes}
 
-        borderRadius:
-          "24px",
+      renderCell={(
+        shape,
+        key
+      ) => {
 
-        background:
-          "#FFFFFF",
+        switch (key) {
 
-        border:
-          "1px solid #E2E8F0",
+          /* SHAPE */
+          case "shape":
 
-        overflow:
-          "hidden",
-      }}
-    >
+            return (
 
-      <Table
-        sx={{
-          minWidth: 1000,
+              <Box>
 
-          "& .MuiTableCell-root":
-            {
-              py: 2.2,
+                <Typography
+                  sx={{
+                    fontWeight:
+                      FONT_WEIGHT.BOLD,
 
-              borderColor:
-                "#F1F5F9",
-            },
-        }}
-      >
+                    color:
+                      "#2563EB",
 
-        {/* TABLE HEAD */}
-        <TableHead>
+                    fontSize:
+                      "15px",
 
-          <TableRow
-            sx={{
-              background:
-                "#F8FAFC",
-            }}
-          >
+                    fontFamily:
+                      FONT_FAMILY.TABLE_BODY,
+                  }}
+                >
+                  {
+                    shape.shapeName
+                  }
+                </Typography>
 
-            <TableCell>
+                <Typography
+                  sx={{
+                    fontSize:
+                      FONT_SIZE.SMALL,
 
-              <Typography
-                sx={{
-                  fontWeight:
-                    700,
-                }}
-              >
-                Shape Name
-              </Typography>
+                    color:
+                      "#64748B",
 
-            </TableCell>
+                    fontFamily:
+                      FONT_FAMILY.TABLE_BODY,
+                  }}
+                >
+                  {
+                    shape.description
+                  }
+                </Typography>
 
-            <TableCell>
+              </Box>
 
-              <Typography
-                sx={{
-                  fontWeight:
-                    700,
-                }}
-              >
-                Shape Code
-              </Typography>
+            );
 
-            </TableCell>
+          /* CODE */
+          case "code":
 
-            <TableCell>
+            return (
 
               <Typography
                 sx={{
                   fontWeight:
-                    700,
+                    FONT_WEIGHT.SEMI_BOLD,
+
+                  color:
+                    "#475569",
+
+                  fontSize:
+                    FONT_SIZE.TABLE_BODY,
+
+                  fontFamily:
+                    FONT_FAMILY.TABLE_BODY,
                 }}
               >
-                Category
-              </Typography>
-
-            </TableCell>
-
-            <TableCell>
-
-              <Typography
-                sx={{
-                  fontWeight:
-                    700,
-                }}
-              >
-                Applicable For
-              </Typography>
-
-            </TableCell>
-
-            <TableCell align="center">
-
-              <Typography
-                sx={{
-                  fontWeight:
-                    700,
-                }}
-              >
-                Products
-              </Typography>
-
-            </TableCell>
-
-            <TableCell align="center">
-
-              <Typography
-                sx={{
-                  fontWeight:
-                    700,
-                }}
-              >
-                Status
-              </Typography>
-
-            </TableCell>
-
-            <TableCell align="center">
-
-              <Typography
-                sx={{
-                  fontWeight:
-                    700,
-                }}
-              >
-                Created On
-              </Typography>
-
-            </TableCell>
-
-            <TableCell align="center">
-
-              <Typography
-                sx={{
-                  fontWeight:
-                    700,
-                }}
-              >
-                Actions
-              </Typography>
-
-            </TableCell>
-
-          </TableRow>
-
-        </TableHead>
-
-        {/* TABLE BODY */}
-        <TableBody>
-
-          {rimShapes.map(
-            (
-              shape
-            ) => (
-
-              <TableRow
-                key={
-                  shape.id
+                {
+                  shape.rimShapeCode
                 }
-                hover
+              </Typography>
+
+            );
+
+          /* CATEGORY */
+          case "category":
+
+            return (
+
+              <Typography
                 sx={{
-                  "&:hover":
-                    {
-                      background:
-                        "#F8FAFC",
-                    },
+                  color:
+                    "#475569",
+
+                  fontWeight:
+                    FONT_WEIGHT.MEDIUM,
+
+                  fontSize:
+                    FONT_SIZE.TABLE_BODY,
+
+                  fontFamily:
+                    FONT_FAMILY.TABLE_BODY,
                 }}
               >
+                {
+                  shape.shapeCategory
+                }
+              </Typography>
 
-                {/* SHAPE NAME */}
-                <TableCell>
-
-                  <Box>
-
-                    <Typography
-                      sx={{
-                        fontWeight:
-                          700,
-
-                        color:
-                          "#2563EB",
-
-                        fontSize:
-                          "15px",
-                      }}
-                    >
-                      {
-                        shape.shapeName
-                      }
-                    </Typography>
-
-                    <Typography
-                      sx={{
-                        fontSize:
-                          "13px",
-
-                        color:
-                          "#64748B",
-                      }}
-                    >
-                      {
-                        shape.description
-                      }
-                    </Typography>
-
-                  </Box>
-
-                </TableCell>
-
-                {/* CODE */}
-                <TableCell>
-
-                  <Typography
-                    sx={{
-                      fontWeight:
-                        600,
-
-                      color:
-                        "#475569",
-                    }}
-                  >
-                    {
-                      shape.rimShapeCode
-                    }
-                  </Typography>
-
-                </TableCell>
-
-                {/* CATEGORY */}
-                <TableCell>
-
-                  <Typography
-                    sx={{
-                      color:
-                        "#475569",
-
-                      fontWeight:
-                        500,
-                    }}
-                  >
-                    {
-                      shape.shapeCategory
-                    }
-                  </Typography>
-
-                </TableCell>
-
-                {/* APPLICABLE */}
-                <TableCell>
-
-                  <Typography
-                    sx={{
-                      color:
-                        "#475569",
-
-                      fontWeight:
-                        500,
-                    }}
-                  >
-                    {
-                      shape.applicableFor
-                    }
-                  </Typography>
-
-                </TableCell>
-
-                {/* PRODUCTS */}
-                <TableCell align="center">
-
-                  <Typography
-                    sx={{
-                      fontWeight:
-                        700,
+            );
 
-                      color:
-                        "#0F172A",
-                    }}
-                  >
-                    {
-                      shape.totalProducts
-                    }
-                  </Typography>
+          /* APPLICABLE FOR */
+          case "applicableFor":
+
+            return (
 
-                </TableCell>
+              <Typography
+                sx={{
+                  color:
+                    "#475569",
 
-                {/* STATUS */}
-                <TableCell align="center">
+                  fontWeight:
+                    FONT_WEIGHT.MEDIUM,
 
-                  <Select
-                    size="small"
+                  fontSize:
+                    FONT_SIZE.TABLE_BODY,
 
-                    value={
-                      shape.status
-                    }
-
-                    onChange={(
-                      e
-                    ) =>
-                      handleStatusChange(
-                        shape.id,
+                  fontFamily:
+                    FONT_FAMILY.TABLE_BODY,
+                }}
+              >
+                {
+                  shape.applicableFor
+                }
+              </Typography>
+
+            );
+
+          /* PRODUCTS */
+          case "products":
 
-                        e.target
-                          .value as
-                          | "Active"
-                          | "Inactive"
-                      )
-                    }
-
-                    sx={{
-                      minWidth:
-                        "120px",
-
-                      borderRadius:
-                        "10px",
-
-                      fontWeight:
-                        600,
-
-                      background:
-                        shape.status ===
-                        "Active"
-
-                          ? "#DCFCE7"
-
-                          : "#FEE2E2",
-
-                      color:
-                        shape.status ===
-                        "Active"
-
-                          ? "#15803D"
-
-                          : "#DC2626",
-
-                      ".MuiOutlinedInput-notchedOutline":
-                        {
-                          border:
-                            "none",
-                        },
-
-                      ".MuiSelect-icon":
-                        {
-                          color:
-                            shape.status ===
-                            "Active"
-
-                              ? "#15803D"
-
-                              : "#DC2626",
-                        },
-                    }}
-                  >
-
-                    <MenuItem value="Active">
-                      Active
-                    </MenuItem>
-
-                    <MenuItem value="Inactive">
-                      Inactive
-                    </MenuItem>
-
-                  </Select>
-
-                </TableCell>
-
-                {/* CREATED */}
-                <TableCell align="center">
-
-                  <Typography
-                    sx={{
-                      color:
-                        "#64748B",
-
-                      fontWeight:
-                        500,
-                    }}
-                  >
-                    {
-                      shape.createdOn
-                    }
-                  </Typography>
-
-                </TableCell>
-
-                {/* ACTIONS */}
-                <TableCell align="center">
-
-                  <IconButton
-                    onClick={(e) =>
-                      handleMenuOpen(
-                        e,
-                        shape.id
-                      )
-                    }
-                    sx={{
-                      background:
-                        "#F8FAFC",
-
-                      width: 38,
-
-                      height: 38,
-
-                      "&:hover": {
-                        background:
-                          "#E2E8F0",
-                      },
-                    }}
-                  >
-
-                    <MoreVertIcon
-                      sx={{
-                        color:
-                          "#64748B",
-                      }}
-                    />
-
-                  </IconButton>
-
-                  <Menu
-                    anchorEl={
-                      anchorEl
-                    }
-
-                    open={
-                      Boolean(
-                        anchorEl
-                      ) &&
-
-                      selectedShapeId ===
-                        shape.id
-                    }
-
-                    onClose={
-                      handleMenuClose
-                    }
-
-                    slotProps={{
-                      paper: {
-                        sx: {
-                          borderRadius:
-                            "14px",
-
-                          minWidth:
-                            "150px",
-
-                          boxShadow:
-                            "0px 10px 30px rgba(15,23,42,0.08)",
-                        },
-                      },
-                    }}
-                  >
-
-                    <MenuItem
-                      onClick={() => {
-
-                        router.push(
-                          `/products/rim-shapes/view/${shape.id}`
-                        );
-
-                        handleMenuClose();
-                      }}
-                    >
-
-                      <RemoveRedEyeOutlinedIcon
-                        sx={{
-                          mr: 1,
-
-                          color:
-                            "#2563EB",
-                        }}
-                      />
-
-                      View
-
-                    </MenuItem>
-
-                    <MenuItem
-                      onClick={() => {
-
-                        router.push(
-                          `/products/rim-shapes/edit/${shape.id}`
-                        );
-
-                        handleMenuClose();
-                      }}
-                    >
-
-                      <EditIcon
-                        sx={{
-                          mr: 1,
-
-                          color:
-                            "#0F172A",
-                        }}
-                      />
-
-                      Edit
-
-                    </MenuItem>
-
-                  </Menu>
-
-                </TableCell>
-
-              </TableRow>
-            )
-          )}
-
-        </TableBody>
-
-      </Table>
-
-    </TableContainer>
+            return (
+
+              <Typography
+                sx={{
+                  fontWeight:
+                    FONT_WEIGHT.BOLD,
+
+                  color:
+                    "#0F172A",
+
+                  fontSize:
+                    FONT_SIZE.TABLE_BODY,
+
+                  fontFamily:
+                    FONT_FAMILY.TABLE_BODY,
+                }}
+              >
+                {
+                  shape.totalProducts
+                }
+              </Typography>
+
+            );
+
+          /* STATUS */
+          case "status":
+
+            return (
+
+              <StatusSelect
+                value={
+                  shape.status
+                }
+
+                options={[
+                  "Active",
+                  "Inactive",
+                ]}
+
+                onChange={(value) =>
+                  handleStatusChange(
+                    shape.id,
+                    value
+                  )
+                }
+              />
+
+            );
+
+          /* CREATED ON */
+          case "createdOn":
+
+            return (
+
+              <Typography
+                sx={{
+                  color:
+                    "#64748B",
+
+                  fontWeight:
+                    FONT_WEIGHT.MEDIUM,
+
+                  fontSize:
+                    FONT_SIZE.TABLE_BODY,
+
+                  fontFamily:
+                    FONT_FAMILY.TABLE_BODY,
+                }}
+              >
+                {
+                  shape.createdOn
+                }
+              </Typography>
+
+            );
+
+          /* ACTIONS */
+          case "actions":
+
+            return (
+
+              <TableActions
+                onView={() =>
+                  router.push(
+                    `/products/rim-shapes/view/${shape.id}`
+                  )
+                }
+
+                onEdit={() =>
+                  router.push(
+                    `/products/rim-shapes/edit/${shape.id}`
+                  )
+                }
+              />
+
+            );
+
+          default:
+            return null;
+        }
+      }}
+    />
   );
 }

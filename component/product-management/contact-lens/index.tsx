@@ -22,6 +22,12 @@ import {
   ContactLens,
 } from "@/assets/types";
 
+import {
+  FONT_FAMILY,
+  FONT_SIZE,
+  FONT_WEIGHT,
+} from "@/assets/constants";
+
 import ContactLensFilters from "./ContactLensFilters";
 
 import ContactLensTable from "./ContactLensTable";
@@ -31,24 +37,34 @@ export default function ContactLensManagementPage() {
   const router =
     useRouter();
 
-  const [search, setSearch] =
-    useState("");
+  const [
+    search,
+    setSearch,
+  ] = useState("");
 
-  const [brand, setBrand] =
-    useState("");
-  const [date, setDate] =
-    useState("");
+  const [
+    brand,
+    setBrand,
+  ] = useState("");
 
-  const [status, setStatus] =
-    useState("");
+  const [
+    date,
+    setDate,
+  ] = useState("");
 
-  const [contactLensData,
-    setContactLensData] =
-      useState<
-        ContactLens[]
-      >(
-        contactLenses
-      );
+  const [
+    status,
+    setStatus,
+  ] = useState("");
+
+  const [
+    contactLensData,
+    setContactLensData,
+  ] = useState<
+    ContactLens[]
+  >(
+    contactLenses
+  );
 
   /* COUNTS */
   const contactLensCount = {
@@ -106,11 +122,14 @@ export default function ContactLensManagementPage() {
 
         const matchesStatus =
           status
+
             ? lens.status ===
               status
+
             : true;
 
         return (
+
           matchesSearch &&
           matchesBrand &&
           matchesDate &&
@@ -123,154 +142,194 @@ export default function ContactLensManagementPage() {
     <Box
       sx={{
         p: 3,
-        pt: 1.5,
+
         minHeight:
           "100vh",
+
         background:
           "#F8FAFC",
       }}
     >
 
-      {/* HEADER */}
       <Box
         sx={{
-          display: "flex",
+          maxWidth:
+            "100%",
 
-          justifyContent:
-            "space-between",
-
-          alignItems:
-            "center",
-
-          mb: 3,
-
-          flexWrap:
-            "wrap",
-
-          gap: 2,
+          mx:
+            "auto",
         }}
       >
 
-        <Typography
+        {/* HEADER */}
+        <Box
           sx={{
-            fontSize:
-              "32px",
+            display:
+              "flex",
 
-            fontWeight:
-              700,
+            justifyContent:
+              "space-between",
 
-            color:
-              "#0F172A",
+            alignItems:
+              "center",
+
+            mb: 3,
+
+            px: 1,
+
+            flexWrap:
+              "wrap",
+
+            gap: 2,
           }}
         >
-          Contact Lens Management
-        </Typography>
 
-        <Button
-          variant="contained"
-          startIcon={<AddIcon />}
-          onClick={() =>
-            router.push(
-              "/products/contact-lens/add"
-            )
-          }
+          <Typography
+            sx={{
+              fontFamily:
+                FONT_FAMILY.HEADING,
+
+              fontSize:
+                FONT_SIZE.PAGE_HEADING,
+
+              fontWeight:
+                FONT_WEIGHT.BOLD,
+
+              color:
+                "#0F172A",
+
+              lineHeight:
+                1.2,
+            }}
+          >
+            Contact Lens Management
+          </Typography>
+
+          <Button
+            variant="contained"
+
+            startIcon={
+              <AddIcon />
+            }
+
+            onClick={() =>
+              router.push(
+                "/products/contact-lens/add"
+              )
+            }
+
+            sx={{
+              height:
+                "50px",
+
+              borderRadius:
+                "14px",
+
+              textTransform:
+                "none",
+
+              px: 3,
+
+              fontFamily:
+                FONT_FAMILY.BUTTON,
+
+              fontWeight:
+                FONT_WEIGHT.BOLD,
+
+              boxShadow:
+                "none",
+            }}
+          >
+            Add Contact Lens
+          </Button>
+
+        </Box>
+
+        {/* MAIN CARD */}
+        <Box
           sx={{
-            height:
-              "50px",
+            background:
+              "#FFFFFF",
+
+            border:
+              "1px solid #E2E8F0",
 
             borderRadius:
-              "14px",
+              "24px",
 
-            textTransform:
-              "none",
-
-            px: 3,
-
-            fontWeight:
-              700,
-
-            boxShadow:
-              "none",
+            overflow:
+              "hidden",
           }}
         >
-          Add Contact Lens
-        </Button>
 
-      </Box>
+          {/* FILTERS */}
+          <ContactLensFilters
+            search={search}
+            setSearch={setSearch}
 
-      {/* MAIN CARD */}
-      <Box
-        sx={{
-          background:
-            "#FFFFFF",
+            brand={brand}
+            setBrand={setBrand}
 
-          border:
-            "1px solid #E2E8F0",
+            date={date}
+            setDate={setDate}
 
-          borderRadius:
-            "24px",
+            status={status}
+            setStatus={setStatus}
 
-          overflow:
-            "hidden",
-        }}
-      >
-
-        {/* FILTERS */}
-        <ContactLensFilters
-          search={search}
-          setSearch={setSearch}
-
-          brand={brand}
-          setBrand={setBrand}
-
-          date={date}
-          setDate={setDate}
-
-          status={status}
-          setStatus={setStatus}
-
-          contactLensCount={
-            contactLensCount
-          }
-        />
-
-        {/* TABLE */}
-        <Box sx={{ p: 3 }}>
-
-          {(
-            search ||
-            brand ||
-            date ||
-            status
-          ) && (
-
-            <Typography
-              sx={{
-                mb: 2,
-
-                color:
-                  "#64748B",
-
-                fontWeight:
-                  600,
-              }}
-            >
-              {
-                filteredLenses.length
-              }{" "}
-              results found
-            </Typography>
-
-          )}
-
-          <ContactLensTable
-            contactLenses={
-              filteredLenses
-            }
-            setContactLensData={
-              setContactLensData
+            contactLensCount={
+              contactLensCount
             }
           />
+
+          {/* TABLE */}
+          <Box
+            sx={{
+              p: 3,
+            }}
+          >
+
+            {(
+
+              search ||
+              brand ||
+              date ||
+              status
+
+            ) && (
+
+              <Typography
+                sx={{
+                  mb: 2,
+
+                  color:
+                    "#475569",
+
+                  fontWeight:
+                    500,
+
+                  fontFamily:
+                    FONT_FAMILY.BODY,
+                }}
+              >
+                {
+                  filteredLenses.length
+                }{" "}
+                results found
+              </Typography>
+
+            )}
+
+            <ContactLensTable
+              contactLenses={
+                filteredLenses
+              }
+
+              setContactLensData={
+                setContactLensData
+              }
+            />
+
+          </Box>
 
         </Box>
 

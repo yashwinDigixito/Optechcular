@@ -1,31 +1,25 @@
 "use client";
 
 import {
-  useState,
-} from "react";
-
-import {
   Frame,
 } from "@/assets/types";
 
-import EditIcon from "@mui/icons-material/Edit";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
+import CommonTable from "@/component/common/table/CommonTable";
+
+import StatusSelect from "@/component/common/table/StatusSelect";
+
+import TableActions from "@/component/common/table/TableActions";
+
+import {
+  FONT_FAMILY,
+  FONT_SIZE,
+  FONT_WEIGHT,
+} from "@/assets/constants";
 
 import {
   Box,
   Chip,
-  IconButton,
-  Menu,
-  MenuItem,
-  Select,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Typography
+  Typography,
 } from "@mui/material";
 
 import { useRouter } from "next/navigation";
@@ -51,623 +45,370 @@ export default function FrameTable({
   const router =
     useRouter();
 
-  const [anchorEl, setAnchorEl] =
-    useState<null | HTMLElement>(null);
+  /* TABLE COLUMNS */
+  const columns = [
 
-  const [selectedFrameId, setSelectedFrameId] =
-    useState<string | null>(null);
+    {
+      key: "frame",
+      label: "Frame",
+    },
 
-  const handleMenuOpen = (
-    event: React.MouseEvent<HTMLElement>,
-    id: string
-  ) => {
+    {
+      key: "brand",
+      label: "Brand",
+    },
 
-    setAnchorEl(
-      event.currentTarget
-    );
+    {
+      key: "category",
+      label: "Category",
+    },
 
-    setSelectedFrameId(id);
-  };
+    {
+      key: "gender",
+      label: "Gender",
+    },
 
-  const handleMenuClose = () => {
+    {
+      key: "stock",
+      label: "Stock",
+      align: "center" as const,
+    },
 
-    setAnchorEl(null);
+    {
+      key: "price",
+      label: "Price",
+      align: "center" as const,
+    },
 
-    setSelectedFrameId(null);
-  };
+    {
+      key: "status",
+      label: "Status",
+      align: "center" as const,
+    },
 
+    {
+      key: "created",
+      label: "Created",
+      align: "center" as const,
+    },
+
+    {
+      key: "actions",
+      label: "Actions",
+      align: "center" as const,
+    },
+  ];
+
+  /* STATUS CHANGE */
   const handleStatusChange = (
     id: string,
-    value:
-      | "Active"
-      | "Inactive"
-      | "Out of Stock"
+    value: string
   ) => {
 
     setFrameData((prev) =>
       prev.map((frame) =>
+
         frame.id === id
+
           ? {
               ...frame,
-              status: value,
+              status: value as
+                | "Active"
+                | "Inactive"
+                | "Out of Stock",
             }
+
           : frame
       )
     );
   };
 
   return (
-    <TableContainer
-      sx={{
-        borderRadius:
-          "20px",
+    <CommonTable
+      columns={columns}
+      rows={frames}
 
-        overflow:
-          "hidden",
+      renderCell={(
+        frame,
+        key
+      ) => {
 
-        background:
-          "#FFFFFF",
-      }}
-    >
+        switch (key) {
 
-      <Table
-        sx={{
-          "& .MuiTableCell-root": {
-            py: 2,
-            borderColor: "#F1F5F9",
-          },
-        }}
-      >
+          /* FRAME */
+          case "frame":
 
-        <TableHead>
+            return (
 
-          <TableRow
-            sx={{
-              background:
-                "#F8FAFC",
+              <Box>
 
-              borderBottom:
-                "1px solid #E2E8F0",
-            }}
-          >
+                <Typography
+                  sx={{
+                    fontWeight:
+                      FONT_WEIGHT.BOLD,
 
-            <TableCell>
+                    color:
+                      "#2563EB",
 
-              <Typography
-                sx={{
-                  fontWeight:
-                    700,
-                }}
-              >
-                Frame
-              </Typography>
+                    fontSize:
+                      "15px",
 
-            </TableCell>
+                    fontFamily:
+                      FONT_FAMILY.TABLE_BODY,
+                  }}
+                >
+                  {
+                    frame.frameName
+                  }
+                </Typography>
 
-            <TableCell>
+                <Typography
+                  sx={{
+                    fontSize:
+                      FONT_SIZE.SMALL,
 
-              <Typography
-                sx={{
-                  fontWeight:
-                    700,
-                }}
-              >
-                Brand
-              </Typography>
+                    color:
+                      "#64748B",
 
-            </TableCell>
+                    fontFamily:
+                      FONT_FAMILY.TABLE_BODY,
+                  }}
+                >
+                  {
+                    frame.frameId
+                  }
+                </Typography>
 
+              </Box>
 
-            <TableCell>
+            );
 
-              <Typography
-                sx={{
-                  fontWeight:
-                    700,
-                }}
-              >
-                Category
-              </Typography>
+          /* BRAND */
+          case "brand":
 
-            </TableCell>
-
-            <TableCell>
+            return (
 
               <Typography
                 sx={{
+                  color:
+                    "#0F172A",
+
                   fontWeight:
-                    700,
+                    FONT_WEIGHT.SEMI_BOLD,
+
+                  fontSize:
+                    FONT_SIZE.TABLE_BODY,
+
+                  fontFamily:
+                    FONT_FAMILY.TABLE_BODY,
                 }}
               >
-                Gender
-              </Typography>
-
-            </TableCell>
-
-            <TableCell align="center">
-
-              <Typography
-                sx={{
-                  fontWeight:
-                    700,
-                }}
-              >
-                Stock
-              </Typography>
-
-            </TableCell>
-
-            <TableCell align="center">
-
-              <Typography
-                sx={{
-                  fontWeight:
-                    700,
-                }}
-              >
-                Price
-              </Typography>
-
-            </TableCell>
-
-            <TableCell align="center">
-
-              <Typography
-                sx={{
-                  fontWeight:
-                    700,
-                }}
-              >
-                Status
-              </Typography>
-
-            </TableCell>
-
-            <TableCell align="center">
-
-              <Typography
-                sx={{
-                  fontWeight:
-                    700,
-                }}
-              >
-                Created
-              </Typography>
-
-            </TableCell>
-
-            <TableCell align="center">
-
-              <Typography
-                sx={{
-                  fontWeight:
-                    700,
-                }}
-              >
-                Actions
-              </Typography>
-
-            </TableCell>
-
-          </TableRow>
-
-        </TableHead>
-
-        <TableBody>
-
-          {frames.map(
-            (
-              frame
-            ) => (
-
-              <TableRow
-                key={
-                  frame.id
+                {
+                  frame.brand
                 }
-                hover
+              </Typography>
+
+            );
+
+          /* CATEGORY */
+          case "category":
+
+            return (
+
+              <Chip
+                label={
+                  frame.category
+                }
+
                 sx={{
-                  "&:hover":
-                    {
-                      background:
-                        "#F8FAFC",
-                    },
+                  background:
+                    "#EFF6FF",
+
+                  color:
+                    "#2563EB",
+
+                  fontWeight:
+                    FONT_WEIGHT.SEMI_BOLD,
+
+                  borderRadius:
+                    "8px",
+
+                  fontFamily:
+                    FONT_FAMILY.BODY,
+                }}
+              />
+
+            );
+
+          /* GENDER */
+          case "gender":
+
+            return (
+
+              <Typography
+                sx={{
+                  color:
+                    "#475569",
+
+                  fontWeight:
+                    FONT_WEIGHT.MEDIUM,
+
+                  fontSize:
+                    FONT_SIZE.TABLE_BODY,
+
+                  fontFamily:
+                    FONT_FAMILY.TABLE_BODY,
                 }}
               >
+                {
+                  frame.gender
+                }
+              </Typography>
 
-                {/* FRAME */}
-                <TableCell>
+            );
 
-                  <Box
-                    sx={{
-                      display:
-                        "flex",
+          /* STOCK */
+          case "stock":
 
-                      alignItems:
-                        "center",
+            return (
 
-                      gap: 2,
-                    }}
-                  >
-                    <Box>
+              <Typography
+                sx={{
+                  fontWeight:
+                    FONT_WEIGHT.BOLD,
 
-                      <Typography
-                        sx={{
-                          fontWeight:
-                            700,
+                  fontSize:
+                    FONT_SIZE.TABLE_BODY,
 
-                          color:
-                            "#2563EB",
+                  fontFamily:
+                    FONT_FAMILY.TABLE_BODY,
 
-                          fontSize:
-                            "14px",
-                        }}
-                      >
-                        {
-                          frame.frameName
-                        }
-                      </Typography>
-
-                      <Typography
-                        sx={{
-                          fontSize:
-                            "13px",
-
-                          color:
-                            "#64748B",
-                        }}
-                      >
-                        {
-                          frame.frameId
-                        }
-                      </Typography>
-
-                    </Box>
-
-                  </Box>
-
-                </TableCell>
-
-                {/* BRAND */}
-                <TableCell>
-
-                  <Typography
-                    sx={{
-                      color:
-                        "#0F172A",
-
-                      fontWeight:
-                        600,
-
-                      fontSize:
-                        "14px",
-                    }}
-                  >
-                    {
-                      frame.brand
-                    }
-                  </Typography>
-
-                </TableCell>
-
-                {/* CATEGORY */}
-                <TableCell>
-
-                  <Chip
-                    label={
-                      frame.category
-                    }
-                    sx={{
-                      background:
-                        "#EFF6FF",
-
-                      color:
-                        "#2563EB",
-
-                      fontWeight:
-                        600,
-                    }}
-                  />
-
-                </TableCell>
-
-                {/* GENDER */}
-                <TableCell>
-
-                  <Typography
-                    sx={{
-                      color:
-                        "#475569",
-
-                      fontWeight:
-                        500,
-                    }}
-                  >
-                    {
-                      frame.gender
-                    }
-                  </Typography>
-
-                </TableCell>
-
-                {/* STOCK */}
-                <TableCell align="center">
-
-                  <Typography
-                    sx={{
-                      fontWeight:
-                        700,
-
-                      color:
-                        frame.stockQuantity &&
-                        frame.stockQuantity <=
-                          (
-                            frame.lowStockLimit ||
-                            0
-                          )
-
-                          ? "#EA580C"
-
-                          : "#16A34A",
-                    }}
-                  >
-                    {
-                      frame.stockQuantity || 0
-                    }
-                  </Typography>
-
-                </TableCell>
-
-                {/* PRICE */}
-                <TableCell align="center">
-
-                  <Typography
-                    sx={{
-                      fontWeight:
-                        700,
-
-                      color:
-                        "#16A34A",
-                    }}
-                  >
-                    ₹
-                    {
-                      frame.sellingPrice.toLocaleString()
-                    }
-                  </Typography>
-
-                </TableCell>
-
-                {/* STATUS */}
-                <TableCell align="center">
-
-                  <Select
-                    size="small"
-                    value={frame.status}
-                    onChange={(e) =>
-                      handleStatusChange(
-                        frame.id,
-                        e.target.value as
-                          | "Active"
-                          | "Inactive"
-                          | "Out of Stock"
+                  color:
+                    frame.stockQuantity &&
+                    frame.stockQuantity <=
+                      (
+                        frame.lowStockLimit ||
+                        0
                       )
-                    }
-                    sx={{
-                      minWidth:
-                        "120px",
 
-                      borderRadius:
-                        "10px",
+                      ? "#EA580C"
 
-                      fontWeight:
-                        600,
+                      : "#16A34A",
+                }}
+              >
+                {
+                  frame.stockQuantity || 0
+                }
+              </Typography>
 
-                      background:
-                        frame.status ===
-                        "Active"
+            );
 
-                          ? "#DCFCE7"
+          /* PRICE */
+          case "price":
 
-                          : frame.status ===
-                            "Inactive"
+            return (
 
-                            ? "#FEE2E2"
+              <Typography
+                sx={{
+                  fontWeight:
+                    FONT_WEIGHT.BOLD,
 
-                            : "#FFF7ED",
+                  color:
+                    "#16A34A",
 
-                      color:
-                        frame.status ===
-                        "Active"
+                  fontSize:
+                    FONT_SIZE.TABLE_BODY,
 
-                          ? "#15803D"
+                  fontFamily:
+                    FONT_FAMILY.TABLE_BODY,
+                }}
+              >
+                ₹
+                {
+                  frame.sellingPrice.toLocaleString()
+                }
+              </Typography>
 
-                          : frame.status ===
-                            "Inactive"
+            );
 
-                            ? "#DC2626"
+          /* STATUS */
+          case "status":
 
-                            : "#EA580C",
+            return (
 
-                      ".MuiOutlinedInput-notchedOutline":
-                        {
-                          border:
-                            "none",
-                        },
+              <StatusSelect
+                value={
+                  frame.status
+                }
 
-                      ".MuiSelect-icon":
-                        {
-                          color:
-                            frame.status ===
-                            "Active"
+                options={[
+                  "Active",
+                  "Inactive",
+                  "Out of Stock",
+                ]}
 
-                              ? "#15803D"
+                onChange={(value) =>
+                  handleStatusChange(
+                    frame.id,
+                    value
+                  )
+                }
+              />
 
-                              : frame.status ===
-                                "Inactive"
+            );
 
-                                ? "#DC2626"
+          /* CREATED */
+          case "created":
 
-                                : "#EA580C",
-                        },
-                    }}
-                  >
+            return (
 
-                    <MenuItem value="Active">
-                      Active
-                    </MenuItem>
+              <Typography
+                sx={{
+                  color:
+                    "#64748B",
 
-                    <MenuItem value="Inactive">
-                      Inactive
-                    </MenuItem>
+                  fontWeight:
+                    FONT_WEIGHT.MEDIUM,
 
-                    <MenuItem value="Out of Stock">
-                      Out of Stock
-                    </MenuItem>
+                  fontSize:
+                    FONT_SIZE.TABLE_BODY,
 
-                  </Select>
+                  fontFamily:
+                    FONT_FAMILY.TABLE_BODY,
+                }}
+              >
+                {
+                  frame.createdOn
+                }
+              </Typography>
 
-                </TableCell>
+            );
 
-                {/* CREATED */}
-                <TableCell align="center">
+          /* ACTIONS */
+          case "actions":
 
-                  <Typography
-                    sx={{
-                      color:
-                        "#64748B",
+            return (
 
-                      fontWeight:
-                        500,
+              <TableActions
+                onView={() =>
+                  router.push(
+                    `/products/frames/view/${frame.id}`
+                  )
+                }
 
-                      fontSize:
-                        "14px",
-                    }}
-                  >
-                    {
-                      frame.createdOn
-                    }
-                  </Typography>
+                onEdit={() =>
+                  router.push(
+                    `/products/frames/edit/${frame.id}`
+                  )
+                }
+              />
 
-                </TableCell>
+            );
 
-                {/* ACTIONS */}
-                <TableCell align="center">
-
-                  <IconButton
-                    onClick={(e) =>
-                      handleMenuOpen(
-                        e,
-                        frame.id
-                      )
-                    }
-                    sx={{
-                      background:
-                        "#F8FAFC",
-
-                      width: 38,
-
-                      height: 38,
-
-                      "&:hover": {
-                        background:
-                          "#E2E8F0",
-                      },
-                    }}
-                  >
-
-                    <MoreVertIcon
-                      sx={{
-                        color:
-                          "#64748B",
-                      }}
-                    />
-
-                  </IconButton>
-
-                  <Menu
-                    anchorEl={anchorEl}
-                    open={
-                      Boolean(anchorEl) &&
-                      selectedFrameId ===
-                        frame.id
-                    }
-                    onClose={
-                      handleMenuClose
-                    }
-                    slotProps={{
-                      paper: {
-                        sx: {
-                          borderRadius:
-                            "14px",
-
-                          minWidth:
-                            "150px",
-
-                          boxShadow:
-                            "0px 10px 30px rgba(15,23,42,0.08)",
-                        },
-                      },
-                    }}
-                  >
-
-                    <MenuItem
-                      onClick={() => {
-
-                        router.push(
-                          `/products/frames/view/${frame.id}`
-                        );
-
-                        handleMenuClose();
-                      }}
-                    >
-
-                      <RemoveRedEyeOutlinedIcon
-                        sx={{
-                          mr: 1,
-                          color:
-                            "#2563EB",
-                        }}
-                      />
-
-                      View
-
-                    </MenuItem>
-
-                    <MenuItem
-                      onClick={() => {
-
-                        router.push(
-                          `/products/frames/edit/${frame.id}`
-                        );
-
-                        handleMenuClose();
-                      }}
-                    >
-
-                      <EditIcon
-                        sx={{
-                          mr: 1,
-                          color:
-                            "#0F172A",
-                        }}
-                      />
-
-                      Edit
-
-                    </MenuItem>
-
-                  </Menu>
-
-                </TableCell>
-
-              </TableRow>
-            )
-          )}
-
-        </TableBody>
-
-      </Table>
-
-    </TableContainer>
+          default:
+            return null;
+        }
+      }}
+    />
   );
 }

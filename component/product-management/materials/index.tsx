@@ -20,6 +20,11 @@ import {
   Material,
 } from "@/assets/types";
 
+import {
+  FONT_FAMILY,
+  FONT_SIZE,
+  FONT_WEIGHT,
+} from "@/assets/constants";
 
 import MaterialFilters from "./MaterialFilters";
 
@@ -30,21 +35,29 @@ export default function MaterialManagementPage() {
   const router =
     useRouter();
 
-  const [search, setSearch] =
-    useState("");
+  const [
+    search,
+    setSearch,
+  ] = useState("");
 
-  const [status, setStatus] =
-    useState("");
+  const [
+    status,
+    setStatus,
+  ] = useState("");
 
-  const [applicableFor,
-    setApplicableFor] =
-      useState("");
+  const [
+    applicableFor,
+    setApplicableFor,
+  ] = useState("");
 
-  const [materialData,
-    setMaterialData] =
-      useState<Material[]>(
-        materials
-      );
+  const [
+    materialData,
+    setMaterialData,
+  ] = useState<
+    Material[]
+  >(
+    materials
+  );
 
   /* COUNTS */
   const materialCount = {
@@ -94,17 +107,22 @@ export default function MaterialManagementPage() {
 
         const matchesStatus =
           status
+
             ? material.status ===
               status
+
             : true;
 
         const matchesApplicable =
           applicableFor
+
             ? material.applicableFor ===
               applicableFor
+
             : true;
 
         return (
+
           matchesSearch &&
           matchesStatus &&
           matchesApplicable
@@ -116,158 +134,195 @@ export default function MaterialManagementPage() {
     <Box
       sx={{
         p: 3,
+
         minHeight:
           "100vh",
+
         background:
           "#F8FAFC",
       }}
     >
 
-      {/* HEADER */}
       <Box
         sx={{
-          display: "flex",
+          maxWidth:
+            "100%",
 
-          justifyContent:
-            "space-between",
-
-          alignItems:
-            "center",
-
-          mb: 3,
-
-          flexWrap:
-            "wrap",
-
-          gap: 2,
+          mx:
+            "auto",
         }}
       >
 
-        <Typography
+        {/* HEADER */}
+        <Box
           sx={{
-            fontSize:
-              "32px",
+            display:
+              "flex",
 
-            fontWeight:
-              700,
+            justifyContent:
+              "space-between",
 
-            color:
-              "#0F172A",
+            alignItems:
+              "center",
+
+            mb: 3,
+
+            px: 1,
+
+            flexWrap:
+              "wrap",
+
+            gap: 2,
           }}
         >
-          Material Management
-        </Typography>
 
-        <Button
-          variant="contained"
+          <Typography
+            sx={{
+              fontFamily:
+                FONT_FAMILY.HEADING,
 
-          startIcon={
-            <AddIcon />
-          }
+              fontSize:
+                FONT_SIZE.PAGE_HEADING,
 
-          onClick={() =>
-            router.push(
-              "/products/materials/add"
-            )
-          }
+              fontWeight:
+                FONT_WEIGHT.BOLD,
 
+              color:
+                "#0F172A",
+
+              lineHeight:
+                1.2,
+            }}
+          >
+            Material Management
+          </Typography>
+
+          <Button
+            variant="contained"
+
+            startIcon={
+              <AddIcon />
+            }
+
+            onClick={() =>
+              router.push(
+                "/products/materials/add"
+              )
+            }
+
+            sx={{
+              height:
+                "50px",
+
+              borderRadius:
+                "14px",
+
+              textTransform:
+                "none",
+
+              px: 3,
+
+              fontFamily:
+                FONT_FAMILY.BUTTON,
+
+              fontWeight:
+                FONT_WEIGHT.BOLD,
+
+              boxShadow:
+                "none",
+            }}
+          >
+            Add Material
+          </Button>
+
+        </Box>
+
+        {/* MAIN CARD */}
+        <Box
           sx={{
-            height:
-              "50px",
+            background:
+              "#FFFFFF",
+
+            border:
+              "1px solid #E2E8F0",
 
             borderRadius:
-              "14px",
+              "24px",
 
-            textTransform:
-              "none",
-
-            px: 3,
-
-            fontWeight:
-              700,
-
-            boxShadow:
-              "none",
+            overflow:
+              "hidden",
           }}
         >
-          Add Material
-        </Button>
 
-      </Box>
+          {/* FILTERS */}
+          <MaterialFilters
+            search={search}
+            setSearch={setSearch}
 
-      {/* MAIN CARD */}
-      <Box
-        sx={{
-          background:
-            "#FFFFFF",
+            status={status}
+            setStatus={setStatus}
 
-          border:
-            "1px solid #E2E8F0",
-
-          borderRadius:
-            "24px",
-
-          overflow:
-            "hidden",
-        }}
-      >
-
-        {/* FILTERS */}
-        <MaterialFilters
-          search={search}
-          setSearch={setSearch}
-
-          status={status}
-          setStatus={setStatus}
-
-          applicableFor={
-            applicableFor
-          }
-
-          setApplicableFor={
-            setApplicableFor
-          }
-
-          materialCount={
-            materialCount
-          }
-        />
-
-        {/* TABLE */}
-        <Box sx={{ p: 3 }}>
-
-          {(search ||
-            status ||
-            applicableFor) && (
-
-            <Typography
-              sx={{
-                mb: 2,
-
-                color:
-                  "#64748B",
-
-                fontWeight:
-                  500,
-              }}
-            >
-              {
-                filteredMaterials.length
-              }{" "}
-              results found
-            </Typography>
-
-          )}
-
-          <MaterialTable
-            materials={
-              filteredMaterials
+            applicableFor={
+              applicableFor
             }
 
-            setMaterialData={
-              setMaterialData
+            setApplicableFor={
+              setApplicableFor
+            }
+
+            materialCount={
+              materialCount
             }
           />
+
+          {/* TABLE */}
+          <Box
+            sx={{
+              p: 3,
+            }}
+          >
+
+            {(
+
+              search ||
+              status ||
+              applicableFor
+
+            ) && (
+
+              <Typography
+                sx={{
+                  mb: 2,
+
+                  color:
+                    "#475569",
+
+                  fontWeight:
+                    500,
+
+                  fontFamily:
+                    FONT_FAMILY.BODY,
+                }}
+              >
+                {
+                  filteredMaterials.length
+                }{" "}
+                results found
+              </Typography>
+
+            )}
+
+            <MaterialTable
+              materials={
+                filteredMaterials
+              }
+
+              setMaterialData={
+                setMaterialData
+              }
+            />
+
+          </Box>
 
         </Box>
 
