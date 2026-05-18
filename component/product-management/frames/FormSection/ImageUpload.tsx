@@ -65,7 +65,7 @@ export default function VariationImageUpload({ formik, index }: Props) {
           accept="image/*"
           onChange={handleUpload}
           style={{ display: "none" }}
-          accept="image/*"
+        
         />
         <CloudUploadIcon sx={{ fontSize: 40, color: "#64748B", mb: 1 }} />
         <Typography

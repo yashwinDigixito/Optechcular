@@ -350,6 +350,6 @@ const vTouched =
           </>
         )}
       </FieldArray>
-    </Box>
+    </>
   );
 }
