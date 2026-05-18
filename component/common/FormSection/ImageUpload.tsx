@@ -1,12 +1,12 @@
 "use client";
 
-import { Box,  Grid, IconButton, Typography } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import Image from "next/image";
-import { FormikProps, getIn } from "formik";
-import { FrameFormValues } from "./types";
 import { FONT_FAMILY } from "@/assets/constants";
+import { FrameFormValues } from "@/assets/types";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { Box, IconButton, Typography } from "@mui/material";
+import { FormikProps } from "formik";
+import Image from "next/image";
 
 type Props = {
   formik: FormikProps<FrameFormValues>;

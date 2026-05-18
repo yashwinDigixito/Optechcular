@@ -49,7 +49,6 @@ export default function FrameManagementPage() {
       sx={{
         p: 3,
         minHeight: "100vh",
-        background: "#F8FAFC",
       }}
     >
       <Box

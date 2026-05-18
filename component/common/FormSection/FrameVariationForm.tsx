@@ -1,5 +1,6 @@
 "use client";
 
+import { FrameFormValues, FrameVariation } from "@/assets/types";
 import AddIcon from "@mui/icons-material/Add";
 import AutoFixHighIcon from "@mui/icons-material/AutoFixHigh";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -16,7 +17,6 @@ import {
 } from "@mui/material";
 import { FieldArray, FormikErrors, FormikProps, FormikTouched } from "formik";
 import VariationImageUpload from "./ImageUpload";
-import { FrameFormValues, FrameVariation } from "./types";
 
 type Props = {
   formik: FormikProps<FrameFormValues>;
