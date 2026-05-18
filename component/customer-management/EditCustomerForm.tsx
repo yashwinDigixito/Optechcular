@@ -1,6 +1,11 @@
 "use client";
 
+import {
+  Customer,
+} from "@/assets/types";
+
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+
 import {
   Box,
   Button,
@@ -8,39 +13,17 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+
 import {
   useState,
 } from "react";
 
 import Link from "next/link";
+
 import { useRouter } from "next/navigation";
 
 interface Props {
-
-  customer: {
-
-    id: string;
-
-    customerType: string;
-
-    fullName: string;
-
-    phoneNumber: string;
-
-    email: string;
-
-    addressLine1: string;
-
-    addressLine2: string;
-
-    city: string;
-
-    state: string;
-
-    country: string;
-
-    status: string;
-  };
+  customer: Customer;
 }
 
 export default function EditCustomerForm({
@@ -57,19 +40,16 @@ export default function EditCustomerForm({
         customer.customerType,
 
       fullName:
-        customer.fullName,
+        customer.customerName,
 
-      phoneNumber:
-        customer.phoneNumber,
+      phone:
+        customer.phone,
 
       email:
         customer.email,
 
       addressLine1:
-        customer.addressLine1,
-
-      addressLine2:
-        customer.addressLine2,
+        customer.address,
 
       city:
         customer.city,
@@ -104,7 +84,9 @@ export default function EditCustomerForm({
       formData
     );
 
-    router.push("/customers");
+    router.push(
+      "/customers"
+    );
   };
 
   return (
@@ -113,7 +95,10 @@ export default function EditCustomerForm({
         p: 3,
       }}
     >
+
+      {/* BACK BUTTON */}
       <Box sx={{ mb: 3 }}>
+
         <Link
           href="/customers"
           style={{
@@ -121,19 +106,27 @@ export default function EditCustomerForm({
               "none",
           }}
         >
+
           <Button
             startIcon={
               <ArrowBackIcon />
             }
             sx={{
-              textTransform:"none",
-              fontWeight:600,
+              textTransform:
+                "none",
+
+              fontWeight:
+                600,
             }}
           >
             Back
           </Button>
+
         </Link>
+
       </Box>
+
+      {/* MAIN CARD */}
       <Box
         sx={{
           background:
@@ -148,13 +141,15 @@ export default function EditCustomerForm({
           p: 4,
         }}
       >
+
         {/* HEADER */}
         <Typography
           sx={{
             fontSize:
               "28px",
 
-            fontWeight: 700,
+            fontWeight:
+              700,
 
             color:
               "#0F172A",
@@ -168,7 +163,8 @@ export default function EditCustomerForm({
         {/* FORM */}
         <Box
           sx={{
-            display: "grid",
+            display:
+              "grid",
 
             gridTemplateColumns:
               {
@@ -180,6 +176,7 @@ export default function EditCustomerForm({
             gap: 3,
           }}
         >
+
           {/* CUSTOMER TYPE */}
           <TextField
             select
@@ -193,6 +190,7 @@ export default function EditCustomerForm({
               handleChange
             }
           >
+
             <MenuItem value="B2B">
               B2B
             </MenuItem>
@@ -220,9 +218,9 @@ export default function EditCustomerForm({
           <TextField
             fullWidth
             label="Phone Number"
-            name="phoneNumber"
+            name="phone"
             value={
-              formData.phoneNumber
+              formData.phone
             }
             onChange={
               handleChange
@@ -249,19 +247,6 @@ export default function EditCustomerForm({
             name="addressLine1"
             value={
               formData.addressLine1
-            }
-            onChange={
-              handleChange
-            }
-          />
-
-          {/* ADDRESS LINE 2 */}
-          <TextField
-            fullWidth
-            label="Address Line 2"
-            name="addressLine2"
-            value={
-              formData.addressLine2
             }
             onChange={
               handleChange
@@ -320,6 +305,7 @@ export default function EditCustomerForm({
               handleChange
             }
           >
+
             <MenuItem value="Active">
               Active
             </MenuItem>
@@ -335,7 +321,8 @@ export default function EditCustomerForm({
         {/* BUTTONS */}
         <Box
           sx={{
-            display: "flex",
+            display:
+              "flex",
 
             justifyContent:
               "flex-end",
@@ -345,6 +332,7 @@ export default function EditCustomerForm({
             mt: 5,
           }}
         >
+
           <Button
             variant="outlined"
             onClick={() =>
