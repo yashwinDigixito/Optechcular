@@ -10,55 +10,65 @@ type Props = {
 
 export default function TaxSection({ formik }: Props) {
   return (
-    <Box sx={{ width: "100%"}}>
-      {/* Section Header */}
-      <Box sx={{ mb: 2 }}>
-        <Typography variant="h6" sx={{ fontWeight: 600 }}>
-          Taxation & Compliance
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Enter the appropriate HSN codes and commercial tax percentages for financial processing.
-        </Typography>
-      </Box>
+    <>
+      <Grid size={{ xs: 12, md: 6 }}>
+        <TextField
+          fullWidth
+          label="HSN Code"
+          name="hsn"
+          value={formik.values.hsn}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.touched.hsn && Boolean(formik.errors.hsn)}
+          helperText={formik.touched.hsn && formik.errors.hsn}
+          placeholder="e.g. 9003"
+        />
+      </Grid>
 
-      {/* Structured Card Container */}
-      <Paper
-        variant="outlined"
-        sx={{
-          p: 3,
-          borderRadius: "12px",
-          backgroundColor: "#fafafa",
-        }}
-      >
-        <Grid container spacing={2.5}>
-          <Grid size={{ xs: 12, md: 6 }}>
-            <TextField
-              fullWidth
-              label="HSN Code"
-              name="hsn"
-              size="small"
-              value={formik.values.hsn}
-              onChange={formik.handleChange}
-              error={formik.touched.hsn && Boolean(formik.errors.hsn)}
-              helperText={formik.touched.hsn && formik.errors.hsn}
-            />
-          </Grid>
+      <Grid size={{ xs: 12, md: 6 }}>
+        <TextField
+          fullWidth
+          type="number"
+          label="Tax %"
+          name="tax"
+          value={formik.values.tax}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.touched.tax && Boolean(formik.errors.tax)}
+          helperText={formik.touched.tax && formik.errors.tax}
+          placeholder="e.g. 18"
+        />
+      </Grid>
 
-          <Grid size={{ xs: 12, md: 6 }}>
-            <TextField
-              fullWidth
-              type="number"
-              label="Tax %"
-              name="tax"
-              size="small"
-              value={formik.values.tax}
-              onChange={formik.handleChange}
-              error={formik.touched.tax && Boolean(formik.errors.tax)}
-              helperText={formik.touched.tax && formik.errors.tax}
-            />
-          </Grid>
-        </Grid>
-      </Paper>
-    </Box>
+      <Grid size={{ xs: 12, md: 6 }}>
+        <TextField
+          fullWidth
+          type="number"
+          label="Purchase Cost Price (₹)"
+          name="costPrice"
+          value={formik.values.costPrice}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.touched.costPrice && Boolean(formik.errors.costPrice)}
+          helperText={formik.touched.costPrice && formik.errors.costPrice}
+          placeholder="e.g. 1200"
+        />
+      </Grid>
+
+      <Grid size={{ xs: 12, md: 6 }}>
+        <TextField
+          fullWidth
+          type="number"
+          label="Minimum Safety Stock (Low alert)"
+          name="minStockLevel"
+          value={formik.values.minStockLevel}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.touched.minStockLevel && Boolean(formik.errors.minStockLevel)}
+          helperText={formik.touched.minStockLevel && formik.errors.minStockLevel}
+          placeholder="e.g. 5"
+        />
+      </Grid>
+    </>
   );
 }

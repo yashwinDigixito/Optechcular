@@ -10,59 +10,83 @@ type Props = {
 
 export default function RimDetails({ formik }: Props) {
   return (
-    <Box sx={{ width: "100%",  }}>
-      {/* Section Header */}
-      <Box sx={{ mb: 2 }}>
-        <Typography variant="h6" sx={{ fontWeight: 600 }}>
-          Rim Details
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Specify the structural style and silhouette geometry of the frame rims.
-        </Typography>
-      </Box>
+    <>
+      <Grid size={{ xs: 12, md: 6 }}>
+        <TextField
+          select
+          fullWidth
+          label="Rim Type"
+          name="rimType"
+          value={formik.values.rimType}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.touched.rimType && Boolean(formik.errors.rimType)}
+          helperText={formik.touched.rimType && formik.errors.rimType}
+        >
+          <MenuItem value="Full Rim">Full Rim</MenuItem>
+          <MenuItem value="Half Rim">Half Rim</MenuItem>
+          <MenuItem value="Rimless">Rimless</MenuItem>
+        </TextField>
+      </Grid>
 
-      {/* Structured Card Container */}
-      <Paper
-        variant="outlined"
-        sx={{
-          p: 3,
-          borderRadius: "12px",
-          backgroundColor: "#fafafa",
-        }}
-      >
-        <Grid container spacing={2.5}>
-          <Grid size={{ xs: 12, md: 6 }}>
-            <TextField
-              select
-              fullWidth
-              label="Rim Type"
-              name="rimType"
-              size="small"
-              value={formik.values.rimType}
-              onChange={formik.handleChange}
-              error={formik.touched.rimType && Boolean(formik.errors.rimType)}
-              helperText={formik.touched.rimType && formik.errors.rimType}
-            >
-              <MenuItem value="Full Rim">Full Rim</MenuItem>
-              <MenuItem value="Half Rim">Half Rim</MenuItem>
-              <MenuItem value="Rimless">Rimless</MenuItem>
-            </TextField>
-          </Grid>
+      <Grid size={{ xs: 12, md: 6 }}>
+        <TextField
+          fullWidth
+          label="Rim Shape"
+          name="rimShape"
+          value={formik.values.rimShape}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.touched.rimShape && Boolean(formik.errors.rimShape)}
+          helperText={formik.touched.rimShape && formik.errors.rimShape}
+          placeholder="e.g. Aviator, Round, Rectangular"
+        />
+      </Grid>
 
-          <Grid size={{ xs: 12, md: 6 }}>
-            <TextField
-              fullWidth
-              label="Rim Shape"
-              name="rimShape"
-              size="small"
-              value={formik.values.rimShape}
-              onChange={formik.handleChange}
-              error={formik.touched.rimShape && Boolean(formik.errors.rimShape)}
-              helperText={formik.touched.rimShape && formik.errors.rimShape}
-            />
-          </Grid>
-        </Grid>
-      </Paper>
-    </Box>
+      <Grid size={{ xs: 12, md: 4 }}>
+        <TextField
+          fullWidth
+          type="number"
+          label="Lens Width (mm)"
+          name="lensWidth"
+          value={formik.values.lensWidth}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.touched.lensWidth && Boolean(formik.errors.lensWidth)}
+          helperText={formik.touched.lensWidth && formik.errors.lensWidth}
+          placeholder="e.g. 54"
+        />
+      </Grid>
+
+      <Grid size={{ xs: 12, md: 4 }}>
+        <TextField
+          fullWidth
+          type="number"
+          label="Lens Height (mm)"
+          name="lensHeight"
+          value={formik.values.lensHeight}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.touched.lensHeight && Boolean(formik.errors.lensHeight)}
+          helperText={formik.touched.lensHeight && formik.errors.lensHeight}
+          placeholder="e.g. 42"
+        />
+      </Grid>
+
+      <Grid size={{ xs: 12, md: 4 }}>
+        <TextField
+          fullWidth
+          type="number"
+          label="Bridge Width (mm)"
+          name="bridgeWidth"
+          value={formik.values.bridgeWidth}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.touched.bridgeWidth && Boolean(formik.errors.bridgeWidth)}
+          helperText={formik.touched.bridgeWidth && formik.errors.bridgeWidth}
+          placeholder="e.g. 18"
+        />
+      </Grid>
+    </>
   );
 }

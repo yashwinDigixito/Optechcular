@@ -1,13 +1,8 @@
 "use client";
 
-import {
-  ContactLens,
-} from "@/assets/types";
-
+import { ContactLens } from "@/assets/types";
 import CommonTable from "@/component/common/table/CommonTable";
-
 import StatusSelect from "@/component/common/table/StatusSelect";
-
 import TableActions from "@/component/common/table/TableActions";
 
 import {
@@ -25,16 +20,10 @@ import {
 import { useRouter } from "next/navigation";
 
 interface Props {
-
-  contactLenses:
-    ContactLens[];
-
-  setContactLensData:
-    React.Dispatch<
-      React.SetStateAction<
-        ContactLens[]
-      >
-    >;
+  contactLenses: ContactLens[];
+  setContactLensData: React.Dispatch<
+    React.SetStateAction<ContactLens[]>
+  >;
 }
 
 export default function ContactLensTable({
@@ -42,56 +31,45 @@ export default function ContactLensTable({
   setContactLensData,
 }: Props) {
 
-  const router =
-    useRouter();
+  const router = useRouter();
 
-  /* TABLE COLUMNS */
   const columns = [
-
     {
       key: "product",
       label: "Product",
     },
-
     {
       key: "brand",
       label: "Brand",
     },
-
     {
       key: "powerType",
       label: "Power Type",
     },
-
     {
       key: "modality",
       label: "Modality",
     },
-
     {
       key: "stock",
       label: "Stock",
       align: "center" as const,
     },
-
     {
       key: "price",
       label: "Price",
       align: "center" as const,
     },
-
     {
       key: "status",
       label: "Status",
       align: "center" as const,
     },
-
     {
       key: "created",
       label: "Created",
       align: "center" as const,
     },
-
     {
       key: "actions",
       label: "Actions",
@@ -99,17 +77,13 @@ export default function ContactLensTable({
     },
   ];
 
-  /* STATUS CHANGE */
   const handleStatusChange = (
     id: string,
     value: string
   ) => {
-
     setContactLensData((prev) =>
       prev.map((lens) =>
-
         lens.id === id
-
           ? {
               ...lens,
               status: value as
@@ -117,272 +91,134 @@ export default function ContactLensTable({
                 | "Inactive"
                 | "Out of Stock",
             }
-
           : lens
       )
     );
   };
-
   return (
     <CommonTable
       columns={columns}
       rows={contactLenses}
-
-      renderCell={(
-        lens,
-        key
-      ) => {
-
+      renderCell={(lens, key) => {
         switch (key) {
-
-          /* PRODUCT */
           case "product":
-
             return (
-
               <Box>
-
                 <Typography
                   sx={{
-                    fontWeight:
-                      FONT_WEIGHT.BOLD,
-
-                    color:
-                      "#2563EB",
-
-                    fontSize:
-                      "15px",
-
-                    fontFamily:
-                      FONT_FAMILY.TABLE_BODY,
+                    fontWeight: FONT_WEIGHT.BOLD,
+                    color: "#2563EB",
+                    fontSize: "15px",
+                    fontFamily: FONT_FAMILY.TABLE_BODY,
                   }}
                 >
-                  {
-                    lens.lensName
-                  }
+                  {lens.lensName}
                 </Typography>
-
               </Box>
-
             );
-
-          /* BRAND */
           case "brand":
-
             return (
-
               <Typography
                 sx={{
-                  color:
-                    "#0F172A",
-
-                  fontWeight:
-                    FONT_WEIGHT.SEMI_BOLD,
-
-                  fontSize:
-                    FONT_SIZE.TABLE_BODY,
-
-                  fontFamily:
-                    FONT_FAMILY.TABLE_BODY,
+                  color: "#0F172A",
+                  fontWeight: FONT_WEIGHT.SEMI_BOLD,
+                  fontSize: FONT_SIZE.TABLE_BODY,
+                  fontFamily: FONT_FAMILY.TABLE_BODY,
                 }}
               >
-                {
-                  lens.brand
-                }
+                {lens.brand}
               </Typography>
-
             );
-
-          /* POWER TYPE */
           case "powerType":
-
             return (
-
               <Chip
-                label={
-                  lens.powerType
-                }
-
+                label={lens.powerType}
                 sx={{
-                  background:
-                    "#EFF6FF",
-
-                  color:
-                    "#2563EB",
-
-                  fontWeight:
-                    FONT_WEIGHT.SEMI_BOLD,
-
-                  borderRadius:
-                    "8px",
-
-                  fontFamily:
-                    FONT_FAMILY.BODY,
+                  background: "#EFF6FF",
+                  color: "#2563EB",
+                  fontWeight: FONT_WEIGHT.SEMI_BOLD,
+                  borderRadius: "8px",
+                  fontFamily: FONT_FAMILY.BODY,
                 }}
               />
-
             );
-
-          /* MODALITY */
           case "modality":
-
             return (
-
               <Typography
                 sx={{
-                  color:
-                    "#475569",
-
-                  fontWeight:
-                    FONT_WEIGHT.MEDIUM,
-
-                  fontSize:
-                    FONT_SIZE.TABLE_BODY,
-
-                  fontFamily:
-                    FONT_FAMILY.TABLE_BODY,
+                  color: "#475569",
+                  fontWeight: FONT_WEIGHT.MEDIUM,
+                  fontSize: FONT_SIZE.TABLE_BODY,
+                  fontFamily: FONT_FAMILY.TABLE_BODY,
                 }}
               >
-                {
-                  lens.modality
-                }
+                {lens.modality}
               </Typography>
-
             );
-
-          /* STOCK */
           case "stock":
-
             return (
-
               <Typography
                 sx={{
-                  fontWeight:
-                    FONT_WEIGHT.BOLD,
-
+                  fontWeight: FONT_WEIGHT.BOLD,
                   color:
                     lens.stock <= 5
                       ? "#EA580C"
                       : "#16A34A",
-
-                  fontSize:
-                    FONT_SIZE.TABLE_BODY,
-
-                  fontFamily:
-                    FONT_FAMILY.TABLE_BODY,
+                  fontSize: FONT_SIZE.TABLE_BODY,
+                  fontFamily: FONT_FAMILY.TABLE_BODY,
                 }}
               >
-                {
-                  lens.stock
-                }
+                {lens.stock}
               </Typography>
-
             );
-
-          /* PRICE */
           case "price":
-
             return (
-
               <Typography
                 sx={{
-                  fontWeight:
-                    FONT_WEIGHT.BOLD,
-
-                  color:
-                    "#16A34A",
-
-                  fontSize:
-                    FONT_SIZE.TABLE_BODY,
-
-                  fontFamily:
-                    FONT_FAMILY.TABLE_BODY,
+                  fontWeight: FONT_WEIGHT.BOLD,
+                  color: "#16A34A",
+                  fontSize: FONT_SIZE.TABLE_BODY,
+                  fontFamily: FONT_FAMILY.TABLE_BODY,
                 }}
               >
-                ₹
-                {
-                  lens.sellingPrice.toLocaleString()
-                }
+                ₹{lens.sellingPrice.toLocaleString()}
               </Typography>
-
             );
-
-          /* STATUS */
           case "status":
-
             return (
-
               <StatusSelect
-                value={
-                  lens.status
-                }
-
+                value={lens.status}
                 options={[
                   "Active",
                   "Inactive",
                   "Out of Stock",
                 ]}
-
                 onChange={(value) =>
-                  handleStatusChange(
-                    lens.id,
-                    value
-                  )
+                  handleStatusChange(lens.id, value)
                 }
               />
-
             );
-
-          /* CREATED */
           case "created":
-
             return (
-
               <Typography
                 sx={{
-                  color:
-                    "#64748B",
-
-                  fontWeight:
-                    FONT_WEIGHT.MEDIUM,
-
-                  fontSize:
-                    FONT_SIZE.TABLE_BODY,
-
-                  fontFamily:
-                    FONT_FAMILY.TABLE_BODY,
+                  color: "#64748B",
+                  fontWeight: FONT_WEIGHT.MEDIUM,
+                  fontSize: FONT_SIZE.TABLE_BODY,
+                  fontFamily: FONT_FAMILY.TABLE_BODY,
                 }}
               >
-                {
-                  lens.createdOn
-                }
+                {lens.createdOn}
               </Typography>
-
             );
-
-          /* ACTIONS */
           case "actions":
-
             return (
-
               <TableActions
-                onView={() =>
-                  router.push(
-                    `/products/contact-lens/view/${lens.id}`
-                  )
-                }
-
-                onEdit={() =>
-                  router.push(
-                    `/products/contact-lens/edit/${lens.id}`
-                  )
-                }
+                onView={() => router.push(`/products/contact-lens/view/${lens.id}`)}
+                onEdit={() => router.push(`/products/contact-lens/edit/${lens.id}`)}
               />
-
             );
-
-          default:
-            return null;
+          default: return null;
         }
       }}
     />

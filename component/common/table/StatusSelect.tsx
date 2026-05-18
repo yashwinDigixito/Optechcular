@@ -1,4 +1,5 @@
 "use client";
+import { FONT_FAMILY, FONT_WEIGHT } from "@/assets/constants";
 import {
   MenuItem,
   Select,
@@ -16,7 +17,7 @@ export default function StatusSelect({
   value,
   options,
   onChange,
-  minWidth = "140px",
+  minWidth = "110px",
 }: Props) {
   const getColors = () => {
     switch (value) {
@@ -67,25 +68,48 @@ export default function StatusSelect({
       value={value}
       onChange={(e) => onChange( e.target.value )
       }
+sx={{
+  minWidth,
+  borderRadius: "8px",
 
-      sx={{
-        minWidth,
-        borderRadius: "10px",
-        fontWeight: 600,
-        background: colors.bg,
-        color:colors.color,
-        height: "38px",
-        ".MuiOutlinedInput-notchedOutline":
-          {
-            border: "none",
-          },
-        ".MuiSelect-select": {
-          py: 1,
-        },
-        ".MuiSelect-icon": {
-          color: colors.color,
-        },
-      }}
+  fontWeight:
+    FONT_WEIGHT.BOLD,
+
+  fontFamily:
+    FONT_FAMILY.BODY,
+
+  fontSize: "13px",
+
+  background:
+    colors.bg,
+
+  color:
+    colors.color,
+
+  height: "38px",
+
+  ".MuiOutlinedInput-notchedOutline":
+    {
+      border: "none",
+    },
+
+  ".MuiSelect-select": {
+    py: 1,
+    px: 1.5,
+
+    display: "flex",
+    alignItems: "center",
+
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+  },
+
+  ".MuiSelect-icon": {
+    color: colors.color,
+    right: "8px",
+  },
+}}
     >
       {options.map(
         (option) => (

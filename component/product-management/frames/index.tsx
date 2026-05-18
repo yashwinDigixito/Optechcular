@@ -1,203 +1,81 @@
 "use client";
 
-import { useState } from "react";
-
-import AddIcon from "@mui/icons-material/Add";
-
-import {
-  Box,
-  Button,
-  Typography,
-} from "@mui/material";
-
-import { useRouter } from "next/navigation";
-
-import {
-  frames,
-} from "@/assets/genericdata";
-
-import {
-  Frame,
-} from "@/assets/types";
-
 import {
   FONT_FAMILY,
   FONT_SIZE,
   FONT_WEIGHT,
 } from "@/assets/constants";
-
+import { frames } from "@/assets/genericdata";
+import { Frame } from "@/assets/types";
+import AddIcon from "@mui/icons-material/Add";
+import { Box, Button, Typography } from "@mui/material";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import FrameFilters from "./FrameFilters";
-
 import FrameTable from "./FrameTable";
 
 export default function FrameManagementPage() {
 
-  const router =
-    useRouter();
+  const router = useRouter();
+  const [search, setSearch] = useState("");
+  const [brand, setBrand] = useState("");
+  const [date, setDate] = useState("");
+  const [status, setStatus] = useState("");
+  const [frameData, setFrameData] = useState<Frame[]>(frames);
 
-  const [
-    search,
-    setSearch,
-  ] = useState("");
-
-  const [
-    brand,
-    setBrand,
-  ] = useState("");
-
-  const [
-    date,
-    setDate,
-  ] = useState("");
-
-  const [
-    status,
-    setStatus,
-  ] = useState("");
-
-  const [
-    frameData,
-    setFrameData,
-  ] = useState<
-    Frame[]
-  >(
-    frames
-  );
-
-  /* COUNTS */
   const frameCount = {
-
-    all:
-      frameData.length,
-
-    active:
-      frameData.filter(
-        (frame) =>
-          frame.status ===
-          "Active"
-      ).length,
-
-    inactive:
-      frameData.filter(
-        (frame) =>
-          frame.status ===
-          "Inactive"
-      ).length,
-
-    outOfStock:
-      frameData.filter(
-        (frame) =>
-          frame.status ===
-          "Out of Stock"
-      ).length,
+    all: frameData.length,
+    active: frameData.filter((frame) => frame.status === "Active").length,
+    inactive: frameData.filter((frame) => frame.status === "Inactive").length,
+    outOfStock: frameData.filter((frame) => frame.status === "Out of Stock").length,
   };
 
-  /* FILTERED FRAMES */
-  const filteredFrames =
-    frameData.filter(
-      (frame) => {
+  const filteredFrames = frameData.filter((frame) => {
+    const matchesSearch = !search || frame.frameName.toLowerCase().includes(search.toLowerCase());
+    const matchesBrand = !brand || frame.brand === brand;
+    const matchesDate = !date || frame.createdOn === date;
+    const matchesStatus = status ? frame.status === status : true;
 
-        const matchesSearch =
-          !search ||
-
-          frame.frameName
-            .toLowerCase()
-            .includes(
-              search.toLowerCase()
-            );
-
-        const matchesBrand =
-          !brand ||
-
-          frame.brand ===
-            brand;
-
-        const matchesDate =
-          !date ||
-
-          frame.createdOn ===
-            date;
-
-        const matchesStatus =
-          status
-
-            ? frame.status ===
-              status
-
-            : true;
-
-        return (
-
-          matchesSearch &&
-          matchesBrand &&
-          matchesDate &&
-          matchesStatus
-        );
-      }
+    return (
+      matchesSearch &&
+      matchesBrand &&
+      matchesDate &&
+      matchesStatus
     );
+  });
 
   return (
     <Box
       sx={{
         p: 3,
-
-        minHeight:
-          "100vh",
-
-        background:
-          "#F8FAFC",
+        minHeight: "100vh",
+        background: "#F8FAFC",
       }}
     >
-
       <Box
         sx={{
-          maxWidth:
-            "100%",
-
-          mx:
-            "auto",
+          maxWidth: "100%",
+          mx: "auto",
         }}
       >
-
-        {/* HEADER */}
         <Box
           sx={{
-            display:
-              "flex",
-
-            justifyContent:
-              "space-between",
-
-            alignItems:
-              "center",
-
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
             mb: 3,
-
             px: 1,
-
-            flexWrap:
-              "wrap",
-
+            flexWrap: "wrap",
             gap: 2,
           }}
         >
-
           <Typography
             sx={{
-              fontFamily:
-                FONT_FAMILY.HEADING,
-
-              fontSize:
-                FONT_SIZE.PAGE_HEADING,
-
-              fontWeight:
-                FONT_WEIGHT.BOLD,
-
-              color:
-                "#0F172A",
-
-              lineHeight:
-                1.2,
+              fontFamily: FONT_FAMILY.HEADING,
+              fontSize: FONT_SIZE.PAGE_HEADING,
+              fontWeight: FONT_WEIGHT.BOLD,
+              color: "#0F172A",
+              lineHeight: 1.2,
             }}
           >
             Frame Management
@@ -205,140 +83,65 @@ export default function FrameManagementPage() {
 
           <Button
             variant="contained"
-
-            startIcon={
-              <AddIcon />
-            }
-
+            startIcon={<AddIcon />}
             onClick={() =>
-              router.push(
-                "/products/frames/add"
-              )
+              router.push("/products/frames/add")
             }
-
             sx={{
-              height:
-                "50px",
-
-              borderRadius:
-                "14px",
-
-              textTransform:
-                "none",
-
+              height: "50px",
+              borderRadius: "14px",
+              textTransform: "none",
               px: 3,
-
-              fontFamily:
-                FONT_FAMILY.BUTTON,
-
-              fontWeight:
-                FONT_WEIGHT.BOLD,
-
-              boxShadow:
-                "none",
+              fontFamily: FONT_FAMILY.BUTTON,
+              fontWeight: FONT_WEIGHT.BOLD,
+              boxShadow: "none",
             }}
           >
             Add Frame
           </Button>
-
         </Box>
 
-        {/* MAIN CARD */}
         <Box
           sx={{
-            background:
-              "#FFFFFF",
-
-            border:
-              "1px solid #E2E8F0",
-
-            borderRadius:
-              "24px",
-
-            overflow:
-              "hidden",
+            background: "#FFFFFF",
+            border: "1px solid #E2E8F0",
+            borderRadius: "24px",
+            overflow: "hidden",
           }}
         >
-
-          {/* FILTERS */}
           <FrameFilters
             search={search}
             setSearch={setSearch}
-
             brand={brand}
-            setBrand={
-              setBrand
-            }
-
+            setBrand={setBrand}
             date={date}
-            setDate={
-              setDate
-            }
-
+            setDate={setDate}
             status={status}
-            setStatus={
-              setStatus
-            }
-
-            frameCount={
-              frameCount
-            }
+            setStatus={setStatus}
+            frameCount={frameCount}
           />
 
-          {/* TABLE */}
-          <Box
-            sx={{
-              p: 3,
-            }}
-          >
-
-            {(
-
-              search ||
-              brand ||
-              date ||
-              status
-
-            ) && (
-
+          <Box sx={{ p: 3 }}>
+            {(search || brand || date || status) && (
               <Typography
                 sx={{
                   mb: 2,
-
-                  color:
-                    "#475569",
-
-                  fontWeight:
-                    500,
-
-                  fontFamily:
-                    FONT_FAMILY.BODY,
+                  color: "#475569",
+                  fontWeight: 500,
+                  fontFamily: FONT_FAMILY.BODY,
                 }}
               >
-                {
-                  filteredFrames.length
-                }{" "}
-                results found
+                {filteredFrames.length} results found
               </Typography>
-
             )}
 
             <FrameTable
-              frames={
-                filteredFrames
-              }
-
-              setFrameData={
-                setFrameData
-              }
+              frames={filteredFrames}
+              setFrameData={setFrameData}
             />
-
           </Box>
-
         </Box>
-
       </Box>
-
     </Box>
   );
 }

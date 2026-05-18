@@ -6,6 +6,7 @@ import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import Image from "next/image";
 import { FormikProps, getIn } from "formik";
 import { FrameFormValues } from "./types";
+import { FONT_FAMILY } from "@/assets/constants";
 
 type Props = {
   formik: FormikProps<FrameFormValues>;
@@ -13,7 +14,7 @@ type Props = {
 };
 
 export default function VariationImageUpload({ formik, index }: Props) {
-  const images = formik.values.variations[index].images || [];
+  const images = formik.values.variations[index].images;
 
   const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
@@ -33,12 +34,12 @@ export default function VariationImageUpload({ formik, index }: Props) {
   const isInvalid = Boolean(hasTouched && errorMessage);
 
   return (
-    <Grid size={{ xs: 12 }}>
-      <Typography sx={{ fontWeight: 600, color: "text.primary", mb: 1, fontSize: "0.9rem" }}>
-        Variation Gallery Images
+    <Box sx={{ mt: 2 }}>
+      <Typography sx={{ fontWeight: 700, fontSize: "13px", color: "#64748B", mb: 1 }}>
+        Add Frame Pictures
       </Typography>
 
-      {/* Modernised File Upload Box Dropzone */}
+      {/* Styled Premium Upload Container */}
       <Box
         component="label"
         sx={{
@@ -46,16 +47,15 @@ export default function VariationImageUpload({ formik, index }: Props) {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          border: "2px dashed",
-          borderColor: isInvalid ? "error.main" : "#ccc",
-          borderRadius: "12px",
+          border: "2px dashed #CBD5E1",
+          borderRadius: "16px",
           p: 3,
-          backgroundColor: isInvalid ? "#fff8f8" : "#ffffff",
           cursor: "pointer",
+          bgcolor: "#FFFFFF",
           transition: "all 0.2s ease-in-out",
           "&:hover": {
-            borderColor: isInvalid ? "error.dark" : "primary.main",
-            backgroundColor: isInvalid ? "#fff0f0" : "#f0f7ff",
+            borderColor: "#3B82F6",
+            bgcolor: "#F8FAFC",
           },
         }}
       >
@@ -64,26 +64,33 @@ export default function VariationImageUpload({ formik, index }: Props) {
           multiple
           accept="image/*"
           onChange={handleUpload}
-          onBlur={() => formik.setFieldTouched(`variations.${index}.images`, true)}
           style={{ display: "none" }}
+          accept="image/*"
         />
-        <CloudUploadIcon sx={{ fontSize: 32, color: isInvalid ? "error.main" : "text.secondary", mb: 1 }} />
-        <Typography variant="body2" sx={{ fontWeight: 500, color: isInvalid ? "error.main" : "text.primary" }}>
-          Click to upload frame angles
+        <CloudUploadIcon sx={{ fontSize: 40, color: "#64748B", mb: 1 }} />
+        <Typography
+          sx={{
+            fontFamily: FONT_FAMILY.BODY,
+            fontSize: "13px",
+            fontWeight: 700,
+            color: "#334155",
+          }}
+        >
+          Click to upload frame pictures
         </Typography>
-        <Typography variant="caption" color="text.secondary">
-          Supports PNG, JPG, or WebP formats
+        <Typography
+          sx={{
+            fontFamily: FONT_FAMILY.BODY,
+            fontSize: "11px",
+            color: "#64748B",
+            mt: 0.5,
+          }}
+        >
+          PNG, JPG or WEBP formats accepted (Max size 5MB)
         </Typography>
       </Box>
 
-      {/* Formik Error Text Output */}
-      {isInvalid && (
-        <Typography variant="caption" color="error" sx={{ display: "block", mt: 0.5, ml: 1 }}>
-          {String(errorMessage)}
-        </Typography>
-      )}
-
-      {/* Upload Media Previews */}
+      {/* Preview Grid */}
       {images.length > 0 && (
         <Box
           sx={{
@@ -101,7 +108,9 @@ export default function VariationImageUpload({ formik, index }: Props) {
                 key={i} 
                 sx={{ 
                   position: "relative",
-                  "&:hover .delete-btn": { opacity: 1, transform: "scale(1)" }
+                  "&:hover .delete-btn": {
+                    opacity: 1,
+                  }
                 }}
               >
                 <Box
@@ -109,15 +118,14 @@ export default function VariationImageUpload({ formik, index }: Props) {
                     width: 90,
                     height: 90,
                     position: "relative",
-                    borderRadius: "10px",
+                    borderRadius: "12px",
+                    border: "1px solid #E2E8F0",
                     overflow: "hidden",
-                    border: "1px solid #e0e0e0",
-                    boxShadow: "0px 2px 4px rgba(0,0,0,0.05)"
                   }}
                 >
                   <Image
                     src={previewUrl}
-                    alt={`variation-${index}-preview-${i}`}
+                    alt="preview"
                     fill
                     style={{ objectFit: "cover" }}
                     unoptimized
@@ -125,34 +133,29 @@ export default function VariationImageUpload({ formik, index }: Props) {
                 </Box>
 
                 <IconButton
-                  className="delete-btn"
                   size="small"
-                  color="error"
+                  className="delete-btn"
                   onClick={() => removeImage(i)}
                   sx={{
                     position: "absolute",
                     top: -6,
                     right: -6,
-                    bgcolor: "background.paper",
-                    boxShadow: 3,
-                    p: 0.5,
-                    border: "1px solid",
-                    borderColor: "error.light",
-                    opacity: 0.9,
-                    transition: "all 0.2s",
+                    bgcolor: "#EF4444",
+                    color: "#FFFFFF",
+                    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.15)",
+                    transition: "all 0.1s ease",
                     "&:hover": {
-                      bgcolor: "error.main",
-                      color: "white"
-                    }
+                      bgcolor: "#DC2626",
+                    },
                   }}
                 >
-                  <DeleteIcon sx={{ fontSize: 16 }} />
+                  <DeleteIcon sx={{ fontSize: 14 }} />
                 </IconButton>
               </Box>
             );
           })}
         </Box>
       )}
-    </Grid>
+    </Box>
   );
 }

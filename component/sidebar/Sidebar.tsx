@@ -25,7 +25,8 @@ import {
   ShoppingCart,
   AdsClick as Target,
   AccountCircle as UserCircle,
-  People as Users
+  People as Users,
+  Storefront
 } from "@mui/icons-material";
 import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
@@ -165,6 +166,11 @@ const sidebarMenus = [
     title: "User Management",
     icon: <Users />,
     path: "/users",
+  },
+  {
+    title: "Store Management",
+    icon: <Storefront />,
+    path: "/stores",
   },
 ];
 

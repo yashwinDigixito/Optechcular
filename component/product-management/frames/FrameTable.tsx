@@ -1,13 +1,8 @@
 "use client";
 
-import {
-  Frame,
-} from "@/assets/types";
-
+import { Frame } from "@/assets/types";
 import CommonTable from "@/component/common/table/CommonTable";
-
 import StatusSelect from "@/component/common/table/StatusSelect";
-
 import TableActions from "@/component/common/table/TableActions";
 
 import {
@@ -25,16 +20,10 @@ import {
 import { useRouter } from "next/navigation";
 
 interface Props {
-
-  frames:
-    Frame[];
-
-  setFrameData:
-    React.Dispatch<
-      React.SetStateAction<
-        Frame[]
-      >
-    >;
+  frames: Frame[];
+  setFrameData: React.Dispatch<
+    React.SetStateAction<Frame[]>
+  >;
 }
 
 export default function FrameTable({
@@ -42,56 +31,45 @@ export default function FrameTable({
   setFrameData,
 }: Props) {
 
-  const router =
-    useRouter();
+  const router = useRouter();
 
-  /* TABLE COLUMNS */
   const columns = [
-
     {
       key: "frame",
       label: "Frame",
     },
-
     {
       key: "brand",
       label: "Brand",
     },
-
     {
       key: "category",
       label: "Category",
     },
-
     {
       key: "gender",
       label: "Gender",
     },
-
     {
       key: "stock",
       label: "Stock",
       align: "center" as const,
     },
-
     {
       key: "price",
       label: "Price",
       align: "center" as const,
     },
-
     {
       key: "status",
       label: "Status",
       align: "center" as const,
     },
-
     {
       key: "created",
       label: "Created",
       align: "center" as const,
     },
-
     {
       key: "actions",
       label: "Actions",
@@ -99,7 +77,6 @@ export default function FrameTable({
     },
   ];
 
-  /* STATUS CHANGE */
   const handleStatusChange = (
     id: string,
     value: string
@@ -107,9 +84,7 @@ export default function FrameTable({
 
     setFrameData((prev) =>
       prev.map((frame) =>
-
         frame.id === id
-
           ? {
               ...frame,
               status: value as
@@ -117,7 +92,6 @@ export default function FrameTable({
                 | "Inactive"
                 | "Out of Stock",
             }
-
           : frame
       )
     );
@@ -127,282 +101,135 @@ export default function FrameTable({
     <CommonTable
       columns={columns}
       rows={frames}
-
-      renderCell={(
-        frame,
-        key
-      ) => {
-
+      renderCell={(frame, key) => {
         switch (key) {
-
-          /* FRAME */
           case "frame":
-
             return (
-
               <Box>
-
                 <Typography
                   sx={{
-                    fontWeight:
-                      FONT_WEIGHT.BOLD,
-
-                    color:
-                      "#2563EB",
-
-                    fontSize:
-                      "15px",
-
-                    fontFamily:
-                      FONT_FAMILY.TABLE_BODY,
+                    fontWeight: FONT_WEIGHT.BOLD,
+                    color: "#2563EB",
+                    fontSize: "15px",
+                    fontFamily: FONT_FAMILY.TABLE_BODY,
                   }}
                 >
-                  {
-                    frame.frameName
-                  }
+                  {frame.frameName}
                 </Typography>
-
                 <Typography
                   sx={{
-                    fontSize:
-                      FONT_SIZE.SMALL,
-
-                    color:
-                      "#64748B",
-
-                    fontFamily:
-                      FONT_FAMILY.TABLE_BODY,
+                    fontSize: FONT_SIZE.SMALL,
+                    color: "#64748B",
+                    fontFamily: FONT_FAMILY.TABLE_BODY,
                   }}
                 >
-                  {
-                    frame.frameId
-                  }
+                  {frame.frameId}
                 </Typography>
-
               </Box>
-
             );
-
-          /* BRAND */
           case "brand":
-
             return (
-
               <Typography
                 sx={{
-                  color:
-                    "#0F172A",
-
-                  fontWeight:
-                    FONT_WEIGHT.SEMI_BOLD,
-
-                  fontSize:
-                    FONT_SIZE.TABLE_BODY,
-
-                  fontFamily:
-                    FONT_FAMILY.TABLE_BODY,
+                  color: "#0F172A",
+                  fontWeight: FONT_WEIGHT.SEMI_BOLD,
+                  fontSize: FONT_SIZE.TABLE_BODY,
+                  fontFamily: FONT_FAMILY.TABLE_BODY,
                 }}
               >
-                {
-                  frame.brand
-                }
+                {frame.brand}
               </Typography>
-
             );
-
-          /* CATEGORY */
           case "category":
-
             return (
-
               <Chip
-                label={
-                  frame.category
-                }
-
+                label={frame.category}
                 sx={{
-                  background:
-                    "#EFF6FF",
-
-                  color:
-                    "#2563EB",
-
-                  fontWeight:
-                    FONT_WEIGHT.SEMI_BOLD,
-
-                  borderRadius:
-                    "8px",
-
-                  fontFamily:
-                    FONT_FAMILY.BODY,
+                  background: "#EFF6FF",
+                  color: "#2563EB",
+                  fontWeight: FONT_WEIGHT.SEMI_BOLD,
+                  borderRadius: "8px",
+                  fontFamily: FONT_FAMILY.BODY,
                 }}
               />
-
             );
-
-          /* GENDER */
           case "gender":
-
             return (
-
               <Typography
                 sx={{
-                  color:
-                    "#475569",
-
-                  fontWeight:
-                    FONT_WEIGHT.MEDIUM,
-
-                  fontSize:
-                    FONT_SIZE.TABLE_BODY,
-
-                  fontFamily:
-                    FONT_FAMILY.TABLE_BODY,
+                  color: "#475569",
+                  fontWeight: FONT_WEIGHT.MEDIUM,
+                  fontSize: FONT_SIZE.TABLE_BODY,
+                  fontFamily: FONT_FAMILY.TABLE_BODY,
                 }}
               >
-                {
-                  frame.gender
-                }
+                {frame.gender}
               </Typography>
-
             );
-
-          /* STOCK */
           case "stock":
-
             return (
-
               <Typography
                 sx={{
-                  fontWeight:
-                    FONT_WEIGHT.BOLD,
-
-                  fontSize:
-                    FONT_SIZE.TABLE_BODY,
-
-                  fontFamily:
-                    FONT_FAMILY.TABLE_BODY,
-
+                  fontWeight: FONT_WEIGHT.BOLD,
+                  fontSize: FONT_SIZE.TABLE_BODY,
+                  fontFamily: FONT_FAMILY.TABLE_BODY,
                   color:
                     frame.stockQuantity &&
                     frame.stockQuantity <=
-                      (
-                        frame.lowStockLimit ||
-                        0
-                      )
-
+                      (frame.lowStockLimit || 0)
                       ? "#EA580C"
-
                       : "#16A34A",
                 }}
               >
-                {
-                  frame.stockQuantity || 0
-                }
+                {frame.stockQuantity || 0}
               </Typography>
-
             );
-
-          /* PRICE */
           case "price":
-
             return (
-
               <Typography
                 sx={{
-                  fontWeight:
-                    FONT_WEIGHT.BOLD,
-
-                  color:
-                    "#16A34A",
-
-                  fontSize:
-                    FONT_SIZE.TABLE_BODY,
-
-                  fontFamily:
-                    FONT_FAMILY.TABLE_BODY,
+                  fontWeight: FONT_WEIGHT.BOLD,
+                  color: "#16A34A",
+                  fontSize: FONT_SIZE.TABLE_BODY,
+                  fontFamily: FONT_FAMILY.TABLE_BODY,
                 }}
               >
-                ₹
-                {
-                  frame.sellingPrice.toLocaleString()
-                }
+                ₹{frame.sellingPrice.toLocaleString()}
               </Typography>
-
             );
-
-          /* STATUS */
           case "status":
-
             return (
-
               <StatusSelect
-                value={
-                  frame.status
-                }
-
+                value={frame.status}
                 options={[
                   "Active",
                   "Inactive",
                   "Out of Stock",
                 ]}
-
                 onChange={(value) =>
-                  handleStatusChange(
-                    frame.id,
-                    value
-                  )
+                  handleStatusChange(frame.id, value)
                 }
               />
-
             );
-
-          /* CREATED */
           case "created":
-
             return (
-
               <Typography
                 sx={{
-                  color:
-                    "#64748B",
-
-                  fontWeight:
-                    FONT_WEIGHT.MEDIUM,
-
-                  fontSize:
-                    FONT_SIZE.TABLE_BODY,
-
-                  fontFamily:
-                    FONT_FAMILY.TABLE_BODY,
+                  color: "#64748B",
+                  fontWeight: FONT_WEIGHT.MEDIUM,
+                  fontSize: FONT_SIZE.TABLE_BODY,
+                  fontFamily: FONT_FAMILY.TABLE_BODY,
                 }}
               >
-                {
-                  frame.createdOn
-                }
+                {frame.createdOn}
               </Typography>
-
             );
-
-          /* ACTIONS */
           case "actions":
-
             return (
-
               <TableActions
-                onView={() =>
-                  router.push(
-                    `/products/frames/view/${frame.id}`
-                  )
-                }
-
-                onEdit={() =>
-                  router.push(
-                    `/products/frames/edit/${frame.id}`
-                  )
-                }
+                onView={() => router.push(`/products/frames/view/${frame.id}`)}
+                onEdit={() => router.push(`/products/frames/edit/${frame.id}`)}
               />
-
             );
 
           default:

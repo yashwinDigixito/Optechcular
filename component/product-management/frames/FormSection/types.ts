@@ -15,6 +15,7 @@ export type FrameVariation = {
   frameFrontColor: string;
   templeColor: string;
   barcode: string;
+  subtopic11: string;
   branchPricing: BranchPrice[];
   images: File[];
 };
@@ -23,20 +24,30 @@ export type FrameFormValues = {
   // Basic Info
   brand: string;
   modelNo: string;
+  manufacturer: string;
+  gender: string;
 
   // Rim
   rimType: string;
   rimShape: string;
+  lensWidth: number | "";
+  lensHeight: number | "";
+  bridgeWidth: number | "";
 
   // Product Specs
   templeMaterial: string;
   category: string;
+  material: string;
+  weight: number | "";
+  shelfLocation: string;
 
-  // Tax
+  // Tax & Financial
   hsn: string;
   tax: number | "";
+  costPrice: number | "";
+  minStockLevel: number | "";
 
-  // later
+  // variations & media
   variations: FrameVariation[];
   images: File[];
 };

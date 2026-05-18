@@ -1,28 +1,28 @@
 "use client";
 
 import {
-    purchaseOrders,
+  purchaseOrders,
 } from "@/assets/genericdata";
 
 import {
-    PurchaseOrder,
+  PurchaseOrder,
 } from "@/assets/types";
 
 import AddIcon from "@mui/icons-material/Add";
 
 import {
-    Box,
-    Button,
-    Typography,
+  Box,
+  Button,
+  Typography,
 } from "@mui/material";
 
 import { useRouter } from "next/navigation";
 
 import {
-    useState,
+  useState,
 } from "react";
 
-import TableContainerCard from "@/component/common/TableContainerCard";
+import CommonTable from "@/component/common/table/CommonTable";
 
 import PurchaseOrderFilters from "./PurchaseOrderFilters";
 
@@ -82,7 +82,7 @@ export default function PurchaseOrderManagementPage() {
 
         const matchesStatus =
           poStatus
-            ? po.poStatus ===
+            ? po.paymentStatus ===
               poStatus
             : true;
 
@@ -182,7 +182,7 @@ export default function PurchaseOrderManagementPage() {
       />
 
       {/* TABLE */}
-      <TableContainerCard>
+      <CommonTable>
 
         <Box sx={{ p: 3 }}>
 
@@ -211,7 +211,7 @@ export default function PurchaseOrderManagementPage() {
 
         </Box>
 
-      </TableContainerCard>
+      </CommonTable>
 
     </Box>
   );

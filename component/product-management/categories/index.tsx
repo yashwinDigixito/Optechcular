@@ -1,172 +1,74 @@
 "use client";
 
-import { useState } from "react";
-
-import AddIcon from "@mui/icons-material/Add";
-
-import {
-  Box,
-  Button,
-  Typography,
-} from "@mui/material";
-
-import { useRouter } from "next/navigation";
-
-import {
-  categories,
-} from "@/assets/genericdata";
-
-import {
-  Category,
-} from "@/assets/types";
-
 import {
   FONT_FAMILY,
   FONT_SIZE,
   FONT_WEIGHT,
 } from "@/assets/constants";
-
+import { categories } from "@/assets/genericdata";
+import { Category } from "@/assets/types";
+import AddIcon from "@mui/icons-material/Add";
+import { Box, Button, Typography } from "@mui/material";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import CategoryFilters from "./CategoryFilters";
-
 import CategoryTable from "./CategoryTable";
 
 export default function CategoryManagementPage() {
 
-  const router =
-    useRouter();
+  const router = useRouter();
+  const [search, setSearch] = useState("");
+  const [status, setStatus] = useState("");
+  const [categoryData, setCategoryData] = useState<Category[]>(categories);
 
-  const [
-    search,
-    setSearch,
-  ] = useState("");
-
-  const [
-    status,
-    setStatus,
-  ] = useState("");
-
-  const [
-    categoryData,
-    setCategoryData,
-  ] = useState<
-    Category[]
-  >(
-    categories
-  );
-
-  /* COUNTS */
   const categoryCount = {
-
-    all:
-      categoryData.length,
-
-    active:
-      categoryData.filter(
-        (category) =>
-          category.status ===
-          "Active"
-      ).length,
-
-    inactive:
-      categoryData.filter(
-        (category) =>
-          category.status ===
-          "Inactive"
-      ).length,
+    all: categoryData.length,
+    active: categoryData.filter( (category) => category.status === "Active").length,
+    inactive: categoryData.filter( (category) => category.status === "Inactive").length,
   };
 
-  /* FILTERED CATEGORIES */
-  const filteredCategories =
-    categoryData.filter(
-      (category) => {
+  const filteredCategories = categoryData.filter((category) => {
+    const matchesSearch = !search || category.categoryName.toLowerCase().includes(search.toLowerCase());
+    const matchesStatus = status ? category.status === status : true;
 
-        const matchesSearch =
-          !search ||
-
-          category.categoryName
-            .toLowerCase()
-            .includes(
-              search.toLowerCase()
-            );
-
-        const matchesStatus =
-          status
-
-            ? category.status ===
-              status
-
-            : true;
-
-        return (
-
-          matchesSearch &&
-          matchesStatus
-        );
-      }
+    return (
+      matchesSearch &&
+      matchesStatus
     );
+  });
 
   return (
     <Box
       sx={{
         p: 3,
-
-        minHeight:
-          "100vh",
-
-        background:
-          "#F8FAFC",
+        minHeight: "100vh",
+        background: "#F8FAFC",
       }}
     >
-
       <Box
         sx={{
-          maxWidth:
-            "100%",
-
-          mx:
-            "auto",
+          maxWidth: "100%",
+          mx: "auto",
         }}
       >
-
-        {/* HEADER */}
         <Box
           sx={{
-            display:
-              "flex",
-
-            justifyContent:
-              "space-between",
-
-            alignItems:
-              "center",
-
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
             mb: 3,
-
             px: 1,
-
-            flexWrap:
-              "wrap",
-
+            flexWrap: "wrap",
             gap: 2,
           }}
         >
-
           <Typography
             sx={{
-              fontFamily:
-                FONT_FAMILY.HEADING,
-
-              fontSize:
-                FONT_SIZE.PAGE_HEADING,
-
-              fontWeight:
-                FONT_WEIGHT.BOLD,
-
-              color:
-                "#0F172A",
-
-              lineHeight:
-                1.2,
+              fontFamily: FONT_FAMILY.HEADING,
+              fontSize: FONT_SIZE.PAGE_HEADING,
+              fontWeight: FONT_WEIGHT.BOLD,
+              color: "#0F172A",
+              lineHeight: 1.2,
             }}
           >
             Category Management
@@ -174,124 +76,60 @@ export default function CategoryManagementPage() {
 
           <Button
             variant="contained"
-
-            startIcon={
-              <AddIcon />
-            }
-
+            startIcon={<AddIcon />}
             onClick={() =>
-              router.push(
-                "/products/categories/add"
-              )
+              router.push("/products/categories/add")
             }
-
             sx={{
-              height:
-                "50px",
-
-              borderRadius:
-                "14px",
-
-              textTransform:
-                "none",
-
+              height: "50px",
+              borderRadius: "14px",
+              textTransform: "none",
               px: 3,
-
-              fontFamily:
-                FONT_FAMILY.BUTTON,
-
-              fontWeight:
-                FONT_WEIGHT.BOLD,
-
-              boxShadow:
-                "none",
+              fontFamily: FONT_FAMILY.BUTTON,
+              fontWeight: FONT_WEIGHT.BOLD,
+              boxShadow: "none",
             }}
           >
             Add Category
           </Button>
-
         </Box>
 
-        {/* MAIN CARD */}
         <Box
           sx={{
-            background:
-              "#FFFFFF",
-
-            border:
-              "1px solid #E2E8F0",
-
-            borderRadius:
-              "24px",
-
-            overflow:
-              "hidden",
+            background: "#FFFFFF",
+            border: "1px solid #E2E8F0",
+            borderRadius: "24px",
+            overflow: "hidden",
           }}
         >
-
-          {/* FILTERS */}
           <CategoryFilters
             search={search}
             setSearch={setSearch}
             status={status}
             setStatus={setStatus}
-            categoryCount={
-              categoryCount
-            }
+            categoryCount={categoryCount}
           />
 
-          {/* TABLE */}
-          <Box
-            sx={{
-              p: 3,
-            }}
-          >
-
-            {(
-
-              search ||
-              status
-
-            ) && (
-
+          <Box sx={{ p: 3 }}>
+            {(search || status) && (
               <Typography
                 sx={{
                   mb: 2,
-
-                  color:
-                    "#475569",
-
-                  fontWeight:
-                    500,
-
-                  fontFamily:
-                    FONT_FAMILY.BODY,
+                  color: "#475569",
+                  fontWeight: 500,
+                  fontFamily: FONT_FAMILY.BODY,
                 }}
               >
-                {
-                  filteredCategories.length
-                }{" "}
-                results found
+                {filteredCategories.length} results found
               </Typography>
-
             )}
-
             <CategoryTable
-              categories={
-                filteredCategories
-              }
-
-              setCategoryData={
-                setCategoryData
-              }
+              categories={filteredCategories}
+              setCategoryData={setCategoryData}
             />
-
           </Box>
-
         </Box>
-
       </Box>
-
     </Box>
   );
 }
