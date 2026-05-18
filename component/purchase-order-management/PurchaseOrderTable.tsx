@@ -1,40 +1,36 @@
 "use client";
 
-import { themeConfig } from "@/assets/constants";
+import { FONT_SIZE, FONT_WEIGHT, themeConfig } from "@/assets/constants";
 import { PurchaseOrder } from "@/assets/types";
 import EditIcon from "@mui/icons-material/Edit";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import {
-    Box,
-    Chip,
-    IconButton,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
-    Tooltip,
-    Typography,
+  Box,
+  Chip,
+  IconButton,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Tooltip,
+  Typography,
 } from "@mui/material";
 import { useRouter } from "next/navigation";
-// Import your theme configuration
- 
-
 interface Props {
   purchaseOrders: PurchaseOrder[];
 }
-
 export default function PurchaseOrderTable({ purchaseOrders }: Props) {
   const router = useRouter();
-  const { colors, typography, borderRadius } = themeConfig;
+  const { colors,borderRadius } = themeConfig;
 
   return (
     <TableContainer
       sx={{
         mt: 2,
-        borderRadius: borderRadius.large, // Using theme token
-        background: colors.white,        // Using theme token
+        borderRadius: borderRadius.large,
+        background: colors.white,
         border: `1px solid ${colors.border}`,
         overflow: "hidden",
       }}
@@ -59,8 +55,8 @@ export default function PurchaseOrderTable({ purchaseOrders }: Props) {
               <TableCell key={head}>
                 <Typography
                   sx={{
-                    fontWeight: typography.fontWeight.bold,
-                    fontSize: typography.fontSize.small,
+                    fontWeight: FONT_WEIGHT.BOLD,
+                    fontSize: FONT_SIZE.SMALL,
                     color: colors.textMuted,
                   }}
                 >
@@ -70,8 +66,6 @@ export default function PurchaseOrderTable({ purchaseOrders }: Props) {
             ))}
           </TableRow>
         </TableHead>
-
-        {/* TABLE BODY */}
         <TableBody>
           {purchaseOrders.map((po) => (
             <TableRow
@@ -83,13 +77,12 @@ export default function PurchaseOrderTable({ purchaseOrders }: Props) {
                 },
               }}
             >
-              {/* PURCHASE NO */}
               <TableCell>
                 <Box>
                   <Typography
                     sx={{
                       color: colors.primary,
-                      fontWeight: typography.fontWeight.bold,
+                      fontWeight: FONT_WEIGHT.BOLD,
                     }}
                   >
                     {po.purchaseNo}
@@ -104,23 +97,19 @@ export default function PurchaseOrderTable({ purchaseOrders }: Props) {
                   </Typography>
                 </Box>
               </TableCell>
-
-              {/* VENDOR */}
               <TableCell>
                 <Typography
                   sx={{
-                    fontWeight: typography.fontWeight.medium,
+                    fontWeight: FONT_WEIGHT.MEDIUM,
                     color: colors.textMuted,
                   }}
                 >
                   {po.vendorName}
                 </Typography>
               </TableCell>
-
-              {/* PRODUCT */}
               <TableCell>
                 <Box>
-                  <Typography sx={{ fontWeight: typography.fontWeight.medium }}>
+                  <Typography sx={{ fontWeight: FONT_WEIGHT.MEDIUM}}>
                     {po.productName}
                   </Typography>
                   <Typography
@@ -133,20 +122,16 @@ export default function PurchaseOrderTable({ purchaseOrders }: Props) {
                   </Typography>
                 </Box>
               </TableCell>
-
-              {/* AMOUNT */}
               <TableCell>
                 <Typography
                   sx={{
-                    fontWeight: typography.fontWeight.bold,
+                    fontWeight: FONT_WEIGHT.BOLD,
                     color: colors.success,
                   }}
                 >
                   ₹ {po.grandTotal.toLocaleString()}
                 </Typography>
               </TableCell>
-
-              {/* PAYMENT STATUS */}
               <TableCell>
                 <Chip
                   label={po.paymentStatus}
@@ -154,13 +139,11 @@ export default function PurchaseOrderTable({ purchaseOrders }: Props) {
                   sx={{
                     bgcolor: po.paymentStatus === "Paid" ? colors.successBg : po.paymentStatus === "Pending" ? colors.warningBg : colors.errorBg,
                     color: po.paymentStatus === "Paid" ? colors.success : po.paymentStatus === "Pending" ? colors.warning : colors.error,
-                    fontWeight: typography.fontWeight.bold,
+                    fontWeight: FONT_WEIGHT.BOLD,
                     borderRadius: borderRadius.small,
                   }}
                 />
               </TableCell>
-
-              {/* ORDER STATUS */}
               <TableCell>
                 <Chip
                   label={po.status}
@@ -168,13 +151,11 @@ export default function PurchaseOrderTable({ purchaseOrders }: Props) {
                   sx={{
                     bgcolor: po.status === "Received" ? colors.successBg : colors.primaryLight,
                     color: po.status === "Received" ? colors.success : colors.primary,
-                    fontWeight: typography.fontWeight.bold,
+                    fontWeight: FONT_WEIGHT.BOLD,
                     borderRadius: borderRadius.small,
                   }}
                 />
               </TableCell>
-
-              {/* ACTIONS */}
               <TableCell>
                 <Box sx={{ display: "flex", gap: 1 }}>
                   <Tooltip title="View">

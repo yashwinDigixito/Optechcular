@@ -1,8 +1,11 @@
 "use client";
 
-import { FONT_FAMILY, FONT_SIZE, FONT_WEIGHT } from "@/assets/constants";
-import { users } from "@/assets/genericdata";
-import { User } from "@/assets/types";
+import {
+  FONT_FAMILY,
+  FONT_SIZE,
+  FONT_WEIGHT,
+} from "@/assets/constants";
+import { stores } from "@/assets/genericdata";
 import AddIcon from "@mui/icons-material/Add";
 import {
   Box,
@@ -10,61 +13,40 @@ import {
   Typography,
 } from "@mui/material";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import {
+  useState,
+} from "react";
+import StoreFilters from "./StoreFilters";
+import StoreTable from "./StoreTable";
 
-import UserFilters from "./UserFilters";
-import UserTable from "./UserTable";
-
-export default function UserManagementPage() {
-
+export default function StoreManagementPage() {
   const router = useRouter();
-
   const [search, setSearch] = useState("");
-  const [role, setRole] = useState("");
   const [status, setStatus] = useState("");
+  const [storeType, setStoreType] = useState("");
+  const [storeData, setStoreData] = useState(stores);
 
-  const [userData, setUserData] = useState<User[]>(users);
-
-  const userCount = {
-    all: userData.length,
-
-    active: userData.filter(
-      (user) => user.status === "Active"
-    ).length,
-
-    inactive: userData.filter(
-      (user) => user.status === "Inactive"
-    ).length,
-
-    suspended: userData.filter(
-      (user) => user.status === "Suspended"
-    ).length,
+  const storeCount = {
+    all: storeData.length,
+    active: storeData.filter((store) => store.status === "Active").length,
+    inactive: storeData.filter((store) => store.status === "Inactive").length,
   };
 
-  const filteredUsers = userData.filter((user) => {
-
-    const matchesSearch =
-      !search ||
-      user.fullName
-        .toLowerCase()
-        .includes(search.toLowerCase());
-
-    const matchesRole =
-      role
-        ? user.role === role
-        : true;
-
-    const matchesStatus =
-      status
-        ? user.status === status
-        : true;
-
-    return (
-      matchesSearch &&
-      matchesRole &&
-      matchesStatus
-    );
-  });
+  const filteredStores = storeData.filter(
+    (store) => {
+      const matchesSearch = !search || 
+        store.storeName.toLowerCase().includes(search.toLowerCase()) ||
+        store.storeCode.toLowerCase().includes(search.toLowerCase()) ||
+        store.manager.toLowerCase().includes(search.toLowerCase());
+      const matchesStatus = status ? store.status === status : true;
+      const matchesType = storeType ? store.storeType === storeType : true;
+      return (
+        matchesSearch &&
+        matchesStatus &&
+        matchesType
+      );
+    }
+  );
 
   return (
     <Box
@@ -100,13 +82,12 @@ export default function UserManagementPage() {
               lineHeight: 1.2,
             }}
           >
-            User Management
+            Store Management
           </Typography>
-
           <Button
             variant="contained"
             startIcon={<AddIcon />}
-            onClick={() => router.push("/users/add")}
+            onClick={() => router.push("/stores/add")}
             sx={{
               borderRadius: "14px",
               px: 3,
@@ -117,10 +98,9 @@ export default function UserManagementPage() {
               boxShadow: "none",
             }}
           >
-            Add User
+            Add Store
           </Button>
         </Box>
-
         <Box
           sx={{
             background: "#FFFFFF",
@@ -129,33 +109,34 @@ export default function UserManagementPage() {
             overflow: "hidden",
           }}
         >
-          <UserFilters
+          <StoreFilters
             search={search}
             setSearch={setSearch}
-            role={role}
-            setRole={setRole}
             status={status}
             setStatus={setStatus}
-            userCount={userCount}
+            storeType={storeType}
+            setStoreType={setStoreType}
+            storeCount={storeCount}
           />
-
           <Box sx={{ p: 3 }}>
-            {(search || role || status) && (
+            {(
+              search ||
+              status
+            ) && (
               <Typography
                 sx={{
-                  mb: 2,
                   color: "#475569",
                   fontWeight: 500,
+                  mb: 2,
                   fontFamily: FONT_FAMILY.BODY,
                 }}
               >
-                {filteredUsers.length} results found
+                {filteredStores.length}{" "} results found
               </Typography>
             )}
-
-            <UserTable
-              users={filteredUsers}
-              setUserData={setUserData}
+            <StoreTable
+              stores={filteredStores}
+              setStoreData={setStoreData}
             />
           </Box>
         </Box>

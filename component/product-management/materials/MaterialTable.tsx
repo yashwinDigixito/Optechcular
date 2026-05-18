@@ -1,13 +1,8 @@
 "use client";
 
-import {
-  Material,
-} from "@/assets/types";
-
+import { Material } from "@/assets/types";
 import CommonTable from "@/component/common/table/CommonTable";
-
 import StatusSelect from "@/component/common/table/StatusSelect";
-
 import TableActions from "@/component/common/table/TableActions";
 
 import {
@@ -25,57 +20,39 @@ import {
 import { useRouter } from "next/navigation";
 
 interface Props {
-
-  materials:
-    Material[];
-
-  setMaterialData:
-    React.Dispatch<
-      React.SetStateAction<
-        Material[]
-      >
-    >;
+  materials: Material[];
+  setMaterialData: React.Dispatch<
+    React.SetStateAction<Material[]>
+  >;
 }
 
-export default function MaterialTable({
-  materials,
-  setMaterialData,
-}: Props) {
+export default function MaterialTable({materials,setMaterialData}: Props) {
 
-  const router =
-    useRouter();
-
-  /* TABLE COLUMNS */
+  const router = useRouter();
   const columns = [
-
     {
       key: "material",
       label: "Material",
     },
-
     {
       key: "applicableFor",
       label: "Applicable For",
     },
-
     {
       key: "stock",
       label: "Stock",
       align: "center" as const,
     },
-
     {
       key: "price",
       label: "Price",
       align: "center" as const,
     },
-
     {
       key: "status",
       label: "Status",
       align: "center" as const,
     },
-
     {
       key: "actions",
       label: "Actions",
@@ -83,7 +60,6 @@ export default function MaterialTable({
     },
   ];
 
-  /* STATUS CHANGE */
   const handleStatusChange = (
     id: string,
     value: string
@@ -91,9 +67,7 @@ export default function MaterialTable({
 
     setMaterialData((prev) =>
       prev.map((material) =>
-
         material.id === id
-
           ? {
               ...material,
               status: value as
@@ -101,7 +75,6 @@ export default function MaterialTable({
                 | "Inactive"
                 | "Out of Stock",
             }
-
           : material
       )
     );
@@ -111,201 +84,95 @@ export default function MaterialTable({
     <CommonTable
       columns={columns}
       rows={materials}
-
-      renderCell={(
-        material,
-        key
-      ) => {
-
+      renderCell={(material, key) => {
         switch (key) {
-
-          /* MATERIAL */
           case "material":
-
             return (
-
               <Box>
-
                 <Typography
                   sx={{
-                    fontWeight:
-                      FONT_WEIGHT.BOLD,
-
-                    color:
-                      "#2563EB",
-
-                    fontSize:
-                      "15px",
-
-                    fontFamily:
-                      FONT_FAMILY.TABLE_BODY,
+                    fontWeight: FONT_WEIGHT.BOLD,
+                    color: "#2563EB",
+                    fontSize: "15px",
+                    fontFamily: FONT_FAMILY.TABLE_BODY,
                   }}
                 >
-                  {
-                    material.materialName
-                  }
+                  {material.materialName}
                 </Typography>
-
                 <Typography
                   sx={{
-                    fontSize:
-                      FONT_SIZE.SMALL,
-
-                    color:
-                      "#64748B",
-
-                    fontFamily:
-                      FONT_FAMILY.TABLE_BODY,
+                    fontSize: FONT_SIZE.SMALL,
+                    color: "#64748B",
+                    fontFamily: FONT_FAMILY.TABLE_BODY,
                   }}
                 >
-                  {
-                    material.materialCode
-                  }
+                  {material.materialCode}
                 </Typography>
-
               </Box>
-
             );
-
-          /* APPLICABLE FOR */
           case "applicableFor":
-
             return (
-
               <Chip
-                label={
-                  material.applicableFor
-                }
-
+                label={material.applicableFor}
                 sx={{
-                  background:
-                    "#EFF6FF",
-
-                  color:
-                    "#2563EB",
-
-                  fontWeight:
-                    FONT_WEIGHT.SEMI_BOLD,
-
-                  borderRadius:
-                    "8px",
-
-                  fontFamily:
-                    FONT_FAMILY.BODY,
+                  background: "#EFF6FF",
+                  color: "#2563EB",
+                  fontWeight: FONT_WEIGHT.SEMI_BOLD,
+                  borderRadius: "8px",
+                  fontFamily: FONT_FAMILY.BODY,
                 }}
               />
-
             );
-
-          /* STOCK */
           case "stock":
-
             return (
-
               <Typography
                 sx={{
-                  fontWeight:
-                    FONT_WEIGHT.BOLD,
-
+                  fontWeight: FONT_WEIGHT.BOLD,
                   color:
                     material.stockQuantity <=
                     material.minimumStockLevel
-
                       ? "#EA580C"
-
                       : "#16A34A",
-
-                  fontSize:
-                    FONT_SIZE.TABLE_BODY,
-
-                  fontFamily:
-                    FONT_FAMILY.TABLE_BODY,
+                  fontSize: FONT_SIZE.TABLE_BODY,
+                  fontFamily: FONT_FAMILY.TABLE_BODY,
                 }}
               >
-                {
-                  material.stockQuantity
-                }
+                {material.stockQuantity}
               </Typography>
-
             );
-
-          /* PRICE */
           case "price":
-
             return (
-
               <Typography
                 sx={{
-                  fontWeight:
-                    FONT_WEIGHT.BOLD,
-
-                  color:
-                    "#16A34A",
-
-                  fontSize:
-                    FONT_SIZE.TABLE_BODY,
-
-                  fontFamily:
-                    FONT_FAMILY.TABLE_BODY,
+                  fontWeight: FONT_WEIGHT.BOLD,
+                  color: "#16A34A",
+                  fontSize: FONT_SIZE.TABLE_BODY,
+                  fontFamily: FONT_FAMILY.TABLE_BODY,
                 }}
               >
-                ₹
-                {
-                  material.sellingPrice.toLocaleString()
-                }
+                ₹{material.sellingPrice.toLocaleString()}
               </Typography>
-
             );
-
-          /* STATUS */
           case "status":
-
             return (
-
               <StatusSelect
-                value={
-                  material.status
-                }
-
+                value={material.status}
                 options={[
                   "Active",
                   "Inactive",
                   "Out of Stock",
                 ]}
-
-                onChange={(value) =>
-                  handleStatusChange(
-                    material.id,
-                    value
-                  )
-                }
+                onChange={(value) => handleStatusChange(material.id, value)}
               />
-
             );
-
-          /* ACTIONS */
           case "actions":
-
             return (
-
               <TableActions
-                onView={() =>
-                  router.push(
-                    `/products/materials/view/${material.id}`
-                  )
-                }
-
-                onEdit={() =>
-                  router.push(
-                    `/products/materials/edit/${material.id}`
-                  )
-                }
+                onView={() => router.push(`/products/materials/view/${material.id}`)}
+                onEdit={() => router.push(`/products/materials/edit/${material.id}`)}
               />
-
             );
-
-          default:
-            return null;
+          default:return null;
         }
       }}
     />

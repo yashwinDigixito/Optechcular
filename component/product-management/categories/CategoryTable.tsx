@@ -1,13 +1,8 @@
 "use client";
 
-import {
-  Category,
-} from "@/assets/types";
-
+import { Category } from "@/assets/types";
 import CommonTable from "@/component/common/table/CommonTable";
-
 import StatusSelect from "@/component/common/table/StatusSelect";
-
 import TableActions from "@/component/common/table/TableActions";
 
 import {
@@ -16,23 +11,12 @@ import {
   FONT_WEIGHT,
 } from "@/assets/constants";
 
-import {
-  Typography,
-} from "@mui/material";
-
+import { Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 
 interface CategoryTableProps {
-
-  categories:
-    Category[];
-
-  setCategoryData:
-    React.Dispatch<
-      React.SetStateAction<
-        Category[]
-      >
-    >;
+  categories: Category[];
+  setCategoryData: React.Dispatch<React.SetStateAction<Category[]>>;
 }
 
 export default function CategoryTable({
@@ -40,39 +24,31 @@ export default function CategoryTable({
   setCategoryData,
 }: CategoryTableProps) {
 
-  const router =
-    useRouter();
+  const router = useRouter();
 
-  /* TABLE COLUMNS */
   const columns = [
-
     {
       key: "category",
       label: "Category",
     },
-
     {
       key: "categoryType",
       label: "Category Type",
     },
-
     {
       key: "parentCategory",
       label: "Parent Category",
     },
-
     {
       key: "status",
       label: "Status",
       align: "center" as const,
     },
-
     {
       key: "createdOn",
       label: "Created On",
       align: "center" as const,
     },
-
     {
       key: "actions",
       label: "Actions",
@@ -80,7 +56,6 @@ export default function CategoryTable({
     },
   ];
 
-  /* STATUS CHANGE */
   const handleStatusChange = (
     id: string,
     value: string
@@ -88,16 +63,11 @@ export default function CategoryTable({
 
     setCategoryData((prev) =>
       prev.map((category) =>
-
         category.id === id
-
           ? {
               ...category,
-              status: value as
-                | "Active"
-                | "Inactive",
+              status: value as "Active" | "Inactive",
             }
-
           : category
       )
     );
@@ -107,168 +77,80 @@ export default function CategoryTable({
     <CommonTable
       columns={columns}
       rows={categories}
-
-      renderCell={(
-        category,
-        key
-      ) => {
-
+      renderCell={(category, key) => {
         switch (key) {
-
-          /* CATEGORY */
           case "category":
-
             return (
-
               <Typography
                 sx={{
-                  fontWeight:
-                    FONT_WEIGHT.BOLD,
-
-                  color:
-                    "#2563EB",
-
-                  fontSize:
-                    "15px",
-
-                  fontFamily:
-                    FONT_FAMILY.TABLE_BODY,
+                  fontWeight: FONT_WEIGHT.BOLD,
+                  color: "#2563EB",
+                  fontSize: "15px",
+                  fontFamily: FONT_FAMILY.TABLE_BODY,
                 }}
               >
-                {
-                  category.categoryName
-                }
+                {category.categoryName}
               </Typography>
-
             );
-
-          /* CATEGORY TYPE */
           case "categoryType":
-
             return (
-
               <Typography
                 sx={{
-                  color:
-                    "#475569",
-
-                  fontWeight:
-                    FONT_WEIGHT.SEMI_BOLD,
-
-                  fontSize:
-                    FONT_SIZE.TABLE_BODY,
-
-                  fontFamily:
-                    FONT_FAMILY.TABLE_BODY,
+                  color: "#475569",
+                  fontWeight: FONT_WEIGHT.SEMI_BOLD,
+                  fontSize: FONT_SIZE.TABLE_BODY,
+                  fontFamily: FONT_FAMILY.TABLE_BODY,
                 }}
               >
-                {
-                  category.categoryType
-                }
+                {category.categoryType}
               </Typography>
-
             );
-
-          /* PARENT CATEGORY */
           case "parentCategory":
-
             return (
-
               <Typography
                 sx={{
-                  color:
-                    "#475569",
-
-                  fontSize:
-                    FONT_SIZE.TABLE_BODY,
-
-                  fontFamily:
-                    FONT_FAMILY.TABLE_BODY,
+                  color: "#475569",
+                  fontSize: FONT_SIZE.TABLE_BODY,
+                  fontFamily: FONT_FAMILY.TABLE_BODY,
                 }}
               >
-                {
-                  category.parentCategory ||
-                  "-"
-                }
+                {category.parentCategory || "-"}
               </Typography>
-
             );
-
-          /* STATUS */
           case "status":
-
             return (
-
               <StatusSelect
-                value={
-                  category.status
-                }
-
+                value={category.status}
                 options={[
                   "Active",
                   "Inactive",
                 ]}
-
                 onChange={(value) =>
-                  handleStatusChange(
-                    category.id,
-                    value
-                  )
+                  handleStatusChange(category.id, value)
                 }
               />
-
             );
-
-          /* CREATED ON */
           case "createdOn":
-
             return (
-
               <Typography
                 sx={{
-                  color:
-                    "#64748B",
-
-                  fontWeight:
-                    FONT_WEIGHT.MEDIUM,
-
-                  fontSize:
-                    FONT_SIZE.TABLE_BODY,
-
-                  fontFamily:
-                    FONT_FAMILY.TABLE_BODY,
+                  color: "#64748B",
+                  fontWeight: FONT_WEIGHT.MEDIUM,
+                  fontSize: FONT_SIZE.TABLE_BODY,
+                  fontFamily: FONT_FAMILY.TABLE_BODY,
                 }}
               >
-                {
-                  category.createdOn
-                }
+                {category.createdOn}
               </Typography>
-
             );
-
-          /* ACTIONS */
           case "actions":
-
             return (
-
               <TableActions
-                onView={() =>
-                  router.push(
-                    `/products/categories/view/${category.id}`
-                  )
-                }
-
-                onEdit={() =>
-                  router.push(
-                    `/products/categories/edit/${category.id}`
-                  )
-                }
+                onView={() => router.push( `/products/categories/view/${category.id}` ) }
+                onEdit={() => router.push(`/products/categories/edit/${category.id}`)}
               />
-
             );
-
-          default:
-            return null;
+          default: return null;
         }
       }}
     />

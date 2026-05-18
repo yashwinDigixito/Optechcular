@@ -2,7 +2,7 @@
 export const themeConfig = {
   colors: {
     // Brand Colors
-    primary: "#3B82F6",
+    primary: "#2563EB",
     primaryLight: "#EFF6FF",
     
     // Status Colors

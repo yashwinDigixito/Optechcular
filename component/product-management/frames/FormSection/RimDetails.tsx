@@ -19,6 +19,9 @@ export default function RimDetails({ formik }: Props) {
           name="rimType"
           value={formik.values.rimType}
           onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.touched.rimType && Boolean(formik.errors.rimType)}
+          helperText={formik.touched.rimType && formik.errors.rimType}
         >
           <MenuItem value="Full Rim">Full Rim</MenuItem>
           <MenuItem value="Half Rim">Half Rim</MenuItem>
@@ -33,6 +36,55 @@ export default function RimDetails({ formik }: Props) {
           name="rimShape"
           value={formik.values.rimShape}
           onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.touched.rimShape && Boolean(formik.errors.rimShape)}
+          helperText={formik.touched.rimShape && formik.errors.rimShape}
+          placeholder="e.g. Aviator, Round, Rectangular"
+        />
+      </Grid>
+
+      <Grid size={{ xs: 12, md: 4 }}>
+        <TextField
+          fullWidth
+          type="number"
+          label="Lens Width (mm)"
+          name="lensWidth"
+          value={formik.values.lensWidth}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.touched.lensWidth && Boolean(formik.errors.lensWidth)}
+          helperText={formik.touched.lensWidth && formik.errors.lensWidth}
+          placeholder="e.g. 54"
+        />
+      </Grid>
+
+      <Grid size={{ xs: 12, md: 4 }}>
+        <TextField
+          fullWidth
+          type="number"
+          label="Lens Height (mm)"
+          name="lensHeight"
+          value={formik.values.lensHeight}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.touched.lensHeight && Boolean(formik.errors.lensHeight)}
+          helperText={formik.touched.lensHeight && formik.errors.lensHeight}
+          placeholder="e.g. 42"
+        />
+      </Grid>
+
+      <Grid size={{ xs: 12, md: 4 }}>
+        <TextField
+          fullWidth
+          type="number"
+          label="Bridge Width (mm)"
+          name="bridgeWidth"
+          value={formik.values.bridgeWidth}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.touched.bridgeWidth && Boolean(formik.errors.bridgeWidth)}
+          helperText={formik.touched.bridgeWidth && formik.errors.bridgeWidth}
+          placeholder="e.g. 18"
         />
       </Grid>
     </>

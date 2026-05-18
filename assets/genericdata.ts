@@ -7,7 +7,8 @@ import {
   Ledger,
   LedgerGroup,
   ReportChartData,
-  SalesTarget
+  SalesTarget,
+  Store
 } from "@/assets/types";
 
 export const dashboardStats: DashboardStat[] = [
@@ -4226,5 +4227,68 @@ export const inventories: Inventory[] = [
     updatedDate: "15/05/2026",
     createdBy: "Admin",
     notes: "Awaiting shipment from international warehouse.",
+  }
+];
+
+export const stores: Store[] = [
+  {
+    id: "1",
+    storeName: "Mumbai Flagship Store",
+    storeCode: "STR-MUM-01",
+    location: "MG Road, Bandra West, Mumbai, Maharashtra 400050",
+    phone: "+91 9876543211",
+    email: "mumbai01@optechcular.com",
+    manager: "Amit Sharma",
+    status: "Active",
+    createdOn: "10/05/2026",
+    storeType: "Retail Outlet",
+    gstin: "27AAAAA1111A1Z1",
+    monthlyTarget: 3000000,
+    monthlyRevenue: 2650000,
+    totalStaff: 14,
+    totalSKUs: 1420,
+    inventoryValue: 5850000,
+    operatingHours: "10:00 AM - 09:30 PM",
+    capacityLimit: 92,
+  },
+  {
+    id: "2",
+    storeName: "Delhi Connaught Place Store",
+    storeCode: "STR-DEL-02",
+    location: "Inner Circle, Connaught Place, New Delhi 110001",
+    phone: "+91 9988776650",
+    email: "delhi02@optechcular.com",
+    manager: "Priya Singh",
+    status: "Active",
+    createdOn: "12/05/2026",
+    storeType: "Mega Showroom",
+    gstin: "07BBBBB2222B2Z2",
+    monthlyTarget: 2200000,
+    monthlyRevenue: 1840000,
+    totalStaff: 10,
+    totalSKUs: 980,
+    inventoryValue: 3820000,
+    operatingHours: "09:30 AM - 09:00 PM",
+    capacityLimit: 78,
+  },
+  {
+    id: "3",
+    storeName: "Bangalore Indiranagar Store",
+    storeCode: "STR-BLR-03",
+    location: "100 Feet Road, Indiranagar, Bangalore, Karnataka 560038",
+    phone: "+91 8090909090",
+    email: "bangalore03@optechcular.com",
+    manager: "Karan Johar",
+    status: "Inactive",
+    createdOn: "14/05/2026",
+    storeType: "Warehouse Hub",
+    gstin: "29CCCCC3333C3Z3",
+    monthlyTarget: 6000000,
+    monthlyRevenue: 4250000,
+    totalStaff: 22,
+    totalSKUs: 4200,
+    inventoryValue: 21500000,
+    operatingHours: "08:00 AM - 08:00 PM",
+    capacityLimit: 64,
   }
 ];

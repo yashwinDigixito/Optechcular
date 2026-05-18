@@ -249,10 +249,14 @@ export interface Order {
   notes?: string;
 }
 
-export interface RoleData {
+export interface RoleType {
   id: string;
   roleName: string;
+  description: string;
   permissions: string[];
+  totalUsers: number;
+  status: string;
+  createdOn: string;
 }
 
 export interface DashboardStat {
@@ -681,4 +685,27 @@ export interface Column {
     | "right";
 
   width?: number | string;
+}
+
+export interface Store {
+  id: string;
+  storeName: string;
+  storeCode: string;
+  location: string;
+  phone: string;
+  email: string;
+  manager: string;
+  status: "Active" | "Inactive";
+  createdOn: string;
+  
+  // Enterprise ERP Fields
+  storeType: string;
+  gstin: string;
+  monthlyTarget: number;
+  monthlyRevenue: number;
+  totalStaff: number;
+  totalSKUs: number;
+  inventoryValue: number;
+  operatingHours: string;
+  capacityLimit: number;
 }
