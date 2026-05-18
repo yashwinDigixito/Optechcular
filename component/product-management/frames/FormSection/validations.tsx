@@ -1,5 +1,7 @@
 import * as yup from "yup";
 
+
+
 export const frameValidation = yup.object({
   // Basic Info
   brand: yup.string().required("Brand is required"),
@@ -20,7 +22,7 @@ export const frameValidation = yup.object({
     .typeError("Tax must be a number")
     .required("Tax is required"),
 
-  // Variations (basic validation for now)
+  // Variations (fully updated with missing fields from your view layout)
   variations: yup.array().of(
     yup.object({
       colorCode: yup.string().required("Required"),
@@ -31,6 +33,13 @@ export const frameValidation = yup.object({
         .number()
         .typeError("Must be number")
         .required("Required"),
+      templeLength: yup.string().required("Required"),
+      launchSeason: yup.string().required("Required"),
+      lensColor: yup.string().required("Required"),
+      frameFrontColor: yup.string().required("Required"),
+      templeColor: yup.string().required("Required"),
+      barcode: yup.string().required("Required"),
+      images: yup.array(), // Tracks array structure for variation image collections
     })
   ),
 
@@ -39,3 +48,5 @@ export const frameValidation = yup.object({
     .array()
     .min(1, "At least one image is required"),
 });
+
+

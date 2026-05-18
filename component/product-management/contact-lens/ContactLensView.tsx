@@ -113,7 +113,7 @@ export default async function ContactLensViewPage({
                                 <InfoLine label="Power Type" value={lens.powerType} />
                                 <InfoLine label="Base Curve" value={lens.baseCurve} />
                                 <InfoLine label="Diameter" value={lens.diameter} />
-                                <Divider sx={{ my: 1.5, borderColor: colors.border }} />
+                               
                                 <InfoLine label="Spherical Power" value={lens.sphericalPower} />
                                 <InfoLine label="Cylindrical Power" value={lens.cylindricalPower} />
                                 <InfoLine label="Axis" value={lens.axis} />
@@ -124,7 +124,7 @@ export default async function ContactLensViewPage({
                                 <InfoLine label="MRP" value={`₹${lens.mrp}`} />
                                 <InfoLine label="Selling Price" value={`₹${lens.sellingPrice}`} />
                                 <InfoLine label="Discount Price" value={`₹${lens.discountPrice}`} />
-                                <Divider sx={{ my: 1.5, borderColor: colors.border }} />
+                              
                                 <InfoLine label="Applicable Tax" value={`${lens.tax}%`} />
                                 <InfoLine label="HSN Code" value={lens.hsnCode} />
                             </SideCard>

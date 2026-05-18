@@ -90,9 +90,9 @@ export default async function BrandViewPage({
                         sx={{ 
                             mt: 1, 
                             color: colors.textSecondary, 
-                            fontSize: FONT_SIZE.SMALL,
-                            fontFamily: FONT_FAMILY.BODY,
-                            fontWeight: FONT_WEIGHT.REGULAR
+                            fontSize: FONT_SIZE.BODY,
+                            fontFamily: FONT_FAMILY.SUB_HEADING,
+                            fontWeight: FONT_WEIGHT.BOLD 
                         }}
                     >
                         Created On: {brand.createdDate}

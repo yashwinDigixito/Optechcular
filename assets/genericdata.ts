@@ -2534,8 +2534,8 @@ export const users = [
     loginStatus: "Online",
     twoFactorEnabled: true,
     notes: "Primary system administrator for the Northeast region.",
-    createdOn: "2024-01-15T08:00:00Z",
-    updatedDate: "2026-01-20T14:30:00Z",
+    createdOn: "2024-01-15",
+    updatedDate: "2026-01-20",
     createdBy: "System_Init"
   },
   {
@@ -2563,8 +2563,8 @@ export const users = [
     loginStatus: "Online",
     twoFactorEnabled: true,
     notes: "Authorized for high-value purchase approvals.",
-    createdOn: "2024-03-20T10:00:00Z",
-    updatedDate: "2025-12-01T09:00:00Z",
+    createdOn: "2024-03-20",
+    updatedDate: "2025-12-01",
     createdBy: "USR-001"
   },
   {
@@ -2592,8 +2592,8 @@ export const users = [
     loginStatus: "Offline",
     twoFactorEnabled: false,
     notes: "Top performer for Q1 2026.",
-    createdOn: "2024-06-10T11:30:00Z",
-    updatedDate: "2026-02-15T16:20:00Z",
+    createdOn: "2024-06-10",
+    updatedDate: "2026-02-15",
     createdBy: "USR-001"
   },
   {
@@ -2621,8 +2621,8 @@ export const users = [
     loginStatus: "Offline",
     twoFactorEnabled: true,
     notes: "On maternity leave until September 2026.",
-    createdOn: "2023-11-05T09:00:00Z",
-    updatedDate: "2026-04-30T13:00:00Z",
+    createdOn: "2023-11-05",
+    updatedDate: "2026-04-30",
     createdBy: "USR-001"
   },
   {
@@ -2650,8 +2650,8 @@ export const users = [
     loginStatus: "Online",
     twoFactorEnabled: false,
     notes: "Managing the night shift operations.",
-    createdOn: "2025-02-12T06:00:00Z",
-    updatedDate: "2025-02-12T06:00:00Z",
+    createdOn: "2025-02-12",
+    updatedDate: "2025-02-12",
     createdBy: "USR-002"
   },
   {
@@ -2679,8 +2679,8 @@ export const users = [
     loginStatus: "Offline",
     twoFactorEnabled: true,
     notes: "Account suspended pending security review after multiple failed login attempts.",
-    createdOn: "2025-04-01T10:45:00Z",
-    updatedDate: "2026-05-02T09:15:00Z",
+    createdOn: "2025-04-01",
+    updatedDate: "2026-05-02",
     createdBy: "USR-001"
   }
 ];
