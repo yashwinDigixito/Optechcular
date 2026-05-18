@@ -1,12 +1,13 @@
 "use client";
 
+import { FrameFormValues } from "@/assets/types";
 import FormSection from "@/component/common/FormSection";
-import BasicInfo from "@/component/product-management/frames/FormSection/BasicInfo";
-import FrameVariationForm from "@/component/product-management/frames/FormSection/FrameVariationForm";
-import ProductSpecs from "@/component/product-management/frames/FormSection/ProductSpecs";
-import RimDetails from "@/component/product-management/frames/FormSection/RimDetails";
-import TaxSection from "@/component/product-management/frames/FormSection/TaxSection";
-import { frameValidation } from "@/component/product-management/frames/FormSection/validations";
+import BasicInfo from "@/component/common/FormSection/BasicInfo";
+import FrameVariationForm from "@/component/common/FormSection/FrameVariationForm";
+import ProductSpecs from "@/component/common/FormSection/ProductSpecs";
+import RimDetails from "@/component/common/FormSection/RimDetails";
+import TaxSection from "@/component/common/FormSection/TaxSection";
+import { frameValidation } from "@/component/common/FormSection/validations";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import {
   Box,
@@ -17,7 +18,6 @@ import {
 } from "@mui/material";
 import { FormikProvider, useFormik } from "formik";
 import Link from "next/link";
-import { FrameFormValues } from "./FormSection/types";
 
 export default function FrameForm() {
   const formik = useFormik<FrameFormValues>({

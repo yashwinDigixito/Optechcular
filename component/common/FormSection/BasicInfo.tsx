@@ -1,8 +1,8 @@
 "use client";
 
+import { FrameFormValues } from "@/assets/types";
 import { Grid, MenuItem, TextField } from "@mui/material";
 import { FormikProps } from "formik";
-import { FrameFormValues } from "./types";
 
 type Props = {
   formik: FormikProps<FrameFormValues>;
