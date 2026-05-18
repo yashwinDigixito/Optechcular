@@ -2,12 +2,12 @@
 
 import { FrameFormValues } from "@/assets/types";
 import FormSection from "@/component/common/FormSection";
-import BasicInfo from "@/component/common/FormSection/BasicInfo";
-import FrameVariationForm from "@/component/common/FormSection/FrameVariationForm";
-import ProductSpecs from "@/component/common/FormSection/ProductSpecs";
-import RimDetails from "@/component/common/FormSection/RimDetails";
-import TaxSection from "@/component/common/FormSection/TaxSection";
-import { frameValidation } from "@/component/common/FormSection/validations";
+import BasicInfo from "@/component/common/formSection/BasicInfo";
+import FrameVariationForm from "@/component/common/formSection/FrameVariationForm";
+import ProductSpecs from "@/component/common/formSection/ProductSpecs";
+import RimDetails from "@/component/common/formSection/RimDetails";
+import TaxSection from "@/component/common/formSection/TaxSection";
+import { frameValidation } from "@/component/common/formSection/validations";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import {
   Box,

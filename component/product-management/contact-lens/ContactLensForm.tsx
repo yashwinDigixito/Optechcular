@@ -1,5 +1,9 @@
 "use client";
 
+import { ContactLensFormValues } from "@/assets/types";
+import ContactLensVariants from "@/component/common/formSection/ContactLensVariants";
+import { contactLensValidation } from "@/component/common/formSection/validations";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import {
   Box,
   Button,
@@ -9,11 +13,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useFormik, FormikProvider } from "formik";
-import { contactLensValidation } from "@/component/product-management/contact-lens/ContactLensFormSection/validations";
-import { ContactLensFormValues } from "@/component/product-management/contact-lens/ContactLensFormSection/types";
-import ContactLensVariants from "@/component/product-management/contact-lens/ContactLensFormSection/ContactLensVariants";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { FormikProvider, useFormik } from "formik";
 import Link from "next/link";
 
 export default function ContactLensForm() {

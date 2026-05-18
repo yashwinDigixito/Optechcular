@@ -710,12 +710,12 @@ export interface Store {
   capacityLimit: number;
 }
 
-export type BranchPrice = {
+export interface BranchPrice  {
   location: string;
   price: number | "";
 };
 
-export type FrameVariation = {
+export interface FrameVariation  {
   colorCode: string;
   size: string;
   dbl: string;
@@ -732,7 +732,7 @@ export type FrameVariation = {
   images: File[];
 };
 
-export type FrameFormValues = {
+export interface FrameFormValues {
   // Basic Info
   brand: string;
   modelNo: string;
@@ -762,4 +762,41 @@ export type FrameFormValues = {
   // variations & media
   variations: FrameVariation[];
   images: File[];
+};
+
+export interface ContactLensVariant  {
+  sku: string;
+  barcode: string;
+  sphericalPower: string;
+  cylindricalPower: string;
+  axis: string;
+  additional: string;
+  color: string;
+};
+
+export interface ContactLensFormValues {
+  // Basic Info
+  powerType: string;
+  brand: string;
+
+  // Usage
+  modality: string;
+
+  // Product Info
+  productCode: string;
+  productName: string;
+  baseCurve: string;
+  diameter: string;
+
+  // Classification
+  material: string;
+  productType: string;
+
+  // Pricing
+  hsn: string;
+  tax: number | "";
+  mrp: number | "";
+
+  // Variants
+  variants: ContactLensVariant[];
 };
