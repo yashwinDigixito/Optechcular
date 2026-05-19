@@ -326,33 +326,33 @@ export default function FrameVariationForm({ formik }: Props) {
                       />
                     </Grid>
 
-                    {/* Location Based Pricing Sub-Matrix */}
-                    <Grid size={{ xs: 12 }}>
-                      <Divider sx={{ my: 1.5 }} />
-                      <Typography sx={{ fontWeight: 700, fontSize: "13px", color: "#64748B", mb: 2 }}>
-                        Location-Based Branch Pricing Matrix (INR)
-                      </Typography>
-                      <Grid container spacing={2}>
-                        {v.branchPricing.map((bp, bpIdx) => (
-                          <Grid size={{ xs: 12, sm: 4 }} key={bpIdx}>
-                            <TextField
-                              fullWidth
-                              label={`${bp.location} Price`}
-                              value={bp.price}
-                              type="number"
-                              onChange={(e) => {
-                                const val = e.target.value;
-                                formik.setFieldValue(
-                                  `variations.${index}.branchPricing.${bpIdx}.price`,
-                                  val === "" ? "" : Number(val)
-                                );
-                              }}
-                              placeholder={`Base SRP: ₹${v.price || "N/A"}`}
-                            />
-                          </Grid>
-                        ))}
+                      {/* Location Based Pricing Sub-Matrix */}
+                      <Grid size={{ xs: 12 }}>
+                        <Divider sx={{ my: 1.5 }} />
+                        <Typography sx={{ fontWeight: 700, fontSize: "13px", color: "#64748B", mb: 2 }}>
+                          Location-Based Branch Pricing Matrix (INR)
+                        </Typography>
+                        <Grid container spacing={2}>
+                          {v.branchPricing.map((bp, bpIdx) => (
+                            <Grid size={{ xs: 12, sm: 4 }} key={bpIdx}>
+                              <TextField
+                                fullWidth
+                                label={`${bp.branchName} Price`}
+                                value={bp.price}
+                                type="number"
+                                onChange={(e) => {
+                                  const val = e.target.value;
+                                  formik.setFieldValue(
+                                    `variations.${index}.branchPricing.${bpIdx}.price`,
+                                    val === "" ? "" : Number(val)
+                                  );
+                                }}
+                                placeholder={`Base SRP: ₹${v.price || "N/A"}`}
+                              />
+                            </Grid>
+                          ))}
+                        </Grid>
                       </Grid>
-                    </Grid>
 
                     {/* Multiple picture additions */}
                     <Grid size={{ xs: 12 }}>

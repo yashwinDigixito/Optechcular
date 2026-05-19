@@ -2,7 +2,7 @@
 
 import { Grid, TextField, Typography, Box, Paper } from "@mui/material";
 import { FormikProps } from "formik";
-import { FrameFormValues } from "./types";
+import { FrameFormValues } from "@/assets/types";
 
 type Props = {
   formik: FormikProps<FrameFormValues>;

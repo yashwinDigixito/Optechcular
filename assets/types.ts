@@ -487,100 +487,99 @@ export interface Ledger {
 
   notes: string;
 }
-
-export interface Frame {
-  id: string;
-  frameId: string;
-  frameName: string;
-  skuCode: string;
-  barcode?: string;
-  categoryId: string;
-  category?: string;
-  brand: string;
-  manufacturer:string | "";
-  material:string | "";
-  shelfLocation:string | "";
-  minStockLevel: number | "";
-  variations: FrameVariation[] | "";
-  tax: number | "";
-  costPrice: number | "";
-  modelNumber?: string;
-  rimType:
-    | "Full Rim"
-    | "Half Rim"
-    | "Rimless";
-  rimShape:
-    | "Round"
-    | "Square"
-    | "Rectangle"
-    | "Aviator"
-    | "Cat Eye"
-    | "Oval"
-    | "Wayfarer";
-  gender:
-    | "Men"
-    | "Women"
-    | "Unisex"
-    | "Kids";
-  ageGroup?:
-    | "Adult"
-    | "Teen"
-    | "Kids";
-  frameSize?: string;
-  lensWidth?: number;
-  bridgeWidth?: number;
-  templeLength?: number;
-  /* NEW FIELDS */
-  dbl?: number;
-  templeMaterial?: string;
-  frameWidth?: number;
-  lensHeight?: number;
-  colorCode?: string;
-  frameFrontColor?: string;
-  lensColor?: string;
-  hsnCode?: string;
-  frameType?:
-    | "Optical"
-    | "Sunglasses"
-    | "Computer Glasses"
-    | "Reading Glasses";
-  frameMaterial?:
-    | "Metal"
-    | "Plastic"
-    | "Acetate"
-    | "Titanium"
-    | "TR90";
-  frameColor: string;
-  templeColor?: string;
-  weight?: number;
-  lensTypeSupported?: string[];
-  stockQuantity?: number;
-  lowStockLimit?: number;
-  warehouseLocation?: string;
-  purchasePrice?: number;
-  sellingPrice: number;
-  discountPrice?: number;
-  gstPercentage?: number;
-  status:
-    | "Active"
-    | "Inactive"
-    | "Out of Stock";
-  featuredProduct?: boolean;
-  trendingProduct?: boolean;
-  thumbnailImage: string;
-  galleryImages?: string[];
-  description: string;
-  features?: string[];
-  metaTitle?: string;
-  metaDescription?: string;
-  slug?: string;
-  warrantyPeriod?: string;
-  supplierName?: string;
-  countryOfOrigin?: string;
-  createdOn: string;
-  updatedDate?: string;
-  createdBy?: string;
-}
+// export interface Frame {
+//   id: string;
+//   frameId: string;
+//   frameName: string;
+//   skuCode: string;
+//   barcode?: string;
+//   categoryId: string;
+//   category?: string;
+//   brand: string;
+//   manufacturer:string;
+//   material:string;
+//   shelfLocation:string;
+//   minStockLevel: number | "";
+//   variations: FrameVariation[];
+//   tax: number | "";
+//   costPrice: number | "";
+//   modelNumber?: string;
+//   rimType:
+//     | "Full Rim"
+//     | "Half Rim"
+//     | "Rimless";
+//   rimShape:
+//     | "Round"
+//     | "Square"
+//     | "Rectangle"
+//     | "Aviator"
+//     | "Cat Eye"
+//     | "Oval"
+//     | "Wayfarer";
+//   gender:
+//     | "Men"
+//     | "Women"
+//     | "Unisex"
+//     | "Kids";
+//   ageGroup?:
+//     | "Adult"
+//     | "Teen"
+//     | "Kids";
+//   frameSize?: string;
+//   lensWidth?: number;
+//   bridgeWidth?: number;
+//   templeLength?: number;
+//   /* NEW FIELDS */
+//   dbl?: number;
+//   templeMaterial?: string;
+//   frameWidth?: number;
+//   lensHeight?: number;
+//   colorCode?: string;
+//   frameFrontColor?: string;
+//   lensColor?: string;
+//   hsnCode?: string;
+//   frameType?:
+//     | "Optical"
+//     | "Sunglasses"
+//     | "Computer Glasses"
+//     | "Reading Glasses";
+//   frameMaterial?:
+//     | "Metal"
+//     | "Plastic"
+//     | "Acetate"
+//     | "Titanium"
+//     | "TR90";
+//   frameColor: string;
+//   templeColor?: string;
+//   weight?: number;
+//   lensTypeSupported?: string[];
+//   stockQuantity?: number;
+//   lowStockLimit?: number;
+//   warehouseLocation?: string;
+//   purchasePrice?: number;
+//   sellingPrice: number;
+//   discountPrice?: number;
+//   gstPercentage?: number;
+//   status:
+//     | "Active"
+//     | "Inactive"
+//     | "Out of Stock";
+//   featuredProduct?: boolean;
+//   trendingProduct?: boolean;
+//   thumbnailImage: string;
+//   galleryImages?: string[];
+//   description: string;
+//   features?: string[];
+//   metaTitle?: string;
+//   metaDescription?: string;
+//   slug?: string;
+//   warrantyPeriod?: string;
+//   supplierName?: string;
+//   countryOfOrigin?: string;
+//   createdOn: string;
+//   updatedDate?: string;
+//   createdBy?: string;
+// }
 export interface Material {
   id: string;
 
@@ -770,41 +769,172 @@ export interface Store {
   capacityLimit: number;
 }
 
-export interface BranchPrice  {
-  location: string;
-  price: number | "";
+// export interface BranchPrice  {
+//   location: string;
+//   price: number | "";
+// }
+
+// export interface FrameVariation {
+
+//   colorCode: string;
+
+//   size: string;
+
+//   dbl: number | "";
+
+//   sku: string;
+
+//   sellingPrice: number | "";
+
+//   templeLength: number | "";
+
+//   launchSeason: string;
+
+//   lensColor: string;
+
+//   frameFrontColor: string;
+
+//   templeColor: string;
+
+//   barcode: string;
+
+//   price:string;
+
+//   branchPricing: BranchPrice[];
+
+//   images: File[];
+// }
+
+
+// / ...
+// }
+
+
+
+
+
+
+
+
+
+
+
+export interface Frame {
+  id: string;
+  frameId: string;
+  frameName: string;
+  skuCode: string;
+  barcode: string;
+  tax: number;
+  categoryId: string;
+  category: string;
+  brand: string;
+  modelNumber: string;
+  rimType: string;
+  rimShape: string;
+  gender: string;
+  ageGroup: string;
+  frameSize: string;
+  lensWidth: number;
+  bridgeWidth: number;
+  templeLength: number;
+  dbl: number;
+  templeMaterial: string;
+  frameWidth: number;
+  lensHeight: number;
+  colorCode: string;
+  frameFrontColor: string;
+  lensColor: string;
+  hsnCode: string;
+  frameType: string;
+  frameMaterial: string;
+  frameColor: string;
+  templeColor: string;
+  weight: number;
+  lensTypeSupported?: string[];
+  stockQuantity: number;
+  lowStockLimit: number;
+  warehouseLocation?: string;
+  purchasePrice: number;
+  sellingPrice: number;
+  discountPrice?: number;
+  gstPercentage?: number;
+  status: string;
+  featuredProduct?: boolean;
+  trendingProduct?: boolean;
+  thumbnailImage: string;
+  galleryImages?: string[];
+  description: string;
+  features?: string[];
+  metaTitle?: string;
+  metaDescription?: string;
+  slug?: string;
+  warrantyPeriod?: string;
+  supplierName?: string;
+  countryOfOrigin?: string;
+  createdOn: string;
+  updatedDate?: string;
+  createdBy?: string;
+  variations: FrameVariation[];
+  manufacturer?: string 
+  material?: string
+  shelfLocation?: string
+  minStockLevel?: number
+  costPrice?: number
+  
+}
+
+export interface BranchPrice {
+  branchId: string;
+  branchName: string;
+  price: number;
 }
 
 export interface FrameVariation {
-
   colorCode: string;
-
   size: string;
-
   dbl: number | "";
-
-  sku: string;
-
+  sku: string;          // Maps to skuCode
   sellingPrice: number | "";
-
   templeLength: number | "";
-
   launchSeason: string;
-
   lensColor: string;
-
   frameFrontColor: string;
-
   templeColor: string;
-
   barcode: string;
-
-  price:string;
-
+  price: string;        // String type as requested
   branchPricing: BranchPrice[];
-
-  images: File[];
+  images: any[];        // Set as any[] or File[] for frontend handling
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 export interface FrameFormValues {
 
