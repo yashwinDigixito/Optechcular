@@ -890,11 +890,24 @@ export interface BranchPrice {
   price: number;
 }
 
+export interface VariationImage {
+
+  uid?: string;
+
+  name?: string;
+
+  url: string;
+
+  status?: string;
+
+  file?: File;
+}
+
 export interface FrameVariation {
   colorCode: string;
   size: string;
   dbl: number | "";
-  sku: string;          // Maps to skuCode
+  sku: string;
   sellingPrice: number | "";
   templeLength: number | "";
   launchSeason: string;
@@ -902,9 +915,9 @@ export interface FrameVariation {
   frameFrontColor: string;
   templeColor: string;
   barcode: string;
-  price: string;        // String type as requested
+  price: string;
   branchPricing: BranchPrice[];
-  images: any[];        // Set as any[] or File[] for frontend handling
+  images: VariationImage[];
 }
 
 
