@@ -1,5 +1,10 @@
 "use client";
 
+import { contactLenses } from "@/assets/genericdata";
+import { ContactLens } from "@/assets/types";
+import FormSection from "@/component/common/FormSection";
+import ContactLensVariants from "@/component/common/formSection/ContactLensVariants";
+import { contactLensValidation } from "@/component/common/formSection/validations";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import {
   Box,
@@ -10,15 +15,10 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import {
-  useEffect,
-  useState,
-} from "react";
-
-import {
-  contactLenses,
-} from "@/assets/genericdata";
+import { FormikProvider, useFormik } from "formik";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import * as React from "react";
 
 export default function EditContactLensPage({
   params,
@@ -27,382 +27,350 @@ export default function EditContactLensPage({
     id: string;
   }>;
 }) {
+  const router = useRouter();
 
-  const [formData, setFormData] =
-    useState({
-      productName: "",
-      productCode: "",
-      brand: "",
-      powerType: "",
-      modality: "",
-      material: "",
-      productType: "",
-      baseCurve: "",
-      diameter: "",
-      stock: "",
-      price: "",
-      status: "",
-    });
+  // Synchronously resolve async next.js 15 route parameters using React 19 use() hook
+  const { id } = React.use(params);
 
-  useEffect(() => {
+  const lens = React.useMemo(() => {
+    return contactLenses.find((item) => item.id === id);
+  }, [id]);
 
-    params.then(
-      ({ id }) => {
+  const formik = useFormik<ContactLens>({
+    initialValues: {
 
-        const lens =
-          contactLenses.find(
-            (item) =>
-              item.id === id
-          );
+  productCode:
+    lens?.productCode || "",
 
-        if (lens) {
+  lensName:
+    lens?.lensName || "",
 
-          setFormData({
-            productName:
-              lens.productName,
+  brand:
+    lens?.brand || "",
 
-            productCode:
-              lens.productCode,
+  productType:
+    lens?.productType || "Rx",
 
-            brand:
-              lens.brand,
+  powerType:
+    lens?.powerType || "Spherical",
 
-            powerType:
-              lens.powerType,
+  modality:
+    lens?.modality || "Monthly",
 
-            modality:
-              lens.modality,
+  material:
+    lens?.material || "",
 
-            material:
-              lens.material,
+  baseCurve:
+    lens?.baseCurve || "",
 
-            productType:
-              lens.productType,
+  diameter:
+    lens?.diameter || "",
 
-            baseCurve:
-              lens.baseCurve,
+  hsnCode:
+    lens?.hsnCode || "",
 
-            diameter:
-              lens.diameter,
+  tax:
+    lens?.tax || "",
 
-            stock:
-              String(
-                lens.stock
-              ),
+  mrp:
+    lens?.mrp || "",
 
-            price:
-              String(
-                lens.mrp
-              ),
+  sellingPrice:
+    lens?.sellingPrice || "",
 
-            status:
-              lens.status,
-          });
-        }
-      }
-    );
-  }, [params]);
+  stock:
+    lens?.stock || "",
 
-  const handleChange = (
-    field: string,
-    value: string
-  ) => {
+  status:
+    lens?.status || "Active",
 
-    setFormData((prev) => ({
-      ...prev,
-      [field]: value,
-    }));
-  };
+  variants:
+    lens?.variants || [],
+},
+    enableReinitialize: true,
+    validationSchema: contactLensValidation,
+    onSubmit: (values) => {
+      console.log("Contact Lens Record Updated Successfully in ERP Roster:", values);
+      router.push("/products/contact-lens");
+    },
+  });
 
   return (
-    <Box sx={{ p: 3 }}>
+    <Box sx={{ p: 3, background: "#F8FAFC", minHeight: "100vh" }}>
+      {/* Back button */}
       <Box sx={{ mb: 3 }}>
         <Link
           href="/products/contact-lens"
           style={{
-            textDecoration:
-              "none",
+            textDecoration: "none",
           }}
         >
           <Button
-            startIcon={
-              <ArrowBackIcon />
-            }
+            startIcon={<ArrowBackIcon />}
             sx={{
-              textTransform:"none",
-              fontWeight:600,
+              textTransform: "none",
+              fontWeight: 600,
             }}
           >
-            Back
+            Back to Contact Lens Inventory
           </Button>
         </Link>
       </Box>
-      <Typography
-        sx={{
-          fontSize: "32px",
-          fontWeight: 700,
-          mb: 3,
-        }}
-      >
-        Edit Contact Lens
-      </Typography>
 
-      <Card
-        sx={{
-          p: 4,
-          borderRadius: "24px",
-        }}
-      >
-        <Grid
-          container
-          spacing={3}
-        >
-          {/* PRODUCT NAME */}
-          <Grid size={{ xs: 12, md: 6 }}>
-            <TextField
-              fullWidth
-              label="Product Name"
-              value={
-                formData.productName
-              }
-              onChange={(e) =>
-                handleChange(
-                  "productName",
-                  e.target.value
-                )
-              }
-            />
-          </Grid>
+      {/* Main card */}
+      <Card sx={{ p: 4, borderRadius: "24px", border: "1px solid #E2E8F0", boxShadow: "none" }}>
+        <Typography sx={{ fontSize: 32, fontWeight: 700, mb: 1, color: "#0F172A" }}>
+          Edit Contact Lens
+        </Typography>
+        <Typography sx={{ color: "#64748B", mb: 4, fontSize: "14px" }}>
+          Modify contact lens brand specifications, modality lifespan limits, technical fit curves, and pricing parameters.
+        </Typography>
 
-          {/* PRODUCT CODE */}
-          <Grid size={{ xs: 12, md: 6 }}>
-            <TextField
-              fullWidth
-              label="Product Code"
-              value={
-                formData.productCode
-              }
-              onChange={(e) =>
-                handleChange(
-                  "productCode",
-                  e.target.value
-                )
-              }
-            />
-          </Grid>
+        <FormikProvider value={formik}>
+          <form onSubmit={formik.handleSubmit}>
+            <Grid container spacing={1}>
+              
+              <FormSection
+                title="1. Contact Lens Brand & Modality Specs"
+                description="Power configuration style, modality lifespan classifications, and unique manufacturer codes."
+              >
+                <Grid size={{ xs: 12, md: 6 }}>
+                  <TextField
+                    select
+                    fullWidth
+                    label="Power Type *"
+                    name="powerType"
+                    value={formik.values.powerType}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.touched.powerType && Boolean(formik.errors.powerType)}
+                    helperText={formik.touched.powerType && formik.errors.powerType}
+                  >
+                    <MenuItem value="Spherical">Spherical</MenuItem>
+                    <MenuItem value="Astigmatism">Astigmatism</MenuItem>
+                    <MenuItem value="Progressive">Progressive</MenuItem>
+                  </TextField>
+                </Grid>
 
-          {/* BRAND */}
-          <Grid size={{ xs: 12, md: 6 }}>
-            <TextField
-              fullWidth
-              label="Brand"
-              value={
-                formData.brand
-              }
-              onChange={(e) =>
-                handleChange(
-                  "brand",
-                  e.target.value
-                )
-              }
-            />
-          </Grid>
+                <Grid size={{ xs: 12, md: 6 }}>
+                  <TextField
+                    fullWidth
+                    label="Select Brand *"
+                    name="brand"
+                    value={formik.values.brand}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.touched.brand && Boolean(formik.errors.brand)}
+                    helperText={formik.touched.brand && formik.errors.brand}
+                  />
+                </Grid>
 
-          {/* POWER TYPE */}
-          <Grid size={{ xs: 12, md: 6 }}>
-            <TextField
-              select
-              fullWidth
-              label="Power Type"
-              value={
-                formData.powerType
-              }
-              onChange={(e) =>
-                handleChange(
-                  "powerType",
-                  e.target.value
-                )
-              }
-            >
-              <MenuItem value="Spherical">
-                Spherical
-              </MenuItem>
+                <Grid size={{ xs: 12, md: 6 }}>
+                  <TextField
+                    select
+                    fullWidth
+                    label="Select Modality *"
+                    name="modality"
+                    value={formik.values.modality}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.touched.modality && Boolean(formik.errors.modality)}
+                    helperText={formik.touched.modality && formik.errors.modality}
+                  >
+                    <MenuItem value="Daily">Daily</MenuItem>
+                    <MenuItem value="BiWeekly">BiWeekly</MenuItem>
+                    <MenuItem value="Monthly">Monthly</MenuItem>
+                    <MenuItem value="Quarterly">Quarterly</MenuItem>
+                    <MenuItem value="Yearly">Yearly</MenuItem>
+                  </TextField>
+                </Grid>
 
-              <MenuItem value="Astigmatism">
-                Astigmatism
-              </MenuItem>
+                <Grid size={{ xs: 12, md: 6 }}>
+                  <TextField
+                    fullWidth
+                    label="Product Code *"
+                    name="productCode"
+                    value={formik.values.productCode}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.touched.productCode && Boolean(formik.errors.productCode)}
+                    helperText={formik.touched.productCode && formik.errors.productCode}
+                  />
+                </Grid>
 
-              <MenuItem value="Progressive">
-                Progressive
-              </MenuItem>
-            </TextField>
-          </Grid>
+                <Grid size={{ xs: 12 }}>
+                  <TextField
+                    fullWidth
+                    label="Product Name *"
+                    name="productName"
+                    value={formik.values.lensName}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.touched.lensName && Boolean(formik.errors.lensName)}
+                    helperText={formik.touched.lensName && formik.errors.lensName}
+                  />
+                </Grid>
+              </FormSection>
 
-          {/* MODALITY */}
-          <Grid size={{ xs: 12, md: 6 }}>
-            <TextField
-              select
-              fullWidth
-              label="Modality"
-              value={
-                formData.modality
-              }
-              onChange={(e) =>
-                handleChange(
-                  "modality",
-                  e.target.value
-                )
-              }
-            >
-              <MenuItem value="Daily">
-                Daily
-              </MenuItem>
+              <FormSection
+                title="2. Technical & Material Parameters"
+                description="Technical dimensional attributes and polymer composition tags for laboratory fittings."
+              >
+                <Grid size={{ xs: 12, md: 3 }}>
+                  <TextField
+                    fullWidth
+                    label="Base Curve (BC) *"
+                    name="baseCurve"
+                    value={formik.values.baseCurve}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.touched.baseCurve && Boolean(formik.errors.baseCurve)}
+                    helperText={formik.touched.baseCurve && formik.errors.baseCurve}
+                  />
+                </Grid>
 
-              <MenuItem value="BiWeekly">
-                BiWeekly
-              </MenuItem>
+                <Grid size={{ xs: 12, md: 3 }}>
+                  <TextField
+                    fullWidth
+                    label="Diameter (DIA) *"
+                    name="diameter"
+                    value={formik.values.diameter}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.touched.diameter && Boolean(formik.errors.diameter)}
+                    helperText={formik.touched.diameter && formik.errors.diameter}
+                  />
+                </Grid>
 
-              <MenuItem value="Monthly">
-                Monthly
-              </MenuItem>
+                <Grid size={{ xs: 12, md: 3 }}>
+                  <TextField
+                    fullWidth
+                    label="Select Material *"
+                    name="material"
+                    value={formik.values.material}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.touched.material && Boolean(formik.errors.material)}
+                    helperText={formik.touched.material && formik.errors.material}
+                  />
+                </Grid>
 
-              <MenuItem value="Quarterly">
-                Quarterly
-              </MenuItem>
+                <Grid size={{ xs: 12, md: 3 }}>
+                  <TextField
+                    select
+                    fullWidth
+                    label="Select Product Type *"
+                    name="productType"
+                    value={formik.values.productType}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.touched.productType && Boolean(formik.errors.productType)}
+                    helperText={formik.touched.productType && formik.errors.productType}
+                  >
+                    <MenuItem value="Rx">Rx (Prescription)</MenuItem>
+                    <MenuItem value="Stock">Stock (Over Counter)</MenuItem>
+                  </TextField>
+                </Grid>
+              </FormSection>
 
-              <MenuItem value="Yearly">
-                Yearly
-              </MenuItem>
-            </TextField>
-          </Grid>
+              <FormSection
+                title="3. Financial Compliance & MRP Limits"
+                description="Government audit HSN codes, VAT percentages, and recommended retail price guidelines."
+              >
+                <Grid size={{ xs: 12, md: 4 }}>
+                  <TextField
+                    fullWidth
+                    label="HSN Code *"
+                    name="hsn"
+                    value={formik.values.hsnCode}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.touched.hsnCode && Boolean(formik.errors.hsnCode)}
+                    helperText={formik.touched.hsnCode && formik.errors.hsnCode}
+                  />
+                </Grid>
 
-          {/* MATERIAL */}
-          <Grid size={{ xs: 12, md: 6 }}>
-            <TextField
-              fullWidth
-              label="Material"
-              value={
-                formData.material
-              }
-              onChange={(e) =>
-                handleChange(
-                  "material",
-                  e.target.value
-                )
-              }
-            />
-          </Grid>
+                <Grid size={{ xs: 12, md: 4 }}>
+                  <TextField
+                    fullWidth
+                    label="Tax Rate % *"
+                    value={formik.values.tax}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      if (val === "") {
+                        formik.setFieldValue("tax", "");
+                        return;
+                      }
+                      if (!isNaN(Number(val))) {
+                        formik.setFieldValue("tax", Number(val));
+                      }
+                    }}
+                    onBlur={formik.handleBlur}
+                    name="tax"
+                    error={formik.touched.tax && Boolean(formik.errors.tax)}
+                    helperText={formik.touched.tax && formik.errors.tax}
+                  />
+                </Grid>
 
-          {/* BASE CURVE */}
-          <Grid size={{ xs: 12, md: 4 }}>
-            <TextField
-              fullWidth
-              label="Base Curve"
-              value={
-                formData.baseCurve
-              }
-              onChange={(e) =>
-                handleChange(
-                  "baseCurve",
-                  e.target.value
-                )
-              }
-            />
-          </Grid>
+                <Grid size={{ xs: 12, md: 4 }}>
+                  <TextField
+                    fullWidth
+                    label="Max Retail Price MRP (₹) *"
+                    value={formik.values.mrp}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      if (val === "") {
+                        formik.setFieldValue("mrp", "");
+                        return;
+                      }
+                      if (!isNaN(Number(val))) {
+                        formik.setFieldValue("mrp", Number(val));
+                      }
+                    }}
+                    onBlur={formik.handleBlur}
+                    name="mrp"
+                    error={formik.touched.mrp && Boolean(formik.errors.mrp)}
+                    helperText={formik.touched.mrp && formik.errors.mrp}
+                  />
+                </Grid>
+              </FormSection>
 
-          {/* DIAMETER */}
-          <Grid size={{ xs: 12, md: 4 }}>
-            <TextField
-              fullWidth
-              label="Diameter"
-              value={
-                formData.diameter
-              }
-              onChange={(e) =>
-                handleChange(
-                  "diameter",
-                  e.target.value
-                )
-              }
-            />
-          </Grid>
+              <Grid size={{ xs: 12 }} sx={{ mb: 4 }}>
+                <ContactLensVariants formik={formik} />
+              </Grid>
 
-          {/* STOCK */}
-          <Grid size={{ xs: 12, md: 4 }}>
-            <TextField
-              fullWidth
-              label="Stock"
-              type="number"
-              value={
-                formData.stock
-              }
-              onChange={(e) =>
-                handleChange(
-                  "stock",
-                  e.target.value
-                )
-              }
-            />
-          </Grid>
+              {/* Validation alert message if form has been submitted and contains errors */}
+              {formik.submitCount > 0 && !formik.isValid && (
+                <Grid size={{ xs: 12 }} sx={{ mb: 2 }}>
+                  <Box sx={{ p: 2, borderRadius: "12px", bgcolor: "#FEF2F2", border: "1px solid #FCA5A5" }}>
+                    <Typography sx={{ color: "#DC2626", fontWeight: 700, fontSize: "14px" }}>
+                      Please review the highlighted red sections above. Make sure all variants have SPH powers, SKUs, and unique barcodes.
+                    </Typography>
+                  </Box>
+                </Grid>
+              )}
 
-          {/* PRICE */}
-          <Grid size={{ xs: 12, md: 6 }}>
-            <TextField
-              fullWidth
-              label="Price"
-              type="number"
-              value={
-                formData.price
-              }
-              onChange={(e) =>
-                handleChange(
-                  "price",
-                  e.target.value
-                )
-              }
-            />
-          </Grid>
+              <Grid size={{ xs: 12 }}>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  sx={{
+                    height: 52,
+                    borderRadius: "14px",
+                    px: 4,
+                    fontWeight: 700,
+                    boxShadow: "none",
+                    textTransform: "none",
+                    fontSize: "15px",
+                  }}
+                >
+                  Update Contact Lens Record
+                </Button>
+              </Grid>
 
-          {/* STATUS */}
-          <Grid size={{ xs: 12, md: 6 }}>
-            <TextField
-              select
-              fullWidth
-              label="Status"
-              value={
-                formData.status
-              }
-              onChange={(e) =>
-                handleChange(
-                  "status",
-                  e.target.value
-                )
-              }
-            >
-              <MenuItem value="Active">
-                Active
-              </MenuItem>
-
-              <MenuItem value="Inactive">
-                Inactive
-              </MenuItem>
-            </TextField>
-          </Grid>
-
-        </Grid>
-
-        <Button
-          variant="contained"
-          sx={{
-            mt: 4,
-            height: "48px",
-            borderRadius: "12px",
-            px: 4,
-            textTransform: "none",
-          }}
-        >
-          Update Contact Lens
-        </Button>
+            </Grid>
+          </form>
+        </FormikProvider>
       </Card>
     </Box>
   );

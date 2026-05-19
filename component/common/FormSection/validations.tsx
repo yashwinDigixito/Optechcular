@@ -85,18 +85,43 @@ export const frameValidation = yup.object({
 });
 
 export const contactLensValidation = yup.object({
-  productName: yup.string().required("Required"),
-  productCode: yup.string().required("Required"),
-  brand: yup.string().required("Required"),
-  powerType: yup.string().required("Required"),
-
+  productName: yup.string().required("Product Name is required"),
+  productCode: yup.string().required("Product Code is required"),
+  brand: yup.string().required("Brand is required"),
+  powerType: yup.string().required("Power Type is required"),
+  modality: yup.string().required("Modality is required"),
+  baseCurve: yup
+    .number()
+    .typeError("Base Curve must be a decimal number")
+    .positive("Must be greater than 0")
+    .required("Base Curve is required"),
+  diameter: yup
+    .number()
+    .typeError("Diameter must be a decimal number")
+    .positive("Must be greater than 0")
+    .required("Diameter is required"),
+  material: yup.string().required("Material name is required"),
+  productType: yup.string().required("Product Type (Rx/Stock) is required"),
+  hsn: yup.string().required("HSN Code is required"),
   tax: yup
     .number()
-    .transform((v, o) => (o === "" ? undefined : v))
-    .required("Required"),
-
+    .typeError("Tax must be a valid number")
+    .min(0, "Tax cannot be negative")
+    .required("Tax rate is required"),
   mrp: yup
     .number()
-    .transform((v, o) => (o === "" ? undefined : v))
-    .required("Required"),
+    .typeError("MRP must be a valid price number")
+    .positive("Must be greater than 0")
+    .required("MRP is required"),
+  variants: yup.array().of(
+    yup.object({
+      sku: yup.string().required("SKU is required"),
+      barcode: yup.string().required("Barcode is required"),
+      sphericalPower: yup.string().required("Spherical power (SPH) is required"),
+      cylindricalPower: yup.string(),
+      axis: yup.string(),
+      additional: yup.string(),
+      color: yup.string().required("Color/Tint is required"),
+    })
+  ),
 });

@@ -1,4 +1,5 @@
 import {
+  ContactLens,
   DashboardStat,
   Expense,
   Frame,
@@ -2011,16 +2012,17 @@ createdOn:"19/05/2026",
 
 ];
 
-export const contactLenses = [
+
+export const contactLenses: ContactLens[] = [
+
   {
     id: "1",
 
     lensId: "LENS-1001",
+
     productName: "Acuvue Oasys",
 
     productCode: "CL-1001",
-
-    lensName: "Acuvue Oasys",
 
     brand: "Johnson & Johnson",
 
@@ -2032,19 +2034,9 @@ export const contactLenses = [
 
     material: "Silicone Hydrogel",
 
-    baseCurve: "8.4",
+    baseCurve: 8.4,
 
-    diameter: "14.2",
-
-    sphericalPower: "-2.50",
-
-    cylindricalPower: "-0.75",
-
-    axis: "180",
-
-    additionalPower: "+1.50",
-
-    color: "Transparent",
+    diameter: 14.2,
 
     hsnCode: "90013000",
 
@@ -2055,10 +2047,6 @@ export const contactLenses = [
     sellingPrice: 2499,
 
     discountPrice: 2299,
-
-    skuCode: "SKU-CL-1001",
-
-    barcode: "8901452367001",
 
     stock: 120,
 
@@ -2080,17 +2068,48 @@ export const contactLenses = [
     updatedDate: "12/05/2026",
 
     createdBy: "Admin",
+
+    variants: [
+      {
+        sku: "SKU-CL-1001",
+
+        barcode: "8901452367001",
+
+        sphericalPower: "-2.50",
+
+        cylindricalPower: "-0.75",
+
+        axis: "180",
+
+        additional: "+1.50",
+
+        color: "Transparent",
+
+        branchPricing: [
+          {
+            location: "Delhi Store",
+
+            price: 2499,
+          },
+
+          {
+            location: "Mumbai Store",
+
+            price: 2549,
+          },
+        ],
+      },
+    ],
   },
 
   {
     id: "2",
 
     lensId: "LENS-1002",
-    productName: "Acuvue Oasys",
+
+    productName: "Bausch Lomb Ultra",
 
     productCode: "CL-1002",
-
-    lensName: "Bausch Lomb Ultra",
 
     brand: "Bausch & Lomb",
 
@@ -2102,19 +2121,9 @@ export const contactLenses = [
 
     material: "Hydrogel",
 
-    baseCurve: "8.6",
+    baseCurve: 8.6,
 
-    diameter: "14.0",
-
-    sphericalPower: "-1.75",
-
-    cylindricalPower: "-1.25",
-
-    axis: "170",
-
-    additionalPower: "+2.00",
-
-    color: "Light Blue",
+    diameter: 14.0,
 
     hsnCode: "90013000",
 
@@ -2125,10 +2134,6 @@ export const contactLenses = [
     sellingPrice: 3299,
 
     discountPrice: 3099,
-
-    skuCode: "SKU-CL-1002",
-
-    barcode: "8901452367002",
 
     stock: 60,
 
@@ -2150,16 +2155,48 @@ export const contactLenses = [
     updatedDate: "11/05/2026",
 
     createdBy: "Admin",
+
+    variants: [
+      {
+        sku: "SKU-CL-1002",
+
+        barcode: "8901452367002",
+
+        sphericalPower: "-1.75",
+
+        cylindricalPower: "-1.25",
+
+        axis: "170",
+
+        additional: "+2.00",
+
+        color: "Light Blue",
+
+        branchPricing: [
+          {
+            location: "Mumbai Store",
+
+            price: 3299,
+          },
+
+          {
+            location: "Pune Store",
+
+            price: 3349,
+          },
+        ],
+      },
+    ],
   },
 
   {
     id: "3",
 
     lensId: "LENS-1003",
-    productName: "FreshLook Color",
-    productCode: "CL-1003",
 
-    lensName: "FreshLook Color",
+    productName: "FreshLook Color",
+
+    productCode: "CL-1003",
 
     brand: "Alcon",
 
@@ -2171,19 +2208,9 @@ export const contactLenses = [
 
     material: "Hydrogel",
 
-    baseCurve: "8.5",
+    baseCurve: 8.5,
 
-    diameter: "14.1",
-
-    sphericalPower: "-3.00",
-
-    cylindricalPower: "-0.50",
-
-    axis: "160",
-
-    additionalPower: "+1.25",
-
-    color: "Hazel",
+    diameter: 14.1,
 
     hsnCode: "90013000",
 
@@ -2195,10 +2222,6 @@ export const contactLenses = [
 
     discountPrice: 1699,
 
-    skuCode: "SKU-CL-1003",
-
-    barcode: "8901452367003",
-
     stock: 0,
 
     warehouseLocation: "Bangalore Warehouse",
@@ -2206,7 +2229,7 @@ export const contactLenses = [
     thumbnailImage:
       "/images/contactlens/lens3.jpg",
 
-    status: "Inactive",
+    status: "Out of Stock",
 
     description:
       "Colored cosmetic contact lens that enhances natural eye appearance with comfortable wear.",
@@ -2219,16 +2242,48 @@ export const contactLenses = [
     updatedDate: "10/05/2026",
 
     createdBy: "Admin",
+
+    variants: [
+      {
+        sku: "SKU-CL-1003",
+
+        barcode: "8901452367003",
+
+        sphericalPower: "-3.00",
+
+        cylindricalPower: "-0.50",
+
+        axis: "160",
+
+        additional: "+1.25",
+
+        color: "Hazel",
+
+        branchPricing: [
+          {
+            location: "Bangalore Store",
+
+            price: 1899,
+          },
+
+          {
+            location: "Chennai Store",
+
+            price: 1949,
+          },
+        ],
+      },
+    ],
   },
 
   {
     id: "4",
 
     lensId: "LENS-1004",
-    productName: "Air Optix Aqua",
-    productCode: "CL-1004",
 
-    lensName: "Air Optix Aqua",
+    productName: "Air Optix Aqua",
+
+    productCode: "CL-1004",
 
     brand: "Alcon",
 
@@ -2240,19 +2295,9 @@ export const contactLenses = [
 
     material: "Silicone Hydrogel",
 
-    baseCurve: "8.6",
+    baseCurve: 8.6,
 
-    diameter: "14.2",
-
-    sphericalPower: "-2.00",
-
-    cylindricalPower: "-0.25",
-
-    axis: "175",
-
-    additionalPower: "+1.00",
-
-    color: "Transparent",
+    diameter: 14.2,
 
     hsnCode: "90013000",
 
@@ -2263,10 +2308,6 @@ export const contactLenses = [
     sellingPrice: 2599,
 
     discountPrice: 2399,
-
-    skuCode: "SKU-CL-1004",
-
-    barcode: "8901452367004",
 
     stock: 85,
 
@@ -2288,9 +2329,40 @@ export const contactLenses = [
     updatedDate: "09/05/2026",
 
     createdBy: "Admin",
+
+    variants: [
+      {
+        sku: "SKU-CL-1004",
+
+        barcode: "8901452367004",
+
+        sphericalPower: "-2.00",
+
+        cylindricalPower: "-0.25",
+
+        axis: "175",
+
+        additional: "+1.00",
+
+        color: "Transparent",
+
+        branchPricing: [
+          {
+            location: "Hyderabad Store",
+
+            price: 2599,
+          },
+
+          {
+            location: "Delhi Store",
+
+            price: 2649,
+          },
+        ],
+      },
+    ],
   },
 ];
-
 export const frameVariants = [
   {
     id: "1",

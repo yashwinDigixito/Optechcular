@@ -264,52 +264,74 @@ export interface DashboardStat {
   value: string | number;
   growth:string
 }
-
 export interface ContactLens {
-  id: string;
 
-  lensId: string;
+  id?: string;
+
+  lensId?: string;
+
+  // BASIC
   productCode: string;
+
   lensName: string;
+
   brand: string;
 
   productType: string;
+
   powerType: string;
+
   modality: string;
 
   material: string;
 
-  baseCurve: string;
-  diameter: string;
-  sphericalPower?: string;
-  cylindricalPower?: string;
-  axis?: string;
-  additionalPower?: string;
+  // SPECS
+  baseCurve: number | "";
 
-  color?: string;
+  diameter: number | "";
 
+  // FINANCIAL
   hsnCode: string;
-  tax: number;
 
-  mrp: number;
-  sellingPrice: number;
-  discountPrice?: number;
+  tax: number | "";
 
-  skuCode: string;
-  barcode: string;
+  mrp: number | "";
 
-  stock: number;
+  sellingPrice: number | "";
+
+  discountPrice?: number | "";
+
+  // INVENTORY
+  stock: number | "";
+
+  minStockLevel?: number | "";
+
   warehouseLocation?: string;
 
-  status: string;
+  // STATUS
+  status:
+    | "Active"
+    | "Inactive"
+    | "Out of Stock";
 
-  description?: string;
-  notes?: string;
+  // VARIANTS
+  variants?: ContactLensVariant[];
 
+  // MEDIA
   thumbnailImage?: string;
 
-  createdOn: string;
+  galleryImages?: string[];
+
+  // EXTRA
+  description?: string;
+
+  notes?: string;
+
+  // SYSTEM
+  createdOn?: string;
+
   updatedDate?: string;
+
   createdBy?: string;
 }
 
@@ -464,7 +486,9 @@ export interface Ledger {
   status: string;
 
   notes: string;
-}export interface Frame {
+}
+
+export interface Frame {
   id: string;
   frameId: string;
   frameName: string;
@@ -473,11 +497,11 @@ export interface Ledger {
   categoryId: string;
   category?: string;
   brand: string;
-  manufacturer:string;
-  material:string;
-  shelfLocation:string;
+  manufacturer:string | "";
+  material:string | "";
+  shelfLocation:string | "";
   minStockLevel: number | "";
-  variations: FrameVariation[];
+  variations: FrameVariation[] | "";
   tax: number | "";
   costPrice: number | "";
   modelNumber?: string;
@@ -840,33 +864,12 @@ export interface ContactLensVariant {
   additional: string;
 
   color: string;
-}
 
-export interface ContactLensFormValues {
+  branchPricing: {
 
-  powerType: string;
+    location: string;
 
-  brand: string;
+    price: number | "";
 
-  modality: string;
-
-  productCode: string;
-
-  productName: string;
-
-  baseCurve: number | "";
-
-  diameter: number | "";
-
-  material: string;
-
-  productType: string;
-
-  hsn: string;
-
-  tax: number | "";
-
-  mrp: number | "";
-
-  variants: ContactLensVariant[];
+  }[];
 }
