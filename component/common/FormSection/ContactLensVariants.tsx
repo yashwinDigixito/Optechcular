@@ -1,6 +1,6 @@
 "use client";
 
-import { ContactLensFormValues, ContactLensVariant } from "@/assets/types";
+import { ContactLens, ContactLensVariant } from "@/assets/types";
 import AddIcon from "@mui/icons-material/Add";
 import AutoFixHighIcon from "@mui/icons-material/AutoFixHigh";
 import CloseIcon from "@mui/icons-material/Close";
@@ -24,7 +24,7 @@ import {
 } from "formik";
 import FormSection from "../FormSection";
 
-type Props = {formik: FormikProps<ContactLensFormValues>};
+type Props = {formik: FormikProps<ContactLens>};
 
 export default function ContactLensVariants({ formik}: Props) {
 
@@ -87,7 +87,7 @@ export default function ContactLensVariants({ formik}: Props) {
           <Box
             sx={{
               display: "flex",
-              justifyContent: "flex-end",
+              justifyContent: "flex-start",
               mb: 3,
             }}
           >
@@ -117,7 +117,7 @@ export default function ContactLensVariants({ formik}: Props) {
               Add Variant
             </Button>
           </Box>
-          {formik.values.variants.map(
+          {(formik.values.variants || []).map(
             ( v: ContactLensVariant, index ) => {
               const errorsArray = formik.errors.variants;
               const touchedArray = formik.touched.variants;

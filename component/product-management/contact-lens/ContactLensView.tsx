@@ -4,9 +4,8 @@ import {
     Button,
     Card,
     Container,
-    Divider,
     Stack,
-    Typography,
+    Typography
 } from "@mui/material";
 import Link from "next/link";
 
@@ -114,10 +113,10 @@ export default async function ContactLensViewPage({
                                 <InfoLine label="Base Curve" value={lens.baseCurve} />
                                 <InfoLine label="Diameter" value={lens.diameter} />
                                
-                                <InfoLine label="Spherical Power" value={lens.sphericalPower} />
-                                <InfoLine label="Cylindrical Power" value={lens.cylindricalPower} />
-                                <InfoLine label="Axis" value={lens.axis} />
-                                <InfoLine label="Additional Power" value={lens.additionalPower} />
+                                <InfoLine label="Spherical Power" value={lens.variants?.[0]?.sphericalPower} />
+                                <InfoLine label="Cylindrical Power" value={lens.variants?.[0]?.cylindricalPower} />
+                                <InfoLine label="Axis" value={lens.variants?.[0]?.axis} />
+                                <InfoLine label="Additional Power" value={lens.variants?.[0]?.additional} />
                             </SideCard>
 
                             <SideCard title="Pricing & Tax Details">
@@ -206,15 +205,15 @@ export default async function ContactLensViewPage({
                             <SideCard title="Quick Summary">
                                 <IconLine icon={<VisibilityOutlinedIcon sx={{ color: colors.primary }} />} text={`Power: ${lens.powerType}`} />
                                 <IconLine icon={<RemoveRedEyeOutlinedIcon sx={{ color: colors.primary }} />} text={`Base Curve: ${lens.baseCurve}`} />
-                                <IconLine icon={<ColorLensOutlinedIcon sx={{ color: colors.primary }} />} text={`Lens Color: ${lens.color}`} />
+                                <IconLine icon={<ColorLensOutlinedIcon sx={{ color: colors.primary }} />} text={`Lens Color: ${lens.variants?.[0]?.color}`} />
                                 <IconLine icon={<Inventory2OutlinedIcon sx={{ color: colors.primary }} />} text={`Stock: ${lens.stock} units`} />
                                 <IconLine icon={<PaymentsOutlinedIcon sx={{ color: colors.primary }} />} text={`Current Price: ₹${lens.sellingPrice}`} />
                             </SideCard>
 
                             <SideCard title="Warehouse & Logistics">
                                 <IconLine icon={<WarehouseOutlinedIcon sx={{ color: colors.primary }} />} text={`Location: ${lens.warehouseLocation}`} />
-                                <InfoLine label="SKU Code" value={lens.skuCode} />
-                                <InfoLine label="Barcode" value={lens.barcode} />
+                                <InfoLine label="SKU Code" value={lens.variants?.[0]?.sku} />
+                                <InfoLine label="Barcode" value={lens.variants?.[0]?.barcode} />
                             </SideCard>
 
                             {lens.notes && (

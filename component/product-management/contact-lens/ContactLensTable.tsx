@@ -161,7 +161,7 @@ export default function ContactLensTable({
                 sx={{
                   fontWeight: FONT_WEIGHT.BOLD,
                   color:
-                    lens.stock <= 5
+                    Number(lens.stock) <= 5
                       ? "#EA580C"
                       : "#16A34A",
                   fontSize: FONT_SIZE.TABLE_BODY,
@@ -194,7 +194,7 @@ export default function ContactLensTable({
                   "Out of Stock",
                 ]}
                 onChange={(value) =>
-                  handleStatusChange(lens.id, value)
+                  handleStatusChange(lens.id || "", value)
                 }
               />
             );

@@ -2020,7 +2020,7 @@ export const contactLenses: ContactLens[] = [
 
     lensId: "LENS-1001",
 
-    productName: "Acuvue Oasys",
+    lensName: "Acuvue Oasys",
 
     productCode: "CL-1001",
 
@@ -2107,7 +2107,7 @@ export const contactLenses: ContactLens[] = [
 
     lensId: "LENS-1002",
 
-    productName: "Bausch Lomb Ultra",
+    lensName: "Bausch Lomb Ultra",
 
     productCode: "CL-1002",
 
@@ -2194,7 +2194,7 @@ export const contactLenses: ContactLens[] = [
 
     lensId: "LENS-1003",
 
-    productName: "FreshLook Color",
+    lensName: "FreshLook Color",
 
     productCode: "CL-1003",
 
@@ -2281,7 +2281,7 @@ export const contactLenses: ContactLens[] = [
 
     lensId: "LENS-1004",
 
-    productName: "Air Optix Aqua",
+    lensName: "Air Optix Aqua",
 
     productCode: "CL-1004",
 
