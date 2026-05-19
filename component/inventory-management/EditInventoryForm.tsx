@@ -1,419 +1,286 @@
 "use client";
 
-import {
-    Inventory,
-} from "@/assets/types";
-
+import { Inventory } from "@/assets/types";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-
 import {
-    useState,
-} from "react";
-
-import {
-    Box,
-    Button,
-    Grid,
-    MenuItem,
-    TextField,
-    Typography,
+  Box,
+  Button,
+  Grid,
+  TextField,
+  Typography,
 } from "@mui/material";
-
+import { FormikProvider, useFormik } from "formik";
 import Link from "next/link";
-
 import { useRouter } from "next/navigation";
+import * as yup from "yup";
+import FormSection from "@/component/common/FormSection";
 
 interface Props {
-
-  inventory:
-    Inventory;
+  inventory: Inventory;
 }
 
-export default function EditInventoryForm({
-  inventory,
-}: Props) {
+const validationSchema = yup.object({
+  productName: yup.string().required("Product name is required"),
+  sku: yup.string().required("SKU is required"),
+  category: yup.string().required("Category is required"),
+  brand: yup.string().required("Brand is required"),
+  brandGroup: yup.string().required("Brand group is required"),
+  material: yup.string().required("Material is required"),
+  rimShape: yup.string().required("Rim shape is required"),
+  branch: yup.string().required("Branch is required"),
+  status: yup.string().required("Status is required"),
+});
 
-  const router =
-    useRouter();
+export default function EditInventoryForm({ inventory }: Props) {
+  const router = useRouter();
 
-  const [formData, setFormData] =
-    useState({
+  const formik = useFormik({
+    initialValues: {
+      productName: inventory.productName || "",
+      sku: inventory.sku || "",
+      barcode: inventory.barcode || "",
 
-      productName:
-        inventory.productName,
+      category: inventory.category || "",
+      brand: inventory.brand || "",
+      brandGroup: inventory.brandGroup || "",
+      material: inventory.material || "",
+      rimShape: inventory.rimShape || "",
 
-      sku:
-        inventory.sku,
+      branch: inventory.branch || "",
+      stock: inventory.stock || 0,
+      minStock: inventory.minStock || 0,
+      unitOfMeasure: inventory.unitOfMeasure || "",
 
-      barcode:
-        inventory.barcode,
+      costPrice: inventory.costPrice || 0,
+      price: inventory.price || 0,
+      currency: inventory.currency || "INR",
 
-      category:
-        inventory.category,
+      status: inventory.status || "",
 
-      brand:
-        inventory.brand,
+      supplier: inventory.supplier || "",
+      location: inventory.location || "",
 
-      branch:
-        inventory.branch,
+      createdOn: inventory.createdOn || "",
+      updatedDate: new Date().toISOString().split("T")[0],
+      createdBy: inventory.createdBy || "",
 
-      stock:
-        inventory.stock,
-
-      minStock:
-        inventory.minStock,
-
-      price:
-        inventory.price,
-
-      status:
-        inventory.status,
-
-      notes:
-        inventory.notes,
-    });
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-
-    setFormData({
-
-      ...formData,
-
-      [e.target.name]:
-        e.target.value,
-    });
-  };
-
-  const handleSubmit = () => {
-
-    console.log(
-      "Updated Inventory:",
-      formData
-    );
-
-    router.push(
-      "/inventory"
-    );
-  };
+      notes: inventory.notes || "",
+    },
+    enableReinitialize: true,
+    validationSchema,
+    onSubmit: (values) => {
+      console.log("Updated Inventory Data Successfully:", values);
+      router.push("/inventory");
+    },
+  });
 
   return (
-    <Box sx={{ p: 3 }}>
-
-      {/* BACK */}
+    <Box sx={{ p: 3, background: "#F8FAFC", minHeight: "100vh" }}>
       <Box sx={{ mb: 3 }}>
-
-        <Link
-          href="/inventory"
-          style={{
-            textDecoration:
-              "none",
-          }}
-        >
+        <Link href="/inventory" style={{ textDecoration: "none" }}>
           <Button
-            startIcon={
-              <ArrowBackIcon />
-            }
+            startIcon={<ArrowBackIcon />}
             sx={{
-              textTransform:
-                "none",
-
-              fontWeight:
-                600,
+              textTransform: "none",
+              fontWeight: 600,
             }}
           >
-            Back to Inventory
+            Back 
           </Button>
-
         </Link>
-
       </Box>
 
-      {/* FORM CARD */}
       <Box
         sx={{
           p: 4,
-
-          borderRadius:
-            "24px",
-
-          border:
-            "1px solid #E2E8F0",
-
-          background:
-            "#FFFFFF",
+          borderRadius: "24px",
+          border: "1px solid #E2E8F0",
+          background: "#FFFFFF",
         }}
       >
-        <Typography
-          sx={{
-            fontSize:
-              "28px",
-
-            fontWeight:
-              700,
-
-            mb: 4,
-          }}
-        >
+        <Typography sx={{ fontSize: "28px", fontWeight: 700, mb: 1 }}>
           Edit Inventory
         </Typography>
 
-        <Grid
-          container
-          spacing={3}
-        >
-          <Grid size={{ xs: 12, md: 6 }}>
+        <Typography sx={{ color: "#64748B", mb: 4, fontSize: "14px" }}>
+          Update inventory details linked with category, brand, brand group, material, and rim shape.
+        </Typography>
 
-            <TextField
-              fullWidth
-              label="Product Name"
-              name="productName"
-              value={
-                formData.productName
-              }
-              onChange={
-                handleChange
-              }
-            />
+        <FormikProvider value={formik}>
+          <form onSubmit={formik.handleSubmit}>
+            <Grid container spacing={1}>
+              <FormSection
+                title="1. Product Information"
+                description="Update product identity, SKU, barcode, and classification details."
+              >
+                {[
+                  ["Product Name *", "productName", "e.g. RayBan Aviator Metal Frame"],
+                  ["SKU *", "sku", "e.g. RB-AVI-MET-001"],
+                  ["Barcode", "barcode", "e.g. 123456789"],
+                  ["Category *", "category", "e.g. Frame"],
+                  ["Brand *", "brand", "e.g. RayBan"],
+                  ["Brand Group *", "brandGroup", "e.g. Premium Brands"],
+                  ["Material *", "material", "e.g. Metal"],
+                  ["Rim Shape *", "rimShape", "e.g. Aviator"],
+                ].map(([label, name, placeholder]) => (
+                  <Grid size={{ xs: 12, md: 6 }} key={name}>
+                    <TextField
+                      fullWidth
+                      label={label}
+                      name={name}
+                      value={(formik.values as any)[name]}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      error={(formik.touched as any)[name] && Boolean((formik.errors as any)[name])}
+                      helperText={(formik.touched as any)[name] && (formik.errors as any)[name]}
+                      placeholder={placeholder}
+                    />
+                  </Grid>
+                ))}
+              </FormSection>
 
-          </Grid>
+              <FormSection
+                title="2. Stock Details"
+                description="Update branch, stock quantity, and unit details."
+              >
+                {[
+                  ["Branch *", "branch", "e.g. Delhi"],
+                  ["Current Stock", "stock", "e.g. 25"],
+                  ["Minimum Stock", "minStock", "e.g. 10"],
+                  ["Unit of Measure", "unitOfMeasure", "e.g. Pair"],
+                ].map(([label, name, placeholder]) => (
+                  <Grid size={{ xs: 12, md: 6 }} key={name}>
+                    <TextField
+                      fullWidth
+                      type={name === "stock" || name === "minStock" ? "number" : "text"}
+                      label={label}
+                      name={name}
+                      value={(formik.values as any)[name]}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      error={(formik.touched as any)[name] && Boolean((formik.errors as any)[name])}
+                      helperText={(formik.touched as any)[name] && (formik.errors as any)[name]}
+                      placeholder={placeholder}
+                    />
+                  </Grid>
+                ))}
+              </FormSection>
 
-          <Grid size={{ xs: 12, md: 6 }}>
+              <FormSection
+                title="3. Pricing Information"
+                description="Update cost price, selling price, and currency."
+              >
+                {[
+                  ["Cost Price", "costPrice", "e.g. 3200"],
+                  ["Selling Price", "price", "e.g. 4500"],
+                  ["Currency", "currency", "e.g. INR"],
+                  ["Status *", "status", "e.g. In Stock"],
+                ].map(([label, name, placeholder]) => (
+                  <Grid size={{ xs: 12, md: 6 }} key={name}>
+                    <TextField
+                      fullWidth
+                      type={name === "costPrice" || name === "price" ? "number" : "text"}
+                      label={label}
+                      name={name}
+                      value={(formik.values as any)[name]}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      error={(formik.touched as any)[name] && Boolean((formik.errors as any)[name])}
+                      helperText={(formik.touched as any)[name] && (formik.errors as any)[name]}
+                      placeholder={placeholder}
+                    />
+                  </Grid>
+                ))}
+              </FormSection>
 
-            <TextField
-              fullWidth
-              label="SKU"
-              name="sku"
-              value={
-                formData.sku
-              }
-              onChange={
-                handleChange
-              }
-            />
+              <FormSection
+                title="4. Supplier & Location"
+                description="Update supplier, warehouse location, and internal notes."
+              >
+                <Grid size={{ xs: 12, md: 6 }}>
+                  <TextField
+                    fullWidth
+                    label="Supplier"
+                    name="supplier"
+                    value={formik.values.supplier}
+                    onChange={formik.handleChange}
+                    placeholder="e.g. Vision Metals Pvt Ltd"
+                  />
+                </Grid>
 
-          </Grid>
+                <Grid size={{ xs: 12, md: 6 }}>
+                  <TextField
+                    fullWidth
+                    label="Location"
+                    name="location"
+                    value={formik.values.location}
+                    onChange={formik.handleChange}
+                    placeholder="e.g. Delhi Warehouse - Aisle 4, Shelf B"
+                  />
+                </Grid>
 
-          <Grid size={{ xs: 12, md: 6 }}>
+                <Grid size={{ xs: 12 }}>
+                  <TextField
+                    fullWidth
+                    multiline
+                    minRows={3}
+                    label="Notes"
+                    name="notes"
+                    value={formik.values.notes}
+                    onChange={formik.handleChange}
+                  />
+                </Grid>
+              </FormSection>
 
-            <TextField
-              fullWidth
-              label="Barcode"
-              name="barcode"
-              value={
-                formData.barcode
-              }
-              onChange={
-                handleChange
-              }
-            />
+              {formik.submitCount > 0 && !formik.isValid && (
+                <Grid size={{ xs: 12 }} sx={{ mb: 2 }}>
+                  <Box
+                    sx={{
+                      p: 2,
+                      borderRadius: "12px",
+                      bgcolor: "#FEF2F2",
+                      border: "1px solid #FCA5A5",
+                    }}
+                  >
+                    <Typography sx={{ color: "#DC2626", fontWeight: 700, fontSize: "14px" }}>
+                      Please review the highlighted red sections above.
+                    </Typography>
+                  </Box>
+                </Grid>
+              )}
 
-          </Grid>
+              <Grid size={{ xs: 12 }}>
+                <Box
+                  sx={{
+                    mt: 3,
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    gap: 2,
+                  }}
+                >
+                  <Button variant="outlined" onClick={() => router.push("/inventory")}>
+                    Cancel
+                  </Button>
 
-          <Grid size={{ xs: 12, md: 6 }}>
-
-            <TextField
-              select
-              fullWidth
-              label="Category"
-              name="category"
-              value={
-                formData.category
-              }
-              onChange={
-                handleChange
-              }
-            >
-              <MenuItem value="Frame">
-                Frame
-              </MenuItem>
-
-              <MenuItem value="Contact Lens">
-                Contact Lens
-              </MenuItem>
-
-            </TextField>
-
-          </Grid>
-
-          <Grid size={{ xs: 12, md: 6 }}>
-
-            <TextField
-              fullWidth
-              label="Brand"
-              name="brand"
-              value={
-                formData.brand
-              }
-              onChange={
-                handleChange
-              }
-            />
-
-          </Grid>
-
-          <Grid size={{ xs: 12, md: 6 }}>
-
-            <TextField
-              select
-              fullWidth
-              label="Branch"
-              name="branch"
-              value={
-                formData.branch
-              }
-              onChange={
-                handleChange
-              }
-            >
-              <MenuItem value="Mumbai">
-                Mumbai
-              </MenuItem>
-
-              <MenuItem value="Delhi">
-                Delhi
-              </MenuItem>
-
-            </TextField>
-
-          </Grid>
-
-          <Grid size={{ xs: 12, md: 6 }}>
-
-            <TextField
-              fullWidth
-              type="number"
-              label="Current Stock"
-              name="stock"
-              value={
-                formData.stock
-              }
-              onChange={
-                handleChange
-              }
-            />
-
-          </Grid>
-
-          <Grid size={{ xs: 12, md: 6 }}>
-
-            <TextField
-              fullWidth
-              type="number"
-              label="Minimum Stock"
-              name="minStock"
-              value={
-                formData.minStock
-              }
-              onChange={
-                handleChange
-              }
-            />
-
-          </Grid>
-
-          <Grid size={{ xs: 12, md: 6 }}>
-
-            <TextField
-              fullWidth
-              type="number"
-              label="Price"
-              name="price"
-              value={
-                formData.price
-              }
-              onChange={
-                handleChange
-              }
-            />
-
-          </Grid>
-
-          <Grid size={{ xs: 12, md: 6 }}>
-
-            <TextField
-              select
-              fullWidth
-              label="Status"
-              name="status"
-              value={
-                formData.status
-              }
-              onChange={
-                handleChange
-              }
-            >
-              <MenuItem value="In Stock">
-                In Stock
-              </MenuItem>
-
-              <MenuItem value="Low Stock">
-                Low Stock
-              </MenuItem>
-
-            </TextField>
-
-          </Grid>
-
-          <Grid size={{ xs: 12 }}>
-
-            <TextField
-              fullWidth
-              multiline
-              rows={4}
-              label="Notes"
-              name="notes"
-              value={
-                formData.notes
-              }
-              onChange={
-                handleChange
-              }
-            />
-
-          </Grid>
-
-        </Grid>
-
-        {/* BUTTONS */}
-        <Box
-          sx={{
-            mt: 5,
-
-            display:
-              "flex",
-
-            justifyContent:
-              "flex-end",
-
-            gap: 2,
-          }}
-        >
-          <Button
-            variant="outlined"
-            onClick={() =>
-              router.push(
-                "/inventory"
-              )
-            }
-          >
-            Cancel
-          </Button>
-
-          <Button
-            variant="contained"
-            onClick={
-              handleSubmit
-            }
-          >
-            Update Inventory
-          </Button>
-
-        </Box>
-
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    sx={{
+                      height: 48,
+                      borderRadius: "12px",
+                      px: 4,
+                      textTransform: "none",
+                      fontWeight: 700,
+                    }}
+                  >
+                    Update Inventory
+                  </Button>
+                </Box>
+              </Grid>
+            </Grid>
+          </form>
+        </FormikProvider>
       </Box>
-
     </Box>
   );
 }
