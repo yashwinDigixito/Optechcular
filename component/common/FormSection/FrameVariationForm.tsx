@@ -306,7 +306,7 @@ const vTouched =
                             <Grid size={{ xs: 12, sm: 4 }} key={bpIdx}>
                               <TextField
                                 fullWidth
-                                label={`${bp.location} Price`}
+                                label={`${bp.branchName} Price`}
                                 value={bp.price}
                                 type="number"
                                 onChange={(e) => {
