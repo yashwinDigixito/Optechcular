@@ -1,7 +1,7 @@
 "use client";
 
 import { FONT_FAMILY } from "@/assets/constants";
-import { FrameFormValues } from "@/assets/types";
+import { FrameFormValues, VariationImage } from "@/assets/types";
 import CloseIcon from "@mui/icons-material/Close";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { Box, IconButton, Typography } from "@mui/material";
@@ -124,12 +124,10 @@ export default function VariationImageUpload({ formik, index }: Props) {
             flexWrap: "wrap",
           }}
         >
-          {images.map((file: any, i: number) => {
+          {images.map((file: VariationImage, i: number) => {
             // Determine if this is an uploaded local binary File or static mock data
             const isMockAsset = file && !(file instanceof File);
-            const previewUrl = isMockAsset 
-              ? (typeof file === "string" ? file : file.url) 
-              : URL.createObjectURL(file);
+            const previewUrl = file.file ? URL.createObjectURL(file.file) : file.url;
 
             return (
               <PreviewThumbnail

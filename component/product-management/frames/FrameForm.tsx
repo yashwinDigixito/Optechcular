@@ -2,11 +2,12 @@
 
 import { FrameFormValues } from "@/assets/types";
 import FormSection from "@/component/common/FormSection";
-import TaxSection from "@/component/common/FormSection/TaxSection";
 import BasicInfo from "@/component/common/FormSection/BasicInfo";
+import FrameVariationForm from "@/component/common/FormSection/FrameVariationForm";
 import ProductSpecs from "@/component/common/FormSection/ProductSpecs";
 import RimDetails from "@/component/common/FormSection/RimDetails";
-import { frameValidation } from "@/component/common/formSection/validations";
+import TaxSection from "@/component/common/FormSection/TaxSection";
+import { frameValidation } from "@/component/common/FormSection/validations";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import {
   Box,
@@ -17,7 +18,6 @@ import {
 } from "@mui/material";
 import { FormikProvider, useFormik } from "formik";
 import Link from "next/link";
-import FrameVariationForm from "@/component/common/FormSection/FrameVariationForm";
 
 export default function FrameForm() {
   const formik = useFormik<FrameFormValues>({

@@ -2,8 +2,8 @@
 
 import { ContactLens } from "@/assets/types";
 import FormSection from "@/component/common/FormSection";
-import ContactLensVariants from "@/component/common/formSection/ContactLensVariants";
-import { contactLensValidation } from "@/component/common/formSection/validations";
+import ContactLensVariants from "@/component/common/FormSection/ContactLensVariants";
+import { contactLensValidation } from "@/component/common/FormSection/validations";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import {
   Box,

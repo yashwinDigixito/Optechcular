@@ -8,7 +8,7 @@ import FrameVariationForm from "@/component/common/FormSection/FrameVariationFor
 import ProductSpecs from "@/component/common/FormSection/ProductSpecs";
 import RimDetails from "@/component/common/FormSection/RimDetails";
 import TaxSection from "@/component/common/FormSection/TaxSection";
-import { frameValidation } from "@/component/common/formSection/validations";
+import { frameValidation } from "@/component/common/FormSection/validations";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import {
   Box,
