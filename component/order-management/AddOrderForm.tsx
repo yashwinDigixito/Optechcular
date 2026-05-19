@@ -1,433 +1,249 @@
 "use client";
 
-import {
-  useState,
-} from "react";
-
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import {
   Box,
   Button,
   Grid,
-  MenuItem,
   TextField,
   Typography,
 } from "@mui/material";
-
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { FormikProvider, useFormik } from "formik";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import * as yup from "yup";
+
+const validationSchema = yup.object({
+  orderNo: yup.string().required("Order no is required"),
+  customerName: yup.string().required("Customer name is required"),
+  email: yup.string().email("Enter valid email").required("Email is required"),
+  phone: yup.string().required("Phone is required"),
+
+  productType: yup.string().required("Product type is required"),
+  category: yup.string().required("Category is required"),
+  brand: yup.string().required("Brand is required"),
+  brandGroup: yup.string().required("Brand group is required"),
+  material: yup.string().required("Material is required"),
+  rimShape: yup.string().required("Rim shape is required"),
+
+  productName: yup.string().required("Product name is required"),
+  productSku: yup.string().required("Product SKU is required"),
+  quantity: yup.number().min(1).required("Quantity is required"),
+  productPrice: yup.number().min(0).required("Product price is required"),
+
+  status: yup.string().required("Status is required"),
+  paymentStatus: yup.string().required("Payment status is required"),
+  deliveryStatus: yup.string().required("Delivery status is required"),
+});
 
 export default function AddOrderForm() {
+  const router = useRouter();
 
-  const router =
-    useRouter();
-
-  const [formData, setFormData] =
-    useState({
-
+  const formik = useFormik({
+    initialValues: {
+      orderNo: "",
       customerName: "",
+      email: "",
+      phone: "",
+
+      salesPerson: "",
+      orderSource: "",
+
+      productType: "",
+      category: "",
+      brand: "",
+      brandGroup: "",
+      material: "",
+      rimShape: "",
 
       productName: "",
+      productSku: "",
+      productVariant: "",
 
       quantity: 1,
+      productPrice: 0,
 
-      productPrice: "",
+      status: "Pending",
+      paymentStatus: "Pending",
+      deliveryStatus: "Processing",
 
-      paymentStatus:
-        "Pending",
+      orderDate: new Date().toISOString().split("T")[0],
 
-      orderStatus:
-        "Pending",
+      subtotal: 0,
+      discount: 0,
+      tax: 0,
+      shippingCharge: 0,
+      totalAmount: 0,
 
-      deliveryStatus:
-        "Processing",
+      paymentMethod: "UPI",
+      transactionId: "",
+      paidAmount: 0,
+      paymentDue: 0,
 
-      paymentMethod:
-        "UPI",
+      shippingPartner: "",
+      trackingNo: "",
+      estimatedDeliveryDate: "",
 
       shippingAddress: "",
-
       billingAddress: "",
-
       notes: "",
-    });
+    },
+    validationSchema,
+    onSubmit: (values) => {
+      console.log("Order Data:", values);
+      router.push("/orders");
+    },
+  });
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-
-    setFormData({
-
-      ...formData,
-
-      [e.target.name]:
-        e.target.value,
-    });
-  };
-
-  const handleSubmit = () => {
-
-    console.log(
-      "Order Data:",
-      formData
-    );
-
-    router.push("/orders");
-  };
+  const textField = (
+    label: string,
+    name: string,
+    type: string = "text",
+    md: number = 6
+  ) => (
+    <Grid size={{ xs: 12, md }} key={name}>
+      <TextField
+        fullWidth
+        type={type}
+        label={label}
+        name={name}
+        value={(formik.values as any)[name]}
+        onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
+        error={(formik.touched as any)[name] && Boolean((formik.errors as any)[name])}
+        helperText={(formik.touched as any)[name] && (formik.errors as any)[name]}
+      />
+    </Grid>
+  );
 
   return (
-    <Box
-      sx={{
-        p: 3,
-      }}
-    >
-    <Box sx={{ mb: 3 }}>
-        <Link
-          href="/orders"
-          style={{
-            textDecoration:
-              "none",
-          }}
-        >
-          <Button
-            startIcon={
-              <ArrowBackIcon />
-            }
-            sx={{
-              textTransform:"none",
-              fontWeight:600,
-            }}
-          >
-            Back to Orders
+    <Box sx={{ p: 3, background: "#F8FAFC", minHeight: "100vh" }}>
+      <Box sx={{ mb: 3 }}>
+        <Link href="/orders" style={{ textDecoration: "none" }}>
+          <Button startIcon={<ArrowBackIcon />} sx={{ textTransform: "none", fontWeight: 600 }}>
+            Back 
           </Button>
         </Link>
       </Box>
-      <Box
-        sx={{
-          background:
-            "#FFFFFF",
 
-          borderRadius:
-            "24px",
-
-          border:
-            "1px solid #E2E8F0",
-
-          p: 4,
-        }}
-      >
-        {/* HEADER */}
-        <Typography
-          sx={{
-            fontSize:
-              "28px",
-
-            fontWeight: 700,
-
-            color:
-              "#0F172A",
-
-            mb: 4,
-          }}
-        >
+      <Box sx={{ background: "#FFFFFF", borderRadius: "24px", border: "1px solid #E2E8F0", p: 4 }}>
+        <Typography sx={{ fontSize: "28px", fontWeight: 700, color: "#0F172A", mb: 1 }}>
           Add Order
         </Typography>
 
-        {/* FORM */}
-        <Grid
-          container
-          spacing={3}
-        >
-          {/* CUSTOMER */}
-          <Grid size={{ xs: 12, md: 6 }}>
+        <Typography sx={{ color: "#64748B", mb: 4, fontSize: "14px" }}>
+          Add order details linked with brand, category, material, rim shape, and contact lens information.
+        </Typography>
 
-            <TextField
-              fullWidth
-              label="Customer Name"
-              name="customerName"
-              value={
-                formData.customerName
-              }
-              onChange={
-                handleChange
-              }
-            />
+        <FormikProvider value={formik}>
+          <form onSubmit={formik.handleSubmit}>
+            <Grid container spacing={3}>
+              <Grid size={{ xs: 12 }}>
+                <Typography sx={{ fontWeight: 700, mb: 2 }}>Customer Information</Typography>
+              </Grid>
 
-          </Grid>
+              {textField("Order No *", "orderNo")}
+              {textField("Customer Name *", "customerName")}
+              {textField("Email *", "email")}
+              {textField("Phone *", "phone")}
+              {textField("Sales Person", "salesPerson")}
+              {textField("Order Source", "orderSource")}
 
-          {/* PRODUCT */}
-          <Grid size={{ xs: 12, md: 6 }}>
+              <Grid size={{ xs: 12 }}>
+                <Typography sx={{ fontWeight: 700, mt: 2, mb: 2 }}>Product Information</Typography>
+              </Grid>
 
-            <TextField
-              fullWidth
-              label="Product Name"
-              name="productName"
-              value={
-                formData.productName
-              }
-              onChange={
-                handleChange
-              }
-            />
+              {textField("Product Type *", "productType")}
+              {textField("Category *", "category")}
+              {textField("Brand *", "brand")}
+              {textField("Brand Group *", "brandGroup")}
+              {textField("Material *", "material")}
+              {textField("Rim Shape *", "rimShape")}
+              {textField("Product Name *", "productName")}
+              {textField("Product SKU *", "productSku")}
+              {textField("Product Variant", "productVariant")}
 
-          </Grid>
+              <Grid size={{ xs: 12 }}>
+                <Typography sx={{ fontWeight: 700, mt: 2, mb: 2 }}>Pricing Information</Typography>
+              </Grid>
 
-          {/* QUANTITY */}
-          <Grid size={{ xs: 12, md: 6 }}>
+              {textField("Quantity *", "quantity", "number", 4)}
+              {textField("Product Price *", "productPrice", "number", 4)}
+              {textField("Subtotal", "subtotal", "number", 4)}
+              {textField("Discount", "discount", "number", 4)}
+              {textField("Tax", "tax", "number", 4)}
+              {textField("Shipping Charge", "shippingCharge", "number", 4)}
+              {textField("Total Amount", "totalAmount", "number", 4)}
+              {textField("Paid Amount", "paidAmount", "number", 4)}
+              {textField("Payment Due", "paymentDue", "number", 4)}
 
-            <TextField
-              fullWidth
-              type="number"
-              label="Quantity"
-              name="quantity"
-              value={
-                formData.quantity
-              }
-              onChange={
-                handleChange
-              }
-            />
+              <Grid size={{ xs: 12 }}>
+                <Typography sx={{ fontWeight: 700, mt: 2, mb: 2 }}>Order Status</Typography>
+              </Grid>
 
-          </Grid>
+              {textField("Status *", "status")}
+              {textField("Payment Status *", "paymentStatus")}
+              {textField("Delivery Status *", "deliveryStatus")}
+              {textField("Payment Method", "paymentMethod")}
+              {textField("Transaction ID", "transactionId")}
 
-          {/* PRODUCT PRICE */}
-          <Grid size={{ xs: 12, md: 6 }}>
+              <Grid size={{ xs: 12 }}>
+                <Typography sx={{ fontWeight: 700, mt: 2, mb: 2 }}>Shipping Details</Typography>
+              </Grid>
 
-            <TextField
-              fullWidth
-              type="number"
-              label="Product Price"
-              name="productPrice"
-              value={
-                formData.productPrice
-              }
-              onChange={
-                handleChange
-              }
-            />
+              {textField("Shipping Partner", "shippingPartner")}
+              {textField("Tracking No", "trackingNo")}
+              {textField("Estimated Delivery Date", "estimatedDeliveryDate")}
 
-          </Grid>
+              <Grid size={{ xs: 12 }}>
+                <TextField
+                  fullWidth
+                  multiline
+                  rows={3}
+                  label="Shipping Address"
+                  name="shippingAddress"
+                  value={formik.values.shippingAddress}
+                  onChange={formik.handleChange}
+                />
+              </Grid>
 
-          {/* PAYMENT STATUS */}
-          <Grid size={{ xs: 12, md: 6 }}>
+              <Grid size={{ xs: 12 }}>
+                <TextField
+                  fullWidth
+                  multiline
+                  rows={3}
+                  label="Billing Address"
+                  name="billingAddress"
+                  value={formik.values.billingAddress}
+                  onChange={formik.handleChange}
+                />
+              </Grid>
 
-            <TextField
-              select
-              fullWidth
-              label="Payment Status"
-              name="paymentStatus"
-              value={
-                formData.paymentStatus
-              }
-              onChange={
-                handleChange
-              }
-            >
-              <MenuItem value="Paid">
-                Paid
-              </MenuItem>
+              <Grid size={{ xs: 12 }}>
+                <TextField
+                  fullWidth
+                  multiline
+                  rows={3}
+                  label="Notes"
+                  name="notes"
+                  value={formik.values.notes}
+                  onChange={formik.handleChange}
+                />
+              </Grid>
+            </Grid>
 
-              <MenuItem value="Pending">
-                Pending
-              </MenuItem>
+            <Box sx={{ display: "flex", justifyContent: "flex-end", gap: 2, mt: 5 }}>
+              <Button variant="outlined" onClick={() => router.push("/orders")}>
+                Cancel
+              </Button>
 
-              <MenuItem value="Refunded">
-                Refunded
-              </MenuItem>
-
-            </TextField>
-
-          </Grid>
-
-          {/* ORDER STATUS */}
-          <Grid size={{ xs: 12, md: 6 }}>
-
-            <TextField
-              select
-              fullWidth
-              label="Order Status"
-              name="orderStatus"
-              value={
-                formData.orderStatus
-              }
-              onChange={
-                handleChange
-              }
-            >
-              <MenuItem value="Completed">
-                Completed
-              </MenuItem>
-
-              <MenuItem value="Pending">
-                Pending
-              </MenuItem>
-
-              <MenuItem value="Cancelled">
-                Cancelled
-              </MenuItem>
-
-            </TextField>
-
-          </Grid>
-
-          {/* DELIVERY STATUS */}
-          <Grid size={{ xs: 12, md: 6 }}>
-
-            <TextField
-              select
-              fullWidth
-              label="Delivery Status"
-              name="deliveryStatus"
-              value={
-                formData.deliveryStatus
-              }
-              onChange={
-                handleChange
-              }
-            >
-              <MenuItem value="Processing">
-                Processing
-              </MenuItem>
-
-              <MenuItem value="Delivered">
-                Delivered
-              </MenuItem>
-
-              <MenuItem value="Returned">
-                Returned
-              </MenuItem>
-
-            </TextField>
-
-          </Grid>
-
-          {/* PAYMENT METHOD */}
-          <Grid size={{ xs: 12, md: 6 }}>
-
-            <TextField
-              select
-              fullWidth
-              label="Payment Method"
-              name="paymentMethod"
-              value={
-                formData.paymentMethod
-              }
-              onChange={
-                handleChange
-              }
-            >
-              <MenuItem value="UPI">
-                UPI
-              </MenuItem>
-
-              <MenuItem value="Cash">
-                Cash
-              </MenuItem>
-
-              <MenuItem value="Card">
-                Card
-              </MenuItem>
-
-            </TextField>
-
-          </Grid>
-
-          {/* SHIPPING ADDRESS */}
-          <Grid size={{ xs: 12 }}>
-
-            <TextField
-              fullWidth
-              multiline
-              rows={3}
-              label="Shipping Address"
-              name="shippingAddress"
-              value={
-                formData.shippingAddress
-              }
-              onChange={
-                handleChange
-              }
-            />
-
-          </Grid>
-
-          {/* BILLING ADDRESS */}
-          <Grid size={{ xs: 12 }}>
-
-            <TextField
-              fullWidth
-              multiline
-              rows={3}
-              label="Billing Address"
-              name="billingAddress"
-              value={
-                formData.billingAddress
-              }
-              onChange={
-                handleChange
-              }
-            />
-
-          </Grid>
-
-          {/* NOTES */}
-          <Grid size={{ xs: 12 }}>
-
-            <TextField
-              fullWidth
-              multiline
-              rows={3}
-              label="Notes"
-              name="notes"
-              value={
-                formData.notes
-              }
-              onChange={
-                handleChange
-              }
-            />
-
-          </Grid>
-
-        </Grid>
-
-        {/* BUTTONS */}
-        <Box
-          sx={{
-            display: "flex",
-
-            justifyContent:
-              "flex-end",
-
-            gap: 2,
-
-            mt: 5,
-          }}
-        >
-          <Button
-            variant="outlined"
-            onClick={() =>
-              router.push(
-                "/orders"
-              )
-            }
-          >
-            Cancel
-          </Button>
-
-          <Button
-            variant="contained"
-            onClick={
-              handleSubmit
-            }
-          >
-            Save Order
-          </Button>
-
-        </Box>
-
+              <Button type="submit" variant="contained">
+                Save Order
+              </Button>
+            </Box>
+          </form>
+        </FormikProvider>
       </Box>
-
     </Box>
   );
 }

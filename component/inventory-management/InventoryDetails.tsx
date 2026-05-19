@@ -32,14 +32,11 @@ export default async function InventoryDetailsPage({
     const { colors, borderRadius } = themeConfig;
 
     if (!item) {
-        return (
-            <DataNotFound message="Inventory record not found" />
-        );
+        return <DataNotFound message="Inventory record not found" />;
     }
 
     return (
         <Box sx={{ width: "100%", minHeight: "100vh", bgcolor: colors.bgLight }}>
-            {/* Navigation Header */}
             <Box sx={{ px: 3, pt: 2, ...getFadeInStyle(0.1) }}>
                 <Link href="/inventory" style={{ textDecoration: "none" }}>
                     <Button
@@ -58,7 +55,6 @@ export default async function InventoryDetailsPage({
             </Box>
 
             <Container maxWidth="xl" sx={{ py: 1 }}>
-                {/* Product Identity Section */}
                 <Box sx={{ mb: 4, ...getFadeInStyle(0.2) }}>
                     <Stack direction="row" spacing={1.5} sx={{ alignItems: "center", flexWrap: "wrap" }}>
                         <Typography
@@ -88,28 +84,38 @@ export default async function InventoryDetailsPage({
                             label={item.status}
                             size="small"
                             sx={{
-                                bgcolor: item.status === "In Stock" ? colors.successBg : item.status === "Out of Stock" ? colors.errorBg : colors.warningBg,
-                                color: item.status === "In Stock" ? colors.success : item.status === "Out of Stock" ? colors.error : colors.warning,
+                                bgcolor:
+                                    item.status === "In Stock"
+                                        ? colors.successBg
+                                        : item.status === "Out of Stock"
+                                        ? colors.errorBg
+                                        : colors.warningBg,
+                                color:
+                                    item.status === "In Stock"
+                                        ? colors.success
+                                        : item.status === "Out of Stock"
+                                        ? colors.error
+                                        : colors.warning,
                                 fontWeight: FONT_WEIGHT.BOLD,
                                 fontFamily: FONT_FAMILY.BODY,
                                 borderRadius: borderRadius.small,
                             }}
                         />
                     </Stack>
-                    <Typography 
-                        sx={{ 
-                            mt: 1, 
-                            color: colors.textSecondary, 
-                             fontSize: FONT_SIZE.BODY,
+
+                    <Typography
+                        sx={{
+                            mt: 1,
+                            color: colors.textSecondary,
+                            fontSize: FONT_SIZE.BODY,
                             fontFamily: FONT_FAMILY.SUB_HEADING,
-                            fontWeight: FONT_WEIGHT.BOLD
+                            fontWeight: FONT_WEIGHT.BOLD,
                         }}
                     >
                         Branch: {item.branch} | Warehouse Location: {item.location}
                     </Typography>
                 </Box>
 
-                {/* Main Content Layout */}
                 <Box
                     sx={{
                         display: "flex",
@@ -118,7 +124,6 @@ export default async function InventoryDetailsPage({
                         flexDirection: { xs: "column", lg: "row" },
                     }}
                 >
-                    {/* Left Section - Detailed Info */}
                     <Box sx={{ width: { xs: "100%", lg: "60%" }, ...getFadeInStyle(0.3) }}>
                         <Stack spacing={3}>
                             <SideCard title="Product Specifications">
@@ -126,6 +131,9 @@ export default async function InventoryDetailsPage({
                                 <InfoLine label="Barcode" value={item.barcode} />
                                 <InfoLine label="Category" value={item.category} />
                                 <InfoLine label="Brand" value={item.brand} />
+                                <InfoLine label="Brand Group" value={item.brandGroup} />
+                                <InfoLine label="Material" value={item.material} />
+                                <InfoLine label="Rim Shape" value={item.rimShape} />
                                 <InfoLine label="Unit of Measure" value={item.unitOfMeasure} />
                             </SideCard>
 
@@ -150,14 +158,13 @@ export default async function InventoryDetailsPage({
                         </Stack>
                     </Box>
 
-                    {/* Right Section - Sticky Sidebar Summary */}
-                    <Box 
-                        sx={{ 
+                    <Box
+                        sx={{
                             width: { xs: "100%", lg: "40%" },
                             position: { lg: "sticky" },
                             top: 24,
                             alignSelf: "flex-start",
-                            ...getFadeInStyle(0.4)
+                            ...getFadeInStyle(0.4),
                         }}
                     >
                         <Stack spacing={3}>
@@ -170,7 +177,7 @@ export default async function InventoryDetailsPage({
                                     bgcolor: colors.white,
                                     textAlign: "center",
                                     transition: "transform 0.3s ease",
-                                    "&:hover": { transform: "translateY(-4px)" }
+                                    "&:hover": { transform: "translateY(-4px)" },
                                 }}
                             >
                                 <Box
@@ -183,27 +190,29 @@ export default async function InventoryDetailsPage({
                                         bgcolor: colors.primaryLight,
                                         display: "flex",
                                         alignItems: "center",
-                                        justifyContent: "center"
+                                        justifyContent: "center",
                                     }}
                                 >
                                     <Inventory2OutlinedIcon sx={{ fontSize: 40, color: colors.primary }} />
                                 </Box>
-                                <Typography 
-                                    sx={{ 
-                                        fontSize: "2rem", 
-                                        fontWeight: FONT_WEIGHT.BOLD, 
+
+                                <Typography
+                                    sx={{
+                                        fontSize: "2rem",
+                                        fontWeight: FONT_WEIGHT.BOLD,
                                         fontFamily: FONT_FAMILY.HEADING,
-                                        color: colors.textMain 
+                                        color: colors.textMain,
                                     }}
                                 >
                                     {item.stock}
                                 </Typography>
-                                <Typography 
-                                    sx={{ 
-                                        color: colors.textSecondary, 
-                                        fontSize: FONT_SIZE.SMALL, 
+
+                                <Typography
+                                    sx={{
+                                        color: colors.textSecondary,
+                                        fontSize: FONT_SIZE.SMALL,
                                         fontFamily: FONT_FAMILY.BODY,
-                                        mt: 0.5 
+                                        mt: 0.5,
                                     }}
                                 >
                                     Units Currently Available
@@ -218,13 +227,13 @@ export default async function InventoryDetailsPage({
                             </SideCard>
 
                             <SideCard title="Internal Remarks">
-                                <Typography 
-                                    sx={{ 
-                                        color: colors.textSecondary, 
-                                        fontSize: FONT_SIZE.SMALL, 
+                                <Typography
+                                    sx={{
+                                        color: colors.textSecondary,
+                                        fontSize: FONT_SIZE.SMALL,
                                         fontFamily: FONT_FAMILY.BODY,
                                         lineHeight: 1.6,
-                                        fontStyle: "italic"
+                                        fontStyle: "italic",
                                     }}
                                 >
                                     {item.notes || "No additional product instructions or notes found."}

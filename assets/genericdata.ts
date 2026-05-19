@@ -95,392 +95,410 @@ export const orders = [
   {
     id: "1",
     orderNo: "ORD-1001",
+
     customerName: "Rahul Sharma",
     email: "rahul@gmail.com",
-phone: "+91 9876543210",
+    phone: "+91 9876543210",
 
     salesPerson: "Amit",
-orderSource: "Online Store",
+    orderSource: "Online Store",
 
     productType: "Frame",
-productName: "RayBan Classic Frame",
-    productSku: "RB-1001",
+    category: "Frame",
+    brand: "RayBan",
+    brandGroup: "Premium Brands",
+    material: "Metal",
+    rimShape: "Aviator",
+
+    productName: "RayBan Aviator Metal Frame",
+    productSku: "RB-AVI-MET-001",
     productVariant: "Black / Medium",
 
     quantity: 2,
-    productPrice: 12250,
+    productPrice: 4500,
 
     status: "Completed",
-paymentStatus: "Paid",
+    paymentStatus: "Paid",
     deliveryStatus: "Delivered",
 
-    orderDate: "08/05/2026",
+    orderDate: "2026-05-08",
 
-    subtotal: 24500,
+    subtotal: 9000,
     discount: 500,
-    tax: 1200,
+    tax: 1530,
     shippingCharge: 0,
-    totalAmount: 24500,
+    totalAmount: 10030,
 
     paymentMethod: "UPI",
     transactionId: "TXN1001",
-    paidAmount: 24500,
+    paidAmount: 10030,
     paymentDue: 0,
 
     shippingPartner: "BlueDart",
     trackingNo: "BD123456789",
-    estimatedDeliveryDate: "10/05/2026",
+    estimatedDeliveryDate: "2026-05-10",
 
-    shippingAddress:
-      "22 MG Road, Delhi, India",
-    billingAddress:
-      "22 MG Road, Delhi, India",
+    shippingAddress: "22 MG Road, Delhi, India",
+    billingAddress: "22 MG Road, Delhi, India",
 
-    notes:
-      "Customer requested premium packaging.",
+    notes: "Customer requested premium packaging.",
   },
-
   {
     id: "2",
     orderNo: "ORD-1002",
+
     customerName: "Riya Patel",
     email: "riya@gmail.com",
-phone: "+91 9988776655",
+    phone: "+91 9988776655",
 
     salesPerson: "Suresh",
-orderSource: "POS",
+    orderSource: "POS",
 
     productType: "Contact Lens",
-productName: "Bausch & Lomb Lens",
-    productSku: "CL-2002",
+    category: "Contact Lens",
+    brand: "Acuvue",
+    brandGroup: "Premium Brands",
+    material: "Silicone Hydrogel",
+    rimShape: "Oval",
+
+    productName: "Acuvue Silicone Hydrogel Contact Lens",
+    productSku: "ACV-SIL-HYD-101",
     productVariant: "Monthly Pack",
 
     quantity: 1,
-    productPrice: 12800,
+    productPrice: 1450,
 
     status: "Pending",
-paymentStatus: "Pending",
+    paymentStatus: "Pending",
     deliveryStatus: "Processing",
 
-    orderDate: "07/05/2026",
+    orderDate: "2026-05-07",
 
-    subtotal: 12800,
+    subtotal: 1450,
     discount: 0,
-    tax: 640,
+    tax: 174,
     shippingCharge: 100,
-    totalAmount: 12800,
+    totalAmount: 1724,
 
     paymentMethod: "Cash",
     transactionId: "TXN1002",
-    paidAmount: 5000,
-    paymentDue: 7800,
+    paidAmount: 500,
+    paymentDue: 1224,
 
     shippingPartner: "DTDC",
     trackingNo: "DT987654321",
-    estimatedDeliveryDate: "11/05/2026",
+    estimatedDeliveryDate: "2026-05-11",
 
-    shippingAddress:
-      "Ahmedabad, Gujarat, India",
+    shippingAddress: "Ahmedabad, Gujarat, India",
+    billingAddress: "Ahmedabad, Gujarat, India",
 
-    billingAddress:
-      "Ahmedabad, Gujarat, India",
-
-    notes:
-      "Urgent delivery requested.",
+    notes: "Urgent delivery requested for contact lens order.",
   },
-
   {
     id: "3",
     orderNo: "ORD-1003",
+
     customerName: "Arjun Verma",
     email: "arjun@gmail.com",
-phone: "+91 9011223344",
+    phone: "+91 9011223344",
 
     salesPerson: "Rohit",
-orderSource: "Online Store",
+    orderSource: "Online Store",
 
     productType: "Accessories",
-productName: "Eyewear Cleaning Kit",
-    productSku: "ACC-3001",
-    productVariant: "Standard",
+    category: "Accessories",
+    brand: "Gucci",
+    brandGroup: "Luxury Brands",
+    material: "Acetate",
+    rimShape: "Cat Eye",
 
-    quantity: 3,
-    productPrice: 2400,
+    productName: "Gucci Acetate Cat Eye Accessory Frame",
+    productSku: "GUC-ACE-CAT-003",
+    productVariant: "Black / Standard",
+
+    quantity: 1,
+    productPrice: 1350,
 
     status: "Cancelled",
-paymentStatus: "Refunded",
+    paymentStatus: "Refunded",
     deliveryStatus: "Cancelled",
 
-    orderDate: "06/05/2026",
+    orderDate: "2026-05-06",
 
-    subtotal: 7200,
+    subtotal: 1350,
     discount: 200,
-    tax: 300,
+    tax: 207,
     shippingCharge: 0,
-    totalAmount: 7200,
+    totalAmount: 1357,
 
     paymentMethod: "Card",
     transactionId: "TXN1003",
-    paidAmount: 7200,
+    paidAmount: 1357,
     paymentDue: 0,
 
     shippingPartner: "N/A",
     trackingNo: "N/A",
     estimatedDeliveryDate: "N/A",
 
-    shippingAddress:
-      "Noida, Uttar Pradesh, India",
+    shippingAddress: "Noida, Uttar Pradesh, India",
+    billingAddress: "Noida, Uttar Pradesh, India",
 
-    billingAddress:
-      "Noida, Uttar Pradesh, India",
-
-    notes:
-      "Order cancelled by customer.",
+    notes: "Order cancelled by customer.",
   },
-
   {
     id: "4",
     orderNo: "ORD-1004",
+
     customerName: "Sneha Kapoor",
     email: "sneha@gmail.com",
-phone: "+91 8877665544",
+    phone: "+91 8877665544",
 
     salesPerson: "Vikas",
-orderSource: "Store",
+    orderSource: "Store",
 
     productType: "Frame",
-productName: "Titan Premium Frame",
-    productSku: "FR-4001",
-    productVariant: "Golden Large",
+    category: "Frame",
+    brand: "Titan Eye+",
+    brandGroup: "Budget Brands",
+    material: "Plastic",
+    rimShape: "Rectangle",
+
+    productName: "Titan Eye+ Plastic Rectangle Frame",
+    productSku: "TIT-PLA-RECT-005",
+    productVariant: "Golden / Large",
 
     quantity: 2,
-    productPrice: 15900,
+    productPrice: 320,
 
     status: "Completed",
-paymentStatus: "Paid",
+    paymentStatus: "Paid",
     deliveryStatus: "Delivered",
 
-    orderDate: "05/05/2026",
+    orderDate: "2026-05-05",
 
-    subtotal: 31800,
-    discount: 1000,
-    tax: 1500,
+    subtotal: 640,
+    discount: 50,
+    tax: 106,
     shippingCharge: 0,
-    totalAmount: 31800,
+    totalAmount: 696,
 
     paymentMethod: "UPI",
     transactionId: "TXN1004",
-    paidAmount: 31800,
+    paidAmount: 696,
     paymentDue: 0,
 
     shippingPartner: "BlueDart",
     trackingNo: "BD789456123",
-    estimatedDeliveryDate: "08-05-2026",
+    estimatedDeliveryDate: "2026-05-08",
 
-    shippingAddress:
-      "Mumbai, Maharashtra, India",
+    shippingAddress: "Mumbai, Maharashtra, India",
+    billingAddress: "Mumbai, Maharashtra, India",
 
-    billingAddress:
-      "Mumbai, Maharashtra, India",
-
-    notes:
-      "VIP customer.",
+    notes: "VIP customer.",
   },
-
   {
     id: "5",
     orderNo: "ORD-1005",
+
     customerName: "Karan Mehta",
     email: "karan@gmail.com",
-phone: "+91 7766554433",
+    phone: "+91 7766554433",
 
     salesPerson: "Anjali",
-orderSource: "Website",
+    orderSource: "Website",
 
-    productType: "Sunglasses",
-productName: "Oakley Sunglasses",
-    productSku: "SG-5001",
+    productType: "Frame",
+    category: "Frame",
+    brand: "Oakley",
+    brandGroup: "Luxury Brands",
+    material: "Titanium",
+    rimShape: "Square",
+
+    productName: "Oakley Titanium Square Frame",
+    productSku: "OKL-TIT-SQR-004",
     productVariant: "Black",
 
     quantity: 1,
-    productPrice: 15400,
+    productPrice: 1850,
 
     status: "Pending",
-paymentStatus: "Pending",
+    paymentStatus: "Pending",
     deliveryStatus: "Not shipped",
 
-    orderDate: "05/05/2026",
+    orderDate: "2026-05-05",
 
-    subtotal: 15400,
-    discount: 400,
-    tax: 700,
+    subtotal: 1850,
+    discount: 100,
+    tax: 315,
     shippingCharge: 150,
-    totalAmount: 15400,
+    totalAmount: 2215,
 
     paymentMethod: "Card",
     transactionId: "TXN1005",
-    paidAmount: 5000,
-    paymentDue: 10400,
+    paidAmount: 500,
+    paymentDue: 1715,
 
     shippingPartner: "DTDC",
     trackingNo: "DT445566778",
-    estimatedDeliveryDate: "12/05/2026",
+    estimatedDeliveryDate: "2026-05-12",
 
-    shippingAddress:
-      "Pune, Maharashtra, India",
+    shippingAddress: "Pune, Maharashtra, India",
+    billingAddress: "Pune, Maharashtra, India",
 
-    billingAddress:
-      "Pune, Maharashtra, India",
-
-    notes:
-      "Customer asked for gift wrap.",
+    notes: "Customer asked for gift wrap.",
   },
-
   {
     id: "6",
     orderNo: "ORD-1006",
+
     customerName: "Priya Nair",
     email: "priya@gmail.com",
-phone: "+91 9988112233",
+    phone: "+91 9988112233",
 
     salesPerson: "Deepak",
-orderSource: "Store",
+    orderSource: "Store",
 
     productType: "Optical Lens",
-productName: "Crizal Optical Lens",
-    productSku: "OL-6001",
+    category: "Optical Lens",
+    brand: "Zeiss",
+    brandGroup: "Luxury Brands",
+    material: "High Index Resin",
+    rimShape: "Rectangle",
+
+    productName: "Zeiss High Index Resin Optical Lens",
+    productSku: "ZSS-HIR-099",
     productVariant: "Blue Cut",
 
     quantity: 2,
-    productPrice: 11300,
+    productPrice: 1750,
 
     status: "Completed",
-paymentStatus: "Paid",
+    paymentStatus: "Paid",
     deliveryStatus: "Delivered",
 
-    orderDate: "04/05/2026",
+    orderDate: "2026-05-04",
 
-    subtotal: 22600,
-    discount: 600,
-    tax: 1000,
+    subtotal: 3500,
+    discount: 200,
+    tax: 594,
     shippingCharge: 0,
-    totalAmount: 22600,
+    totalAmount: 3894,
 
     paymentMethod: "Cash",
     transactionId: "TXN1006",
-    paidAmount: 22600,
+    paidAmount: 3894,
     paymentDue: 0,
 
     shippingPartner: "BlueDart",
     trackingNo: "BD456789123",
-    estimatedDeliveryDate: "07/05/2026",
+    estimatedDeliveryDate: "2026-05-07",
 
-    shippingAddress:
-      "Kochi, Kerala, India",
+    shippingAddress: "Kochi, Kerala, India",
+    billingAddress: "Kochi, Kerala, India",
 
-    billingAddress:
-      "Kochi, Kerala, India",
-
-    notes:
-      "Lens coating added.",
+    notes: "Lens coating added.",
   },
-
   {
     id: "7",
     orderNo: "ORD-1007",
+
     customerName: "Aditya Singh",
     email: "aditya@gmail.com",
-phone: "+91 9090909090",
+    phone: "+91 9090909090",
 
     salesPerson: "Rahul",
-orderSource: "POS",
+    orderSource: "POS",
 
-    productType: "Accessories",
-productName: "Lens Cleaner",
-    productSku: "ACC-7001",
-    productVariant: "Pack of 3",
+    productType: "Optical Lens",
+    category: "Optical Lens",
+    brand: "Essilor",
+    brandGroup: "Premium Brands",
+    material: "Polycarbonate",
+    rimShape: "Rectangle",
+
+    productName: "Essilor Polycarbonate Optical Lens",
+    productSku: "ESS-POL-RECT-007",
+    productVariant: "Clear Lens",
 
     quantity: 2,
-    productPrice: 2700,
+    productPrice: 980,
 
     status: "Refunded",
-paymentStatus: "Refunded",
+    paymentStatus: "Refunded",
     deliveryStatus: "Returned",
 
-    orderDate: "04/05/2026",
+    orderDate: "2026-05-04",
 
-    subtotal: 5400,
+    subtotal: 1960,
     discount: 100,
-    tax: 200,
+    tax: 335,
     shippingCharge: 0,
-    totalAmount: 5400,
+    totalAmount: 2195,
 
     paymentMethod: "UPI",
     transactionId: "TXN1007",
-    paidAmount: 5400,
+    paidAmount: 2195,
     paymentDue: 0,
 
     shippingPartner: "N/A",
     trackingNo: "N/A",
     estimatedDeliveryDate: "N/A",
 
-    shippingAddress:
-      "Lucknow, Uttar Pradesh, India",
+    shippingAddress: "Lucknow, Uttar Pradesh, India",
+    billingAddress: "Lucknow, Uttar Pradesh, India",
 
-    billingAddress:
-      "Lucknow, Uttar Pradesh, India",
-
-    notes:
-      "Refund processed successfully.",
+    notes: "Refund processed successfully.",
   },
-
   {
     id: "8",
     orderNo: "ORD-1008",
+
     customerName: "Neha Joshi",
     email: "neha@gmail.com",
-phone: "+91 8181818181",
+    phone: "+91 8181818181",
 
     salesPerson: "Sonia",
-orderSource: "Website",
+    orderSource: "Website",
 
-    productType: "Contact Lens",
-productName: "Acuvue Lens",
-    productSku: "CL-8001",
-    productVariant: "Yearly Pack",
+    productType: "Frame",
+    category: "Frame",
+    brand: "Police",
+    brandGroup: "Premium Brands",
+    material: "Metal",
+    rimShape: "Round",
+
+    productName: "Police Metal Round Frame",
+    productSku: "PLC-MET-RND-008",
+    productVariant: "Silver / Medium",
 
     quantity: 2,
-    productPrice: 9800,
+    productPrice: 700,
 
     status: "Completed",
-paymentStatus: "Paid",
+    paymentStatus: "Paid",
     deliveryStatus: "Delivered",
 
-    orderDate: "03/05/2026",
+    orderDate: "2026-05-03",
 
-    subtotal: 19600,
-    discount: 500,
-    tax: 900,
+    subtotal: 1400,
+    discount: 100,
+    tax: 234,
     shippingCharge: 0,
-    totalAmount: 19600,
-  
+    totalAmount: 1534,
+
     paymentMethod: "Card",
     transactionId: "TXN1008",
-    paidAmount: 19600,
+    paidAmount: 1534,
     paymentDue: 0,
 
     shippingPartner: "BlueDart",
     trackingNo: "BD852741963",
-    estimatedDeliveryDate: "06/05/2026",
+    estimatedDeliveryDate: "2026-05-06",
 
-    shippingAddress:
-      "Jaipur, Rajasthan, India",
+    shippingAddress: "Jaipur, Rajasthan, India",
+    billingAddress: "Jaipur, Rajasthan, India",
 
-    billingAddress:
-      "Jaipur, Rajasthan, India",
-
-    notes:
-      "Delivered successfully.",
+    notes: "Delivered successfully.",
   },
 ];
 
@@ -534,9 +552,9 @@ export const brands = [
     brandId: "BR-1001",
     brandName: "RayBan",
     brandLogo: "",
-    brandType: "Eyewear",
+    brandType: "Manufacturer",
+    brandGroup: "Premium Brands",
     category: "Frame",
-    brandGroup: "Premium",
     status: "Active",
 
     contactPerson: "Rahul Sharma",
@@ -558,25 +576,21 @@ export const brands = [
     totalOrders: 340,
     revenue: 2450000,
 
-    description:
-      "Premium eyewear brand for frames and sunglasses.",
+    description: "Premium eyewear brand for frames and sunglasses.",
+    notes: "Top-selling premium frame brand.",
 
-    notes:
-      "Top-selling premium frame brand.",
-
-    createdDate: "11/05/2026",
-    updatedDate: "12/05/2026",
+    createdDate: "2026-05-11",
+    updatedDate: "2026-05-12",
     createdBy: "Admin",
   },
-
   {
     id: "2",
     brandId: "BR-1002",
     brandName: "Titan Eye+",
     brandLogo: "",
-    brandType: "Eyewear",
+    brandType: "Supplier",
+    brandGroup: "Budget Brands",
     category: "Frame",
-    brandGroup: "Budget",
     status: "Active",
 
     contactPerson: "Riya Patel",
@@ -598,25 +612,21 @@ export const brands = [
     totalOrders: 210,
     revenue: 1280000,
 
-    description:
-      "Affordable eyewear brand with wide frame collection.",
+    description: "Affordable eyewear brand with wide frame collection.",
+    notes: "Good budget category sales.",
 
-    notes:
-      "Good budget category sales.",
-
-    createdDate: "10/05/2026",
-    updatedDate: "11/05/2026",
+    createdDate: "2026-05-10",
+    updatedDate: "2026-05-11",
     createdBy: "Admin",
   },
-
   {
     id: "3",
     brandId: "BR-1003",
     brandName: "Oakley",
     brandLogo: "",
-    brandType: "Sunglasses",
+    brandType: "Distributor",
+    brandGroup: "Luxury Brands",
     category: "Frame",
-    brandGroup: "Luxury",
     status: "Active",
 
     contactPerson: "Amit Verma",
@@ -638,25 +648,21 @@ export const brands = [
     totalOrders: 420,
     revenue: 3680000,
 
-    description:
-      "Luxury sunglasses and sports eyewear brand.",
+    description: "Luxury sunglasses and sports eyewear brand.",
+    notes: "Strong premium customer base.",
 
-    notes:
-      "Strong premium customer base.",
-
-    createdDate: "09/05/2026",
-    updatedDate: "10/05/2026",
+    createdDate: "2026-05-09",
+    updatedDate: "2026-05-10",
     createdBy: "Admin",
   },
-
   {
     id: "4",
     brandId: "BR-1004",
     brandName: "Acuvue",
     brandLogo: "",
-    brandType: "Contact Lens",
+    brandType: "Manufacturer",
+    brandGroup: "Premium Brands",
     category: "Contact Lens",
-    brandGroup: "Imported",
     status: "Inactive",
 
     contactPerson: "Sneha Kapoor",
@@ -678,25 +684,21 @@ export const brands = [
     totalOrders: 160,
     revenue: 980000,
 
-    description:
-      "Imported contact lens solutions and products.",
+    description: "Contact lens solutions and related products.",
+    notes: "Low inventory available.",
 
-    notes:
-      "Low inventory available.",
-
-    createdDate: "08/05/2026",
-    updatedDate: "09/05/2026",
+    createdDate: "2026-05-08",
+    updatedDate: "2026-05-09",
     createdBy: "Admin",
   },
-
   {
     id: "5",
     brandId: "BR-1005",
     brandName: "Fastrack",
     brandLogo: "",
-    brandType: "Accessories",
+    brandType: "Private Label",
+    brandGroup: "Budget Brands",
     category: "Accessories",
-    brandGroup: "Budget",
     status: "Active",
 
     contactPerson: "Karan Mehta",
@@ -718,25 +720,21 @@ export const brands = [
     totalOrders: 290,
     revenue: 1850000,
 
-    description:
-      "Youth-focused accessories and eyewear brand.",
+    description: "Youth-focused accessories and eyewear brand.",
+    notes: "Popular among young customers.",
 
-    notes:
-      "Popular among young customers.",
-
-    createdDate: "07/05/2026",
-    updatedDate: "08/05/2026",
+    createdDate: "2026-05-07",
+    updatedDate: "2026-05-08",
     createdBy: "Admin",
   },
-
   {
     id: "6",
     brandId: "BR-1006",
     brandName: "Prada",
     brandLogo: "",
-    brandType: "Luxury Eyewear",
+    brandType: "Distributor",
+    brandGroup: "Luxury Brands",
     category: "Frame",
-    brandGroup: "Luxury",
     status: "Active",
 
     contactPerson: "Priya Nair",
@@ -758,25 +756,21 @@ export const brands = [
     totalOrders: 180,
     revenue: 4950000,
 
-    description:
-      "Luxury designer eyewear collection.",
+    description: "Luxury designer eyewear collection.",
+    notes: "High-value premium orders.",
 
-    notes:
-      "High-value premium orders.",
-
-    createdDate: "06/05/2026",
-    updatedDate: "07/05/2026",
+    createdDate: "2026-05-06",
+    updatedDate: "2026-05-07",
     createdBy: "Admin",
   },
-
   {
     id: "7",
     brandId: "BR-1007",
     brandName: "Police",
     brandLogo: "",
-    brandType: "Sunglasses",
+    brandType: "Supplier",
+    brandGroup: "Premium Brands",
     category: "Frame",
-    brandGroup: "Premium",
     status: "Active",
 
     contactPerson: "Aditya Singh",
@@ -798,25 +792,21 @@ export const brands = [
     totalOrders: 240,
     revenue: 2140000,
 
-    description:
-      "Stylish premium sunglasses and frames.",
+    description: "Stylish premium sunglasses and frames.",
+    notes: "Good retail performance.",
 
-    notes:
-      "Good retail performance.",
-
-    createdDate: "05/05/2026",
-    updatedDate: "06/05/2026",
+    createdDate: "2026-05-05",
+    updatedDate: "2026-05-06",
     createdBy: "Admin",
   },
-
   {
     id: "8",
     brandId: "BR-1008",
     brandName: "Essilor",
     brandLogo: "",
-    brandType: "Optical Lens",
+    brandType: "Manufacturer",
+    brandGroup: "Premium Brands",
     category: "Optical Lens",
-    brandGroup: "Imported",
     status: "Active",
 
     contactPerson: "Neha Joshi",
@@ -838,25 +828,21 @@ export const brands = [
     totalOrders: 350,
     revenue: 3210000,
 
-    description:
-      "Advanced optical lens technology brand.",
+    description: "Advanced optical lens technology brand.",
+    notes: "Excellent customer satisfaction.",
 
-    notes:
-      "Excellent customer satisfaction.",
-
-    createdDate: "04/05/2026",
-    updatedDate: "05/05/2026",
+    createdDate: "2026-05-04",
+    updatedDate: "2026-05-05",
     createdBy: "Admin",
   },
-
   {
     id: "9",
     brandId: "BR-1009",
     brandName: "Gucci",
     brandLogo: "",
-    brandType: "Luxury Eyewear",
+    brandType: "Distributor",
+    brandGroup: "Luxury Brands",
     category: "Accessories",
-    brandGroup: "Luxury",
     status: "Inactive",
 
     contactPerson: "Vivek Malhotra",
@@ -878,25 +864,21 @@ export const brands = [
     totalOrders: 110,
     revenue: 6250000,
 
-    description:
-      "Luxury fashion and eyewear products.",
+    description: "Luxury fashion and eyewear products.",
+    notes: "Limited imported collection.",
 
-    notes:
-      "Limited imported collection.",
-
-    createdDate: "03/05/2026",
-    updatedDate: "04/05/2026",
+    createdDate: "2026-05-03",
+    updatedDate: "2026-05-04",
     createdBy: "Admin",
   },
-
   {
     id: "10",
     brandId: "BR-1010",
     brandName: "Zeiss",
     brandLogo: "",
-    brandType: "Optical Lens",
+    brandType: "Manufacturer",
+    brandGroup: "Luxury Brands",
     category: "Optical Lens",
-    brandGroup: "Luxury",
     status: "Active",
 
     contactPerson: "Aisha Khan",
@@ -918,14 +900,11 @@ export const brands = [
     totalOrders: 390,
     revenue: 4120000,
 
-    description:
-      "World-class optical lens and vision technology.",
+    description: "World-class optical lens and vision technology.",
+    notes: "High-end optical solutions provider.",
 
-    notes:
-      "High-end optical solutions provider.",
-
-    createdDate: "02/05/2026",
-    updatedDate: "03/05/2026",
+    createdDate: "2026-05-02",
+    updatedDate: "2026-05-03",
     createdBy: "Admin",
   },
 ];
@@ -934,89 +913,76 @@ export const brandGroups = [
   {
     id: "1",
     groupId: "BG-1001",
-    groupName: "Premium",
-    groupType: "Eyewear Group",
+    groupName: "Premium Brands",
+    groupType: "Premium Brand Group",
     status: "Active",
-    description: "High quality premium eyewear brands",
+    description: "High quality premium eyewear and optical brands",
     parentCategory: "Frame",
     priorityLevel: "High",
     displayOrder: 1,
-    totalBrands: 8,
-    activeBrands: 7,
-    totalProducts: 520,
-    revenueContribution: 2450000,
+
+    totalBrands: 3,
+    activeBrands: 3,
+    totalProducts: 345,
+    revenueContribution: 7800000,
+
     managerName: "Rahul Sharma",
     managerEmail: "rahul.manager@gmail.com",
     managerPhone: "+91 9876543210",
-    notes: "Best performing brand group.",
-    createdOn: "11/05/2026",
-    updatedDate: "12/05/2026",
+
+    notes: "Includes RayBan, Acuvue, Police, and Essilor category premium brands.",
+    createdOn: "2026-05-11",
+    updatedDate: "2026-05-12",
     createdBy: "Admin",
   },
   {
     id: "2",
     groupId: "BG-1002",
-    groupName: "Budget",
-    groupType: "Value Group",
+    groupName: "Budget Brands",
+    groupType: "Value Brand Group",
     status: "Active",
-    description: "Affordable daily use brands",
+    description: "Affordable daily-use eyewear and accessories brands",
     parentCategory: "Accessories",
     priorityLevel: "Medium",
     displayOrder: 2,
-    totalBrands: 6,
-    activeBrands: 6,
-    totalProducts: 310,
-    revenueContribution: 1280000,
+
+    totalBrands: 2,
+    activeBrands: 2,
+    totalProducts: 200,
+    revenueContribution: 3130000,
+
     managerName: "Riya Patel",
     managerEmail: "riya.manager@gmail.com",
     managerPhone: "+91 9988776655",
-    notes: "Good for daily-use customer segment.",
-    createdOn: "10/05/2026",
-    updatedDate: "11/05/2026",
+
+    notes: "Includes Titan Eye+ and Fastrack.",
+    createdOn: "2026-05-10",
+    updatedDate: "2026-05-11",
     createdBy: "Admin",
   },
   {
     id: "3",
     groupId: "BG-1003",
-    groupName: "Luxury",
-    groupType: "Luxury Group",
-    status: "Inactive",
-    description: "Luxury designer eyewear brands",
+    groupName: "Luxury Brands",
+    groupType: "Luxury Brand Group",
+    status: "Active",
+    description: "Luxury designer eyewear and high-end optical lens brands",
     parentCategory: "Frame",
     priorityLevel: "High",
     displayOrder: 3,
+
     totalBrands: 5,
-    activeBrands: 3,
-    totalProducts: 180,
-    revenueContribution: 3650000,
+    activeBrands: 4,
+    totalProducts: 585,
+    revenueContribution: 22680000,
+
     managerName: "Amit Verma",
     managerEmail: "amit.manager@gmail.com",
     managerPhone: "+91 9090909090",
-    notes: "Requires updated luxury catalog.",
-    createdOn: "09/05/2026",
-    updatedDate: "10/05/2026",
-    createdBy: "Admin",
-  },
-  {
-    id: "4",
-    groupId: "BG-1004",
-    groupName: "Imported",
-    groupType: "International Group",
-    status: "Active",
-    description: "International imported products",
-    parentCategory: "Contact Lens",
-    priorityLevel: "Medium",
-    displayOrder: 4,
-    totalBrands: 7,
-    activeBrands: 6,
-    totalProducts: 260,
-    revenueContribution: 2100000,
-    managerName: "Sneha Kapoor",
-    managerEmail: "sneha.manager@gmail.com",
-    managerPhone: "+91 8181818181",
-    notes: "Imported product stock needs regular tracking.",
-    createdOn: "08/05/2026",
-    updatedDate: "09/05/2026",
+
+    notes: "Includes Oakley, Prada, Gucci, and Zeiss.",
+    createdOn: "2026-05-09",
+    updatedDate: "2026-05-10",
     createdBy: "Admin",
   },
 ];
@@ -1031,17 +997,21 @@ export const categories = [
     status: "Active",
     displayOrder: 1,
     priorityLevel: "High",
-    totalProducts: 250,
-    activeProducts: 220,
-    totalBrands: 12,
-    revenueContribution: 2450000,
+
+    totalProducts: 545,
+    activeProducts: 468,
+    totalBrands: 5,
+    revenueContribution: 14500000,
+
     stockQuantity: 1200,
     lowStockProducts: 8,
     warehouseLocation: "Delhi Warehouse",
-    description: "Optical and sunglasses frames",
-    notes: "Top performing category.",
-    createdOn: "11/05/2026",
-    updatedDate: "12/05/2026",
+
+    description: "Frames and sunglasses from premium, budget, and luxury brands.",
+    notes: "Includes RayBan, Titan Eye+, Oakley, Prada, and Police.",
+
+    createdOn: "2026-05-11",
+    updatedDate: "2026-05-12",
     createdBy: "Admin",
   },
   {
@@ -1051,20 +1021,24 @@ export const categories = [
     categoryCode: "CONTACT-LENS",
     categoryType: "Product Category",
     parentCategory: "Vision Care",
-    status: "Active",
+    status: "Inactive",
     displayOrder: 2,
     priorityLevel: "Medium",
-    totalProducts: 140,
-    activeProducts: 125,
-    totalBrands: 6,
-    revenueContribution: 1280000,
+
+    totalProducts: 70,
+    activeProducts: 45,
+    totalBrands: 1,
+    revenueContribution: 980000,
+
     stockQuantity: 850,
     lowStockProducts: 5,
     warehouseLocation: "Mumbai Warehouse",
-    description: "Vision correction contact lenses",
-    notes: "Regular restocking required.",
-    createdOn: "10/05/2026",
-    updatedDate: "11/05/2026",
+
+    description: "Contact lens products and related vision care items.",
+    notes: "Includes Acuvue. Currently lower active product count.",
+
+    createdOn: "2026-05-10",
+    updatedDate: "2026-05-11",
     createdBy: "Admin",
   },
   {
@@ -1074,20 +1048,24 @@ export const categories = [
     categoryCode: "ACCESSORIES",
     categoryType: "Product Category",
     parentCategory: "Eyewear",
-    status: "Inactive",
+    status: "Active",
     displayOrder: 3,
-    priorityLevel: "Low",
-    totalProducts: 90,
-    activeProducts: 55,
-    totalBrands: 5,
-    revenueContribution: 620000,
+    priorityLevel: "Medium",
+
+    totalProducts: 170,
+    activeProducts: 130,
+    totalBrands: 2,
+    revenueContribution: 8100000,
+
     stockQuantity: 430,
     lowStockProducts: 12,
     warehouseLocation: "Noida Warehouse",
-    description: "Eyewear accessories and cleaners",
-    notes: "Some items need catalog update.",
-    createdOn: "09/05/2026",
-    updatedDate: "10/05/2026",
+
+    description: "Eyewear accessories and fashion-related optical products.",
+    notes: "Includes Fastrack and Gucci.",
+
+    createdOn: "2026-05-09",
+    updatedDate: "2026-05-10",
     createdBy: "Admin",
   },
   {
@@ -1100,239 +1078,241 @@ export const categories = [
     status: "Active",
     displayOrder: 4,
     priorityLevel: "High",
-    totalProducts: 180,
-    activeProducts: 160,
-    totalBrands: 8,
-    revenueContribution: 3100000,
+
+    totalProducts: 270,
+    activeProducts: 232,
+    totalBrands: 2,
+    revenueContribution: 7330000,
+
     stockQuantity: 980,
     lowStockProducts: 4,
     warehouseLocation: "Bangalore Warehouse",
-    description: "Prescription optical lenses",
-    notes: "High-value prescription lens category.",
-    createdOn: "08/05/2026",
-    updatedDate: "09/05/2026",
+
+    description: "Prescription and advanced optical lens products.",
+    notes: "Includes Essilor and Zeiss.",
+
+    createdOn: "2026-05-08",
+    updatedDate: "2026-05-09",
     createdBy: "Admin",
   },
 ];
 export const materials = [
   {
     id: "1",
-
     materialId: "MAT-1001",
-
     materialCode: "METAL-001",
-
     materialName: "Metal",
 
     applicableFor: "Frame",
+    categoryName: "Frame",
+    brandGroup: "Premium Brands",
+    linkedBrands: ["RayBan", "Police"],
 
     purchasePrice: 450,
-
     sellingPrice: 700,
-
     tax: 18,
-
     hsnCode: "90031100",
 
     stockQuantity: 250,
-
     minimumStockLevel: 40,
-
     warehouseLocation: "Delhi Warehouse",
 
     supplierName: "Vision Metals Pvt Ltd",
-
     status: "Active",
 
-    description:
-      "Durable lightweight metal material commonly used in premium eyewear frames.",
+    description: "Durable lightweight metal material commonly used in premium eyewear frames.",
+    notes: "Best suited for RayBan and Police premium frame collections.",
 
-    notes:
-      "Best suited for luxury frame collection.",
-
-    createdOn: "11/05/2026",
-
-    updatedDate: "12/05/2026",
-
+    createdOn: "2026-05-11",
+    updatedDate: "2026-05-12",
     createdBy: "Admin",
-
     lastModifiedBy: "Manager",
   },
-
   {
     id: "2",
-
     materialId: "MAT-1002",
-
     materialCode: "PLASTIC-001",
-
     materialName: "Plastic",
 
     applicableFor: "Frame",
+    categoryName: "Frame",
+    brandGroup: "Budget Brands",
+    linkedBrands: ["Titan Eye+"],
 
     purchasePrice: 180,
-
     sellingPrice: 320,
-
     tax: 18,
-
     hsnCode: "90031100",
 
     stockQuantity: 520,
-
     minimumStockLevel: 80,
-
     warehouseLocation: "Mumbai Warehouse",
 
     supplierName: "Optic Plast Industries",
-
     status: "Active",
 
-    description:
-      "Affordable and lightweight plastic material used in regular optical frames.",
+    description: "Affordable and lightweight plastic material used in regular optical frames.",
+    notes: "Best suited for Titan Eye+ budget frame collection.",
 
-    notes:
-      "High stock turnover product.",
-
-    createdOn: "10/05/2026",
-
-    updatedDate: "11/05/2026",
-
+    createdOn: "2026-05-10",
+    updatedDate: "2026-05-11",
     createdBy: "Admin",
-
     lastModifiedBy: "Warehouse Manager",
   },
-
   {
     id: "3",
-
     materialId: "MAT-1003",
-
     materialCode: "SIL-HYDRO-001",
-
     materialName: "Silicone Hydrogel",
 
     applicableFor: "Contact Lens",
+    categoryName: "Contact Lens",
+    brandGroup: "Premium Brands",
+    linkedBrands: ["Acuvue"],
 
     purchasePrice: 950,
-
     sellingPrice: 1450,
-
     tax: 12,
-
     hsnCode: "90013000",
 
     stockQuantity: 140,
-
     minimumStockLevel: 25,
-
-    warehouseLocation: "Bangalore Warehouse",
+    warehouseLocation: "Mumbai Warehouse",
 
     supplierName: "Lens Care Solutions",
-
     status: "Active",
 
-    description:
-      "Premium breathable contact lens material with superior oxygen permeability.",
+    description: "Premium breathable contact lens material with superior oxygen permeability.",
+    notes: "Used for Acuvue contact lens products.",
 
-    notes:
-      "Most preferred material for monthly disposable lenses.",
-
-    createdOn: "09/05/2026",
-
-    updatedDate: "10/05/2026",
-
+    createdOn: "2026-05-09",
+    updatedDate: "2026-05-10",
     createdBy: "Admin",
-
     lastModifiedBy: "Lens Department",
   },
-
   {
     id: "4",
-
     materialId: "MAT-1004",
-
     materialCode: "POLY-001",
-
     materialName: "Polycarbonate",
 
-    applicableFor: "Contact Lens",
+    applicableFor: "Optical Lens",
+    categoryName: "Optical Lens",
+    brandGroup: "Premium Brands",
+    linkedBrands: ["Essilor"],
 
     purchasePrice: 600,
-
     sellingPrice: 980,
-
     tax: 18,
-
     hsnCode: "90014000",
 
     stockQuantity: 35,
-
     minimumStockLevel: 30,
-
-    warehouseLocation: "Noida Warehouse",
+    warehouseLocation: "Bangalore Warehouse",
 
     supplierName: "Safe Vision Optics",
-
     status: "Inactive",
 
-    description:
-      "Impact-resistant lens material ideal for safety and sports eyewear.",
+    description: "Impact-resistant optical lens material ideal for safety and sports eyewear.",
+    notes: "Low stock. Reorder required for Essilor optical lens category.",
 
-    notes:
-      "Low stock. Reorder required.",
-
-    createdOn: "08/05/2026",
-
-    updatedDate: "09/05/2026",
-
+    createdOn: "2026-05-08",
+    updatedDate: "2026-05-09",
     createdBy: "Admin",
-
     lastModifiedBy: "Inventory Team",
   },
-
   {
     id: "5",
-
     materialId: "MAT-1005",
-
     materialCode: "TITANIUM-001",
-
     materialName: "Titanium",
 
     applicableFor: "Frame",
+    categoryName: "Frame",
+    brandGroup: "Luxury Brands",
+    linkedBrands: ["Oakley", "Prada"],
 
     purchasePrice: 1200,
-
     sellingPrice: 1850,
-
     tax: 18,
-
     hsnCode: "90031100",
 
     stockQuantity: 90,
-
     minimumStockLevel: 20,
-
-    warehouseLocation: "Hyderabad Warehouse",
+    warehouseLocation: "Delhi Warehouse",
 
     supplierName: "Titan Optics Ltd",
-
     status: "Active",
 
-    description:
-      "Ultra lightweight premium titanium material used in high-end eyewear frames.",
+    description: "Ultra lightweight premium titanium material used in high-end eyewear frames.",
+    notes: "Best suited for Oakley and Prada luxury frame collections.",
 
-    notes:
-      "Corrosion resistant and durable.",
-
-    createdOn: "07/05/2026",
-
-    updatedDate: "08/05/2026",
-
+    createdOn: "2026-05-07",
+    updatedDate: "2026-05-08",
     createdBy: "Admin",
-
     lastModifiedBy: "Product Team",
+  },
+  {
+    id: "6",
+    materialId: "MAT-1006",
+    materialCode: "ACETATE-001",
+    materialName: "Acetate",
+
+    applicableFor: "Accessories",
+    categoryName: "Accessories",
+    brandGroup: "Luxury Brands",
+    linkedBrands: ["Gucci"],
+
+    purchasePrice: 850,
+    sellingPrice: 1350,
+    tax: 18,
+    hsnCode: "90039000",
+
+    stockQuantity: 65,
+    minimumStockLevel: 15,
+    warehouseLocation: "Noida Warehouse",
+
+    supplierName: "Luxury Vision Materials",
+    status: "Inactive",
+
+    description: "Premium acetate material used in luxury eyewear accessories.",
+    notes: "Linked with Gucci accessories collection.",
+
+    createdOn: "2026-05-06",
+    updatedDate: "2026-05-07",
+    createdBy: "Admin",
+    lastModifiedBy: "Inventory Team",
+  },
+  {
+    id: "7",
+    materialId: "MAT-1007",
+    materialCode: "HI-INDEX-001",
+    materialName: "High Index Resin",
+
+    applicableFor: "Optical Lens",
+    categoryName: "Optical Lens",
+    brandGroup: "Luxury Brands",
+    linkedBrands: ["Zeiss"],
+
+    purchasePrice: 1100,
+    sellingPrice: 1750,
+    tax: 18,
+    hsnCode: "90015000",
+
+    stockQuantity: 110,
+    minimumStockLevel: 25,
+    warehouseLocation: "Bangalore Warehouse",
+
+    supplierName: "Advanced Lens Materials",
+    status: "Active",
+
+    description: "High index resin material used for thin and lightweight prescription lenses.",
+    notes: "Used for Zeiss premium optical lens products.",
+
+    createdOn: "2026-05-05",
+    updatedDate: "2026-05-06",
+    createdBy: "Admin",
+    lastModifiedBy: "Lens Department",
   },
 ];
 export const rimShapes = [
@@ -1347,21 +1327,29 @@ export const rimShapes = [
 
     shapeCategory: "Round",
 
-    applicableFor: "Optical Frame",
+    applicableFor: "Frame",
+
+    categoryName: "Frame",
+
+    brandGroup: "Premium Brands",
+
+    linkedBrands: ["RayBan", "Police"],
+
+    materialUsed: ["Metal", "Titanium"],
 
     totalProducts: 120,
 
     status: "Active",
 
     description:
-      "Classic circular frame shape suitable for both modern and vintage eyewear collections.",
+      "Classic round frame shape used in premium retro eyewear collections.",
 
     notes:
-      "Popular among retro style frames.",
+      "Popular in RayBan and Police premium frame collections.",
 
-    createdOn: "11/05/2026",
+    createdOn: "2026-05-11",
 
-    updatedDate: "12/05/2026",
+    updatedDate: "2026-05-12",
 
     createdBy: "Admin",
   },
@@ -1377,21 +1365,29 @@ export const rimShapes = [
 
     shapeCategory: "Square",
 
-    applicableFor: "Sunglasses",
+    applicableFor: "Frame",
+
+    categoryName: "Frame",
+
+    brandGroup: "Luxury Brands",
+
+    linkedBrands: ["Oakley", "Prada"],
+
+    materialUsed: ["Titanium", "Metal"],
 
     totalProducts: 95,
 
     status: "Active",
 
     description:
-      "Sharp square frame design ideal for bold and professional looks.",
+      "Sharp square frame design ideal for luxury and professional eyewear.",
 
     notes:
-      "High demand in premium sunglasses category.",
+      "High demand in Oakley and Prada luxury frame category.",
 
-    createdOn: "10/05/2026",
+    createdOn: "2026-05-10",
 
-    updatedDate: "11/05/2026",
+    updatedDate: "2026-05-11",
 
     createdBy: "Admin",
   },
@@ -1407,21 +1403,29 @@ export const rimShapes = [
 
     shapeCategory: "Cat Eye",
 
-    applicableFor: "RX-able",
+    applicableFor: "Accessories",
+
+    categoryName: "Accessories",
+
+    brandGroup: "Luxury Brands",
+
+    linkedBrands: ["Gucci"],
+
+    materialUsed: ["Acetate"],
 
     totalProducts: 45,
 
     status: "Inactive",
 
     description:
-      "Stylish cat eye frame shape designed mainly for fashion eyewear collections.",
+      "Stylish cat eye frame shape designed mainly for luxury fashion eyewear.",
 
     notes:
-      "Currently inactive due to seasonal collection update.",
+      "Currently inactive due to seasonal Gucci accessories collection update.",
 
-    createdOn: "09/05/2026",
+    createdOn: "2026-05-09",
 
-    updatedDate: "10/05/2026",
+    updatedDate: "2026-05-10",
 
     createdBy: "Admin",
   },
@@ -1437,7 +1441,15 @@ export const rimShapes = [
 
     shapeCategory: "Aviator",
 
-    applicableFor: "Sunglasses",
+    applicableFor: "Frame",
+
+    categoryName: "Frame",
+
+    brandGroup: "Premium Brands",
+
+    linkedBrands: ["RayBan"],
+
+    materialUsed: ["Metal"],
 
     totalProducts: 160,
 
@@ -1447,11 +1459,11 @@ export const rimShapes = [
       "Pilot inspired aviator shape widely used in premium sunglasses collections.",
 
     notes:
-      "Best seller in men's sunglasses.",
+      "Best seller in RayBan premium aviator collection.",
 
-    createdOn: "08/05/2026",
+    createdOn: "2026-05-08",
 
-    updatedDate: "09/05/2026",
+    updatedDate: "2026-05-09",
 
     createdBy: "Admin",
   },
@@ -1467,26 +1479,71 @@ export const rimShapes = [
 
     shapeCategory: "Rectangle",
 
-    applicableFor: "Optical Frame",
+    applicableFor: "Optical Lens",
+
+    categoryName: "Optical Lens",
+
+    brandGroup: "Luxury Brands",
+
+    linkedBrands: ["Zeiss", "Essilor"],
+
+    materialUsed: ["High Index Resin", "Polycarbonate"],
 
     totalProducts: 140,
 
     status: "Active",
 
     description:
-      "Modern rectangular frame shape preferred for office and daily wear eyewear.",
+      "Modern rectangular optical lens shape preferred for office and daily wear eyewear.",
 
     notes:
-      "Suitable for all age groups.",
+      "Used widely in Zeiss and Essilor optical lens collections.",
 
-    createdOn: "07/05/2026",
+    createdOn: "2026-05-07",
 
-    updatedDate: "08/05/2026",
+    updatedDate: "2026-05-08",
+
+    createdBy: "Admin",
+  },
+
+  {
+    id: "6",
+
+    rimShapeId: "RIM-1006",
+
+    rimShapeCode: "OVAL-001",
+
+    shapeName: "Oval",
+
+    shapeCategory: "Oval",
+
+    applicableFor: "Contact Lens",
+
+    categoryName: "Contact Lens",
+
+    brandGroup: "Premium Brands",
+
+    linkedBrands: ["Acuvue"],
+
+    materialUsed: ["Silicone Hydrogel"],
+
+    totalProducts: 70,
+
+    status: "Active",
+
+    description:
+      "Comfort-focused oval lens design used in premium contact lens products.",
+
+    notes:
+      "Optimized for Acuvue breathable contact lens collection.",
+
+    createdOn: "2026-05-06",
+
+    updatedDate: "2026-05-07",
 
     createdBy: "Admin",
   },
 ];
-
 
 
 export const frames: Frame[] = [
@@ -3000,41 +3057,54 @@ export const customers = [
   },
 ];
 
-export const invoices: Invoice[]= [
+export const invoices: Invoice[] = [
   {
     id: "1",
     invoiceId: "INV-1001",
     invoiceNo: "INV-2026-001",
     orderNo: "ORD-1001",
+
     customerName: "Rahul Sharma",
     email: "rahul@gmail.com",
     phone: "+91 9876543210",
+
     billingAddress: "22 MG Road, Near Metro Station, Delhi, India - 110001",
     shippingAddress: "22 MG Road, Near Metro Station, Delhi, India - 110001",
-    invoiceDate: "01/05/2026",
-    dueDate: "10/05/2026",
+
+    invoiceDate: "2026-05-01",
+    dueDate: "2026-05-10",
+
     invoiceStatus: "Sent",
     paymentStatus: "Paid",
-    productName: "RayBan Optical Frame",
+
+    productName: "RayBan Aviator Metal Frame",
     productType: "Frame",
-    category: "Eyewear", // Added category
+    category: "Frame",
+    brand: "RayBan",
+    brandGroup: "Premium Brands",
+    material: "Metal",
+
     quantity: 2,
-    unitPrice: 8500,
+    unitPrice: 4500,
     tax: 18,
-    discount: 1000,
-    lineTotal: 17000,
-    subtotal: 17000,
-    taxAmount: 3060,
-    discountAmount: 1000,
-    shippingCharge: 200,
-    grandTotal: 19260,
-    paidAmount: 19260,
+    discount: 500,
+
+    lineTotal: 9000,
+    subtotal: 9000,
+    taxAmount: 1530,
+    discountAmount: 500,
+    shippingCharge: 0,
+    grandTotal: 10030,
+
+    paidAmount: 10030,
     balanceDue: 0,
+
     paymentMethod: "UPI",
     transactionId: "TXN-908776",
-    notes: "Invoice paid successfully.",
-    createdOn: "01/05/2026",
-    updatedDate: "02/05/2026",
+
+    notes: "Invoice paid successfully for RayBan Aviator Metal Frame.",
+    createdOn: "2026-05-01",
+    updatedDate: "2026-05-02",
     createdBy: "Admin",
   },
   {
@@ -3042,35 +3112,48 @@ export const invoices: Invoice[]= [
     invoiceId: "INV-1002",
     invoiceNo: "INV-2026-002",
     orderNo: "ORD-1002",
+
     customerName: "Riya Patel",
     email: "riya@gmail.com",
     phone: "+91 9988776655",
+
     billingAddress: "Andheri East, Business Park, Mumbai, India - 400069",
     shippingAddress: "Andheri East, Business Park, Mumbai, India - 400069",
-    invoiceDate: "02/05/2026",
-    dueDate: "12/05/2026",
+
+    invoiceDate: "2026-05-02",
+    dueDate: "2026-05-12",
+
     invoiceStatus: "Sent",
     paymentStatus: "Partial",
-    productName: "Acuvue Contact Lens",
+
+    productName: "Acuvue Silicone Hydrogel Contact Lens",
     productType: "Contact Lens",
-    category: "Contacts",
-    quantity: 5,
-    unitPrice: 2500,
+    category: "Contact Lens",
+    brand: "Acuvue",
+    brandGroup: "Premium Brands",
+    material: "Silicone Hydrogel",
+
+    quantity: 1,
+    unitPrice: 1450,
     tax: 12,
-    discount: 500,
-    lineTotal: 12500,
-    subtotal: 12500,
-    taxAmount: 1500,
-    discountAmount: 500,
-    shippingCharge: 150,
-    grandTotal: 13650,
-    paidAmount: 7000,
-    balanceDue: 6650,
-    paymentMethod: "Bank Transfer",
+    discount: 0,
+
+    lineTotal: 1450,
+    subtotal: 1450,
+    taxAmount: 174,
+    discountAmount: 0,
+    shippingCharge: 100,
+    grandTotal: 1724,
+
+    paidAmount: 500,
+    balanceDue: 1224,
+
+    paymentMethod: "Cash",
     transactionId: "TXN-887766",
-    notes: "Partial payment received.",
-    createdOn: "02/05/2026",
-    updatedDate: "03/05/2026",
+
+    notes: "Partial payment received for Acuvue contact lens order.",
+    createdOn: "2026-05-02",
+    updatedDate: "2026-05-03",
     createdBy: "Admin",
   },
   {
@@ -3078,35 +3161,48 @@ export const invoices: Invoice[]= [
     invoiceId: "INV-1003",
     invoiceNo: "INV-2026-003",
     orderNo: "ORD-1003",
+
     customerName: "Arjun Verma",
     email: "arjun@gmail.com",
     phone: "+91 9090909090",
+
     billingAddress: "Sector 18, Near Mall, Noida, India - 201301",
     shippingAddress: "Sector 18, Near Mall, Noida, India - 201301",
-    invoiceDate: "03/05/2026",
-    dueDate: "15/05/2026",
+
+    invoiceDate: "2026-05-03",
+    dueDate: "2026-05-15",
+
     invoiceStatus: "Draft",
     paymentStatus: "Pending",
-    productName: "Fastrack Sunglasses",
+
+    productName: "Gucci Acetate Cat Eye Accessory Frame",
     productType: "Accessories",
-    category: "Fashion", // Added category
-    quantity: 3,
-    unitPrice: 4200,
+    category: "Accessories",
+    brand: "Gucci",
+    brandGroup: "Luxury Brands",
+    material: "Acetate",
+
+    quantity: 1,
+    unitPrice: 1350,
     tax: 18,
-    discount: 0,
-    lineTotal: 12600,
-    subtotal: 12600,
-    taxAmount: 2268,
-    discountAmount: 0,
-    shippingCharge: 200,
-    grandTotal: 15068,
+    discount: 200,
+
+    lineTotal: 1350,
+    subtotal: 1350,
+    taxAmount: 207,
+    discountAmount: 200,
+    shippingCharge: 0,
+    grandTotal: 1357,
+
     paidAmount: 0,
-    balanceDue: 15068,
-    paymentMethod: "Cash",
+    balanceDue: 1357,
+
+    paymentMethod: "Card",
     transactionId: "",
+
     notes: "Waiting for customer confirmation.",
-    createdOn: "03/05/2026",
-    updatedDate: "03/05/2026",
+    createdOn: "2026-05-03",
+    updatedDate: "2026-05-03",
     createdBy: "Admin",
   },
   {
@@ -3114,35 +3210,48 @@ export const invoices: Invoice[]= [
     invoiceId: "INV-1004",
     invoiceNo: "INV-2026-004",
     orderNo: "ORD-1004",
+
     customerName: "Sneha Kapoor",
     email: "sneha@gmail.com",
     phone: "+91 8181818181",
+
     billingAddress: "MG Road, Central Plaza, Bangalore, India - 560001",
     shippingAddress: "MG Road, Central Plaza, Bangalore, India - 560001",
-    invoiceDate: "04/05/2026",
-    dueDate: "14/05/2026",
+
+    invoiceDate: "2026-05-04",
+    dueDate: "2026-05-14",
+
     invoiceStatus: "Sent",
     paymentStatus: "Paid",
-    productName: "Oakley Premium Frame",
+
+    productName: "Titan Eye+ Plastic Rectangle Frame",
     productType: "Frame",
-    category: "Premium", // Added category
-    quantity: 1,
-    unitPrice: 18000,
+    category: "Frame",
+    brand: "Titan Eye+",
+    brandGroup: "Budget Brands",
+    material: "Plastic",
+
+    quantity: 2,
+    unitPrice: 320,
     tax: 18,
-    discount: 1500,
-    lineTotal: 18000,
-    subtotal: 18000,
-    taxAmount: 3240,
-    discountAmount: 1500,
-    shippingCharge: 300,
-    grandTotal: 20040,
-    paidAmount: 20040,
+    discount: 50,
+
+    lineTotal: 640,
+    subtotal: 640,
+    taxAmount: 106,
+    discountAmount: 50,
+    shippingCharge: 0,
+    grandTotal: 696,
+
+    paidAmount: 696,
     balanceDue: 0,
-    paymentMethod: "Card",
+
+    paymentMethod: "UPI",
     transactionId: "TXN-667788",
-    notes: "Premium customer order.",
-    createdOn: "04/05/2026",
-    updatedDate: "05/05/2026",
+
+    notes: "Paid invoice for Titan Eye+ Plastic Rectangle Frame.",
+    createdOn: "2026-05-04",
+    updatedDate: "2026-05-05",
     createdBy: "Admin",
   },
   {
@@ -3150,35 +3259,48 @@ export const invoices: Invoice[]= [
     invoiceId: "INV-1005",
     invoiceNo: "INV-2026-005",
     orderNo: "ORD-1005",
+
     customerName: "Karan Mehta",
     email: "karan@gmail.com",
     phone: "+91 7878787878",
+
     billingAddress: "Park Street, Office Complex, Kolkata, India - 700016",
     shippingAddress: "Park Street, Office Complex, Kolkata, India - 700016",
-    invoiceDate: "05/05/2026",
-    dueDate: "16/05/2026",
+
+    invoiceDate: "2026-05-05",
+    dueDate: "2026-05-16",
+
     invoiceStatus: "Cancelled",
     paymentStatus: "Overdue",
-    productName: "Essilor Optical Lens",
-    productType: "Optical Lens",
-    category: "Medical", // Added category
-    quantity: 4,
-    unitPrice: 6200,
+
+    productName: "Oakley Titanium Square Frame",
+    productType: "Frame",
+    category: "Frame",
+    brand: "Oakley",
+    brandGroup: "Luxury Brands",
+    material: "Titanium",
+
+    quantity: 1,
+    unitPrice: 1850,
     tax: 18,
-    discount: 1000,
-    lineTotal: 24800,
-    subtotal: 24800,
-    taxAmount: 4464,
-    discountAmount: 1000,
-    shippingCharge: 250,
-    grandTotal: 28514,
-    paidAmount: 5000,
-    balanceDue: 23514,
-    paymentMethod: "Cheque",
+    discount: 100,
+
+    lineTotal: 1850,
+    subtotal: 1850,
+    taxAmount: 315,
+    discountAmount: 100,
+    shippingCharge: 150,
+    grandTotal: 2215,
+
+    paidAmount: 500,
+    balanceDue: 1715,
+
+    paymentMethod: "Card",
     transactionId: "TXN-554433",
-    notes: "Invoice overdue and cancelled.",
-    createdOn: "05/05/2026",
-    updatedDate: "06/05/2026",
+
+    notes: "Cancelled invoice with pending balance.",
+    createdOn: "2026-05-05",
+    updatedDate: "2026-05-06",
     createdBy: "Admin",
   },
   {
@@ -3186,35 +3308,48 @@ export const invoices: Invoice[]= [
     invoiceId: "INV-1006",
     invoiceNo: "INV-2026-006",
     orderNo: "ORD-1006",
+
     customerName: "Priya Nair",
     email: "priya@gmail.com",
     phone: "+91 9998887776",
+
     billingAddress: "Marine Drive, Sea View Apartments, Mumbai, India - 400002",
     shippingAddress: "Marine Drive, Sea View Apartments, Mumbai, India - 400002",
-    invoiceDate: "06/05/2026",
-    dueDate: "18/05/2026",
+
+    invoiceDate: "2026-05-06",
+    dueDate: "2026-05-18",
+
     invoiceStatus: "Sent",
     paymentStatus: "Paid",
-    productName: "Zeiss Lens Package",
+
+    productName: "Zeiss High Index Resin Optical Lens",
     productType: "Optical Lens",
-    category: "Medical", // Added category
+    category: "Optical Lens",
+    brand: "Zeiss",
+    brandGroup: "Luxury Brands",
+    material: "High Index Resin",
+
     quantity: 2,
-    unitPrice: 9500,
+    unitPrice: 1750,
     tax: 18,
-    discount: 1200,
-    lineTotal: 19000,
-    subtotal: 19000,
-    taxAmount: 3420,
-    discountAmount: 1200,
-    shippingCharge: 250,
-    grandTotal: 21470,
-    paidAmount: 21470,
+    discount: 200,
+
+    lineTotal: 3500,
+    subtotal: 3500,
+    taxAmount: 594,
+    discountAmount: 200,
+    shippingCharge: 0,
+    grandTotal: 3894,
+
+    paidAmount: 3894,
     balanceDue: 0,
-    paymentMethod: "UPI",
+
+    paymentMethod: "Cash",
     transactionId: "TXN-998877",
-    notes: "Completed invoice payment.",
-    createdOn: "06/05/2026",
-    updatedDate: "07/05/2026",
+
+    notes: "Completed invoice payment for Zeiss optical lens.",
+    createdOn: "2026-05-06",
+    updatedDate: "2026-05-07",
     createdBy: "Admin",
   },
 ];
@@ -4017,70 +4152,154 @@ export const salesTargets: SalesTarget[] = [
 export const inventories: Inventory[] = [
   {
     id: "1",
-    productName: "RayBan Aviator",
-    sku: "RB-AVI-001",
+    productName: "RayBan Aviator Metal Frame",
+    sku: "RB-AVI-MET-001",
     barcode: "123456789",
+
     category: "Frame",
     brand: "RayBan",
-    branch: "Mumbai",
+    brandGroup: "Premium Brands",
+    material: "Metal",
+    rimShape: "Aviator",
+
+    branch: "Delhi",
     stock: 25,
     minStock: 10,
     unitOfMeasure: "Pair",
+
     costPrice: 3200,
     price: 4500,
     currency: "INR",
+
     status: "In Stock",
-    supplier: "Luxottica India",
-    location: "Aisle 4, Shelf B",
-    createdOn: "14/05/2026",
-    updatedDate: "15/05/2026",
+    supplier: "Vision Metals Pvt Ltd",
+    location: "Delhi Warehouse - Aisle 4, Shelf B",
+
+    createdOn: "2026-05-14",
+    updatedDate: "2026-05-15",
     createdBy: "Admin",
-    notes: "Fast moving frame. Keep 2 extra pieces in display.",
+    notes: "Fast moving RayBan aviator frame with metal material.",
   },
   {
     id: "2",
-    productName: "Acuvue Moist",
-    sku: "ACV-MST-101",
+    productName: "Acuvue Silicone Hydrogel Contact Lens",
+    sku: "ACV-SIL-HYD-101",
     barcode: "987654321",
+
     category: "Contact Lens",
     brand: "Acuvue",
-    branch: "Delhi",
+    brandGroup: "Premium Brands",
+    material: "Silicone Hydrogel",
+    rimShape: "Oval",
+
+    branch: "Mumbai",
     stock: 5,
     minStock: 15,
     unitOfMeasure: "Box",
-    costPrice: 1600,
-    price: 2200,
+
+    costPrice: 950,
+    price: 1450,
     currency: "INR",
+
     status: "Low Stock",
-    supplier: "Johnson & Johnson Vision",
-    location: "Cold Storage Room 1",
-    createdOn: "13/05/2026",
-    updatedDate: "14/05/2026",
+    supplier: "Lens Care Solutions",
+    location: "Mumbai Warehouse - Cold Storage Room 1",
+
+    createdOn: "2026-05-13",
+    updatedDate: "2026-05-14",
     createdBy: "Manager",
-    notes: "Need urgent refill. Customer demand is high in Delhi North.",
+    notes: "Need urgent refill for Acuvue contact lens products.",
   },
   {
     id: "3",
-    productName: "Zeiss ClearView Lenses",
-    sku: "ZSS-CLV-99",
+    productName: "Zeiss High Index Resin Optical Lens",
+    sku: "ZSS-HIR-099",
     barcode: "456123789",
-    category: "Lens",
+
+    category: "Optical Lens",
     brand: "Zeiss",
-    branch: "Mumbai",
+    brandGroup: "Luxury Brands",
+    material: "High Index Resin",
+    rimShape: "Rectangle",
+
+    branch: "Bangalore",
     stock: 0,
     minStock: 5,
     unitOfMeasure: "Pair",
-    costPrice: 5500,
-    price: 8500,
+
+    costPrice: 1100,
+    price: 1750,
     currency: "INR",
+
     status: "Out of Stock",
-    supplier: "Carl Zeiss Optical",
-    location: "Main Vault",
-    createdOn: "10/05/2026",
-    updatedDate: "15/05/2026",
+    supplier: "Advanced Lens Materials",
+    location: "Bangalore Warehouse - Main Vault",
+
+    createdOn: "2026-05-10",
+    updatedDate: "2026-05-15",
     createdBy: "Admin",
-    notes: "Awaiting shipment from international warehouse.",
-  }
+    notes: "Awaiting shipment for Zeiss premium optical lens products.",
+  },
+  {
+    id: "4",
+    productName: "Oakley Titanium Square Frame",
+    sku: "OKL-TIT-SQR-004",
+    barcode: "789456123",
+
+    category: "Frame",
+    brand: "Oakley",
+    brandGroup: "Luxury Brands",
+    material: "Titanium",
+    rimShape: "Square",
+
+    branch: "Delhi",
+    stock: 18,
+    minStock: 8,
+    unitOfMeasure: "Pair",
+
+    costPrice: 1200,
+    price: 1850,
+    currency: "INR",
+
+    status: "In Stock",
+    supplier: "Titan Optics Ltd",
+    location: "Delhi Warehouse - Luxury Frame Section",
+
+    createdOn: "2026-05-12",
+    updatedDate: "2026-05-13",
+    createdBy: "Admin",
+    notes: "Luxury Oakley square frame with titanium material.",
+  },
+  {
+    id: "5",
+    productName: "Titan Eye+ Plastic Rectangle Frame",
+    sku: "TIT-PLA-RECT-005",
+    barcode: "321654987",
+
+    category: "Frame",
+    brand: "Titan Eye+",
+    brandGroup: "Budget Brands",
+    material: "Plastic",
+    rimShape: "Rectangle",
+
+    branch: "Mumbai",
+    stock: 40,
+    minStock: 12,
+    unitOfMeasure: "Pair",
+
+    costPrice: 180,
+    price: 320,
+    currency: "INR",
+
+    status: "In Stock",
+    supplier: "Optic Plast Industries",
+    location: "Mumbai Warehouse - Budget Frame Section",
+
+    createdOn: "2026-05-11",
+    updatedDate: "2026-05-12",
+    createdBy: "Admin",
+    notes: "Affordable Titan Eye+ frame for regular customers.",
+  },
 ];
 
 export const stores: Store[] = [

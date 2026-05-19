@@ -18,10 +18,33 @@ import * as yup from "yup";
 import { brandGroups } from "@/assets/genericdata";
 import FormSection from "@/component/common/FormSection";
 
+const groupTypes = [
+  "Premium Brand Group",
+  "Value Brand Group",
+  "Luxury Brand Group",
+];
+
+const parentCategories = [
+  "Frame",
+  "Contact Lens",
+  "Optical Lens",
+  "Accessories",
+];
+
+const priorityLevels = ["High", "Medium", "Low"];
+
 const validationSchema = yup.object({
   groupName: yup.string().required("Group name is required"),
+  groupType: yup.string().required("Group type is required"),
+  parentCategory: yup.string().required("Parent category is required"),
+  priorityLevel: yup.string().required("Priority level is required"),
+  managerName: yup.string().required("Manager name is required"),
+  managerEmail: yup
+    .string()
+    .email("Enter valid email")
+    .required("Manager email is required"),
+  managerPhone: yup.string().required("Manager phone is required"),
   status: yup.string().required("Status is required"),
-  description: yup.string().optional(),
 });
 
 export default function EditBrandGroupPage({
@@ -33,7 +56,6 @@ export default function EditBrandGroupPage({
 }) {
   const router = useRouter();
 
-  // Synchronously resolve async next.js 15 route parameters using React 19 use() hook
   const { id } = React.use(params);
 
   const group = React.useMemo(() => {
@@ -42,9 +64,30 @@ export default function EditBrandGroupPage({
 
   const formik = useFormik({
     initialValues: {
+      groupId: group?.groupId || "",
       groupName: group?.groupName || "",
+      groupType: group?.groupType || "",
       status: group?.status || "Active",
+
       description: group?.description || "",
+      parentCategory: group?.parentCategory || "",
+      priorityLevel: group?.priorityLevel || "Medium",
+      displayOrder: group?.displayOrder || 1,
+
+      totalBrands: group?.totalBrands || 0,
+      activeBrands: group?.activeBrands || 0,
+      totalProducts: group?.totalProducts || 0,
+      revenueContribution: group?.revenueContribution || 0,
+
+      managerName: group?.managerName || "",
+      managerEmail: group?.managerEmail || "",
+      managerPhone: group?.managerPhone || "",
+
+      notes: group?.notes || "",
+
+      createdOn: group?.createdOn || "",
+      updatedDate: new Date().toISOString().split("T")[0],
+      createdBy: group?.createdBy || "",
     },
     enableReinitialize: true,
     validationSchema,
@@ -56,47 +99,54 @@ export default function EditBrandGroupPage({
 
   return (
     <Box sx={{ p: 3, background: "#F8FAFC", minHeight: "100vh" }}>
-      {/* Back button */}
       <Box sx={{ mb: 3 }}>
-        <Link
-          href="/products/brand-groups"
-          style={{
-            textDecoration: "none",
-          }}
-        >
+        <Link href="/products/brand-groups" style={{ textDecoration: "none" }}>
           <Button
             startIcon={<ArrowBackIcon />}
-            sx={{
-              textTransform: "none",
-              fontWeight: 600,
-            }}
+            sx={{ textTransform: "none", fontWeight: 600 }}
           >
             Back to Brand Groups
           </Button>
         </Link>
       </Box>
 
-      {/* Main card */}
-      <Card sx={{ p: 4, borderRadius: "24px", border: "1px solid #E2E8F0", boxShadow: "none" }}>
+      <Card
+        sx={{
+          p: 4,
+          borderRadius: "24px",
+          border: "1px solid #E2E8F0",
+          boxShadow: "none",
+        }}
+      >
         <Typography sx={{ fontSize: 32, fontWeight: 700, mb: 1, color: "#0F172A" }}>
           Edit Brand Group
         </Typography>
+
         <Typography sx={{ color: "#64748B", mb: 4, fontSize: "14px" }}>
-          Modify your brand group metadata, description details, and cataloging statuses.
+          Update brand group classifications, manager details, and performance statistics.
         </Typography>
 
         <FormikProvider value={formik}>
           <form onSubmit={formik.handleSubmit}>
             <Grid container spacing={1}>
-              
               <FormSection
-                title="1. Brand Group Details"
-                description="Define the brand group name, its visual/operational status, and an optional narrative description."
+                title="1. Brand Group Information"
+                description="Update group identity, classification, and operational settings."
               >
                 <Grid size={{ xs: 12, md: 6 }}>
                   <TextField
                     fullWidth
-                    label="Brand Group Name *"
+                    label="Group ID"
+                    name="groupId"
+                    value={formik.values.groupId}
+                    onChange={formik.handleChange}
+                  />
+                </Grid>
+
+                <Grid size={{ xs: 12, md: 6 }}>
+                  <TextField
+                    fullWidth
+                    label="Group Name *"
                     name="groupName"
                     value={formik.values.groupName}
                     onChange={formik.handleChange}
@@ -110,13 +160,61 @@ export default function EditBrandGroupPage({
                   <TextField
                     select
                     fullWidth
+                    label="Group Type *"
+                    name="groupType"
+                    value={formik.values.groupType}
+                    onChange={formik.handleChange}
+                  >
+                    {groupTypes.map((type) => (
+                      <MenuItem key={type} value={type}>
+                        {type}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                </Grid>
+
+                <Grid size={{ xs: 12, md: 6 }}>
+                  <TextField
+                    select
+                    fullWidth
+                    label="Parent Category *"
+                    name="parentCategory"
+                    value={formik.values.parentCategory}
+                    onChange={formik.handleChange}
+                  >
+                    {parentCategories.map((cat) => (
+                      <MenuItem key={cat} value={cat}>
+                        {cat}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                </Grid>
+
+                <Grid size={{ xs: 12, md: 6 }}>
+                  <TextField
+                    select
+                    fullWidth
+                    label="Priority Level *"
+                    name="priorityLevel"
+                    value={formik.values.priorityLevel}
+                    onChange={formik.handleChange}
+                  >
+                    {priorityLevels.map((level) => (
+                      <MenuItem key={level} value={level}>
+                        {level}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                </Grid>
+
+                <Grid size={{ xs: 12, md: 6 }}>
+                  <TextField
+                    select
+                    fullWidth
                     label="Status *"
                     name="status"
                     value={formik.values.status}
                     onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={formik.touched.status && Boolean(formik.errors.status)}
-                    helperText={formik.touched.status && formik.errors.status}
                   >
                     <MenuItem value="Active">Active</MenuItem>
                     <MenuItem value="Inactive">Inactive</MenuItem>
@@ -127,22 +225,90 @@ export default function EditBrandGroupPage({
                   <TextField
                     fullWidth
                     multiline
-                    rows={4}
+                    minRows={3}
                     label="Description"
                     name="description"
                     value={formik.values.description}
                     onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={formik.touched.description && Boolean(formik.errors.description)}
-                    helperText={formik.touched.description && formik.errors.description}
                   />
                 </Grid>
               </FormSection>
 
-              {/* Validation alert message if form has been submitted and contains errors */}
+              <FormSection
+                title="2. Performance Statistics"
+                description="Update group performance and business metrics."
+              >
+                {[
+                  ["Total Brands", "totalBrands"],
+                  ["Active Brands", "activeBrands"],
+                  ["Total Products", "totalProducts"],
+                  ["Revenue Contribution", "revenueContribution"],
+                  ["Display Order", "displayOrder"],
+                ].map(([label, name]) => (
+                  <Grid size={{ xs: 12, md: 6 }} key={name}>
+                    <TextField
+                      fullWidth
+                      type="number"
+                      label={label}
+                      name={name}
+                      value={(formik.values as any)[name]}
+                      onChange={formik.handleChange}
+                    />
+                  </Grid>
+                ))}
+              </FormSection>
+
+              <FormSection
+                title="3. Manager Information"
+                description="Update assigned group manager and communication details."
+              >
+                {[
+                  ["Manager Name *", "managerName"],
+                  ["Manager Email *", "managerEmail"],
+                  ["Manager Phone *", "managerPhone"],
+                ].map(([label, name]) => (
+                  <Grid size={{ xs: 12, md: 6 }} key={name}>
+                    <TextField
+                      fullWidth
+                      label={label}
+                      name={name}
+                      value={(formik.values as any)[name]}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      error={(formik.touched as any)[name] && Boolean((formik.errors as any)[name])}
+                      helperText={(formik.touched as any)[name] && (formik.errors as any)[name]}
+                    />
+                  </Grid>
+                ))}
+              </FormSection>
+
+              <FormSection
+                title="4. Additional Information"
+                description="Update notes and extra operational information."
+              >
+                <Grid size={{ xs: 12 }}>
+                  <TextField
+                    fullWidth
+                    multiline
+                    minRows={3}
+                    label="Notes"
+                    name="notes"
+                    value={formik.values.notes}
+                    onChange={formik.handleChange}
+                  />
+                </Grid>
+              </FormSection>
+
               {formik.submitCount > 0 && !formik.isValid && (
                 <Grid size={{ xs: 12 }} sx={{ mb: 2 }}>
-                  <Box sx={{ p: 2, borderRadius: "12px", bgcolor: "#FEF2F2", border: "1px solid #FCA5A5" }}>
+                  <Box
+                    sx={{
+                      p: 2,
+                      borderRadius: "12px",
+                      bgcolor: "#FEF2F2",
+                      border: "1px solid #FCA5A5",
+                    }}
+                  >
                     <Typography sx={{ color: "#DC2626", fontWeight: 700, fontSize: "14px" }}>
                       Please review the highlighted red sections above. Make sure all required fields are filled.
                     </Typography>
@@ -167,7 +333,6 @@ export default function EditBrandGroupPage({
                   Update Group
                 </Button>
               </Grid>
-
             </Grid>
           </form>
         </FormikProvider>

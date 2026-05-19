@@ -4,470 +4,359 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import {
   Box,
   Button,
+  Divider,
   Grid,
-  MenuItem,
   TextField,
   Typography,
 } from "@mui/material";
+import { FormikProvider, useFormik } from "formik";
 import Link from "next/link";
-import {
-  useState,
-} from "react";
-
 import { useRouter } from "next/navigation";
+import * as yup from "yup";
+import { Invoice } from "@/assets/types";
 
 interface Props {
-
-  order: {
-
-    id: string;
-
-    orderNo: string;
-
-    customerName: string;
-
-    productName: string;
-
-    quantity: number;
-
-    productPrice: number;
-
-    paymentStatus: string;
-
-    status: string;
-
-    deliveryStatus: string;
-
-    paymentMethod: string;
-
-    shippingAddress: string;
-
-    billingAddress: string;
-
-    notes: string;
-  };
+  invoice: Invoice;
 }
 
-export default function EditOrderForm({
-  order,
-}: Props) {
+const validationSchema = yup.object({
+  invoiceNo: yup.string().required("Invoice number is required"),
+  orderNo: yup.string().required("Order number is required"),
+  customerName: yup.string().required("Customer name is required"),
+  email: yup.string().email("Enter valid email").required("Email is required"),
+  phone: yup.string().required("Phone is required"),
+  productName: yup.string().required("Product name is required"),
+  category: yup.string().required("Category is required"),
+  brand: yup.string().required("Brand is required"),
+  material: yup.string().required("Material is required"),
+  quantity: yup.number().min(1).required("Quantity is required"),
+  unitPrice: yup.number().min(0).required("Unit price is required"),
+  invoiceStatus: yup.string().required("Invoice status is required"),
+  paymentStatus: yup.string().required("Payment status is required"),
+});
 
-  const router =
-    useRouter();
+export default function EditInvoiceForm({ invoice }: Props) {
+  const router = useRouter();
 
-  const [formData, setFormData] =
-    useState({
+  const formik = useFormik({
+    initialValues: {
+      invoiceId: invoice.invoiceId || "",
+      invoiceNo: invoice.invoiceNo || "",
+      orderNo: invoice.orderNo || "",
 
-      customerName:
-        order.customerName,
+      customerName: invoice.customerName || "",
+      email: invoice.email || "",
+      phone: invoice.phone || "",
 
-      productName:
-        order.productName,
+      billingAddress: invoice.billingAddress || "",
+      shippingAddress: invoice.shippingAddress || "",
 
-      quantity:
-        order.quantity,
+      invoiceDate: invoice.invoiceDate || "",
+      dueDate: invoice.dueDate || "",
 
-      productPrice:
-        order.productPrice,
+      invoiceStatus: invoice.invoiceStatus || "Pending",
+      paymentStatus: invoice.paymentStatus || "Pending",
 
-      paymentStatus:
-        order.paymentStatus,
+      productName: invoice.productName || "",
+      productType: invoice.productType || "",
 
-      orderStatus:
-        order.status,
+      category: invoice.category || "",
+      brand: invoice.brand || "",
+      brandGroup: invoice.brandGroup || "",
+      material: invoice.material || "",
 
-      deliveryStatus:
-        order.deliveryStatus,
+      quantity: invoice.quantity || 1,
+      unitPrice: invoice.unitPrice || 0,
 
-      paymentMethod:
-        order.paymentMethod,
+      tax: invoice.tax || 0,
+      discount: invoice.discount || 0,
 
-      shippingAddress:
-        order.shippingAddress,
+      lineTotal: invoice.lineTotal || 0,
+      subtotal: invoice.subtotal || 0,
+      taxAmount: invoice.taxAmount || 0,
+      discountAmount: invoice.discountAmount || 0,
+      shippingCharge: invoice.shippingCharge || 0,
+      grandTotal: invoice.grandTotal || 0,
 
-      billingAddress:
-        order.billingAddress,
+      paidAmount: invoice.paidAmount || 0,
+      balanceDue: invoice.balanceDue || 0,
 
-      notes:
-        order.notes,
-    });
+      paymentMethod: invoice.paymentMethod || "UPI",
+      transactionId: invoice.transactionId || "",
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
+      notes: invoice.notes || "",
 
-    setFormData({
+      createdOn: invoice.createdOn || "",
+      updatedDate: new Date().toISOString().split("T")[0],
+      createdBy: invoice.createdBy || "",
+    },
+    enableReinitialize: true,
+    validationSchema,
+    onSubmit: (values) => {
+      console.log("Updated Invoice Data:", values);
+      router.push("/invoices");
+    },
+  });
 
-      ...formData,
+  const grandTotal =
+    Number(formik.values.subtotal) +
+    Number(formik.values.taxAmount) +
+    Number(formik.values.shippingCharge) -
+    Number(formik.values.discountAmount);
 
-      [e.target.name]:
-        e.target.value,
-    });
-  };
-
-  const handleSubmit = () => {
-
-    console.log(
-      "Updated Order:",
-      formData
-    );
-
-    router.push("/orders");
-  };
+  const textField = (
+    label: string,
+    name: string,
+    type: string = "text",
+    md: number = 6
+  ) => (
+    <Grid size={{ xs: 12, md }} key={name}>
+      <TextField
+        fullWidth
+        type={type}
+        label={label}
+        name={name}
+        value={(formik.values as any)[name]}
+        onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
+        slotProps={
+          type === "date"
+            ? {
+                inputLabel: {
+                  shrink: true,
+                },
+              }
+            : undefined
+        }
+        error={
+          (formik.touched as any)[name] &&
+          Boolean((formik.errors as any)[name])
+        }
+        helperText={
+          (formik.touched as any)[name] &&
+          (formik.errors as any)[name]
+        }
+      />
+    </Grid>
+  );
 
   return (
-    <Box
-      sx={{
-        p: 3,
-      }}
-    >
+    <Box sx={{ p: 3 }}>
       <Box sx={{ mb: 3 }}>
-        <Link
-          href="/orders"
-          style={{
-            textDecoration:
-              "none",
-          }}
-        >
+        <Link href="/invoices" style={{ textDecoration: "none" }}>
           <Button
-            startIcon={
-              <ArrowBackIcon />
-            }
-            sx={{
-              textTransform:"none",
-              fontWeight:600,
-            }}
+            startIcon={<ArrowBackIcon />}
+            sx={{ textTransform: "none", fontWeight: 600 }}
           >
-            Back to Orders
+            Back
           </Button>
         </Link>
       </Box>
+
       <Box
         sx={{
-          background:
-            "#FFFFFF",
-
-          borderRadius:
-            "24px",
-
-          border:
-            "1px solid #E2E8F0",
-
+          background: "#FFFFFF",
+          borderRadius: "24px",
+          border: "1px solid #E2E8F0",
           p: 4,
         }}
       >
-        {/* HEADER */}
         <Typography
           sx={{
-            fontSize:
-              "28px",
-
+            fontSize: "28px",
             fontWeight: 700,
-
-            color:
-              "#0F172A",
-
+            color: "#0F172A",
             mb: 4,
           }}
         >
-          Edit Order
+          Edit Invoice
         </Typography>
 
-        {/* FORM */}
-        <Grid
-          container
-          spacing={3}
-        >
-          {/* CUSTOMER */}
-          <Grid size={{ xs: 12, md: 6 }}>
+        <FormikProvider value={formik}>
+          <form onSubmit={formik.handleSubmit}>
+            <Grid container spacing={3}>
+              <Grid size={{ xs: 12 }}>
+                <Typography sx={{ fontWeight: 700, mb: 2 }}>
+                  Invoice Details
+                </Typography>
+              </Grid>
 
-            <TextField
-              fullWidth
-              label="Customer Name"
-              name="customerName"
-              value={
-                formData.customerName
-              }
-              onChange={
-                handleChange
-              }
-            />
+              {textField("Invoice ID", "invoiceId")}
+              {textField("Invoice No *", "invoiceNo")}
+              {textField("Order No *", "orderNo")}
+              {textField("Invoice Date", "invoiceDate", "date")}
+              {textField("Due Date", "dueDate", "date")}
 
-          </Grid>
+              <Grid size={{ xs: 12 }}>
+                <Typography sx={{ fontWeight: 700, mt: 2, mb: 2 }}>
+                  Customer Details
+                </Typography>
+              </Grid>
 
-          {/* PRODUCT */}
-          <Grid size={{ xs: 12, md: 6 }}>
+              {textField("Customer Name *", "customerName")}
+              {textField("Email *", "email")}
+              {textField("Phone *", "phone")}
 
-            <TextField
-              fullWidth
-              label="Product Name"
-              name="productName"
-              value={
-                formData.productName
-              }
-              onChange={
-                handleChange
-              }
-            />
+              <Grid size={{ xs: 12 }}>
+                <TextField
+                  fullWidth
+                  multiline
+                  rows={3}
+                  label="Billing Address"
+                  name="billingAddress"
+                  value={formik.values.billingAddress}
+                  onChange={formik.handleChange}
+                />
+              </Grid>
 
-          </Grid>
+              <Grid size={{ xs: 12 }}>
+                <TextField
+                  fullWidth
+                  multiline
+                  rows={3}
+                  label="Shipping Address"
+                  name="shippingAddress"
+                  value={formik.values.shippingAddress}
+                  onChange={formik.handleChange}
+                />
+              </Grid>
 
-          {/* QUANTITY */}
-          <Grid size={{ xs: 12, md: 6 }}>
+              <Grid size={{ xs: 12 }}>
+                <Typography sx={{ fontWeight: 700, mt: 2, mb: 2 }}>
+                  Product Details
+                </Typography>
+              </Grid>
 
-            <TextField
-              fullWidth
-              type="number"
-              label="Quantity"
-              name="quantity"
-              value={
-                formData.quantity
-              }
-              onChange={
-                handleChange
-              }
-            />
+              {textField("Product Name *", "productName")}
+              {textField("Product Type", "productType")}
+              {textField("Category *", "category")}
+              {textField("Brand *", "brand")}
+              {textField("Brand Group", "brandGroup")}
+              {textField("Material *", "material")}
+              {textField("Quantity *", "quantity", "number")}
+              {textField("Unit Price *", "unitPrice", "number")}
+              {textField("Tax %", "tax", "number")}
+              {textField("Discount", "discount", "number")}
 
-          </Grid>
+              <Grid size={{ xs: 12 }}>
+                <Typography sx={{ fontWeight: 700, mt: 2, mb: 2 }}>
+                  Amount Details
+                </Typography>
+              </Grid>
 
-          {/* PRODUCT PRICE */}
-          <Grid size={{ xs: 12, md: 6 }}>
+              {textField("Line Total", "lineTotal", "number")}
+              {textField("Subtotal", "subtotal", "number")}
+              {textField("Tax Amount", "taxAmount", "number")}
+              {textField("Discount Amount", "discountAmount", "number")}
+              {textField("Shipping Charge", "shippingCharge", "number")}
+              {textField("Paid Amount", "paidAmount", "number")}
+              {textField("Balance Due", "balanceDue", "number")}
 
-            <TextField
-              fullWidth
-              type="number"
-              label="Product Price"
-              name="productPrice"
-              value={
-                formData.productPrice
-              }
-              onChange={
-                handleChange
-              }
-            />
+              <Grid size={{ xs: 12 }}>
+                <Typography sx={{ fontWeight: 700, mt: 2, mb: 2 }}>
+                  Payment Details
+                </Typography>
+              </Grid>
 
-          </Grid>
+              {textField("Invoice Status *", "invoiceStatus")}
+              {textField("Payment Status *", "paymentStatus")}
+              {textField("Payment Method", "paymentMethod")}
+              {textField("Transaction ID", "transactionId")}
 
-          {/* PAYMENT STATUS */}
-          <Grid size={{ xs: 12, md: 6 }}>
+              <Grid size={{ xs: 12 }}>
+                <TextField
+                  fullWidth
+                  multiline
+                  rows={4}
+                  label="Notes"
+                  name="notes"
+                  value={formik.values.notes}
+                  onChange={formik.handleChange}
+                />
+              </Grid>
+            </Grid>
 
-            <TextField
-              select
-              fullWidth
-              label="Payment Status"
-              name="paymentStatus"
-              value={
-                formData.paymentStatus
-              }
-              onChange={
-                handleChange
-              }
+            <Box
+              sx={{
+                mt: 5,
+                p: 3,
+                borderRadius: "16px",
+                background: "#F8FAFC",
+                border: "1px solid #E2E8F0",
+              }}
             >
-              <MenuItem value="Paid">
-                Paid
-              </MenuItem>
+              <Typography sx={{ fontWeight: 700, fontSize: "20px", mb: 2 }}>
+                Invoice Summary
+              </Typography>
 
-              <MenuItem value="Pending">
-                Pending
-              </MenuItem>
+              <Divider sx={{ mb: 2 }} />
 
-              <MenuItem value="Refunded">
-                Refunded
-              </MenuItem>
+              <Box sx={{ display: "flex", justifyContent: "space-between", mb: 1 }}>
+                <Typography>Subtotal</Typography>
+                <Typography sx={{ fontWeight: 600 }}>
+                  ₹{Number(formik.values.subtotal).toLocaleString()}
+                </Typography>
+              </Box>
 
-            </TextField>
+              <Box sx={{ display: "flex", justifyContent: "space-between", mb: 1 }}>
+                <Typography>Tax Amount</Typography>
+                <Typography sx={{ fontWeight: 600 }}>
+                  ₹{Number(formik.values.taxAmount).toLocaleString()}
+                </Typography>
+              </Box>
 
-          </Grid>
+              <Box sx={{ display: "flex", justifyContent: "space-between", mb: 1 }}>
+                <Typography>Shipping</Typography>
+                <Typography sx={{ fontWeight: 600 }}>
+                  ₹{Number(formik.values.shippingCharge).toLocaleString()}
+                </Typography>
+              </Box>
 
-          {/* ORDER STATUS */}
-          <Grid size={{ xs: 12, md: 6 }}>
+              <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
+                <Typography>Discount</Typography>
+                <Typography sx={{ fontWeight: 600 }}>
+                  -₹{Number(formik.values.discountAmount).toLocaleString()}
+                </Typography>
+              </Box>
 
-            <TextField
-              select
-              fullWidth
-              label="Order Status"
-              name="orderStatus"
-              value={
-                formData.orderStatus
-              }
-              onChange={
-                handleChange
-              }
+              <Divider sx={{ mb: 2 }} />
+
+              <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                <Typography sx={{ fontWeight: 700, fontSize: "18px" }}>
+                  Grand Total
+                </Typography>
+
+                <Typography
+                  sx={{
+                    fontWeight: 700,
+                    fontSize: "20px",
+                    color: "#2563EB",
+                  }}
+                >
+                  ₹{grandTotal.toLocaleString()}
+                </Typography>
+              </Box>
+            </Box>
+
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "flex-end",
+                gap: 2,
+                mt: 5,
+              }}
             >
-              <MenuItem value="Completed">
-                Completed
-              </MenuItem>
+              <Button variant="outlined" onClick={() => router.push("/invoices")}>
+                Cancel
+              </Button>
 
-              <MenuItem value="Pending">
-                Pending
-              </MenuItem>
-
-              <MenuItem value="Cancelled">
-                Cancelled
-              </MenuItem>
-
-            </TextField>
-
-          </Grid>
-
-          {/* DELIVERY STATUS */}
-          <Grid size={{ xs: 12, md: 6 }}>
-
-            <TextField
-              select
-              fullWidth
-              label="Delivery Status"
-              name="deliveryStatus"
-              value={
-                formData.deliveryStatus
-              }
-              onChange={
-                handleChange
-              }
-            >
-              <MenuItem value="Processing">
-                Processing
-              </MenuItem>
-
-              <MenuItem value="Delivered">
-                Delivered
-              </MenuItem>
-
-              <MenuItem value="Returned">
-                Returned
-              </MenuItem>
-
-            </TextField>
-
-          </Grid>
-
-          {/* PAYMENT METHOD */}
-          <Grid size={{ xs: 12, md: 6 }}>
-
-            <TextField
-              select
-              fullWidth
-              label="Payment Method"
-              name="paymentMethod"
-              value={
-                formData.paymentMethod
-              }
-              onChange={
-                handleChange
-              }
-            >
-              <MenuItem value="UPI">
-                UPI
-              </MenuItem>
-
-              <MenuItem value="Cash">
-                Cash
-              </MenuItem>
-
-              <MenuItem value="Card">
-                Card
-              </MenuItem>
-
-            </TextField>
-
-          </Grid>
-
-          {/* SHIPPING ADDRESS */}
-          <Grid size={{ xs: 12 }}>
-
-            <TextField
-              fullWidth
-              multiline
-              rows={3}
-              label="Shipping Address"
-              name="shippingAddress"
-              value={
-                formData.shippingAddress
-              }
-              onChange={
-                handleChange
-              }
-            />
-
-          </Grid>
-
-          {/* BILLING ADDRESS */}
-          <Grid size={{ xs: 12 }}>
-
-            <TextField
-              fullWidth
-              multiline
-              rows={3}
-              label="Billing Address"
-              name="billingAddress"
-              value={
-                formData.billingAddress
-              }
-              onChange={
-                handleChange
-              }
-            />
-
-          </Grid>
-
-          {/* NOTES */}
-          <Grid size={{ xs: 12 }}>
-
-            <TextField
-              fullWidth
-              multiline
-              rows={3}
-              label="Notes"
-              name="notes"
-              value={
-                formData.notes
-              }
-              onChange={
-                handleChange
-              }
-            />
-
-          </Grid>
-
-        </Grid>
-
-        {/* BUTTONS */}
-        <Box
-          sx={{
-            display: "flex",
-
-            justifyContent:
-              "flex-end",
-
-            gap: 2,
-
-            mt: 5,
-          }}
-        >
-          <Button
-            variant="outlined"
-            onClick={() =>
-              router.push(
-                "/orders"
-              )
-            }
-          >
-            Cancel
-          </Button>
-
-          <Button
-            variant="contained"
-            onClick={
-              handleSubmit
-            }
-          >
-            Update Order
-          </Button>
-
-        </Box>
-
+              <Button type="submit" variant="contained">
+                Update Invoice
+              </Button>
+            </Box>
+          </form>
+        </FormikProvider>
       </Box>
-
     </Box>
   );
 }

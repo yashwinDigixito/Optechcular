@@ -16,10 +16,33 @@ import { useRouter } from "next/navigation";
 import * as yup from "yup";
 import FormSection from "@/component/common/FormSection";
 
+const groupTypes = [
+  "Premium Brand Group",
+  "Value Brand Group",
+  "Luxury Brand Group",
+];
+
+const parentCategories = [
+  "Frame",
+  "Contact Lens",
+  "Optical Lens",
+  "Accessories",
+];
+
+const priorityLevels = ["High", "Medium", "Low"];
+
 const validationSchema = yup.object({
   groupName: yup.string().required("Group name is required"),
+  groupType: yup.string().required("Group type is required"),
+  parentCategory: yup.string().required("Parent category is required"),
+  priorityLevel: yup.string().required("Priority level is required"),
+  managerName: yup.string().required("Manager name is required"),
+  managerEmail: yup
+    .string()
+    .email("Enter valid email")
+    .required("Manager email is required"),
+  managerPhone: yup.string().required("Manager phone is required"),
   status: yup.string().required("Status is required"),
-  description: yup.string().optional(),
 });
 
 export default function BrandGroupForm() {
@@ -27,11 +50,34 @@ export default function BrandGroupForm() {
 
   const formik = useFormik({
     initialValues: {
+      groupId: "",
       groupName: "",
+      groupType: "",
       status: "Active",
+
       description: "",
+      parentCategory: "",
+      priorityLevel: "Medium",
+      displayOrder: 1,
+
+      totalBrands: 0,
+      activeBrands: 0,
+      totalProducts: 0,
+      revenueContribution: 0,
+
+      managerName: "",
+      managerEmail: "",
+      managerPhone: "",
+
+      notes: "",
+
+      createdOn: new Date().toISOString().split("T")[0],
+      updatedDate: "",
+      createdBy: "Admin",
     },
+
     validationSchema,
+
     onSubmit: (values) => {
       console.log("Brand Group Data Saved Successfully:", values);
       router.push("/products/brand-groups");
@@ -40,13 +86,10 @@ export default function BrandGroupForm() {
 
   return (
     <Box sx={{ p: 3, background: "#F8FAFC", minHeight: "100vh" }}>
-      {/* Back button */}
       <Box sx={{ mb: 3 }}>
         <Link
           href="/products/brand-groups"
-          style={{
-            textDecoration: "none",
-          }}
+          style={{ textDecoration: "none" }}
         >
           <Button
             startIcon={<ArrowBackIcon />}
@@ -60,35 +103,123 @@ export default function BrandGroupForm() {
         </Link>
       </Box>
 
-      {/* Main card */}
-      <Card sx={{ p: 4, borderRadius: "24px", border: "1px solid #E2E8F0", boxShadow: "none" }}>
-        <Typography sx={{ fontSize: 32, fontWeight: 700, mb: 1, color: "#0F172A" }}>
+      <Card
+        sx={{
+          p: 4,
+          borderRadius: "24px",
+          border: "1px solid #E2E8F0",
+          boxShadow: "none",
+        }}
+      >
+        <Typography
+          sx={{
+            fontSize: 32,
+            fontWeight: 700,
+            mb: 1,
+            color: "#0F172A",
+          }}
+        >
           Add Brand Group
         </Typography>
-        <Typography sx={{ color: "#64748B", mb: 4, fontSize: "14px" }}>
-          Define cohesive groupings to organize your frames, contact lenses, and premium accessories portfolio.
+
+        <Typography
+          sx={{
+            color: "#64748B",
+            mb: 4,
+            fontSize: "14px",
+          }}
+        >
+          Create and manage premium, budget, and luxury brand group classifications.
         </Typography>
 
         <FormikProvider value={formik}>
           <form onSubmit={formik.handleSubmit}>
             <Grid container spacing={1}>
-              
+
               <FormSection
-                title="1. Brand Group Details"
-                description="Define the brand group name, its visual/operational status, and an optional narrative description."
+                title="1. Brand Group Information"
+                description="Configure group identity, classification, and operational settings."
               >
                 <Grid size={{ xs: 12, md: 6 }}>
                   <TextField
                     fullWidth
-                    label="Brand Group Name *"
+                    label="Group ID"
+                    name="groupId"
+                    value={formik.values.groupId}
+                    onChange={formik.handleChange}
+                    placeholder="e.g. BG-1001"
+                  />
+                </Grid>
+
+                <Grid size={{ xs: 12, md: 6 }}>
+                  <TextField
+                    fullWidth
+                    label="Group Name *"
                     name="groupName"
                     value={formik.values.groupName}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    error={formik.touched.groupName && Boolean(formik.errors.groupName)}
-                    helperText={formik.touched.groupName && formik.errors.groupName}
+                    error={
+                      formik.touched.groupName &&
+                      Boolean(formik.errors.groupName)
+                    }
+                    helperText={
+                      formik.touched.groupName &&
+                      formik.errors.groupName
+                    }
                     placeholder="e.g. Premium Brands"
                   />
+                </Grid>
+
+                <Grid size={{ xs: 12, md: 6 }}>
+                  <TextField
+                    select
+                    fullWidth
+                    label="Group Type *"
+                    name="groupType"
+                    value={formik.values.groupType}
+                    onChange={formik.handleChange}
+                  >
+                    {groupTypes.map((type) => (
+                      <MenuItem key={type} value={type}>
+                        {type}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                </Grid>
+
+                <Grid size={{ xs: 12, md: 6 }}>
+                  <TextField
+                    select
+                    fullWidth
+                    label="Parent Category *"
+                    name="parentCategory"
+                    value={formik.values.parentCategory}
+                    onChange={formik.handleChange}
+                  >
+                    {parentCategories.map((cat) => (
+                      <MenuItem key={cat} value={cat}>
+                        {cat}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                </Grid>
+
+                <Grid size={{ xs: 12, md: 6 }}>
+                  <TextField
+                    select
+                    fullWidth
+                    label="Priority Level *"
+                    name="priorityLevel"
+                    value={formik.values.priorityLevel}
+                    onChange={formik.handleChange}
+                  >
+                    {priorityLevels.map((level) => (
+                      <MenuItem key={level} value={level}>
+                        {level}
+                      </MenuItem>
+                    ))}
+                  </TextField>
                 </Grid>
 
                 <Grid size={{ xs: 12, md: 6 }}>
@@ -99,9 +230,6 @@ export default function BrandGroupForm() {
                     name="status"
                     value={formik.values.status}
                     onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={formik.touched.status && Boolean(formik.errors.status)}
-                    helperText={formik.touched.status && formik.errors.status}
                   >
                     <MenuItem value="Active">Active</MenuItem>
                     <MenuItem value="Inactive">Inactive</MenuItem>
@@ -112,25 +240,95 @@ export default function BrandGroupForm() {
                   <TextField
                     fullWidth
                     multiline
-                    rows={4}
+                    minRows={3}
                     label="Description"
                     name="description"
                     value={formik.values.description}
                     onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={formik.touched.description && Boolean(formik.errors.description)}
-                    helperText={formik.touched.description && formik.errors.description}
-                    placeholder="Provide additional details or notes about this brand group"
                   />
                 </Grid>
               </FormSection>
 
-              {/* Validation alert message if form has been submitted and contains errors */}
+              <FormSection
+                title="2. Performance Statistics"
+                description="Track group performance and business metrics."
+              >
+                {[
+                  ["Total Brands", "totalBrands"],
+                  ["Active Brands", "activeBrands"],
+                  ["Total Products", "totalProducts"],
+                  ["Revenue Contribution", "revenueContribution"],
+                  ["Display Order", "displayOrder"],
+                ].map(([label, name]) => (
+                  <Grid size={{ xs: 12, md: 6 }} key={name}>
+                    <TextField
+                      fullWidth
+                      type="number"
+                      label={label}
+                      name={name}
+                      value={(formik.values as any)[name]}
+                      onChange={formik.handleChange}
+                    />
+                  </Grid>
+                ))}
+              </FormSection>
+
+              <FormSection
+                title="3. Manager Information"
+                description="Assign group manager and communication details."
+              >
+                {[
+                  ["Manager Name *", "managerName"],
+                  ["Manager Email *", "managerEmail"],
+                  ["Manager Phone *", "managerPhone"],
+                ].map(([label, name]) => (
+                  <Grid size={{ xs: 12, md: 6 }} key={name}>
+                    <TextField
+                      fullWidth
+                      label={label}
+                      name={name}
+                      value={(formik.values as any)[name]}
+                      onChange={formik.handleChange}
+                    />
+                  </Grid>
+                ))}
+              </FormSection>
+
+              <FormSection
+                title="4. Additional Information"
+                description="Add notes and extra operational information."
+              >
+                <Grid size={{ xs: 12 }}>
+                  <TextField
+                    fullWidth
+                    multiline
+                    minRows={3}
+                    label="Notes"
+                    name="notes"
+                    value={formik.values.notes}
+                    onChange={formik.handleChange}
+                  />
+                </Grid>
+              </FormSection>
+
               {formik.submitCount > 0 && !formik.isValid && (
                 <Grid size={{ xs: 12 }} sx={{ mb: 2 }}>
-                  <Box sx={{ p: 2, borderRadius: "12px", bgcolor: "#FEF2F2", border: "1px solid #FCA5A5" }}>
-                    <Typography sx={{ color: "#DC2626", fontWeight: 700, fontSize: "14px" }}>
-                      Please review the highlighted red sections above. Make sure all required fields are filled.
+                  <Box
+                    sx={{
+                      p: 2,
+                      borderRadius: "12px",
+                      bgcolor: "#FEF2F2",
+                      border: "1px solid #FCA5A5",
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        color: "#DC2626",
+                        fontWeight: 700,
+                        fontSize: "14px",
+                      }}
+                    >
+                      Please review the highlighted red sections above.
                     </Typography>
                   </Box>
                 </Grid>

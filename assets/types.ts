@@ -99,41 +99,42 @@ export interface Product {
 export interface Brand {
   id: string;
   brandId: string;
-
   brandName: string;
   brandLogo?: string;
-  brandType?: string;
-  brandGroup:string;
-  category:string;
-  status: string;
+  brandType?: "Manufacturer" | "Supplier" | "Distributor" | "Private Label";
+  brandGroup:
+    | "Premium Brands"
+    | "Budget Brands"
+    | "Luxury Brands";
 
+  category:
+    | "Contact Lens"
+    | "Optical Lens"
+    | "Frame"
+    | "Accessories";
+
+  status: "Active" | "Inactive";
   contactPerson: string;
   email: string;
   phone: string;
   website?: string;
-
   address?: string;
   city?: string;
   state?: string;
   country?: string;
   postalCode?: string;
-
   gstNumber?: string;
   panNumber?: string;
-
   totalProducts?: number;
   activeProducts?: number;
   totalOrders?: number;
   revenue?: number;
-
   description?: string;
   notes?: string;
-
   createdDate: string;
   updatedDate?: string;
   createdBy?: string;
 }
-
 export interface BrandGroup {
   id: string;
 
@@ -215,6 +216,11 @@ export interface Order {
 
   salesPerson?: string;
   orderSource?: string;
+  category?: string;
+  brand?: string;
+  brandGroup?: string;
+  material?: string;
+  rimShape?: string;
 
   productType: string;
   productName?: string;
@@ -348,9 +354,9 @@ export interface ReportChartProps {
 }
 export interface Invoice {
   id: string;
+
   invoiceId: string;
   invoiceNo: string;
-
   orderNo: string;
 
   customerName: string;
@@ -358,22 +364,30 @@ export interface Invoice {
   phone: string;
 
   billingAddress: string;
-  shippingAddress?: string;
+  shippingAddress: string;
 
   invoiceDate: string;
   dueDate: string;
 
-  invoiceStatus: "Draft" | "Sent" | "Cancelled";
-  paymentStatus: "Paid" | "Pending" | "Partial" | "Overdue";
+  invoiceStatus: string;
+  paymentStatus: string;
 
   productName: string;
   productType: string;
+
+  category: string;
+  brand: string;
+  brandGroup: string;
+  material: string;
+
   quantity: number;
   unitPrice: number;
+
   tax: number;
   discount: number;
+
   lineTotal: number;
-  category:string;
+
   subtotal: number;
   taxAmount: number;
   discountAmount: number;
@@ -383,15 +397,18 @@ export interface Invoice {
   paidAmount: number;
   balanceDue: number;
 
-  paymentMethod?: string;
-  transactionId?: string;
+  paymentMethod: string;
+  transactionId: string;
 
   notes?: string;
 
   createdOn: string;
-  updatedDate?: string;
-  createdBy?: string;
-}export interface PurchaseOrder {
+  updatedDate: string;
+  createdBy: string;
+}
+
+
+export interface PurchaseOrder {
 
   id: string;
 
@@ -685,6 +702,9 @@ export interface Inventory {
   productName: string;
   sku: string;
   barcode: string;
+  brandGroup: string;
+  material: string;
+  rimShape: string;
   category: string;
   brand: string;
   branch: string;

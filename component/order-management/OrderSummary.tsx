@@ -12,7 +12,6 @@ import {
   Typography,
 } from "@mui/material";
 
-
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import BadgeOutlinedIcon from "@mui/icons-material/BadgeOutlined";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
@@ -21,21 +20,22 @@ import MailOutlineOutlinedIcon from "@mui/icons-material/MailOutlineOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import PhoneOutlinedIcon from "@mui/icons-material/PhoneOutlined";
 import ReceiptLongOutlinedIcon from "@mui/icons-material/ReceiptLongOutlined";
-import { 
-  themeConfig, 
-  FONT_FAMILY, 
-  FONT_SIZE, 
-  FONT_WEIGHT 
+
+import {
+  themeConfig,
+  FONT_FAMILY,
+  FONT_SIZE,
+  FONT_WEIGHT,
 } from "@/assets/constants";
 
-import CustomCard, { 
-  InfoLine, 
-  SectionTitle, 
-  SideCard, 
-  IconLine, 
-  SummaryLine, 
-  getFadeInStyle, 
-  DataNotFound
+import CustomCard, {
+  InfoLine,
+  SectionTitle,
+  SideCard,
+  IconLine,
+  SummaryLine,
+  getFadeInStyle,
+  DataNotFound,
 } from "../common/ViewPage";
 import StatusChip from "../common/StatusChip";
 
@@ -43,17 +43,13 @@ interface OrderViewProps {
   order: Order | null;
 }
 
-
 export default function OrderSummary({ order }: OrderViewProps) {
   const { colors, borderRadius } = themeConfig;
 
   if (!order) {
-    return (
-       <DataNotFound message="Order record not found" />
-    );
+    return <DataNotFound message="Order record not found" />;
   }
 
-  // Calculated values with fallbacks
   const subtotal = order.subtotal ?? order.totalAmount;
   const discount = order.discount ?? 0;
   const tax = order.tax ?? 0;
@@ -70,7 +66,6 @@ export default function OrderSummary({ order }: OrderViewProps) {
         bgcolor: colors.bgLight,
       }}
     >
-      {/* Navigation Header */}
       <Box sx={{ px: 3, pt: 1, ...getFadeInStyle(0.1) }}>
         <Link href="/orders" style={{ textDecoration: "none" }}>
           <Button
@@ -88,8 +83,7 @@ export default function OrderSummary({ order }: OrderViewProps) {
         </Link>
       </Box>
 
-      <Container maxWidth="xl" sx={{ py: 1}}>
-        {/* Header Section */}
+      <Container maxWidth="xl" sx={{ py: 1 }}>
         <Box sx={{ mb: 4, ...getFadeInStyle(0.2) }}>
           <Stack
             direction="row"
@@ -110,13 +104,14 @@ export default function OrderSummary({ order }: OrderViewProps) {
             <StatusChip status={order.paymentStatus ?? "Pending"} />
             <StatusChip status={order.status ?? "Pending"} />
           </Stack>
+
           <Typography
             sx={{
               mt: 1,
               color: colors.textSecondary,
-               fontSize: FONT_SIZE.BODY,
-                            fontFamily: FONT_FAMILY.SUB_HEADING,
-                            fontWeight: FONT_WEIGHT.BOLD
+              fontSize: FONT_SIZE.BODY,
+              fontFamily: FONT_FAMILY.SUB_HEADING,
+              fontWeight: FONT_WEIGHT.BOLD,
             }}
           >
             Order Date: {order.orderDate}
@@ -131,9 +126,11 @@ export default function OrderSummary({ order }: OrderViewProps) {
             flexDirection: { xs: "column", lg: "row" },
           }}
         >
-          {/* Main Content (Left) */}
           <Box
-            sx={{ width: { xs: "100%", lg: "60%" }, ...getFadeInStyle(0.3) }}
+            sx={{
+              width: { xs: "100%", lg: "60%" },
+              ...getFadeInStyle(0.3),
+            }}
           >
             <Stack spacing={3}>
               <CustomCard>
@@ -141,7 +138,10 @@ export default function OrderSummary({ order }: OrderViewProps) {
                 <Stack>
                   <InfoLine label="Order Number" value={order.orderNo} />
                   <InfoLine label="Order Source" value={order.orderSource} />
-                  <InfoLine label="Delivery Status" value={order.deliveryStatus} />
+                  <InfoLine
+                    label="Delivery Status"
+                    value={order.deliveryStatus}
+                  />
                 </Stack>
               </CustomCard>
 
@@ -150,9 +150,16 @@ export default function OrderSummary({ order }: OrderViewProps) {
                 <Stack
                   direction={{ xs: "column", md: "row" }}
                   spacing={2}
-                  sx={{ justifyContent: "space-between", alignItems: "center" }}
+                  sx={{
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
                 >
-                  <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
+                  <Stack
+                    direction="row"
+                    spacing={2}
+                    sx={{ alignItems: "center" }}
+                  >
                     <Box
                       sx={{
                         width: 80,
@@ -169,16 +176,18 @@ export default function OrderSummary({ order }: OrderViewProps) {
                         sx={{ fontSize: 36, color: colors.primary }}
                       />
                     </Box>
+
                     <Box>
                       <Typography
-                        sx={{ 
-                          color: colors.textSecondary, 
+                        sx={{
+                          color: colors.textSecondary,
                           fontSize: FONT_SIZE.SMALL,
-                          fontFamily: FONT_FAMILY.BODY 
+                          fontFamily: FONT_FAMILY.BODY,
                         }}
                       >
                         {order.productType}
                       </Typography>
+
                       <Typography
                         sx={{
                           fontSize: FONT_SIZE.CARD_HEADING,
@@ -189,12 +198,13 @@ export default function OrderSummary({ order }: OrderViewProps) {
                       >
                         {order.productName}
                       </Typography>
+
                       <Typography
-                        sx={{ 
-                          color: colors.textSecondary, 
-                          fontSize: 12, 
+                        sx={{
+                          color: colors.textSecondary,
+                          fontSize: 12,
                           mt: 0.5,
-                          fontFamily: FONT_FAMILY.BODY 
+                          fontFamily: FONT_FAMILY.BODY,
                         }}
                       >
                         SKU: {order.productSku} | Variant: {order.productVariant}
@@ -217,16 +227,27 @@ export default function OrderSummary({ order }: OrderViewProps) {
                     >
                       {quantity} x ₹{productPrice.toLocaleString()}
                     </Box>
-                    <Typography 
-                      sx={{ 
-                        fontWeight: FONT_WEIGHT.BOLD, 
+
+                    <Typography
+                      sx={{
+                        fontWeight: FONT_WEIGHT.BOLD,
                         fontSize: FONT_SIZE.CARD_HEADING,
-                        fontFamily: FONT_FAMILY.HEADING 
+                        fontFamily: FONT_FAMILY.HEADING,
                       }}
                     >
                       ₹{total.toLocaleString()}
                     </Typography>
                   </Stack>
+                </Stack>
+
+                <Divider sx={{ my: 3 }} />
+
+                <Stack spacing={1}>
+                  <InfoLine label="Category" value={order.category} />
+                  <InfoLine label="Brand" value={order.brand} />
+                  <InfoLine label="Brand Group" value={order.brandGroup} />
+                  <InfoLine label="Material" value={order.material} />
+                  <InfoLine label="Rim Shape" value={order.rimShape} />
                 </Stack>
               </CustomCard>
 
@@ -262,10 +283,18 @@ export default function OrderSummary({ order }: OrderViewProps) {
                     valueColor={colors.primary}
                   />
                 </Stack>
+
                 <Divider sx={{ my: 3 }} />
+
                 <Stack spacing={1.8}>
-                  <SummaryLine label="Payment Method" value={order.paymentMethod || "N/A"} />
-                  <SummaryLine label="Transaction ID" value={order.transactionId || "N/A"} />
+                  <SummaryLine
+                    label="Payment Method"
+                    value={order.paymentMethod || "N/A"}
+                  />
+                  <SummaryLine
+                    label="Transaction ID"
+                    value={order.transactionId || "N/A"}
+                  />
                   <SummaryLine
                     label="Paid Amount"
                     value={`₹${order.paidAmount?.toLocaleString() || "N/A"}`}
@@ -281,18 +310,22 @@ export default function OrderSummary({ order }: OrderViewProps) {
               <CustomCard>
                 <SectionTitle title="Shipping Information" />
                 <Stack>
-                  <InfoLine label="Shipping Partner" value={order.shippingPartner} />
+                  <InfoLine
+                    label="Shipping Partner"
+                    value={order.shippingPartner}
+                  />
                   <InfoLine label="Tracking Number" value={order.trackingNo} />
                   <InfoLine
                     label="Estimated Delivery"
                     value={order.estimatedDeliveryDate}
                   />
+                  <InfoLine label="Shipping Address" value={order.shippingAddress} />
+                  <InfoLine label="Billing Address" value={order.billingAddress} />
                 </Stack>
               </CustomCard>
             </Stack>
           </Box>
 
-          {/* Sidebar (Right) */}
           <Box
             sx={{
               width: { xs: "100%", lg: "40%" },
@@ -330,26 +363,31 @@ export default function OrderSummary({ order }: OrderViewProps) {
               </SideCard>
 
               <SideCard title="Shipping Address">
-                <Typography 
-                  sx={{ 
-                    color: colors.textSecondary, 
+                <Typography
+                  sx={{
+                    color: colors.textSecondary,
                     lineHeight: 1.8,
                     fontSize: FONT_SIZE.BODY,
-                    fontFamily: FONT_FAMILY.BODY 
+                    fontFamily: FONT_FAMILY.BODY,
                   }}
                 >
                   {order.shippingAddress}
                 </Typography>
-                <Stack direction="row" spacing={1} sx={{ mt: 2, alignItems: "center" }}>
+
+                <Stack
+                  direction="row"
+                  spacing={1}
+                  sx={{ mt: 2, alignItems: "center" }}
+                >
                   <LocalShippingOutlinedIcon
                     sx={{ color: colors.primary, fontSize: 18 }}
                   />
-                  <Typography 
-                    sx={{ 
-                      color: colors.primary, 
+                  <Typography
+                    sx={{
+                      color: colors.primary,
                       fontWeight: FONT_WEIGHT.BOLD,
                       fontFamily: FONT_FAMILY.BODY,
-                      fontSize: FONT_SIZE.SMALL 
+                      fontSize: FONT_SIZE.SMALL,
                     }}
                   >
                     Live Tracking Available
