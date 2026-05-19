@@ -32,10 +32,6 @@ export default function InvoiceTable({ invoices, setInvoiceData}: Props) {
       label: "Customer",
     },
     {
-      key: "product",
-      label: "Product",
-    },
-    {
       key: "category",
       label: "Category",
       align: "center" as const,
@@ -117,18 +113,6 @@ export default function InvoiceTable({ invoices, setInvoiceData}: Props) {
                 }}
               >
                 { invoice.customerName }
-              </Typography>
-            );
-          case "product":
-            return (
-              <Typography
-                sx={{
-                  color: "#475569",
-                  fontFamily: FONT_FAMILY.TABLE_BODY,
-                  fontSize: FONT_SIZE.TABLE_BODY,
-                }}
-              >
-                { invoice.productName }
               </Typography>
             );
           case "category":
